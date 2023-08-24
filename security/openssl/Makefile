@@ -1,8 +1,5 @@
-# Created by: Dirk Froemberg <dirk@FreeBSD.org>
-
 PORTNAME=	openssl
-PORTVERSION=	1.1.1k
-PORTREVISION=	1
+PORTVERSION=	1.1.1v
 PORTEPOCH=	1
 CATEGORIES=	security devel
 MASTER_SITES=	https://www.openssl.org/source/ \
@@ -10,13 +7,12 @@ MASTER_SITES=	https://www.openssl.org/source/ \
 
 MAINTAINER=	brnrd@FreeBSD.org
 COMMENT=	TLSv1.3 capable SSL and crypto library
+WWW=		https://www.openssl.org/
 
 LICENSE=	OpenSSL
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-CONFLICTS_INSTALL=	libressl-[0-9]* \
-			libressl-devel-[0-9]* \
-			openssl-devel-[0-9]*
+CONFLICTS_INSTALL=	boringssl libressl libressl-devel openssl3[01] openssl-quictls
 
 HAS_CONFIGURE=	yes
 CONFIGURE_SCRIPT=	config
@@ -165,5 +161,9 @@ post-install-SHARED-on:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/openssl
+
+post-install-MAN3-on:
+	( cd ${STAGEDIR}/${PREFIX} ; ${FIND} man/man3 man/man7 -not -type d ) | \
+		${SED} 's/$$/.gz/' >>${TMPPLIST}
 
 .include <bsd.port.post.mk>

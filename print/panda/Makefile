@@ -1,8 +1,6 @@
-# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
-
 PORTNAME=	panda
 PORTVERSION=	0.5.4
-PORTREVISION=	10
+PORTREVISION=	11
 CATEGORIES=	print
 MASTER_SITES=	SF \
 		SAVANNAH \

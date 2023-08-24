@@ -1,5 +1,3 @@
-# Created by: hrs
-
 PORTNAME=	papersize-default
 PORTVERSION=	0.0.20120302
 PORTREVISION=	1
@@ -18,7 +16,7 @@ NO_BUILD=	yes
 DEFAULTPAPERSIZE?=	a4
 .for P in a4 letter
 .if ${DEFAULTPAPERSIZE:tl:M${P}} != ${P}
-CONFLICTS_INSTALL+=	papersize-default-${P}-[0-9]*
+CONFLICTS_INSTALL+=	papersize-default-${P}
 .endif
 .endfor
 

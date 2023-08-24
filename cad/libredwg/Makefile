@@ -1,5 +1,3 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	libredwg
 PORTVERSION=	0.12.4
 CATEGORIES=	cad devel
@@ -7,15 +5,17 @@ MASTER_SITES=	GNU
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Library and command line tools to handle DWG files
+WWW=		https://www.gnu.org/software/libredwg/
 
 LICENSE=	GPLv3+
 
-USES=		libtool tar:xz
+USES=		cpe libtool tar:xz
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-trace --with-perl-install=no
 USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
 TEST_TARGET=	check
+CPE_VENDOR=	gnu
 
 INFO=		LibreDWG
 PORTDOCS=	AUTHORS ChangeLog NEWS README TODO
@@ -36,7 +36,7 @@ PSLIB_USES=		localbase
 PSLIB_CONFIGURE_ENV_OFF=	ac_cv_lib_ps_PS_open_file=no
 
 PYTHON_BUILD_DEPENDS=	swig:devel/swig
-PYTHON_USES=		gettext-runtime python:3.6+ shebangfix
+PYTHON_USES=		gettext-runtime python shebangfix
 PYTHON_CONFIGURE_OFF=	--disable-python
 PYTHON_PORTEXAMPLES=	load_dwg.py
 PYTHON_VARS=		SHEBANG_FILES+=examples/load_dwg.py

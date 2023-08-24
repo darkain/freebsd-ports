@@ -1,6 +1,6 @@
 PORTNAME=	erlang
 DISTVERSIONPREFIX=	OTP-
-DISTVERSION=	24.0.3
+DISTVERSION=	24.3.4.13
 PORTREVISION=	0
 CATEGORIES=	lang parallel java
 PKGNAMESUFFIX=	-runtime24
@@ -8,16 +8,19 @@ DIST_SUBDIR=	erlang
 
 MAINTAINER=	erlang@FreeBSD.org
 COMMENT=	Functional programming language from Ericsson
+WWW=		https://www.erlang.org/
 
 LICENSE=	APACHE20
 
 BROKEN_sparc64=	Fails to build: error: fp_except undeclared
 
-USES=		autoreconf:build gmake ncurses perl5
+USES=		compiler cpe gmake ncurses perl5
+CPE_VENDOR=	erlang
+CPE_PRODUCT=	erlang/otp
 USE_GITHUB=	nodefault
 GH_ACCOUNT=	erlang:otp,corba
 GH_PROJECT=	otp:otp corba:corba
-GH_TAGNAME=	5.0.2:corba
+GH_TAGNAME=	5.1:corba
 USE_PERL5=	build
 
 GNU_CONFIGURE=	yes
@@ -35,8 +38,9 @@ WRKSRC=		${WRKSRC_otp}
 
 ERLANG_LIB=	${PORTNAME}${PORTVERSION:C/\..*//}
 
-OPTIONS_DEFINE=		CHUNKS CORBA DTRACE JAVA ODBC OPENSSL SCTP SHARING WX
-OPTIONS_DEFAULT=	CHUNKS CORBA DTRACE OPENSSL SCTP SHARING
+OPTIONS_DEFINE=		CHUNKS CORBA DTRACE JAVA KQUEUE ODBC OPENSSL SCTP \
+			SHARING WX
+OPTIONS_DEFAULT=	CHUNKS CORBA DTRACE KQUEUE OPENSSL SCTP SHARING
 
 .if !exists(/usr/sbin/dtrace)
 OPTIONS_EXCLUDE+=	DTRACE
@@ -51,8 +55,9 @@ OPTIONS_EXCLUDE_armv7=	DTRACE
 OPTIONS_EXCLUDE_i386=	DTRACE
 OPTIONS_EXCLUDE_riscv64=	DTRACE
 
-CHUNKS_DESC=	Enable in-line documentation in erlang console
+CHUNKS_DESC=	Enable in-line documentation in Erlang console
 CORBA_DESC=	Enable Corba support
+KQUEUE_DESC=	Enable Kernel Poll (kqueue) support
 SCTP_DESC=	Enable SCTP support
 SHARING_DESC=	Enable term copy-and-share support
 WX_DESC=	Enable WX application
@@ -68,9 +73,12 @@ DTRACE_VARS=			STRIP=""
 JAVA_CONFIGURE_WITH=		javac
 JAVA_CONFIGURE_ENV=		ac_cv_prog_JAVAC="${JAVAC}"
 JAVA_VARS=			USE_JAVA=yes
+KQUEUE_CONFIGURE_ENABLE=	kernel-poll
 ODBC_LIB_DEPENDS=		libodbc.so:databases/unixODBC
-ODBC_CONFIGURE_WITH=		odbc
 ODBC_USES=			localbase
+ODBC_CONFIGURE_WITH=		odbc
+ODBC_CFLAGS=			-I/usr/local/include
+ODBC_LDFLAGS=			-L/usr/local/lib
 OPENSSL_USES=			ssl
 OPENSSL_CONFIGURE_WITH=		ssl=${OPENSSLBASE}
 SCTP_CONFIGURE_ENABLE=		sctp
@@ -78,10 +86,15 @@ SHARING_CONFIGURE_ENABLE=	sharing-preserving
 WX_USES=			gl
 WX_CONFIGURE_WITH=		wx-config=${WX_CONFIG}
 WX_VARS=			USE_GL="gl glu" \
-				USE_WX=3.1+ \
+				USE_WX=3.2+ \
 				WX_COMPS="wx"
 
 .include <bsd.port.pre.mk>
+
+.if ${COMPILER_TYPE} == clang && ${COMPILER_VERSION} >= 130
+# PR 258494
+CONFIGURE_ARGS+=	--disable-pgo
+.endif
 
 .if ${OPSYS} == FreeBSD
 CFLAGS+=	-DMAP_NORESERVE=0
@@ -94,9 +107,6 @@ MAKE_ARGS+=	ARCH=x86
 .if ${ARCH} == armv6 || ${ARCH} == armv7
 MAKE_ARGS+=	ARCH=arm
 .endif
-
-pre-configure:
-	@cd ${WRKSRC} && ./otp_build autoconf
 
 pre-configure-WX-off:
 	echo "disabled by port options" > ${WRKSRC}/lib/debugger/SKIP
@@ -111,13 +121,14 @@ post-configure-ODBC-off:
 	echo "disabled by port options" > ${WRKSRC}/lib/odbc/SKIP
 
 post-build-CORBA-on:
-	cd ${WRKSRC_corba} \
-		&& ${SETENV} OVERRIDE_TARGET=${CONFIGURE_TARGET} ERL_TOP=${WRKSRC_otp} ${MAKE_CMD}
+	cd ${WRKSRC_corba} && \
+		${SETENV} OVERRIDE_TARGET=${CONFIGURE_TARGET} ERL_TOP=${WRKSRC_otp} \
+		${MAKE_CMD}
 
 post-install-CORBA-on:
-	cd ${WRKSRC_corba} \
-		&& ${SETENV} OVERRIDE_TARGET=${CONFIGURE_TARGET} ERL_TOP=${WRKSRC_otp} \
-			${MAKE_CMD} release RELEASE_ROOT=${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}
+	cd ${WRKSRC_corba} && \
+		${SETENV} OVERRIDE_TARGET=${CONFIGURE_TARGET} ERL_TOP=${WRKSRC_otp} \
+		${MAKE_CMD} release RELEASE_ROOT=${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}
 
 post-install-DTRACE-on:
 	${MKDIR} ${STAGEDIR}${DATADIR}/dtrace
@@ -144,8 +155,11 @@ post-install-WX-off:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/wx-*
 
 post-stage:
-	${FIND} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/* -type d -empty -delete
-	@cd ${STAGEDIR}${PREFIX}; ${FIND} lib/${ERLANG_LIB}/* ${DATADIR_REL}/* -type f -o -type l \
-		| ${SORT} >> ${TMPPLIST}
+	${FIND} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/* -type d -empty \
+		-delete
+	@cd ${STAGEDIR}${PREFIX}; \
+		${FIND} lib/${ERLANG_LIB}/* ${DATADIR_REL}/* -type f -o \
+		-type l | \
+		${SORT} >> ${TMPPLIST}
 
 .include <bsd.port.post.mk>

@@ -1,15 +1,18 @@
-# Created by: Janni
-
 PORTNAME=	skstream
 PORTVERSION=	0.3.9
-PORTREVISION=	8
+PORTREVISION=	9
 CATEGORIES=	net
 MASTER_SITES=	SF/worldforge/${PORTNAME}%20%28network%20lib%29/${PORTVERSION}
 
 MAINTAINER=	oliver@FreeBSD.org
 COMMENT=	iostream based C++ socket library
+WWW=		http://www.worldforge.org/dev/eng/libraries/skstream/
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		libtool pathfix pkgconfig compiler:c++11-lib gmake
+USE_CXXSTD=	c++14
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 

@@ -1,5 +1,3 @@
-# Created by: Joao Carlos Mendes Luis <jonny@jonny.eng.br>
-
 PORTNAME=	unace
 PORTVERSION=	1.2b
 PORTREVISION=	3
@@ -8,11 +6,12 @@ MASTER_SITES=	SUNSITE/utils/compress
 
 MAINTAINER=	rodrigo@FreeBSD.org
 COMMENT=	Extract, view & test ACE archives
+WWW=		http://www.winace.com/
 
 MAKE_JOBS_UNSAFE=	yes
 
 USES=		cpe gmake
-CPE_VENDOR=	unace_project
+CPE_VENDOR=	winace
 ALL_TARGET=	clean unace
 PLIST_FILES=	bin/unace
 

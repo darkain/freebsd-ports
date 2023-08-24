@@ -4,6 +4,7 @@ CATEGORIES=	net-im
 
 MAINTAINER=	pi@FreeBSD.org
 COMMENT=	Interactive console text-based command-line Twitter client
+WWW=		https://oysttyer.github.io/docs/userGuide.html
 
 LICENSE=	FFSL
 LICENSE_NAME=	Floodgap Free Software License
@@ -15,7 +16,6 @@ RUN_DEPENDS=	curl:ftp/curl \
 
 USES=		perl5 shebangfix
 USE_GITHUB=	yes
-GH_ACCOUNT=	oysttyer
 SHEBANG_FILES=	oysttyer.pl
 PLIST_FILES=	bin/oysttyer
 

@@ -1,10 +1,11 @@
 PORTNAME=	libliftoff
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.1.0
+DISTVERSION=	0.4.1
 CATEGORIES=	graphics
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Lightweight KMS plane library
+WWW=		https://gitlab.freedesktop.org/emersion/libliftoff
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -12,8 +13,9 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 LIB_DEPENDS=	libdrm.so:graphics/libdrm
 
 USES=		compiler:c11 meson pkgconfig
-USE_GITHUB=	yes
+USE_GITLAB=	yes
 USE_LDCONFIG=	yes
-GH_ACCOUNT=	emersion
+GL_SITE=	https://gitlab.freedesktop.org
+GL_ACCOUNT=	emersion
 
 .include <bsd.port.mk>

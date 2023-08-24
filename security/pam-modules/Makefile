@@ -1,13 +1,12 @@
-# Created by: Mark Felder <feld@FreeBSD.org>
-
 PORTNAME=	pam-modules
 PORTVERSION=	2.2
 PORTREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	ftp://download.gnu.org.ua/pub/release/pam-modules/
 
-MAINTAINER=	feld@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Collection of modules for PAM
+WWW=		https://puszcza.gnu.org.ua/software/pam-modules/pam-modules.html
 
 LICENSE=	GPLv3
 

@@ -1,13 +1,16 @@
 PORTNAME=	casadi
-DISTVERSION=	3.5.5
-PORTREVISION=	1
+DISTVERSION=	3.6.0
+PORTREVISION=	2
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Symbolic framework for numeric optimization
+WWW=		https://web.casadi.org/
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+LIB_DEPENDS=	libcoinmumps.so:math/coin-or-mumps
 
 USES=		cmake compiler:c++11-lang pkgconfig
 USE_GITHUB=	yes
@@ -35,11 +38,20 @@ BONMIN_CMAKE_BOOL=	WITH_BONMIN
 BONMIN_USES=		blaslapack:netlib fortran
 BONMIN_LIB_DEPENDS=	libbonmin.so:math/bonmin \
 			libCbcSolver.so:math/cbc \
-			libipopt.so:math/ipopt
+			libCgl.so:math/cgl \
+			libClp.so:math/clp \
+			libcoinasl.so:math/asl \
+			libCoinUtils.so:math/coinutils \
+			libipopt.so:math/ipopt \
+			libnauty.so:math/nauty \
+			libopenblas.so:math/openblas \
+			libOsi.so:math/osi
 
 CLANG_DESC=		Build with clang for JIT
+CLANG_USES=		llvm:16
 CLANG_CMAKE_BOOL=	WITH_CLANG
-CLANG_BROKEN=		Fails to find clang
+CLANG_CMAKE_ON=		-DLLVM_INSTALL_PREFIX=${LLVM_PREFIX} -DOLD_LLVM=ON
+CLANG_BROKEN=		fails to find clang, see https://github.com/casadi/casadi/issues/3089
 
 IPOPT_DESC=		Build with IPopt
 IPOPT_CMAKE_BOOL=	WITH_IPOPT

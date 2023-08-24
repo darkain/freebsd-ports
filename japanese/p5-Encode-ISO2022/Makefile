@@ -3,8 +3,9 @@ PORTVERSION=	0.04
 CATEGORIES=	japanese perl5
 MASTER_SITES=	CPAN
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for ISO/IEC 2022 character encoding scheme
+WWW=		https://metacpan.org/release/Encode-ISO2022
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

@@ -6,8 +6,9 @@ MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:TOKUHIROM
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for generic interface for Perl5 template engines
+WWW=		https://metacpan.org/release/Tiffany
 
 TEST_DEPENDS=	\
 	p5-Test-Requires>0:devel/p5-Test-Requires \

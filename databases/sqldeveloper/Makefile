@@ -1,13 +1,14 @@
 PORTNAME=	sqldeveloper
-DISTVERSION=	20.4.1.407.0006
+DISTVERSION=	23.1.0.097.1607
 DISTVERSIONSUFFIX=	-no-jre
 CATEGORIES=	databases java
 # https://www.oracle.com/tools/downloads/sqldev-downloads.html
 MASTER_SITES=
 DIST_SUBDIR=	oracle
 
-MAINTAINER=	vvd@unislabs.com
+MAINTAINER=	vvd@FreeBSD.org
 COMMENT=	Graphical tool for database development
+WWW=		https://www.oracle.com/database/technologies/appdev/sqldeveloper-landing.html
 
 # https://www.oracle.com/downloads/licenses/sqldev-license.html
 LICENSE_NAME=	OTN
@@ -16,7 +17,6 @@ LICENSE_PERMS=	no-dist-mirror no-dist-sell no-pkg-mirror
 RUN_DEPENDS=	bash:shells/bash
 
 USES=		gnome zip
-INSTALLS_ICONS=	yes
 USE_JAVA=	yes
 JAVA_VERSION=	11+
 
@@ -61,8 +61,8 @@ do-install:
 	${ECHO_MSG} " [ DONE ]"
 
 .for d in configuration dataminer dropins equinox \
-    external ide javavm jdbc jdev jlib jviews module modules \
-    netbeans orakafka rdbms sleepycat sqldeveloper sqlj svnkit
+    external ide javavm jdbc jdev jlib jviews modules \
+    netbeans rdbms sleepycat sqldeveloper sqlj svnkit
 	${ECHO_MSG} -n ">> Installing data directory '${d}'..."
 	cd ${WRKSRC} && ${FIND} ${d} -type d \
 		-exec ${MKDIR} ${STAGEDIR}/${DATADIR}/\{} \;

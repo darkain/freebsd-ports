@@ -1,9 +1,11 @@
 PORTNAME=	minitube
-DISTVERSION=	3.9
+DISTVERSION=	3.9.3
+PORTREVISION=	3
 CATEGORIES=	multimedia www
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	TV-like client for YouTube
+WWW=		https://flavio.tordini.org/minitube
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -14,16 +16,16 @@ USES=		compiler:c++11-lang gl qmake qt:5
 USE_GITHUB=	yes
 GH_ACCOUNT=	flaviotordini
 GH_TUPLE=	\
-		flaviotordini:http:11e1ad8:flaviotordini_http/lib/http \
+		flaviotordini:http:68b9cf0:flaviotordini_http/lib/http \
 		flaviotordini:idle:6aa092d:flaviotordini_idle/lib/idle \
-		flaviotordini:js:acf3f87:flaviotordini_js/lib/js \
-		flaviotordini:media:edfcc8c:flaviotordini_media/lib/media \
-		flaviotordini:promises:a5789eb:flaviotordini_promises/lib/promises \
-		flaviotordini:updater:18ce1d0:flaviotordini_updater/lib/updater
+		flaviotordini:js:c026465:flaviotordini_js/lib/js \
+		flaviotordini:media:b2f5678:flaviotordini_media/lib/media \
+		flaviotordini:promises:e6e5653:flaviotordini_promises/lib/promises \
+		flaviotordini:updater:17b8f7b:flaviotordini_updater/lib/updater
 
 USE_GL=		gl
 USE_QT=		core dbus declarative gui network script sql widgets \
-		buildtools_build imageformats_run sql-sqlite3_run \
+		buildtools:build imageformats:run sql-sqlite3:run \
 		x11extras
 
 QMAKE_ARGS=	QMAKE_LRELEASE=${LRELEASE} \
@@ -31,7 +33,7 @@ QMAKE_ARGS=	QMAKE_LRELEASE=${LRELEASE} \
 
 OPTIONS_DEFINE=	NLS
 OPTIONS_SUB=	yes
-NLS_USE=	QT=linguisttools_build
+NLS_USE=	QT=linguisttools:build
 
 post-patch:
 # Remove BOM

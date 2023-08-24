@@ -1,12 +1,11 @@
-# Created by: Rusmir Dusko <nemysis@FreeBSD.org>
-
 PORTNAME=	traingame
 PORTVERSION=	0.3
-PORTREVISION=	23
+PORTREVISION=	27
 CATEGORIES=	games
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Game about Trains
+WWW=		https://www.doof.me.uk/train-game/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING.txt
@@ -32,7 +31,6 @@ CFLAGS+=	-Wno-return-type
 PORTDOCS=	model_notes.txt models.gnuplot
 OPTIONS_DEFINE=	DOCS
 
-INSTALLS_ICONS=	yes
 ICON_SIZES=	22x22 32x32 48x48 64x64 72x72 96x96 128x128 192x192
 
 SUB_FILES=	${PORTNAME} pkg-message

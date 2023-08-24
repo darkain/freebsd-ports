@@ -1,6 +1,6 @@
 PORTNAME=	miktex
-DISTVERSION=	21.2
-PORTREVISION=	2
+DISTVERSION=	21.8
+PORTREVISION=	10
 CATEGORIES=	print
 MASTER_SITES=	LOCAL/arrowd/miktex:bootstrap
 DISTFILES=	miktex-zzdb1-2.9.tar.lzma:bootstrap \
@@ -12,8 +12,9 @@ DISTFILES=	miktex-zzdb1-2.9.tar.lzma:bootstrap \
 		tetex.tar.lzma:bootstrap
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	arrowd@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Implementation of TeX/LaTeX
+WWW=		https://miktex.org
 
 LICENSE=	MULTIPLE
 LICENSE_NAME=	Multiple
@@ -38,12 +39,13 @@ LIB_DEPENDS=	libapr-1.so:devel/apr1 \
 		liblog4cxx.so:devel/log4cxx \
 		libmpfr.so:math/mpfr \
 		libmspack.so:archivers/libmspack \
+		libinotify.so:devel/libinotify \
 		libpng.so:graphics/png \
 		libpopt.so:devel/popt \
 		liburiparser.so:net/uriparser \
 		libzzip.so:devel/zziplib
 
-USES=		bison cmake:noninja gettext-tools gmake gnome jpeg pkgconfig ssl xorg
+USES=		bison cmake:noninja dos2unix gettext-tools gmake gnome jpeg pkgconfig ssl xorg
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	MiKTeX
@@ -62,7 +64,7 @@ MANPAGES_CMAKE_BOOL=	WITH_MAN_PAGES
 UIQT_CMAKE_BOOL=	WITH_UI_QT
 
 UIQT_USES=	qt:5 gl
-UIQT_USE=	qt=core,concurrent,dbus,gui,linguisttools,printsupport,script,scripttools,uitools,widgets,xml,buildtools_build,qmake_build gl=gl
+UIQT_USE=	qt=core,concurrent,declarative,dbus,gui,linguisttools,network,printsupport,script,scripttools,uitools,widgets,xml,buildtools:build,qmake:build gl=gl
 
 CMAKE_ARGS=	-DMIKTEX_SYSTEM_ETC_FONTS_CONFD_DIR=${LOCALBASE}/etc/fonts/conf.d \
 		-DMIKTEX_SYSTEM_VAR_CACHE_DIR=${DATADIR}/cache \

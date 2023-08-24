@@ -5,8 +5,9 @@ MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:ISHIGAKI
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for yet another Path class
+WWW=		https://metacpan.org/release/Path-Extended
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

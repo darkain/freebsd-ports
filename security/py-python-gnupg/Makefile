@@ -1,20 +1,19 @@
-# Created by: Christer Edwards <christer.edwards@gmail.com>
-
 PORTNAME=	python-gnupg
 DISTVERSION=	0.4.7
 CATEGORIES=	security python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	christer.edwards@gmail.com
 COMMENT=	Python wrapper for the GNU Privacy Guard (GPG or GnuPG)
+WWW=		https://docs.red-dove.com/python-gnupg/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}coverage>=0.15.2:devel/py-coverage@${PY_FLAVOR}
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	autoplist distutils
 
 NO_ARCH=	yes

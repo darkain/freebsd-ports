@@ -1,13 +1,12 @@
-# Created by: ijliao
-
 PORTNAME=	nettle
-PORTVERSION=	3.7.3
+PORTVERSION=	3.9.1
 CATEGORIES=	security
 MASTER_SITES=	GNU \
 		https://www.lysator.liu.se/~nisse/archive/
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Low-level cryptographic library
+WWW=		https://www.lysator.liu.se/~nisse/nettle/
 
 LICENSE=	GPLv2+ LGPL3
 LICENSE_COMB=	multi
@@ -17,7 +16,7 @@ LICENSE_FILE_LGPL3=	${WRKSRC}/COPYING.LESSERv3
 BUILD_DEPENDS=	gmp>=6.1.0:math/gmp
 LIB_DEPENDS=	libgmp.so:math/gmp
 
-USES=		compiler:c11 gmake localbase makeinfo pathfix
+USES=		compiler:c11 cpe gmake localbase makeinfo pathfix
 
 CONFIGURE_ARGS=	--enable-shared
 CONFIGURE_ENV=	M4="/usr/bin/m4 -g"
@@ -27,10 +26,13 @@ USE_LDCONFIG=	yes
 
 INFO=		nettle
 
+CPE_VENDOR=	nettle_project
+
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
 EXAMPLES_CFLAGS=	-I${OPENSSLINC}
 EXAMPLES_USES=		ssl
+EXAMPLES_EXTRA_PATCHES_OFF=	${PATCHDIR}/extra-patch-Makefile.in
 
 .include <bsd.port.options.mk>
 
@@ -38,18 +40,10 @@ EXAMPLES_USES=		ssl
 CONFIGURE_ENV+=	CCPIC=-fPIC
 .endif
 
-.if defined(PPC_ABI) && ${PPC_ABI} == ELFv2
-EXTRA_PATCHES=	${FILESDIR}/extra-patch-powerpc64_machine.m4
-.endif
-
-post-patch:
-	@${REINPLACE_CMD} -e '/libdir=/ s|lib32|lib|' ${WRKSRC}/configure
 .if ${ARCH} == "mips64"
+post-patch:
 	@${REINPLACE_CMD} -e 's|__sgi|__unix__|' ${WRKSRC}/configure
 .endif
-
-post-patch-EXAMPLES-off:
-	@${REINPLACE_CMD} -e '/SUBDIRS = / s| examples||' ${WRKSRC}/Makefile.in
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so

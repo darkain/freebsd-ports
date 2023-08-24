@@ -1,10 +1,14 @@
 PORTNAME=	opencv
-DISTVERSION=	4.5.3
-PORTREVISION=	1
+DISTVERSION=	4.6.0
+PORTREVISION=	12
 CATEGORIES=	graphics
 
-MAINTAINER=	tcberner@FreeBSD.org
+PATCH_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/commit/
+PATCHFILES=	496eed950f6d0e7fd92619d47e3cec8f06e96ace.patch:-p1
+
+MAINTAINER=	desktop@FreeBSD.org
 COMMENT=	Open Source Computer Vision library
+WWW=		https://www.opencv.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -15,7 +19,7 @@ LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libharfbuzz.so:print/harfbuzz \
 		libhdf5.so:science/hdf5
 
-USES=		cmake compiler:c++14-lang localbase:ldflags pkgconfig
+USES=		cmake compiler:c++14-lang cpe localbase:ldflags pkgconfig
 USE_GITHUB=	yes
 GH_ACCOUNT=	WeChatCV:wechat
 GH_PROJECT=	opencv_contrib:contrib \
@@ -42,9 +46,11 @@ DATADIR=	${PREFIX}/share/${PORTNAME}4
 
 PLIST_SUB=	SHLIB_VER=${DISTVERSION}
 
-OPTIONS_DEFINE=		EIGEN GDAL GDCM HARDENING JAVA LTO OPENCL PATENTED PROTOBUF PYTHON TBB VTK
+OPTIONS_DEFINE=		EIGEN GDAL GDCM HARDENING JAVA LTO OPENCL \
+			PATENTED PROTOBUF PYTHON TBB TESSERACT
 
-OPTIONS_GROUP=		IMAGE VIDEO
+OPTIONS_GROUP=		GUI IMAGE VIDEO
+OPTIONS_GROUP_GUI=	GTK3 VTK
 OPTIONS_GROUP_IMAGE=	GPHOTO2 JPEG OPENEXR PNG TIFF
 OPTIONS_GROUP_VIDEO=	DC1394 FFMPEG GSTREAMER V4L VULKAN WEBP XINE
 
@@ -61,7 +67,7 @@ OPTIONS_DEFAULT=	EIGEN GDAL GDCM OPENCL PROTOBUF PYTHON \
 			OPENJPEG
 OPTIONS_SUB=		yes
 
-# Normal options (EIGEN GDAL GDCM HARDENING JAVA LTO OPENCL PATENTED PROTOBUF PYTHON TBB VTK)
+# Normal options (EIGEN GDAL GDCM HARDENING JAVA LTO OPENCL PATENTED PROTOBUF PYTHON TBB)
 EIGEN_DESC=		Add Eigen v3 Support, builds sfm modules
 EIGEN_CMAKE_BOOL=	WITH_EIGEN
 EIGEN_USES=		eigen:3
@@ -101,17 +107,29 @@ PROTOBUF_LIB_DEPENDS=	libprotobuf.so:devel/protobuf
 PYTHON_DESC=		Enable Python Support 3.6 or greater
 PYTHON_BUILD_DEPENDS=	${PYNUMPY}
 PYTHON_RUN_DEPENDS=	${PYNUMPY}
-PYTHON_USES=		python:3.6+
+PYTHON_USES=		python
 PYTHON_CMAKE_BOOL=	BUILD_opencv_python3
 PYTHON_CMAKE_ON=	-DOPENCV_PYTHON3_INSTALL_PATH=${PYTHON_SITELIBDIR}
 
 TBB_DESC=		Add Intel Threading Building Blocks Support
 TBB_CMAKE_BOOL=		WITH_TBB
-TBB_LIB_DEPENDS=	libtbb.so:devel/tbb
+TBB_LIB_DEPENDS=	libtbb.so:devel/onetbb
+
+TESSERACT_DESC=		Add Tesseract-based OCR
+TESSERACT_LIB_DEPENDS=	libtesseract.so:graphics/tesseract
+TESSERACT_CMAKE_BOOL=	WITH_TESSERACT
+###
+
+# GUI group options (GTK3 VTK)
+GTK3_USES=		gnome
+GTK3_USE=		gnome=gtk30
+GTK3_CMAKE_BOOL=	WITH_GTK
 
 VTK_DESC=		Include VTK library support (build opencv_viz module)
 VTK_CMAKE_BOOL=		WITH_VTK
-VTK_LIB_DEPENDS=	libvtkCommonCore-9.0.so:math/vtk9
+VTK_LIB_DEPENDS=	libvtkCommonCore-${VTK_VER}.so:math/vtk${VTK_VER:R}
+VTK_USES=		qt:5
+VTK_USE=		QT=buildtools:build,qmake:build
 ###
 
 # IMAGE group options (GPHOTO2 JPEG OPENEXR PNG TIFF)
@@ -147,7 +165,7 @@ FFMPEG_LIB_DEPENDS=	libavcodec.so:multimedia/ffmpeg
 
 GSTREAMER_DESC=		Add GSTREAMER Support
 GSTREAMER_CMAKE_BOOL=	WITH_GSTREAMER
-GSTREAMER_USE=		GSTREAMER1=yes
+GSTREAMER_USES=		gstreamer
 
 V4L_DESC=		Enable support for Video for Linux
 V4L_CMAKE_BOOL=		WITH_V4L WITH_LIBV4L
@@ -171,11 +189,13 @@ XINE_LIB_DEPENDS=	libxine.so:multimedia/libxine
 # BLAS group options (ATLAS OPENBLAS NOBLAS)
 ATLAS_DESC=		ATLAS blas implementation with lapacke
 ATLAS_USES=		blaslapack:atlas
-ATLAS_LIB_DEPENDS=	liblapacke.so:math/lapacke
+ATLAS_BUILD_DEPENDS=	cblas>0:math/cblas \
+			lapacke>0:math/lapacke
 
 OPENBLAS_DESC=		OpenBLAS blas implementation with lapacke
 OPENBLAS_USES=		blaslapack:openblas
-OPENBLAS_LIB_DEPENDS=	liblapacke.so:math/lapacke
+OPENBLAS_BUILD_DEPENDS=	cblas>0:math/cblas \
+			lapacke>0:math/lapacke
 
 NOBLAS_DESC=		Disable support for lapack/blas
 NOBLAS_CMAKE_BOOL_OFF=	WITH_LAPACK
@@ -193,6 +213,12 @@ OPENJPEG_LIB_DEPENDS=	libopenjp2.so:graphics/openjpeg
 
 _IPPICV_i386=		ippicv/ippicv_2020_lnx_ia32_20191018_general.tgz
 _IPPICV_amd64=		ippicv/ippicv_2020_lnx_intel64_20191018_general.tgz
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == powerpc64le && defined(MACHINE_CPU) && ${MACHINE_CPU:Mvsx3}
+CMAKE_ARGS+=		-DCPU_BASELINE:STRING="VSX;VSX3;"
+.endif
 
 post-extract:
 	# Handle contrib
@@ -220,4 +246,5 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/usr/lib/atlas-base|${LOCALBASE}/lib|g' ${WRKSRC}/cmake/OpenCVFindAtlas.cmake
 	${REINPLACE_CMD} -e 's|/usr/include/atlas|${LOCALBASE}/include|g' ${WRKSRC}/cmake/OpenCVFindAtlas.cmake
 
+.include <../../math/vtk9/Makefile.version>
 .include <bsd.port.mk>

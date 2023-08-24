@@ -7,10 +7,11 @@ DISTNAME=	cflow-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Call graph generator for C and assembler code
+WWW=		https://bitbucket.org/marcusva/cflow
 
 LICENSE=	BSD2CLAUSE
 
-CONFLICTS=	gnucflow-[0-9]* cflow-[0-9]*
+CONFLICTS=	gnucflow cflow
 
 USES=		gmake
 MAKE_ENV=	MANDIR=${PREFIX}/man

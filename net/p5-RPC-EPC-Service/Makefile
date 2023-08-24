@@ -6,8 +6,9 @@ MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 DISTNAME=	${PORTNAME}-v${PORTVERSION}
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for asynchronous remote procedure stack
+WWW=		https://metacpan.org/release/RPC-EPC-Service
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

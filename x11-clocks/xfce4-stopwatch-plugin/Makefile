@@ -1,11 +1,13 @@
 PORTNAME=	xfce4-stopwatch-plugin
 PORTVERSION=	0.5.0
+PORTREVISION=	1
 CATEGORIES=	x11-clocks xfce
 MASTER_SITES=	XFCE/panel-plugins
 DIST_SUBDIR=	xfce4
 
 MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	XFCE panel plugin to keep track of elapsed time
+WWW=		https://goodies.xfce.org/projects/panel-plugins/xfce4-stopwatch-plugin
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,7 +18,6 @@ USE_GNOME=	cairo gtk30 intltool
 USE_XFCE=	panel
 
 GNU_CONFIGURE=	yes
-INSTALLS_ICONS=	yes
 INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=		NLS

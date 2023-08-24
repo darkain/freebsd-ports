@@ -1,6 +1,6 @@
 PORTNAME=	sonarqube
-DISTVERSION=	8.9.1.44547
-PORTREVISION=	1
+DISTVERSION=	10.1.0.73491
+PORTREVISION=	5
 CATEGORIES=	devel security www java
 MASTER_SITES=	https://binaries.sonarsource.com/Distribution/sonarqube/:m_core \
 		https://binaries.sonarsource.com/Distribution/sonar-csharp-plugin/:m_csharp \
@@ -21,24 +21,25 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	netchild@FreeBSD.org
 COMMENT=	Web-based continuous code inspection tool
+WWW=		https://www.sonarqube.org/
 
 LICENSE=	LGPL3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 #BUILD_DEPENDS=	jna>0:devel/jna
 RUN_DEPENDS=	bash:shells/bash #\
-		#jna>0:devel/jna
+#		jna>0:devel/jna
 
 USES=		cpe shebangfix zip
 CPE_VENDOR=	sonarsource
 USE_JAVA=	yes
 
-SHEBANG_FILES=	elasticsearch/bin/elasticsearch \
+SHEBANG_FILES=	elasticsearch/bin/elasticsearch-cli \
 		elasticsearch/bin/elasticsearch-env
 
 NO_ARCH=	yes
 NO_BUILD=	yes
-JAVA_VERSION=	11+
+JAVA_VERSION=	17+
 JAVA_VENDOR=	openjdk
 USE_RC_SUBR=	${PORTNAME}
 
@@ -51,11 +52,11 @@ DBBASE_DIR=	/var/db/${PORTNAME}
 DATA_DIR=	${DBBASE_DIR}/data
 TEMP_DIR=	${DBBASE_DIR}/temp
 
-SONARCSHARP_VER=	8.25.0.33663
-SONARJAVA_VER=		7.1.0.26670
-SONARJAVASCRIPT_VER=	8.1.0.15788
-SONARPHP_VER=		3.17.0.7439
-SONARPYTHON_VER=	3.5.0.8244
+SONARCSHARP_VER=	9.7.0.75501
+SONARJAVA_VER=		7.23.0.32023
+SONARJAVASCRIPT_VER=	10.3.2.22047
+SONARPHP_VER=		3.30.0.9766
+SONARPYTHON_VER=	4.6.0.12071
 SONARVBNET_VER=		${SONARCSHARP_VER}
 
 USERS=		sonarqube

@@ -1,10 +1,11 @@
 PORTNAME=	bazarr
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.9.5
+DISTVERSION=	1.2.4
+PORTREVISION=	1
 CATEGORIES=	net-p2p python
-# Grab the asset as it contains built frontend and some extra files
 MASTER_SITES=	https://github.com/morpheus65535/bazarr/releases/download/${DISTVERSIONPREFIX}${DISTVERSION}/
 DISTNAME=	bazarr
+DIST_SUBDIR=	${PORTNAME}/${DISTVERSION}
 
 MAINTAINER=	michiel@vanbaak.eu
 COMMENT=	Automatic subtitle downloader for Radarr and Sonarr
@@ -13,6 +14,8 @@ LICENSE=	GPLv3
 
 RUN_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}lxml>=4.3.0:devel/py-lxml@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}numpy>1.12.0:math/py-numpy@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pillow>=9.0.0:graphics/py-pillow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}webrtcvad>=2.0.10:audio/py-webrtcvad@${PY_FLAVOR} \
 		ffprobe:multimedia/ffmpeg \
@@ -22,8 +25,10 @@ USES=		python:3.7+ zip
 
 USE_RC_SUBR=	bazarr
 
-NO_ARCH=	yes
-SUB_LIST=	PYTHON_CMD=${PYTHON_CMD} \
+SUB_FILES=	${PORTNAME} package_info
+SUB_LIST=	MAINTAINER=${MAINTAINER} \
+		PKGVERSION=${PKGVERSION} \
+		PYTHON_CMD=${PYTHON_CMD} \
 		USERS=${USERS}
 
 NO_WRKSUBDIR=	yes
@@ -36,11 +41,10 @@ do-build:
 	@${PYTHON_CMD} -O -m compileall ${WRKSRC}
 
 do-install:
-	${INSTALL} -d -m 755 ${STAGEDIR}/${DATADIR}
-	cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${STAGEDIR}/${DATADIR}
+	${INSTALL} -d -m 755 ${STAGEDIR}/${DATADIR}/bin/
+	cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${STAGEDIR}/${DATADIR}/bin/
 
 post-install:
-	@${FIND} -s ${STAGEDIR} -not -type d | ${SORT} | \
-		${SED} -e 's#^${STAGEDIR}${PREFIX}/##' >> ${TMPPLIST}
+	${INSTALL_DATA} ${WRKDIR}/package_info ${STAGEDIR}/${DATADIR}/
 
 .include <bsd.port.mk>

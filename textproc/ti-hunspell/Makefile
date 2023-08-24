@@ -9,16 +9,17 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Tigrigna hunspell dictionaries
+WWW=		https://www.cs.ru.nl/~biniam/geez/index.php
 
 USES=		zip
 NO_ARCH=	yes
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
 
-PLIST_FILES=	%%DATADIR%%/ti_ER.dic \
-		%%DATADIR%%/ti_ER.aff \
-		%%DATADIR%%/ti_ET.dic \
-		%%DATADIR%%/ti_ET.aff
+PLIST_FILES=	${DATADIR}/ti_ER.dic \
+		${DATADIR}/ti_ER.aff \
+		${DATADIR}/ti_ET.dic \
+		${DATADIR}/ti_ET.aff
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

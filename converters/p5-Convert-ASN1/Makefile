@@ -1,13 +1,12 @@
-# Created by: Marc Fournier <scrappy@FreeBSD.org>
-
 PORTNAME=	Convert-ASN1
-PORTVERSION=	0.31
+PORTVERSION=	0.34
 CATEGORIES=	converters perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl5 module to encode and decode ASN.1 data structures
+WWW=		https://metacpan.org/release/Convert-ASN1
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

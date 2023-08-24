@@ -2,11 +2,12 @@ PORTNAME=	yg.lockfile
 PORTVERSION=	2.3
 PORTREVISION=	2
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	kai@FreeBSD.org
 COMMENT=	Provides lockfile objects with timeouts and context manager
+WWW=		https://github.com/yougov/yg.lockfile
 
 LICENSE=	MIT
 
@@ -16,7 +17,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}zclockfile>=0:devel/py-zclockfile@${PY_FLAVO
 		${PYTHON_PKGNAMEPREFIX}jaraco.functools>=1.16:devel/py-jaraco.functools@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tempora>=0:devel/py-tempora@${PY_FLAVOR}
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
 
 NO_ARCH=	yes

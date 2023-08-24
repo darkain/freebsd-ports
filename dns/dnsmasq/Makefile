@@ -1,7 +1,5 @@
-# Created by: Steven Honson
-
 PORTNAME=	dnsmasq
-DISTVERSION=	2.85
+DISTVERSION=	2.89
 # Leave the PORTREVISION in even if 0 to avoid accidental PORTEPOCH bumps:
 PORTREVISION=	1
 PORTEPOCH=	1
@@ -11,6 +9,7 @@ MASTER_SITES=	https://www.thekelleys.org.uk/dnsmasq/ \
 
 MAINTAINER=	mandree@FreeBSD.org
 COMMENT=	Lightweight DNS forwarder, DHCP, and TFTP server
+WWW=		https://www.thekelleys.org.uk/dnsmasq/doc.html
 
 LICENSE=	GPLv2
 
@@ -30,7 +29,7 @@ CFLAGS+=	-Wall -Wno-unused-function -Wno-unused-parameter \
 		-Wno-unused-value -Wno-unused-variable
 CPPFLAGS+=	-I${LOCALBASE}/include
 
-CONFLICTS_INSTALL=	dnsmasq-devel-*
+CONFLICTS_INSTALL=	dnsmasq-devel
 
 PATCH_STRIP=	-p1
 SUB_FILES=	pkg-message

@@ -1,19 +1,19 @@
-# Created by: Joris Vandalon
-
 PORTNAME=	rar2fs
 DISTVERSION=	1.29.5
 DISTVERSIONPREFIX=	v
+PORTREVISION=	7
 CATEGORIES=	sysutils
 PKGNAMEPREFIX=	fusefs-
 
 MAINTAINER=	n_carlsson@outlook.com
 COMMENT=	Mount RAR archives as file system
+WWW=		https://hasse69.github.io/rar2fs/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	${NONEXISTENT}:${LIBUNRAR_PORT}:patch
-LIB_DEPENDS=	libunrar.so.6:${LIBUNRAR_PORT}
+LIB_DEPENDS=	libunrar.so:${LIBUNRAR_PORT}
 
 USES=		autoreconf compiler:c11 gmake fuse
 USE_GITHUB=	yes
@@ -31,7 +31,7 @@ PLIST_FILES=	bin/${PORTNAME} \
 		bin/mkr2i \
 		man/man1/rar2fs.1.gz
 
-LIBUNRAR_PORT=	archivers/libunrar6
+LIBUNRAR_PORT=	archivers/libunrar
 LIBUNRAR_PKG=	${LIBUNRAR_PORT:S|archivers/||}
 
 .include <bsd.port.mk>

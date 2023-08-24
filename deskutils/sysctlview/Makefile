@@ -1,9 +1,11 @@
 PORTNAME=	sysctlview
 PORTVERSION=	2.1
+PORTREVISION=	3
 CATEGORIES=	deskutils
 
 MAINTAINER=	alfix86@gmail.com
 COMMENT=	Graphical sysctl MIB explorer
+WWW=		https://gitlab.com/alfix/sysctlview/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,11 +16,9 @@ RUN_DEPENDS=	xdg-open:devel/xdg-utils
 USES=		compiler:c++11-lang gnome pkgconfig
 USE_GITLAB=	yes
 GL_ACCOUNT=	alfix
-GL_COMMIT=	6ef5c821f66d92c2a1ca3fc964b511425dacd18e
+GL_TAGNAME=	6ef5c821f66d92c2a1ca3fc964b511425dacd18e
 USE_GNOME=	atk atkmm cairo cairomm gdkpixbuf2 glib20 glibmm gtk30 gtkmm30 \
 		libsigc++20 pango pangomm
-
-INSTALLS_ICONS=	yes
 
 DESKTOP_ENTRIES=	"Sysctlview" \
 			"Show and set the kernel state" \
@@ -29,9 +29,6 @@ DESKTOP_ENTRIES=	"Sysctlview" \
 
 .include <bsd.port.pre.mk>
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200019
-IGNORE=		needs oid_label member of struct sysctl_oid defined in sysctl.h which was first introduced in FreeBSD 12
-.endif
 .if ${OPSYS} != FreeBSD
 IGNORE=		not supported on anything but FreeBSD
 .endif

@@ -1,5 +1,3 @@
-# Created by: ache
-
 PORTNAME=	playmidi
 PORTVERSION=	2.5
 PORTREVISION=	1
@@ -8,10 +6,11 @@ MASTER_SITES=	SF
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	MIDI player
+WWW=		https://sourceforge.net/projects/playmidi/
 
 LICENSE=	GPLv2
 
-USES=		ncurses
+USES=		cpe ncurses
 WRKSRC=		${WRKDIR}/${PORTNAME}-2.4
 
 ONLY_FOR_ARCHS=	i386 amd64

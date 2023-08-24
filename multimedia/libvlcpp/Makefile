@@ -1,9 +1,11 @@
 PORTNAME=	libvlcpp
 DISTVERSION=	0.1.0.20210319
+PORTREVISION=	1
 CATEGORIES=	multimedia
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C++ bindings for libvlc, VLC mediaplayer library
+WWW=		https://code.videolan.org/videolan/libvlcpp
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,7 +18,7 @@ USE_GITLAB=	yes
 
 GL_SITE=	https://code.videolan.org
 GL_ACCOUNT=	videolan
-GL_COMMIT=	17e622c6a23f685a60451e9611d50e361cee2278
+GL_TAGNAME=	17e622c6a23f685a60451e9611d50e361cee2278
 
 GNU_CONFIGURE=	yes
 

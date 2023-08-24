@@ -1,5 +1,3 @@
-# Created by: Leland Wang <llwang@infor.org>
-
 PORTNAME=	sgflib
 PORTVERSION=	1.0
 PORTREVISION=	1
@@ -11,11 +9,12 @@ EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Smart Game Format parser library for Python
+WWW=		http://gotools.sourceforge.net/sgflib/
 
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/lgpl.txt
 
-USES=		python:3.6+ shebangfix
+USES=		python shebangfix
 USE_PYTHON=	flavors
 NO_BUILD=	yes
 NO_ARCH=	yes

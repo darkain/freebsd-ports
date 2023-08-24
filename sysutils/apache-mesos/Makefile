@@ -1,6 +1,6 @@
 PORTNAME=	mesos
 PORTVERSION=	1.11.0
-PORTREVISION=	1
+PORTREVISION=	15
 CATEGORIES=	sysutils
 MASTER_SITES=	APACHE/mesos/${PORTVERSION}:mesos
 PKGNAMEPREFIX=	apache-
@@ -9,11 +9,12 @@ DIST_SUBDIR=	${PKGNAMEPREFIX}${PORTNAME}
 
 MAINTAINER=	james.wright@digital-chaos.com
 COMMENT=	Cluster manager providing resource isolation and sharing
+WWW=		https://mesos.apache.org/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-IGNORE_FreeBSD_11=	does not build
+BROKEN=		fails to build, configure: error: Cannot find the ELFIO headers
 
 BUILD_DEPENDS=	boost-libs>0:devel/boost-libs \
 		elfio>0:devel/elfio \
@@ -36,7 +37,8 @@ LIB_DEPENDS=	libapr-1.so:devel/apr1 \
 		libsvn_subr-1.so:devel/subversion \
 		libzookeeper_mt.so:devel/libzookeeper
 
-USES=		gmake libarchive libtool python:run shebangfix
+USES=		cpe gmake libarchive libtool python:run shebangfix
+CPE_VENDOR=	apache
 USE_LDCONFIG=	yes
 SHEBANG_FILES=	src/cli/mesos-cat \
 		src/cli/mesos-ps \

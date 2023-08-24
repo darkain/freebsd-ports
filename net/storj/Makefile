@@ -1,12 +1,11 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	storj
-PORTVERSION=	1.34.3
+PORTVERSION=	1.84.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Decentralized cloud object storage
+WWW=		https://storj.io/
 
 LICENSE=	AGPLv3
 
@@ -15,10 +14,9 @@ USE_GITHUB=	yes
 
 .include "${.CURDIR}/Makefile.deps"
 
-STORJ_CMDS=	certificates connect-test crashcollect identity inspector \
-		metabase-verify metainfo-loop-benchmark metric-receiver \
+STORJ_CMDS=	certificates crashcollect identity metric-receiver \
 		multinode satellite storagenode storagenode-updater \
-		storj-admin storj-sim uplink uplinkng versioncontrol
+		storj-admin storj-sim uplink versioncontrol
 
 GO_TARGET=	${STORJ_CMDS:S,^,./cmd/,}
 

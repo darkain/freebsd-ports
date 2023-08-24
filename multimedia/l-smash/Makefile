@@ -1,18 +1,24 @@
 PORTNAME=	l-smash
-PORTVERSION=	2.14.5
 DISTVERSIONPREFIX=	v
+DISTVERSION=	2.18.0-10
+DISTVERSIONSUFFIX=	-g2c0696c
 CATEGORIES=	multimedia
 
-MAINTAINER=	jbeich@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	MP4 muxer and other tools
+WWW=		https://l-smash.github.io/l-smash/
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USE_GITHUB=	yes
+LIB_DEPENDS=	libobuparse.so:multimedia/obuparse
 
-USES=		gmake pathfix
+USES=		gmake localbase pathfix
 PATHFIX_MAKEFILEIN=	Makefile
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	vimeo
+
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--prefix="${PREFIX}" \
 		--cc="${CC}" \
@@ -29,5 +35,8 @@ post-patch:
 		${WRKSRC}/configure
 	@${REINPLACE_CMD} -e '/SHARED/,/^$$/ { /STRIP/s/-x //; }' \
 		${WRKSRC}/${MAKEFILE}
+
+post-install:
+	@${RM} ${STAGEDIR}${PREFIX}/lib/liblsmash.a
 
 .include <bsd.port.mk>

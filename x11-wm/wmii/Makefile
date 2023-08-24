@@ -1,5 +1,3 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	wmii
 DISTVERSION=	3.6	# this is stable version; for 3.9.x, use -devel port
 PORTREVISION=	7
@@ -8,6 +6,7 @@ MASTER_SITES=	http://dl.suckless.org/wmii/
 
 MAINTAINER=	rodrigo@FreeBSD.org
 COMMENT=	Dynamic, minimalist window manager for X11
+WWW=		http://wmii.suckless.org/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -18,7 +17,7 @@ RUN_DEPENDS=	dmenu:x11/dmenu
 USES=		xorg
 USE_XORG=	x11 xorgproto xt xext
 
-CONFLICTS=	wmii-devel-[0-9]*
+CONFLICTS=	wmii-devel
 
 MAKE_ARGS=	PREFIX="${PREFIX}" MAN="${MANPREFIX}/man" \
 		INCLUDE="${LOCALBASE}/include" \

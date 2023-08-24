@@ -1,5 +1,3 @@
-# Created by: hsu
-
 PORTNAME=	scm
 PORTVERSION=	5f2
 PORTREVISION=	10
@@ -11,11 +9,11 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX} slib-3b5.zip
 
 MAINTAINER=	mi@aldan.algebra.com
 COMMENT=	Scheme interpreter
+WWW=		https://people.csail.mit.edu/jaffer/SCM
 
 LICENSE=	LGPL21
 
 BROKEN_aarch64=		fails to link: missing sbrk
-BROKEN_powerpc64=	fails to build: "/wrkdirs/usr/ports/lang/scm/work/slib/lineio.scm": read-char: Wrong type in arg1 #f
 BROKEN_riscv64=		fails to link: missing sbrk
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
@@ -54,6 +52,12 @@ SCM_MODULES=	byte.so bytenumb.so crs.so differ.so edline.so gsubr.so \
 		socket.so unix.so
 SCM_MODULES_X11=x.so
 
+.include <bsd.port.options.mk>
+
+.if ${ARCH:Mpowerpc64*}
+USES+=		compiler:gcc-c++11-lib
+.endif
+
 .include <bsd.port.pre.mk>
 
 .if ${OSVERSION} > 1300000
@@ -63,11 +67,6 @@ LIB_DEPENDS+=	libgnuregex.so.[6-9]:devel/libgnuregex
 .if ${PORT_OPTIONS:MX11}
 SCM_MODULES+=	${SCM_MODULES_X11}
 SCM_DATA+=	${SCM_DATA_X11}
-.endif
-
-.if ${ARCH} == "ia64"
-EXTRA_PATCHES+=	${FILESDIR}/ia64-patch
-ARCHOBJS=	continue-ia64.S
 .endif
 
 LIBEDIT_SUB1=	${CPPFLAGS}" "${LDFLAGS:M-L*}

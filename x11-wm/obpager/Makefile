@@ -1,5 +1,3 @@
-# Created by: gahr
-
 PORTNAME=	obpager
 PORTVERSION=	1.8
 CATEGORIES=	x11-wm
@@ -7,12 +5,14 @@ MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Lightweight pager for netwm compatible window managers
+WWW=		http://obpager.sourceforge.net/
 
 LICENSE=	GPLv2
 
 BUILD_DEPENDS=	gsed:textproc/gsed
 
 USES=		compiler gmake xorg
+USE_CXXSTD=	c++14
 USE_XORG=	x11 xext
 
 CXXFLAGS+=	${CXXFLAGS_${CHOSEN_COMPILER_TYPE}}

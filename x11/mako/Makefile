@@ -1,10 +1,11 @@
 PORTNAME=	mako
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.6
-CATEGORIES=	x11
+DISTVERSION=	1.8.0
+CATEGORIES=	x11 wayland
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Lightweight Wayland notification daemon
+WWW=		https://github.com/emersion/mako
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -35,5 +36,11 @@ MANPAGES_PLIST_FILES=	man/man1/${PORTNAME}.1.gz \
 
 PIXBUF_USE=		GNOME=gdkpixbuf2
 PIXBUF_MESON_ENABLED=	icons
+
+post-patch:
+# Respect PREFIX for icons
+	@${REINPLACE_CMD} 's,/usr/share,${DATADIR:H},g' \
+		${WRKSRC}/icon.c \
+		${WRKSRC}/${PORTNAME}.5.scd
 
 .include <bsd.port.mk>

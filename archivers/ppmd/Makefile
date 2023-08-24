@@ -1,5 +1,3 @@
-# Created by: Emanuel Haupt <ehaupt@critical.ch>
-
 PORTNAME=	ppmd
 PORTVERSION=	20050811
 CATEGORIES=	archivers
@@ -7,8 +5,13 @@ MASTER_SITES=	LOCAL/ehaupt
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	Fast archiver with good compression ratio
+WWW=		https://packages.debian.org/unstable/utils/ppmd/
 
 LICENSE=	PD
+
+USES=		cpe
+
+CPE_VENDOR=	ppmd_project
 
 PORTDOCS=	read_me.txt
 PLIST_FILES=	bin/ppmd man/man1/ppmd.1.gz

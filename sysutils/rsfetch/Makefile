@@ -1,10 +1,11 @@
 PORTNAME=	rsfetch
 DISTVERSION=	2.0.0
-PORTREVISION=	14
+PORTREVISION=	34
 CATEGORIES=	sysutils
 
 MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	Minimal fetch program written in Rust
+WWW=		https://github.com/rsfetch/rsfetch
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -207,6 +208,12 @@ PLIST_FILES=	bin/${PORTNAME} \
 PORTDOCS=	CHANGELOG.md README.md
 
 OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.options.mk>
+
+.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+BROKEN=	Fails to detect OpenSSL 3.0.0 and later
+.endif
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}

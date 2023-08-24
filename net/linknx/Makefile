@@ -1,5 +1,3 @@
-# Created by: Bjorn Konig <bkoenig@alpha-tierchen.de>
-
 PORTNAME=	linknx
 PORTVERSION=	0.0.1.32
 CATEGORIES=	net
@@ -7,6 +5,7 @@ MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	bkoenig@alpha-tierchen.de
 COMMENT=	Rule-based event handling in a KNX installation
+WWW=		http://linknx.sourceforge.net/
 
 LICENSE=	GPLv2
 
@@ -19,6 +18,8 @@ LIB_DEPENDS=	libpthsem.so:devel/pthsem
 BUILD_DEPENDS=	${LOCALBASE}/lib/libargp.a:devel/argp-standalone
 
 USES=	compiler gmake autoreconf pkgconfig
+USE_CXXSTD=	c++14
+
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=CFLAGS="-I${LOCALBASE}/include" \
 		LDFLAGS="-I${LOCALBASE}/include -L/${LOCALBASE}/lib"
@@ -33,6 +34,7 @@ LIBCURL_DESC=	Install libcurl for Clickatell SMS support
 LIBLUA_DESC=	Install liblua for scripting
 MYSQL_DESC=	Install libmysql for logging & persist
 
+LIBESMTP_CFLAGS=	-lesmtp
 LIBESMTP_CONFIGURE_ENABLE=	smtp
 LIBESMTP_LIB_DEPENDS=	libesmtp.so:mail/libesmtp
 LIBCURL_CONFIGURE_WITH=	libcurl

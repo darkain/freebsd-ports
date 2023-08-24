@@ -1,7 +1,5 @@
-# Created by: tobez
-
 PORTNAME=	Graph
-PORTVERSION=	0.9722
+PORTVERSION=	0.9727
 PORTEPOCH=	1
 CATEGORIES=	math perl5
 MASTER_SITES=	CPAN
@@ -9,6 +7,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Graph, the Perl module for graph operations
+WWW=		https://metacpan.org/release/Graph
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

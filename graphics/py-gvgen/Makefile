@@ -1,21 +1,19 @@
-# Created by: Sofian Brabez <sbrabez@gmail.com>
-
 PORTNAME=	gvgen
 PORTVERSION=	1.0
-DISTVERSIONPREFIX= v
+DISTVERSIONPREFIX=	v
 CATEGORIES=	graphics python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sbz@FreeBSD.org
 COMMENT=	Easy python interface to generate dot files
+WWW=		https://github.com/stricaud/gvgen
 
 LICENSE=	GPLv2
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
 USE_GITHUB=	yes
 GH_ACCOUNT=	stricaud
-GH_PROJECT=	gvgen
 NO_ARCH=	yes
 
 OPTIONS_DEFINE=	DOCS

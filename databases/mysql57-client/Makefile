@@ -1,5 +1,3 @@
-# Created by: "Mahdi Mokhtari <mokhi64@gmail.com>"
-
 PORTNAME=	mysql
 PORTREVISION=	0
 PKGNAMESUFFIX=	57-client
@@ -14,14 +12,15 @@ PKGMESSAGE=	${.CURDIR}/pkg-message
 PATCHDIR=	${.CURDIR}/files
 PLIST=		${.CURDIR}/pkg-plist
 
-CONFLICTS_INSTALL=	mysql5[0-68-9]-client-* \
-			mysql[0-46-9][0-9]-client-* \
-			mariadb[0-9][0-9]-client-* \
-			percona[0-9][0-9]-client-*
+CONFLICTS_INSTALL=	mysql5[0-68-9]-client \
+			mysql[0-46-9][0-9]-client \
+			mariadb[0-9][0-9]-client \
+			percona[0-9][0-9]-client
 
 CMAKE_ARGS+=	-DWITHOUT_SERVER=1 \
 		-DWITH_NDBCLUSTER=1
 
+USE_CXXSTD=	c++14
 USE_LDCONFIG+=	${PREFIX}/lib/mysql
 
 MMAN1=		comp_err.1 msql2mysql.1 mysql.1 mysql_config.1 mysql_config_editor.1 mysql_find_rows.1 \
@@ -36,7 +35,7 @@ OPTIONS_GROUP_PLUGINS=	SASLCLIENT
 SASLCLIENT_DESC=	SASL client plugin module
 SASLCLIENT_CMAKE_BOOL=	WITH_AUTHENTICATION_LDAP
 SASLCLIENT_LIB_DEPENDS=		libsasl2.so:security/cyrus-sasl2
-SASLCLIENT_BUILD_DEPENDS=	${LOCALBASE}/include/lber.h:net/openldap24-sasl-client
+SASLCLIENT_USES=		ldap
 OPTIONS_DEFAULT+=	SASLCLIENT
 
 # issue 166367: adding symlinks for back-compatibility with ${lib}_r

@@ -1,17 +1,16 @@
-# Created by: Max Laier <max@love2party.net>
-
 PORTNAME=	pftop
-PORTVERSION=	0.7
-PORTREVISION=	9
+PORTVERSION=	0.8
+PORTREVISION=	4
 CATEGORIES=	sysutils net
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	grembo@FreeBSD.org
 COMMENT=	Utility for real-time display of statistics for pf
+WWW=		https://github.com/araujobsd/pftop/
 
 LICENSE=	BSD2CLAUSE
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	araujobsd
+GH_ACCOUNT=	grembo
 
 OPTIONS_DEFINE=	ALTQ
 
@@ -23,7 +22,13 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-bpf_dump.c \
 		${FILESDIR}/extra-patch-sf-gencode.h
 
 MAKE_ARGS=	LOCALBASE="${PREFIX}" \
-		OSLEVEL=45
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400090
+MAKE_ARGS+=	OSLEVEL=46
+.else
+MAKE_ARGS+=	OSLEVEL=45
+.endif
+
 CFLAGS+=	-DHAVE_SNPRINTF=1 -DHAVE_VSNPRINTF=1 \
 		-DHAVE_FINE_GRAINED_LOCKING=1
 

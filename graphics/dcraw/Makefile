@@ -1,26 +1,29 @@
-# Created by: Arjan van Leeuwen <avleeuwen@piwebs.com>
-
 PORTNAME=	dcraw
 PORTVERSION=	9.28
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	graphics
 MASTER_SITES=	LOCAL/sunpoet
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Decoder for RAW files from digital cameras
+WWW=		https://www.dechifro.org/dcraw/
 
 LICENSE=	GPLv2+
 
 LIB_DEPENDS=	libjasper.so:graphics/jasper \
 		liblcms2.so:graphics/lcms2
 
-USES=		jpeg localbase tar:xz
+USES=		cpe jpeg localbase tar:xz
 
 CPPFLAGS+=	-I${LOCALBASE}/include/jasper
 LIBS+=		-ljasper -ljpeg -llcms2 -lm
 
+CONFLICTS_INSTALL=	ufraw
+
 PLIST_FILES=	bin/dcraw \
 		share/man/man1/dcraw.1.gz
+
+CPE_VENDOR=	dcraw_project
 
 do-build:
 	@cd ${WRKSRC}/ && ${CC} -o dcraw ${CPPFLAGS} ${CFLAGS} dcraw.c ${LDFLAGS} ${LIBS}
@@ -35,7 +38,7 @@ MS_DIFF=	${MS_WRKSRC}/dcraw.c.diff
 MS_VERSION=	`${CAT} ${MS_VERSIONFILE}`
 MS_VERSIONFILE=	${MS_WRKSRC}/.version
 MS_WRKSRC=	${WRKSRC}/tmp
-MS_MASTER_SITE=	https://www.cybercom.net/~dcoffin/dcraw/
+MS_MASTER_SITE=	https://www.dechifro.org/dcraw/
 MS_DISTFILES=	dcraw.1 dcraw.c
 
 maketar: do-clean extract

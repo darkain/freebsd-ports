@@ -1,21 +1,20 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	rubocop-rspec
-PORTVERSION=	2.4.0
+PORTVERSION=	2.23.2
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	RuboCop plugin of code style checking for RSpec files
+WWW=		https://github.com/rubocop/rubocop-rspec
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/MIT-LICENSE.md
 
-RUN_DEPENDS=	rubygem-rubocop>=1.0<2:devel/rubygem-rubocop \
-		rubygem-rubocop-ast>=1.1.0:devel/rubygem-rubocop-ast
+RUN_DEPENDS=	rubygem-rubocop>=1.33<2:devel/rubygem-rubocop \
+		rubygem-rubocop-capybara>=2.17<3:devel/rubygem-rubocop-capybara \
+		rubygem-rubocop-factory_bot>=${PORTVERSION:R}<3:devel/rubygem-rubocop-factory_bot
 
 USES=		gem
-USE_RUBY=	yes
 
 NO_ARCH=	yes
 

@@ -1,33 +1,35 @@
-# Created by: Oliver Lehmann <oliver@FreeBSD.org>
-
 PORTNAME=	thunar
-DISTVERSION=	4.16.8
+DISTVERSION=	4.18.6
 CATEGORIES=	x11-fm xfce
 MASTER_SITES=	XFCE
 DIST_SUBDIR=	xfce4
 
 MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	Xfce file manager
+WWW=		https://docs.xfce.org/xfce/thunar/Start
 
 LICENSE=	GPLv2 LGPL20
 LICENSE_COMB=	multi
 LICENSE_FILE_GPLv2=	${WRKSRC}/COPYING
 LICENSE_FILE_LGPL20=	${WRKSRC}/COPYING.LIB
 
-LIB_DEPENDS=	libtumbler-1.so:deskutils/xfce4-tumbler
+LIB_DEPENDS=	libtumbler-1.so:deskutils/xfce4-tumbler \
+		libharfbuzz.so:print/harfbuzz \
+		libpcre2-8.so:devel/pcre2
 RUN_DEPENDS=	pkexec:sysutils/polkit
 
-USES=		compiler:c11 desktop-file-utils gettext-tools gmake gnome \
+USES=		compiler:c11 cpe desktop-file-utils gettext-tools gmake gnome \
 		libtool pathfix perl5 pkgconfig tar:bzip2 xfce xorg
 USE_GNOME=	cairo gdkpixbuf2 glib20 gtk30 intltool
 USE_LDCONFIG=	yes
-USE_XFCE=	libexo
+USE_XFCE=	libexo xfconf
 USE_XORG=	ice sm x11
+
+CPE_VENDOR=	xfce
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-gio-unix \
 		--disable-gudev
-INSTALLS_ICONS=	yes
 INSTALL_TARGET=	install-strip
 
 PORTSCOUT=	limitw:1,even

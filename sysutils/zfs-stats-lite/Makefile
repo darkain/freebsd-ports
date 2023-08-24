@@ -1,5 +1,3 @@
-# Created by: Devin Teske <dteske@FreeBSD.org>
-
 PORTNAME=	zfs-stats-lite
 PORTVERSION=	1.4
 CATEGORIES=	sysutils
@@ -7,10 +5,11 @@ MASTER_SITES=	http://druidbsd.sourceforge.net/download/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Display human-readable ZFS statistics
+WWW=		http://druidbsd.sourceforge.net/download.shtml #zfs-stats-lite
 
 LICENSE=	BSD2CLAUSE
 
-CONFLICTS_INSTALL=	zfs-stats-[0-9]*
+CONFLICTS_INSTALL=	zfs-stats
 
 NO_BUILD=	yes
 NO_ARCH=	yes

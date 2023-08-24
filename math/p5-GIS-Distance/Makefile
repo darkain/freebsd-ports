@@ -1,7 +1,5 @@
-# Created by: Gea-Suan Lin <gslin@gslin.org>
-
 PORTNAME=	GIS-Distance
-PORTVERSION=	0.19
+PORTVERSION=	0.20
 PORTEPOCH=	1
 CATEGORIES=	math perl5
 MASTER_SITES=	CPAN
@@ -10,6 +8,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Calculate geographic distances
+WWW=		https://metacpan.org/release/GIS-Distance
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

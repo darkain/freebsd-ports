@@ -1,5 +1,3 @@
-# Created by: Sergey A. Osokin <osa@FreeBSD.org>
-
 PORTNAME=	libunit
 PORTVERSION=	${UNIT_VERSION}
 MASTER_SITES?=	https://unit.nginx.org/download/
@@ -8,6 +6,7 @@ DISTINFO_FILE=	${.CURDIR}/../../www/unit/distinfo
 
 MAINTAINER=	osa@FreeBSD.org
 COMMENT=	Development kit for dynamic web application server
+WWW=		https://unit.nginx.org
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -38,7 +37,7 @@ PLIST_FILES+=	include/nxt_auto_config.h \
 		lib/libunit.a
 
 do-build:
-	@cd ${WRKSRC} && ${MAKE} build/libunit.a
+	@cd ${WRKSRC} && ${MAKE} build/lib/libunit.a
 
 do-install:
 	${MAKE} -C ${WRKSRC} libunit-install DESTDIR=${STAGEDIR}

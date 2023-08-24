@@ -6,12 +6,16 @@ DISTNAME=	${PORTNAME}-${DISTVERSION:S/./-/g}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Embeddable Javascript interpreter in C
+WWW=		https://bellard.org/quickjs/
 
 LICENSE=	MIT
 
-USES=		compiler:c11 gmake tar:xz
+USES=		compiler:c11 cpe gmake tar:xz
+CPE_VENDOR=	${PORTNAME}_project
 
 EXTRA_PATCHES=	${FILESDIR}/extra-${CHOSEN_COMPILER_TYPE}-patch-Makefile
+
+TEST_TARGET=	test
 
 .include <bsd.port.pre.mk>
 

@@ -1,10 +1,11 @@
 PORTNAME=	rmf
-DISTVERSION=	1.3
+DISTVERSION=	1.5.1
 CATEGORIES=	science graphics
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Library to support reading and writing of Rich Molecular Format files
+WWW=		https://integrativemodeling.org/rmf/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -12,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	swig:devel/swig
 LIB_DEPENDS=	libRMF.so:science/rmf
 
-USES=		cmake compiler:c++11-lang python:3.6+ shebangfix
+USES=		cmake compiler:c++11-lang python shebangfix
 USE_PYTHON=	flavors
 
 USE_GITHUB=	yes
@@ -32,6 +33,5 @@ do-test: # one testcase fails: https://github.com/salilab/rmf/issues/126
 		${SETENV} ${CONFIGURE_ENV} ${CMAKE_BIN} ${CMAKE_ARGS} -DFREEBSD_BUILS_WITH_TESTS:BOOL=ON ${CMAKE_SOURCE_PATH} && \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} ${ALL_TARGET} && \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} test
-
 
 .include <bsd.port.mk>

@@ -1,5 +1,3 @@
-# Created by: frankch@waru.life.nthu.edu.tw
-
 PORTNAME=	babel
 PORTVERSION=	1.6
 PORTREVISION=	4
@@ -9,8 +7,9 @@ MASTER_SITES=	http://smog.com/chem/babel/files/ \
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Converts among various molecular file formats
+WWW=		http://smog.com/chem/babel/
 
-CONFLICTS_INSTALL=	openbabel-*
+CONFLICTS_INSTALL=	openbabel
 
 USES=		tar:Z
 MAKE_ARGS=	CC="${CC}" CFLAGS="${CFLAGS}"

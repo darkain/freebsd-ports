@@ -10,13 +10,14 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Portable OTR Messaging Library and toolkit
+WWW=		https://otr.cypherpunks.ca/
 
 LICENSE=	LGPL21
 
 LIB_DEPENDS=	libgpg-error.so:security/libgpg-error \
 		libgcrypt.so:security/libgcrypt
 
-CONFLICTS=	libotr-*
+CONFLICTS=	libotr
 
 GNU_CONFIGURE=	yes
 USES=		cpe libtool pathfix

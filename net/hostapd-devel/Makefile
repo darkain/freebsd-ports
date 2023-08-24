@@ -1,5 +1,3 @@
-# Created by: Craig Leres <leres@FreeBSD.org>
-
 PORTNAME=	hostapd
 PORTVERSION=	${COMMIT_DATE}
 CATEGORIES=	net
@@ -7,19 +5,18 @@ PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
+WWW=		https://w1.fi/hostapd/
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	cschuber
 GH_PROJECT=	hostap
-GH_TAGNAME=	311091eb4
-COMMIT_DATE=	2021.06.14
-
-BROKEN_FreeBSD_11=	Does not support OpenSSL 1.0.2
+GH_TAGNAME=	faee8b99e
+COMMIT_DATE=	2023.08.23
 
 LICENSE=	BSD3CLAUSE
 
 USES=		cpe gmake ssl
-CPE_VENDOR=	w1.f1
+CPE_VENDOR=	w1.fi
 BUILD_WRKSRC=	${WRKSRC}/hostapd
 CFLAGS+=	-I${OPENSSLINC}
 LDFLAGS+=	-L${OPENSSLLIB}

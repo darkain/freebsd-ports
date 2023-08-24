@@ -8,6 +8,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Romanian hunspell dictionaries
+WWW=		http://rospell.sourceforge.net/
 
 LICENSE=	GPLv2 LGPL21 MPL11
 LICENSE_COMB=	dual
@@ -20,8 +21,8 @@ NO_ARCH=	yes
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
 
-PLIST_FILES=	%%DATADIR%%/ro_RO.aff \
-		%%DATADIR%%/ro_RO.dic
+PLIST_FILES=	${DATADIR}/ro_RO.aff \
+		${DATADIR}/ro_RO.dic
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

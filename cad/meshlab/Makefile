@@ -1,5 +1,3 @@
-# Created by: gahr
-
 PORTNAME=	meshlab
 DISTVERSIONPREFIX=	Meshlab-
 DISTVERSION=	2020.05
@@ -8,6 +6,7 @@ CATEGORIES=	cad
 
 MAINTAINER=	lbartoletti@FreeBSD.org
 COMMENT=	3D triangular meshes processing and editing tool
+WWW=		https://www.meshlab.net/
 
 LICENSE=	GPLv2
 
@@ -15,20 +14,18 @@ BUILD_DEPENDS=	${LOCALBASE}/include/vcglib/img/img.h:devel/vcglib
 LIB_DEPENDS=	libmpirxx.so:math/mpir
 
 USES=		dos2unix gl qmake:outsource qt:5
-USE_GL=		gl glu glew
-USE_QT=		buildtools_build core gui network \
-		opengl script xml xmlpatterns widgets
+DOS2UNIX_GLOB=	*.c *.cpp *.h
+USE_CXXSTD=	c++11
 USE_GITHUB=	yes
 GH_ACCOUNT=	cnr-isti-vclab
+USE_GL=		gl glu glew
 USE_LDCONFIG=	yes
+USE_QT=		buildtools:build core gui network \
+		opengl script xml xmlpatterns widgets
 
 QMAKE_SOURCE_PATH=	${WRKSRC}/src/meshlab.pro
 
-DOS2UNIX_GLOB=	*.c *.cpp *.h
-
-.include <bsd.port.options.mk>
-
-.if ${ARCH} == powerpc
+.if !exists(/usr/include/omp.h)
 USES+=		compiler:gcc-c++11-lib
 .else
 USES+=		compiler:c++11-lang

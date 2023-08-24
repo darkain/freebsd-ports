@@ -1,5 +1,3 @@
-# Created by: buganini@gmail.com
-
 PORTNAME=	bsdconv
 PORTVERSION=	11.3.0
 CATEGORIES=	converters python
@@ -7,6 +5,7 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	buganini@gmail.com
 COMMENT=	Python wrapper for bsdconv
+WWW=		https://github.com/buganini/python-bsdconv
 
 LICENSE=	ISCL
 
@@ -16,7 +15,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	buganini
 GH_PROJECT=	python-${PORTNAME}
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils
 
 PLIST_SUB=	PYTHON_SITELIBDIR=${PYTHON_SITELIBDIR:S|^${LOCALBASE}/||g}

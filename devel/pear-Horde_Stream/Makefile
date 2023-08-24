@@ -1,13 +1,12 @@
-# Created by: Martin Matuska <mm@FreeBSD.org>
-
 PORTNAME=	Horde_Stream
 PORTVERSION=	1.6.3
 CATEGORIES=	devel www pear
 
 MAINTAINER=	horde@FreeBSD.org
 COMMENT=	Horde stream handler
+WWW=		https://pear.horde.org
 
-USES=	horde
+USES=	horde cpe
 USE_HORDE_RUN=	Horde_Exception
 
 .include <bsd.port.mk>

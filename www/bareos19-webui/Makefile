@@ -1,19 +1,23 @@
-PORTNAME=       bareos
-DISTVERSIONPREFIX=      Release/
-DISTVERSION=    19.2.10
-CATEGORIES?=    www sysutils
+PORTNAME=	bareos
+DISTVERSIONPREFIX=	Release/
+DISTVERSION=	19.2.13
+CATEGORIES?=	www sysutils
 PKGNAMESUFFIX=	19-webui
 
 MAINTAINER=	acm@FreeBSD.org
 COMMENT=	PHP-Frontend to manage Bareos over the web
+WWW=		https://www.bareos.org/
 
 LICENSE=	AGPLv3+
 LICENSE_FILE=	${WRKSRC}/webui/LICENSE
 
+DEPRECATED=	Upstream EOL reached
+EXPIRATION_DATE=	2023-09-30
+
 USE_GITHUB=	yes
 
-USES=		cmake gettext php:build
-USE_PHP=	ctype gettext hash iconv json openssl session
+USES=		cmake cpe gettext php:build
+USE_PHP=	ctype gettext iconv session
 NO_BUILD=	yes
 NO_ARCH=	yes
 

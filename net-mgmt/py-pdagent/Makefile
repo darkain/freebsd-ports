@@ -6,11 +6,12 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	dvl@FreeBSD.org
 COMMENT=	PagerDuty Agent software
+WWW=		https://github.com/PagerDuty/pdagent
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.TXT
 
-USES=		python:3.7+ shebangfix
+USES=		python shebangfix
 USE_PYTHON=	flavors
 USE_RC_SUBR=	pdagentd
 USE_GITHUB=	yes

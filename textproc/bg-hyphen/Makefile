@@ -9,6 +9,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Bulgarian hyphenation rules
+WWW=		http://bgoffice.sourceforge.net
 
 LICENSE=	GPLv2 LGPL21 MPL11
 LICENSE_COMB=	dual
@@ -20,7 +21,7 @@ USES=		zip
 NO_ARCH=	yes
 NO_BUILD=	yes
 
-PLIST_FILES=	%%DATADIR%%/hyph_bg_BG.dic
+PLIST_FILES=	${DATADIR}/hyph_bg_BG.dic
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

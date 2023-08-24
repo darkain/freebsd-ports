@@ -1,20 +1,19 @@
-# Created by: Piotr Kubaj <pkubaj@anongoth.pl>
-
 PORTNAME=	openldap
 PORTVERSION=	2.4.44
-DISTVERSIONSUFFIX=	-22.el7
-PORTREVISION=	2
+DISTVERSIONSUFFIX=	-25.el7_9
+PORTREVISION=	3
 CATEGORIES=	net linux
 
 MAINTAINER=	emulation@FreeBSD.org
 COMMENT=	LDAP libraries (Linux CentOS ${LINUX_DIST_VER})
+WWW=		https://www.OpenLDAP.org/
 
-USES=		linux:c7
+USES=		cpe linux:c7
 USE_LDCONFIG=	yes
 USE_LINUX=	cyrus-sasl2 nspr nss
 USE_LINUX_RPM=	yes
 
-CONFLICTS=	linux-c6-${PORTNAME}-[0-9]*
+CONFLICTS=	linux-c6-${PORTNAME}
 DESCR=		${.CURDIR}/../${PORTNAME}24-server/pkg-descr
 
 OPTIONS_DEFINE=	DOCS

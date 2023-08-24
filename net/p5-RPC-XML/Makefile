@@ -1,13 +1,12 @@
-# Created by: Dominic Mitchell <dom@happygiraffe.net>
-
 PORTNAME=	RPC-XML
-PORTVERSION=	0.80
+PORTVERSION=	0.82
 CATEGORIES=	net www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	XML-RPC client and server library for Perl
+WWW=		https://metacpan.org/release/RPC-XML
 
 LICENSE=	ART20 LGPL21
 LICENSE_COMB=	dual

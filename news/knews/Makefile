@@ -1,8 +1,6 @@
-# Created by: Andreas Klemm <andreas@klemm.gtn.com>
-
 PORTNAME=	knews
 PORTVERSION=	1.0b.1
-PORTREVISION=	13
+PORTREVISION=	14
 CATEGORIES=	news
 MASTER_SITES=	LOCAL/dinoex
 

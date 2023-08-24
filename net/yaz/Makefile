@@ -1,12 +1,12 @@
-# Created by: Dmitry Sivachenko <dima@Chg.RU>
-
 PORTNAME=	yaz
-DISTVERSION=	5.31.0
+DISTVERSION=	5.31.1
+PORTREVISION=	5
 CATEGORIES=	net
-MASTER_SITES=	http://ftp.indexdata.dk/pub/yaz/
+MASTER_SITES=	https://ftp.indexdata.dk/pub/yaz/
 
 MAINTAINER=	nc@FreeBSD.org
 COMMENT=	Z39.50/SR client and API library
+WWW=		https://www.indexdata.com/resources/software/yaz/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,8 +14,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 LIB_DEPENDS=	libicuuc.so:devel/icu \
 		libgnutls.so:security/gnutls
 
-USES=		gnome iconv libtool ncurses pathfix pkgconfig readline \
-		shebangfix tcl
+USES=		gnome iconv libtool ncurses pathfix localbase:ldflags \
+		pkgconfig readline shebangfix tcl
 SHEBANG_FILES=	src/yaz-asncomp
 GNU_CONFIGURE=	yes
 USE_GNOME=	libxml2 libxslt
@@ -23,9 +23,7 @@ USE_LDCONFIG=	yes
 MAKE_JOBS_UNSAFE=	yes
 
 CONFIGURE_ARGS=	--enable-shared --with-iconv=${ICONV_PREFIX} \
-		--with-xml2=${LOCALBASE} --with-xslt=${LOCALBASE} \
-		--with-icu=${LOCALBASE} --enable-tcpd
-LDFLAGS+=	-L${LOCALBASE}/lib
+		--with-xml2 --with-xslt --with-icu --enable-tcpd
 LIBS+=		-lexecinfo
 
 PORTDOCS=	*
@@ -40,7 +38,7 @@ REDIS_CONFIGURE_WITH=	redis
 REDIS_LIB_DEPENDS=	libhiredis.so:databases/hiredis
 
 post-patch:
-	@${REINPLACE_CMD} 's|tclsh |tclsh8.6 |' ${WRKSRC}/configure
+	@${REINPLACE_CMD} 's|tclsh |tclsh${TCL_VER} |' ${WRKSRC}/configure
 
 post-configure:
 	@${REINPLACE_CMD} -e 's,[$$]{datarootdir}/man,${PREFIX}/man,' \

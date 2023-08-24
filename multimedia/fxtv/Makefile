@@ -1,13 +1,12 @@
-# Created by: Randall Hopper <aa8vb@nc.rr.com>
-
 PORTNAME=	fxtv
 PORTVERSION=	1.03
-PORTREVISION=	13
+PORTREVISION=	14
 CATEGORIES=	multimedia
 MASTER_SITES=	LOCAL/sanpei
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	X11-based TV display and capture application (for use with bt848 driver)
+WWW=		https://people.freebsd.org/~rhh/fxtv/
 
 LICENSE=	BSD2CLAUSE
 

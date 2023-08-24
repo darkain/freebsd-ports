@@ -1,5 +1,3 @@
-# Created by: Mario Sergio Fujikawa Ferreira <lioux@FreeBSD.org>
-
 PORTNAME=	periscope
 PORTVERSION=	0.2.4
 PORTREVISION=	4
@@ -13,13 +11,14 @@ EXTRACT_ONLY=	python-${PORTNAME}_${PORTVERSION}.orig${EXTRACT_SUFX}
 
 MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Subtitles searching module
+WWW=		https://code.google.com/archive/p/periscope/
 
 LICENSE=	LGPL3
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=4:www/py-beautifulsoup@${PY_FLAVOR}
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USES=		desktop-file-utils python:3.6+
+USES=		desktop-file-utils python
 USE_PYTHON=	autoplist distutils
 
 OPTIONS_DEFINE=	UNRAR

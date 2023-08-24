@@ -1,23 +1,31 @@
-# Created by: Simon Dick <simond@irrelevant.org>
-
 PORTNAME=	uae
 PORTVERSION=	0.8.29
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	emulators
 MASTER_SITES=	LOCAL/grembo
 
 MAINTAINER=	simond@irrelevant.org
 COMMENT=	Commodore Amiga emulator
+WWW=		http://www.amigaemulator.org/
 
 LICENSE=	GPLv2
 
-CONFLICTS=	e-uae-[0-9]*
+CONFLICTS=	e-uae
 
 USES=		gmake gnome pkgconfig tar:bzip2
 GNU_CONFIGURE=	yes
 USE_GNOME=	gtk20
 
 OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+USES+=	llvm:max=15
+CC=	clang${LLVM_VERSION}
+CPP=	clang-cpp${LLVM_VERSION}
+CXX=	clang++${LLVM_VERSION}
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|build68kc|build68k|' \

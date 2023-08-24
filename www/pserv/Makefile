@@ -1,5 +1,3 @@
-# Created by: Alex Dupre <sysadmin@alexdupre.com>
-
 PORTNAME=	pserv
 PORTVERSION=	3.4
 CATEGORIES=	www
@@ -7,14 +5,18 @@ MASTER_SITES=	SF
 EXTRACT_SUFX=	.tar.Z
 
 MAINTAINER=	ale@FreeBSD.org
-COMMENT=	Portable and small webserver written in C
+COMMENT=	Portable and small web server written in C
+WWW=		https://sourceforge.net/projects/pserv/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+DEPRECATED=	Abandonware, last release in 2005. Consider migrating to www/apache24 , www/lighttpd or www/nginx
+EXPIRATION_DATE=2023-09-30
+
 GNU_CONFIGURE=	yes
 
-CONFLICTS=	popular-[0-9]*
+CONFLICTS=	popular
 
 OPTIONS_DEFINE=	LOG PHP
 OPTIONS_DEFAULT=	LOG PHP

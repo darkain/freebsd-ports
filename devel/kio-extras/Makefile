@@ -1,39 +1,47 @@
 PORTNAME=	kio-extras
 DISTVERSION=	${KDE_APPLICATIONS_VERSION}
-PORTREVISION=	1
-CATEGORIES=	devel kde kde-applications # kde kde-applications-plasma
+PORTREVISION=	2
+CATEGORIES=	devel kde kde-applications
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Plasma5 library to increase the functionality of KIO
+WWW=		https://projects.kde.org/projects/kde/workspace/kio-extras
 
 LIB_DEPENDS=	libtag.so:audio/taglib \
 		libImath.so:math/Imath \
-		libkdsoap.so:www/kdsoap
+		libkdsoap.so:www/kdsoap@qt5
 
 USES=		cmake compiler:c++11-lib gettext gperf kde:5 \
 		pkgconfig qt:5 shared-mime-info shebangfix tar:xz xorg
 USE_KDE=	activities archive auth bookmarks codecs completion config \
-		configwidgets coreaddons crash dbusaddons dnssd doctools ecm \
+		configwidgets coreaddons crash dbusaddons dnssd doctools \
 		emoticons guiaddons i18n iconthemes init itemmodels itemviews \
 		jobwidgets js kdelibs4support khtml kio notifications parts \
 		pty service solid sonnet syntaxhighlighting textwidgets unitconversion \
-		widgetsaddons windowsystem xmlgui
+		widgetsaddons windowsystem xmlgui \
+		ecm:build
 USE_QT=		concurrent core dbus declarative gui location network phonon4 printsupport \
 		sql svg testlib webchannel widgets xml \
-		buildtools_build qmake_build
-USE_XORG=	xcursor
+		buildtools:build qmake:build
+USE_XORG=	x11 xcursor
 SHEBANG_FILES=	info/kde-info2html
 
 # CVE-2018-19120
 CMAKE_ON=	CMAKE_DISABLE_FIND_PACKAGE_Qt5WebEngineWidget
 
-OPTIONS_DEFINE=	SAMBA MTP EXR EXIV SLP SSH TAGLIB DOCS
-OPTIONS_DEFAULT=SAMBA MTP EXR EXIV SLP SSH TAGLIB
+OPTIONS_DEFINE=	SAMBA AFC MTP EXR EXIV SLP SSH TAGLIB DOCS
+OPTIONS_DEFAULT=	SAMBA AFC MTP EXR EXIV SLP SSH TAGLIB
 OPTIONS_SUB=	yes
 
 SAMBA_DESC=		Needed to build the SMB kioslave
 SAMBA_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_Samba
 SAMBA_USES=		samba:lib
+
+AFC_DESC=		Needed to build AFC (Apple File Conduit) kioslave
+AFC_LIB_DEPENDS=	libimobiledevice-1.0.so:comms/libimobiledevice \
+			libplist-2.0.so:devel/libplist
+AFC_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_IMobileDevice \
+			CMAKE_DISABLE_FIND_PACKAGE_PList
 
 MTP_DESC=		Needed to build the MTP kioslave
 MTP_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_Mtp

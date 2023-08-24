@@ -1,26 +1,31 @@
 PORTNAME=	kinfocenter
 DISTVERSION=	${KDE_PLASMA_VERSION}
-PORTREVISION=	1
 CATEGORIES=	sysutils kde kde-plasma
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Plasma5 utility providing system information
+WWW=		https://www.kde.org/plasma-desktop
 
-LIB_DEPENDS=	libpci.so:devel/libpci
+RUN_DEPENDS=	lscpu:sysutils/lscpu \
+		glxinfo:graphics/mesa-demos \
+		vulkaninfo:graphics/vulkan-tools \
+		xdpyinfo:x11/xdpyinfo \
+		clinfo:devel/clinfo
 
-USES=		cmake compiler:c++11-lib cpe gettext gl kde:5 pkgconfig \
-		qt:5 tar:xz xorg
+USES=		cmake compiler:c++11-lib gettext gl kde:5 pkgconfig qt:5 \
+		tar:xz xorg
 USE_GL=		egl gl glu
 USE_KDE=	auth bookmarks codecs completion config configwidgets \
-		coreaddons crash dbusaddons emoticons guiaddons \
-		i18n iconthemes jobwidgets kcmutils kdeclarative \
-		kio notifications package parts init \
-		itemmodels itemviews service solid sonnet textwidgets \
-		unitconversion wayland wayland widgetsaddons windowsystem xmlgui \
-		doctools_build ecm_build \
-		systemsettings_run
-USE_QT=		concurrent core dbus declarative gui network printsupport widgets xml \
-		buildtools_build qmake_build
+		coreaddons crash dbusaddons emoticons guiaddons i18n \
+		iconthemes init itemmodels itemviews jobwidgets kcmutils \
+		kdeclarative kio notifications package parts service solid \
+		sonnet textwidgets unitconversion wayland widgetsaddons \
+		windowsystem xmlgui \
+		doctools:build ecm:build \
+		systemsettings:run
+USE_QT=		concurrent core dbus declarative gui network printsupport \
+		widgets xml \
+		buildtools:build qmake:build
 USE_XORG=	ice sm x11 xext
 
 # TODO	-- this should be handled correctly...

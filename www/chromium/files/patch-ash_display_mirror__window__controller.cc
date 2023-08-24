@@ -1,8 +1,8 @@
---- ash/display/mirror_window_controller.cc.orig	2021-04-14 18:40:48 UTC
+--- ash/display/mirror_window_controller.cc.orig	2023-08-17 07:33:31 UTC
 +++ ash/display/mirror_window_controller.cc
-@@ -286,7 +286,11 @@ void MirrorWindowController::UpdateWindow(
-                          return info.id() == iter->first;
-                        }) == display_info_list.end()) {
+@@ -295,7 +295,11 @@ void MirrorWindowController::UpdateWindow(
+       if (!base::Contains(display_info_list, iter->first,
+                           &display::ManagedDisplayInfo::id)) {
          CloseAndDeleteHost(iter->second, true);
 +#if defined(__llvm__)
 +        mirroring_host_info_map_.erase(iter++);

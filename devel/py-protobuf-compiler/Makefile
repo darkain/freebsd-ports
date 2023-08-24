@@ -1,13 +1,14 @@
 PORTNAME=	protobuf-compiler
 DISTVERSION=	1.0.20
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	${PORTNAME:S/-/_/}-${DISTVERSION}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	0mp@FreeBSD.org
 COMMENT=	Compile all protobuf files and create package distributions
+WWW=		https://github.com/netsaj/python-protobuf-compiler
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC_tests}/LICENSE
@@ -15,7 +16,7 @@ LICENSE_FILE=	${WRKSRC_tests}/LICENSE
 BUILD_DEPENDS=	${_MY_DEPENDS}
 RUN_DEPENDS=	${_MY_DEPENDS}
 
-USES=		python:3.6+ shebangfix
+USES=		python shebangfix
 USE_GITHUB=	nodefault
 GH_TUPLE=	netsaj:python-${PORTNAME}:7cb32ab8188cbfecb91034cbf7803394ed1c25b6:tests
 USE_PYTHON=	autoplist concurrent distutils

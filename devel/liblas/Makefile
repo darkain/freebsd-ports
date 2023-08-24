@@ -1,12 +1,11 @@
-# Created by: Wen Heping <wenheping@gmail.com>
-
 PORTNAME=	liblas
 PORTVERSION=	1.8.1
-PORTREVISION=	19
+PORTREVISION=	23
 CATEGORIES=	devel
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Library For Reading And Writing LAS-Format Data
+WWW=		https://liblas.org/
 
 LICENSE=	BSD3CLAUSE BSL MIT
 LICENSE_COMB=	multi
@@ -17,7 +16,7 @@ LIB_DEPENDS=	libboost_thread.so:devel/boost-libs \
 
 PORTSCOUT=	skipv:progress-20071229
 
-USES=		cmake compiler:c++11-lang libtool
+USES=		cmake compiler:c++11-lang cpe libtool
 LDFLAGS+=	-lpthread
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes

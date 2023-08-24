@@ -1,5 +1,3 @@
-# Created by: Rusmir Dusko <nemysis@FreeBSD.org>
-
 PORTNAME=	blockrage
 PORTVERSION=	0.2.3
 PORTREVISION=	6
@@ -11,6 +9,7 @@ DISTFILES=	${PORTNAME}-${DISTVERSION}${EXTRACT_SUFX} \
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Falling blocks game with 2-player hotseat mode
+WWW=		http://blockrage.sourceforge.net/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -22,7 +21,6 @@ ALL_TARGET=	${PORTNAME}
 
 PORTDOCS=	ChangeLog KNOWN_BUGS README
 
-INSTALLS_ICONS=	yes
 ICON_SIZES=	32x32 48x48 64x64 72x72 96x96
 
 SUB_FILES=	${PORTNAME}

@@ -1,8 +1,6 @@
-# Created by: Kirill Ponomarew <krion@FreeBSD.org>
-
 PORTNAME=	shaaft
 PORTVERSION=	0.5.0
-PORTREVISION=	25
+PORTREVISION=	26
 CATEGORIES=	games
 MASTER_SITES=	SF/criticalmass/OldFiles
 DISTNAME=	Shaaft-${PORTVERSION}
@@ -12,7 +10,7 @@ COMMENT=	OpenGL 3D falling block game similar to Blockout
 
 LIB_DEPENDS=	libpng.so:graphics/png
 
-CONFLICTS=	criticalmass-*
+CONFLICTS=	criticalmass
 
 USES=		gl sdl tar:bzip2
 USE_SDL=	mixer image sdl

@@ -1,19 +1,20 @@
-# Created by: Matthieu Volat <mazhe@alkumuna.eu>
-
 PORTNAME=	libbpg
 PORTVERSION=	0.9.8
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://bellard.org/bpg/
 
 MAINTAINER=	mazhe@alkumuna.eu
 COMMENT=	BPG (Better Portable Graphics) is a new image format
+WWW=		https://bellard.org/bpg/
 
 LICENSE=	BSD2CLAUSE LGPL21
 LICENSE_COMB=	multi
 
 LIB_DEPENDS=	libpng.so:graphics/png
 
-USES=		compiler:c++11-lib gmake jpeg localbase:ldflags
+USES=		compiler:c++11-lib cpe gmake jpeg localbase:ldflags
+CPE_VENDOR=	${PORTNAME}_project
 USE_LDCONFIG=	yes
 
 MAKE_ARGS+=	X265_LIBS=${X265_LIBS}

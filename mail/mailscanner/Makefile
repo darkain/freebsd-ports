@@ -1,13 +1,13 @@
-# Created by: Jan-Peter Koopmann <j.koopmann@seceidos.de>
-
 PORTNAME=	MailScanner
 DISTVERSION=	5.3.4-3
-DISTVERSIONSUFFIX= .nix
+PORTREVISION=	1
+DISTVERSIONSUFFIX=	.nix
 CATEGORIES=	mail
 MASTER_SITES=	https://github.com/MailScanner/v5/releases/download/${DISTVERSION}/
 
 MAINTAINER=	crees@FreeBSD.org
 COMMENT=	Powerful virus/spam scanning framework for mail gateways
+WWW=		https://www.mailscanner.info
 
 LICENSE=	GPLv2
 
@@ -54,9 +54,9 @@ RUN_DEPENDS:=	${BUILD_DEPENDS} \
 		tnef:converters/tnef \
 		wget:ftp/wget
 
-CONFLICTS=	MailScanner-devel-[0-9]*
+CONFLICTS=	MailScanner-devel
 
-USES=		perl5 shebangfix
+USES=		cpe perl5 shebangfix
 SHEBANG_GLOB=	* usr/lib/MailScanner/init/* usr/lib/MailScanner/wrapper/* \
 		usr/sbin/* usr/share/MailScanner/perl/MailScanner/*
 
@@ -92,8 +92,7 @@ RUN_DEPENDS+=	clamscan:security/clamav
 RUN_DEPENDS+=	unrar:archivers/unrar \
 		zoo:archivers/zoo \
 		unarj:archivers/unarj \
-		unace:archivers/unace \
-		lha:archivers/lha
+		unace:archivers/unace
 .endif
 
 # backwards compatibility

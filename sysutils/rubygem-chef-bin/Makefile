@@ -1,20 +1,18 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	chef-bin
-PORTVERSION=	16.13.16
+PORTVERSION=	18.2.7
 CATEGORIES=	sysutils rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Chef-branded binstubs for chef-client
+WWW=		https://github.com/chef/chef/tree/main/chef-bin
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	rubygem-chef>=${PORTVERSION}:sysutils/rubygem-chef
+RUN_DEPENDS=	rubygem-chef>=${PORTVERSION}<${PORTVERSION}_99:sysutils/rubygem-chef
 
 USES=		gem
-USE_RUBY=	yes
 
 NO_ARCH=	yes
 

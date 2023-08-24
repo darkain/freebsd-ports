@@ -1,11 +1,12 @@
 PORTNAME=	coyim
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.3.11
-PORTREVISION=	4
+PORTREVISION=	18
 CATEGORIES=	net-im
 
 MAINTAINER=	fox@FreeBSD.org
 COMMENT=	Safe and secure by default chat client
+WWW=		https://coy.im
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,18 +15,15 @@ LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2
 
 USES=		gnome go pkgconfig
-
 USE_GNOME=	atk cairo gdkpixbuf2 glib20 gtk30 pango
+USE_GITHUB=	yes
+GH_SUBDIR=	src/github.com/${GH_ACCOUNT}/${PORTNAME}
 
 OPTIONS_DEFINE=	NLS
 OPTIONS_SUB=	yes
 
 NLS_USES=		gettext
 NLS_CONFIGURE_ENABLE=	nls
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	coyim
-GH_SUBDIR=	src/github.com/${GH_ACCOUNT}/${PORTNAME}
 
 GO_BUILDFLAGS=	-tags ${GTK_BUILD_TAG}
 

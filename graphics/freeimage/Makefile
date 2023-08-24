@@ -1,14 +1,13 @@
-# Created by: Choe, Cheng-Dae <whitekid@gmail.com>
-
 PORTNAME=	freeimage
 PORTVERSION=	3.18.0
-PORTREVISION=	3
+PORTREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	SF/${PORTNAME}/Source%20Distribution/${PORTVERSION}
 DISTNAME=	FreeImage${PORTVERSION:S/.//g}
 
 MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	Simple C/C++ bitmap graphics library
+WWW=		http://freeimage.sourceforge.net/
 
 LICENSE=		FIPL GPLv2 GPLv3
 LICENSE_COMB=		multi
@@ -21,7 +20,9 @@ LICENSE_PERMS_FIPL=	dist-mirror pkg-mirror auto-accept
 BROKEN_mips=		fails to compile: section referenced in discarded section
 BROKEN_mips64=		fails to compile: opcode not supported on this processor: mips3 (mips3) 'madd $4,$5'
 
-USES=		dos2unix gmake zip
+USES=		cpe dos2unix gmake zip
+USE_CXXSTD=	gnu++14
+CPE_VENDOR=	${PORTNAME}_project
 DOS2UNIX_FILES=	Source/LibOpenJPEG/opj_malloc.h \
 		Source/LibRawLite/dcraw/dcraw.c \
 		Source/LibRawLite/internal/dcraw_common.cpp \

@@ -1,5 +1,3 @@
-# Created by: andreas@syndrom23.de
-
 PORTNAME=	simian
 PORTVERSION=	2.5.10
 CATEGORIES=	devel java
@@ -7,6 +5,7 @@ MASTER_SITES=	http://www.harukizaemon.com/simian/
 
 MAINTAINER=	tota@FreeBSD.org
 COMMENT=	Similarity analyser for source and other text files
+WWW=		https://www.harukizaemon.com/simian/
 
 LICENSE=	SIMIAN
 LICENSE_NAME=	SIMIAN SOFTWARE LICENSE
@@ -45,7 +44,7 @@ SUB_LIST+=	JAVA="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MMONO}
-RUN_DEPENDS+=	mono:lang/mono
+RUN_DEPENDS+=	mono:lang/mono${MONO_DEFAULT}
 PLIST_SUB+=	MONO=""
 SUB_LIST+=	MONO=""
 .else

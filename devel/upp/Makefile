@@ -1,13 +1,13 @@
-# Created by: Matthias Sund <m.sund@arcor.de>
-
 PORTNAME=	upp
 DISTVERSION=	15260
+PORTREVISION=	1
 CATEGORIES=	devel x11-toolkits
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/2020.2/
 DISTNAME=	${PORTNAME}-posix-${PORTVERSION}
 
 MAINTAINER=	m.sund@arcor.de
 COMMENT=	Ultimate++, a BSD-licensed, cross-platform, C/C++ RAD suite
+WWW=		http://upp.sourceforge.net/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/uppsrc/Core/Copying
@@ -16,7 +16,8 @@ BROKEN_powerpc=		Does not compile on ${ARCH}: error Unknown CPU architecture
 BROKEN_powerpc64=	Does not compile on ${ARCH}: error Unknown CPU architecture
 BROKEN_sparc64=		Does not compile on ${ARCH}
 
-USES=		compiler:c++14-lang pkgconfig:both tar:xz
+USES=		compiler:c++14-lang dos2unix pkgconfig:both tar:xz
+DOS2UNIX_FILES=	uppsrc/Core/config.h
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 

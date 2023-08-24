@@ -1,5 +1,3 @@
-# Created by: Josh Gilliam <josh@quick.net>
-
 PORTNAME=	aspell
 PORTVERSION=	0.60.8
 PORTREVISION=	1
@@ -9,6 +7,7 @@ MASTER_SITES=	GNU/aspell
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Spelling checker with better suggestion logic than ispell
+WWW=		http://aspell.net/
 
 LICENSE=	LGPL21
 
@@ -20,7 +19,7 @@ OPTIONS_SUB=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-dict-dir=${DATADIR}	\
 		--enable-docdir=${DOCSDIR}	\
-		--enable-curses=${NCURSES_IMPL} \
+		--enable-curses="${NCURSESLIBS}" \
 		--enable-static
 
 USE_LDCONFIG=	yes

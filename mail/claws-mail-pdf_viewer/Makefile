@@ -1,8 +1,7 @@
-# Created by: Pawel Pekala <c0rn@o2.pl>
-
 PORTNAME=	pdf_viewer
 
 COMMENT=	PDF and PostScript viewer plugin for Claws Mail
+WWW=		https://www.claws-mail.org/plugin.php?plugin=pdf_viewer
 
 LIB_DEPENDS=	libpoppler-glib.so:graphics/poppler-glib
 

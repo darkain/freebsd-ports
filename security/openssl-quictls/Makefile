@@ -1,20 +1,16 @@
-# Created by: Dirk Froemberg <dirk@FreeBSD.org>
-
 PORTNAME=	openssl
-PORTVERSION=	3.0.0.b1
+PORTVERSION=	3.0.10
 CATEGORIES=	security devel
 PKGNAMESUFFIX=	-quictls
 
 MAINTAINER=	brnrd@FreeBSD.org
 COMMENT=	QUIC capable fork of OpenSSL
+WWW=		https://www.github.com/quictls/openssl
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-CONFLICTS_INSTALL=	libressl-[0-9]* \
-			libressl-devel-[0-9]* \
-			openssl-[0-9]* \
-			openssl-devel-[0-9]*
+CONFLICTS_INSTALL=	boringssl libressl libressl-devel openssl openssl3[01]
 
 BROKEN_i386=	ld: error: undefined symbol: __atomic_is_lock_free
 
@@ -28,7 +24,7 @@ USES=		cpe perl5
 USE_PERL5=	build
 USE_GITHUB=	yes
 GH_ACCOUNT=	${PKGNAMESUFFIX:S/-//}
-GH_TAGNAME=	2204ca4a
+GH_TAGNAME=	c960369e667c985c0e95a7b071e7df0c9360cef6
 
 TEST_TARGET=	test
 
@@ -137,6 +133,8 @@ SHARED_VARS=		shlibs+="lib/libcrypto.so.${OPENSSL_SHLIBVER} \
 SSL3_CONFIGURE_ON+=	enable-ssl3-method
 ZLIB_CONFIGURE_ON=	zlib-dynamic
 
+SHLIBS=			lib/engines-${OPENSSL_SHLIBVER}/loader_attic.so
+
 .include <bsd.port.pre.mk>
 .if ${PREFIX} == /usr
 IGNORE=	the OpenSSL port can not be installed over the base version
@@ -181,5 +179,9 @@ post-install-SHARED-off:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/openssl
+
+post-install-MAN3-on:
+	( cd ${STAGEDIR}/${PREFIX} ; find man/man3 -not -type d ; \
+		find man/man7 -not -type d ) | sed 's/$$/.gz/' >> ${TMPPLIST}
 
 .include <bsd.port.post.mk>

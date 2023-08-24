@@ -1,14 +1,12 @@
-# Created by: Yoshiaki UCHIKAWA <yoshiaki@kt.rim.or.jp>
-
 PORTNAME=	pari
-DISTVERSION=	2.13.2
+DISTVERSION=	2.15.4
 PORTEPOCH=	2
 CATEGORIES=	math
-MASTER_SITES=	http://pari.math.u-bordeaux.fr/pub/pari/unix/ \
-		http://mirrors.rit.edu/zi/
+MASTER_SITES=	https://pari.math.u-bordeaux.fr/pub/pari/unix/
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Mathematics library and advanced calculator package
+WWW=		https://pari.math.u-bordeaux.fr/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -17,7 +15,7 @@ BROKEN_mips64=		fails to link: mpker.c:(.text+0x33bc): relocation truncated to f
 
 LIB_DEPENDS=	libgmp.so:math/gmp
 
-USES=		perl5 readline
+USES=		bison perl5 readline
 USE_LDCONFIG=	yes
 USE_PERL5=	build run
 HAS_CONFIGURE=	yes

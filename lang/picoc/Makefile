@@ -5,16 +5,19 @@ CATEGORIES=	lang devel
 
 MAINTAINER=	portmaster@bsdforge.com
 COMMENT=	Very small C interpreter for scripting
+WWW=		https://github.com/zsaleeba/picoc
 
 LICENSE=	BSD3CLAUSE
 
+BROKEN_aarch64=	Fails to link: missing sbrk
 BROKEN_riscv64=	Fails to link: missing sbrk
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	zsaleeba
-GH_TAGNAME= 4555e84
+GH_TAGNAME=	4555e84
 
-USES=		gmake readline
+USES=		cpe gmake readline
+CPE_VENDOR=	${PORTNAME}_project
 
 PLIST_FILES=	bin/picoc
 

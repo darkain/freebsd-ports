@@ -1,7 +1,5 @@
-# Created by: Alexander Botero-Lowry <alexbl@FreeBSD.org>
-
 PORTNAME=	magic
-PORTVERSION=	5.40
+PORTVERSION=	5.44
 CATEGORIES=	devel python
 MASTER_SITES=	https://astron.com/pub/file/ \
 		ftp://ftp.astron.com/pub/file/ \
@@ -13,6 +11,7 @@ DISTNAME=	file-${PORTVERSION}
 
 MAINTAINER=	lwhsu@FreeBSD.org
 COMMENT=	Python module for determining file type
+WWW=		https://www.darwinsys.com/file/
 
 LICENSE=	BSD2CLAUSE
 
@@ -20,7 +19,7 @@ USES=		python
 USE_PYTHON=	autoplist distutils
 
 # both install module as magic.py
-CONFLICTS=	${PYTHON_PKGNAMEPREFIX}python-magic-*
+CONFLICTS=	${PYTHON_PKGNAMEPREFIX}python-magic
 
 WRKSRC=	${WRKDIR}/file-${PORTVERSION}/python
 

@@ -1,20 +1,20 @@
---- weblayer/browser/browser_main_parts_impl.cc.orig	2021-05-12 22:06:47 UTC
+--- weblayer/browser/browser_main_parts_impl.cc.orig	2023-07-16 15:47:57 UTC
 +++ weblayer/browser/browser_main_parts_impl.cc
-@@ -77,7 +77,7 @@
- #endif
+@@ -81,7 +81,7 @@
+ 
  // TODO(crbug.com/1052397): Revisit once build flag switch of lacros-chrome is
  // complete.
--#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS))
-+#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || defined(OS_BSD))
+-#if defined(USE_AURA) && (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS))
++#if defined(USE_AURA) && (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || BUILDFLAG(IS_BSD))
  #include "ui/base/ime/init/input_method_initializer.h"
  #endif
  
-@@ -195,7 +195,7 @@ int BrowserMainPartsImpl::PreEarlyInitialization() {
+@@ -200,7 +200,7 @@ int BrowserMainPartsImpl::PreEarlyInitialization() {
  
  // TODO(crbug.com/1052397): Revisit once build flag switch of lacros-chrome is
  // complete.
--#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS))
-+#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || defined(OS_BSD))
+-#if defined(USE_AURA) && (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS))
++#if defined(USE_AURA) && (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || BUILDFLAG(IS_BSD))
    ui::InitializeInputMethodForTesting();
  #endif
- #if defined(OS_ANDROID)
+ #if BUILDFLAG(IS_ANDROID)

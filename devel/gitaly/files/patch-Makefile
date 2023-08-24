@@ -1,31 +1,19 @@
---- Makefile.orig	2021-06-17 15:17:56 UTC
+--- Makefile.orig	2023-04-21 08:04:56 UTC
 +++ Makefile
-@@ -198,7 +198,7 @@ all: INSTALL_DEST_DIR = ${SOURCE_DIR}
- all: install
- 
- .PHONY: build
--build: ${SOURCE_DIR}/.ruby-bundle libgit2
-+build: ${SOURCE_DIR}/.ruby-bundle
- 	go install ${GO_LDFLAGS} -tags "${GO_BUILD_TAGS}" $(addprefix ${GITALY_PACKAGE}/cmd/, $(call find_commands))
- 	# We use version suffix for the gitaly-git2go binary to support compatibility contract between
- 	# gitaly and gitaly-git2go during upgrade deployment.
-@@ -370,9 +370,7 @@ libgit2: ${LIBGIT2_INSTALL_DIR}/lib/libgit2.a
- # step. Both Omnibus and CNG assume it is in the Gitaly root, not in
- # _build. Hence the '../' in front.
- ${SOURCE_DIR}/.ruby-bundle: ${GITALY_RUBY_DIR}/Gemfile.lock ${GITALY_RUBY_DIR}/Gemfile
--	${Q}cd ${GITALY_RUBY_DIR} && bundle config set --local deployment "${BUNDLE_DEPLOYMENT}"
--	${Q}cd ${GITALY_RUBY_DIR} && bundle config # for debugging
--	${Q}cd ${GITALY_RUBY_DIR} && bundle install
-+	${Q}cd ${GITALY_RUBY_DIR} && rm -f Gemfile.lock && bundle install --local
- 	${Q}touch $@
- 
- ${SOURCE_DIR}/NOTICE: ${BUILD_DIR}/NOTICE
-@@ -440,7 +438,7 @@ ${TOOLS_DIR}/protoc.zip: TOOL_VERSION = ${PROTOC_VERSI
- ${TOOLS_DIR}/protoc.zip: ${TOOLS_DIR}/protoc.version
- 	${Q}if [ -z "${PROTOC_URL}" ]; then echo "Cannot generate protos on unsupported platform ${OS}" && exit 1; fi
- 	curl -o $@.tmp --silent --show-error -L ${PROTOC_URL}
--	${Q}printf '${PROTOC_HASH}  $@.tmp' | sha256sum -c -
-+	${Q}printf '${PROTOC_HASH}  $@.tmp' | sha256 -c -
- 	${Q}mv $@.tmp $@
- 
- ${PROTOC}: ${TOOLS_DIR}/protoc.zip
+@@ -573,7 +573,7 @@ ${BUILD_DIR}/bin/%: ${BUILD_DIR}/intermediate/% | ${BU
+ 	@ # This fallback is unique but non-deterministic, making it sufficient to avoid generating the
+ 	@ # GNU build-id from the empty string and causing guaranteed collisions.
+ 	${Q}GO_BUILD_ID=$$(go tool buildid "$<" || openssl rand -hex 32) && \
+-	GNU_BUILD_ID=$$(echo $$GO_BUILD_ID | sha1sum | cut -d' ' -f1) && \
++	GNU_BUILD_ID=$$(echo $$GO_BUILD_ID | sha1 | cut -d' ' -f1) && \
+ 	if test "${OS}" = "Linux"; then \
+ 		go run "${SOURCE_DIR}"/tools/replace-buildid \
+ 			-input "$<" -input-build-id "${TEMPORARY_BUILD_ID}" \
+@@ -599,7 +599,6 @@ ${BUILD_DIR}/intermediate/gitaly:            GO_BUILD_
+ ${BUILD_DIR}/intermediate/gitaly:            remove-legacy-go-mod ${GITALY_PACKED_EXECUTABLES}
+ ${BUILD_DIR}/intermediate/praefect:          GO_BUILD_TAGS = ${SERVER_BUILD_TAGS}
+ ${BUILD_DIR}/intermediate/gitaly-git2go:     GO_BUILD_TAGS = ${GIT2GO_BUILD_TAGS}
+-${BUILD_DIR}/intermediate/gitaly-git2go:     libgit2
+ ${BUILD_DIR}/intermediate/%:                 clear-go-build-cache-if-needed .FORCE
+ 	@ # We're building intermediate binaries first which contain a fixed build ID
+ 	@ # of "TEMP_GITALY_BUILD_ID". In the final binary we replace this build ID with

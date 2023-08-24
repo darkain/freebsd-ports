@@ -1,17 +1,19 @@
-# Created by: will
-
 PORTNAME=	pngcheck
-PORTVERSION=	3.0.2
+PORTVERSION=	3.0.3
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.libpng.org/pub/png/src/ \
 		https://www.cyberbotx.com/pngcheck/
 
 MAINTAINER=	cyberbotx@cyberbotx.com
 COMMENT=	Checks the integrity of PNG images
+WWW=		http://www.libpng.org/pub/png/apps/pngcheck.html
 
 LICENSE=	GPLv2+ MIT
 LICENSE_COMB=	multi
 LICENSE_FILE_GPLv2+ =	${WRKSRC}/gpl/COPYING
+
+USES=		cpe
+CPE_VENDOR=	libpng
 
 MAKEFILE=	Makefile.unx
 MAKE_ARGS=	CC="${CC}" LD="${CC}" CFLAGS="${CFLAGS} -DUSE_ZLIB" LIBS="-lz"

@@ -1,11 +1,12 @@
 PORTNAME=	prodigal
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.6.3-7
-DISTVERSIONSUFFIX=	-ga78ed3f
+DISTVERSION=	2.6.3-16
+DISTVERSIONSUFFIX=	-gc1e2d36
 CATEGORIES=	biology
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Protein-coding gene prediction for prokaryotic genomes
+WWW=		https://github.com/hyattpd/Prodigal
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE

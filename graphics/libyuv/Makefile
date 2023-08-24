@@ -1,4 +1,3 @@
-# Created by: Corey Smith <corsmith@gmail.com>
 #
 # To update the port:
 # The stable libyuv version follows the chromium browser:
@@ -10,7 +9,8 @@
 #  -> #define LIBYUV_VERSION 1741
 
 PORTNAME=	libyuv
-DISTVERSION=	0.0.1767
+DISTVERSION=	0.0.1789
+PORTREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	LOCAL/mikael/libyuv/:libyuv \
 		LOCAL/tcberner/libyuv/:libyuv
@@ -18,6 +18,7 @@ DISTFILES=	libyuv-${LIBYUV_HASH}.tar.gz:libyuv
 
 MAINTAINER=	corsmith@gmail.com
 COMMENT=	Library for freeswitch yuv graphics manipulation
+WWW=		https://chromium.googlesource.com/libyuv/libyuv/
 
 LICENSE=	BSD3CLAUSE
 
@@ -26,7 +27,13 @@ USE_LDCONFIG=	yes
 SUB_FILES=	libyuv.pc
 SUB_LIST=	DISTVERSION=${DISTVERSION}
 
-LIBYUV_HASH=	f014dbd87ab06258569ad10a4cb6f84a8a7f7dd2
+LIBYUV_HASH=	0896c34873e83ca3d1690286a94e278a81d0a760
+
+OPTIONS_DEFINE=	JPEG
+OPTIONS_DEFAULT=JPEG
+
+JPEG_USES=		jpeg
+JPEG_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_JPEG
 
 # sha256 changes everytime you download the archive, need to host it on freefall
 # To download the distfile: as mikael: make MAINTAINER_MODE=yes fetch

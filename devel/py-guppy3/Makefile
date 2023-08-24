@@ -1,20 +1,19 @@
-# Created by: thierry@pompo.net
-
 PORTNAME=	guppy3
-PORTVERSION=	3.1.1
+PORTVERSION=	3.1.3
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Python Programming Environment & Heap analysis toolset
+WWW=		https://github.com/zhuyifei1999/guppy3/
 
 LICENSE=	MIT
 
 #USE_GITHUB=	yes
 #GH_ACCOUNT=	zhuyifei1999
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	cython distutils
 
 .if ! defined(WITH_DEBUG)

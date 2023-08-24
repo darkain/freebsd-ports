@@ -1,8 +1,6 @@
-# Created by: Lev Serebryakov <lev@serebryakov.spb.ru>
-
 PORTNAME=	gcc
 PORTVERSION=	${GCCVERSION}
-PORTREVISION=	5
+PORTREVISION=	6
 PORTEPOCH=	1
 CATEGORIES=	devel
 MASTER_SITES=	GCC
@@ -10,6 +8,7 @@ PKGNAMEPREFIX=	mingw32-
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	FSF gcc-4 for Windows cross-development
+WWW=		https://www.mingw.org/
 
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
@@ -30,7 +29,8 @@ SSP_UNSAFE=	yes
 
 ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 sparc64
 USE_LDCONFIG=	yes
-USES=		bison iconv gmake libtool makeinfo perl5 tar:bzip2
+USES=		bison cpe iconv gmake libtool makeinfo perl5 tar:bzip2
+CPE_VENDOR=	gnu
 USE_PERL5=	build
 
 GCC_TARG=	${PKGNAMEPREFIX:S/-$//}
@@ -82,6 +82,11 @@ INFO=		cpp cppinternals gcc gccinstall gccint gfortran
 INFO+=		libquadmath
 .endif
 INSTALL_TARGET=	install-strip
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+CPPFLAGS+=  -Wno-error=increment-bool \
+			-Dregister=
+.endif
 
 post-patch:
 	${REINPLACE_CMD} -e "s,# include <sys/sysctl.h>,," \

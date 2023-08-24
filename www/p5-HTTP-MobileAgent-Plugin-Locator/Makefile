@@ -5,8 +5,9 @@ CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Mobile location information plugin for p5-HTTP-MobileAgent
+WWW=		https://metacpan.org/release/HTTP-MobileAgent-Plugin-Locator
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
 RUN_DEPENDS=	\

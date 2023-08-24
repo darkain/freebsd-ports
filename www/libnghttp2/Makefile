@@ -1,18 +1,19 @@
-# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	nghttp2
-PORTVERSION=	1.43.0
+PORTVERSION=	1.55.1
+PORTREVISION=	1
 CATEGORIES=	www net
 MASTER_SITES=	https://github.com/nghttp2/nghttp2/releases/download/v${PORTVERSION}/
 PKGNAMEPREFIX=	lib
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	HTTP/2.0 C Library
+WWW=		https://nghttp2.org/ \
+		https://github.com/nghttp2/nghttp2
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		compiler:c++14-lang libtool pathfix pkgconfig tar:xz
+USES=		compiler:c++14-lang cpe libtool pathfix pkgconfig tar:xz
 
 CONFIGURE_ARGS=	--enable-lib-only
 GNU_CONFIGURE=	yes

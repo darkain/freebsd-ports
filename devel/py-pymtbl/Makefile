@@ -7,13 +7,14 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	truckman@FreeBSD.org
 COMMENT=	Python wrapper for devel/mtbl
+WWW=		https://github.com/farsightsec/pymtbl
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
 LIB_DEPENDS=	libmtbl.so:devel/mtbl
 
-USES=		pkgconfig python:3.6+ shebangfix uniquefiles:dirs
+USES=		pkgconfig python shebangfix uniquefiles:dirs
 USE_PYTHON=	autoplist cython distutils
 
 SHEBANG_FILES=	examples/*.py examples/*/*.py

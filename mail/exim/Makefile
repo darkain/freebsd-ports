@@ -1,8 +1,6 @@
-# Created by: markm@FreeBSD.org
-
 PORTNAME=	exim
 PORTVERSION?=	${EXIM_VERSION}
-PORTREVISION?=	0
+PORTREVISION?=	1
 CATEGORIES=	mail
 MASTER_SITES=	EXIM:exim
 MASTER_SITE_SUBDIR=	/exim4/:exim \
@@ -15,6 +13,7 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	fluffy@FreeBSD.org
 COMMENT?=	High performance MTA for Unix systems on the Internet
+WWW=		https://www.exim.org/
 
 LICENSE=	GPLv2
 
@@ -55,7 +54,7 @@ ICONV_USES=	iconv:lib,build
 INTERNATIONAL_LIB_DEPENDS=	libidn.so:dns/libidn
 LMDB_LIB_DEPENDS=	liblmdb.so:databases/lmdb
 MYSQL_USES=	mysql
-OPENLDAP_USE=	openldap=yes
+OPENLDAP_USES=	ldap
 PGSQL_LIB_DEPENDS=	libicudata.so:devel/icu
 PGSQL_USES=	pgsql pkgconfig
 REDIS_LIB_DEPENDS=	libhiredis.so:databases/hiredis
@@ -65,32 +64,32 @@ SPF_LIB_DEPENDS=	libspf2.so:mail/libspf2
 SQLITE_LIB_DEPENDS=	libicudata.so:devel/icu
 SQLITE_USES=	pkgconfig sqlite
 
-TAINTWARN_PATCHES_PREFIX=	${FILESDIR}/debian/75
-TAINTWARN_EXTRA_PATCHES= \
-		${TAINTWARN_PATCHES_PREFIX}_01-Introduce-main-config-option-allow_insecure_tainted_.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_02-search.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_03-dbstuff.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_04-acl.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_05-parse.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_06-rda.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_07-appendfile.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_08-autoreply.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_09-pipe.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_10-deliver.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_11-directory.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_12-expand.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_13-lf_sqlperform.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_14-rf_get_transport.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_15-deliver.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_16-smtp_out.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_17-smtp.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_18-update-doc.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_20-Set-mainlog_name-and-rejectlog_name-unconditionally.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_21-tidy-log.c.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_22-Silence-compiler.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_23-Do-not-close-the-main-_log-if-we-do-not-see-a-chance.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_24-Silence-the-compiler.patch:-p1 \
-		${TAINTWARN_PATCHES_PREFIX}_26-Disable-taintchecks-for-mkdir-this-isn-t-part-of-4.9.patch:-p1
+DEBIAN_PATCHES_PREFIX=	${FILESDIR}/debian/75
+EXTRA_PATCHES= \
+		${DEBIAN_PATCHES_PREFIX}_01-Fix-exit-on-attempt-to-rewrite-a-malformed-address.-.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_05-SPF-fix-memory-accounting-for-error-case.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_08-Fix-regex-n-use-after-free.-Bug-2915.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_09-Fix-non-WITH_CONTENT_SCAN-build.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_10-Fix-non-WITH_CONTENT_SCAN-build-2.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_11-Fix-non-WITH_CONTENT_SCAN-build-3.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_16-GnuTLS-fix-for-clients-offering-no-TLS-extensions.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_18-Fix-Build-with-libopendmarc-1.4.x-fixes-2728.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_19-DMARC-fix-use-after-free-in-dmarc_dns_lookup.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_22-Fix-daemon-startup.-Bug-2930.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_23-Fix-reccipients-after-run.-.-Bug-2929.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_31-Fix-regext-substring-capture-variables-for-null-matc.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_32-Fix-regex-substring-capture-variables-for-null-match.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_34-Fix-regex-substring-capture-commentary.-Bug-2933.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_37-OpenSSL-when-preloading-creds-do-the-server-certs-be.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_38-OpenSSL-fix-double-expansion-of-tls_verify_certifica.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_50-Fix-logging-of-max-size-log-line.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_55-Fix-recursion-on-dns_again_means_nonexist.-Bug-2911.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_58-Close-server-smtp-socket-explicitly-on-connect-ACL-d.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_60-OpenSSL-fix-tls_eccurve-setting-explicit-curve-group.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_62-OpenSSL-Fix-tls_eccurve-on-earlier-versions-than-3.0.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_63-OpenSSL-log-conns-rejected-for-bad-ALPN-with-the-off.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_64-DANE-do-not-check-dns_again_means_nonexist-for-TLSA-.patch:-p1 \
+		${DEBIAN_PATCHES_PREFIX}_66-Fix-crash-in-expansions.patch:-p1
 
 .include <bsd.port.options.mk>
 
@@ -131,7 +130,7 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-Local-sa-exim.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-Local-sa-exim.conf
 .endif
 
-EXIM_VERSION=	4.94.2
+EXIM_VERSION=	4.96
 SA_EXIM_VERSION=4.2.1
 EXIM_INSTALL_ARG+=	"-no_chown" "-no_symlink"
 EXTRA_PATCHES+=	`${FIND} ${PATCHDIR} -name '74_*.patch'|${SORT} -h`
@@ -221,7 +220,7 @@ WITH_DEFAULT_CHARSET?=	ISO-8859-1
 
 # You should not need to fiddle with anything below this point.
 
-LIB_DEPENDS+=	libpcre.so:devel/pcre
+LIB_DEPENDS+=	libpcre2-posix.so:devel/pcre2
 
 .if ! ${PORT_OPTIONS:MDKIM}
 SEDLIST+=	-e 's,^\# (DISABLE_DKIM=),\1,'
@@ -283,10 +282,10 @@ SEDLIST+=	-e 's,^\# (DISABLE_DNSSEC=),\1,'
 .endif
 
 .if ${PORT_OPTIONS:MDMARC}
-SEDLIST+= -e 's,XX_DMARC_LIBS_XX,-L${LOCALBASE}/lib -lopendmarc,' \
+SEDLIST+=	-e 's,XX_DMARC_LIBS_XX,-L${LOCALBASE}/lib -lopendmarc,' \
 		-e 's,^\# (SUPPORT_DMARC=),\1,'
 .else
-SEDLIST+= -e 's,XX_DMARC_LIBS_XX,,'
+SEDLIST+=	-e 's,XX_DMARC_LIBS_XX,,'
 .endif
 
 .if ${PORT_OPTIONS:MWISHLIST}
@@ -306,6 +305,8 @@ SEDLIST+=	-e 's,^\# (EXIM_MONITOR=),\1,'
 USES+=		ssl
 SEDLIST+=	-e 's,^\# (USE_OPENSSL=),\1,'
 SEDLIST+=	-e 's,^\# (TLS_LIBS=.*-lssl[[:space:]]),\1,'
+BROKEN_SSL=	openssl31
+BROKEN_SSL_REASON=	error: token is not a valid binary operator in a preprocessor subexpression
 .else
 SEDLIST+=	-e 's,^\# (USE_GNUTLS=),\1,'
 SEDLIST+=	-e 's,^\# (TLS_LIBS=.*-lgnutls[[:space:]]),\1,'
@@ -332,10 +333,6 @@ SEDLIST+=	-e 's,XX_ICONV_LIBS_XX,-L${LOCALBASE:S/,/\\,/g}/lib ${ICONV_LIB},' \
 SEDLIST+=	-e 's,XX_ICONV_LIBS_XX,,'
 .endif
 
-.if ${PORT_OPTIONS:MOPENLDAP_VER} && ${WITH_OPENLDAP_VER:tl} != "auto"
-WANT_OPENLDAP_VER=	${WITH_OPENLDAP_VER}
-.endif
-
 .if ${PORT_OPTIONS:MOPENLDAP}
 LDAP_LIB_TYPE=	OPENLDAP2
 SEDLIST+=	-e 's,XX_LDAP_LIBS_XX,-L${LOCALBASE:S/,/\\,/g}/lib -llber -lldap,' \
@@ -348,7 +345,7 @@ SEDLIST+=	-e 's,XX_LDAP_[^ ]*_XX,,' \
 .endif
 
 .if ${PORT_OPTIONS:MBDB}
-INVALID_BDB_VER=	2 3
+INVALID_BDB_VER=	2 3 6 18
 DB_LIBS=	-L${BDB_LIB_DIR} -l${BDB_LIB_NAME}
 DB_INCLUDES=	-I${BDB_INCLUDE_DIR}
 .else
@@ -409,6 +406,10 @@ SEDLIST+=	-e 's,^\# (AUTH_SPA=),\1,'
 .if ${PORT_OPTIONS:MAUTH_SASL}
 SEDLIST+=	-e 's,^\# (AUTH_CYRUS_SASL=),\1,' \
 		-e 's,^\# (AUTH_LIBS=.*-lsasl2),\1,'
+.endif
+
+.if ${PORT_OPTIONS:MAUTH_TLS}
+SEDLIST+=	-e 's,^\# (AUTH_TLS=),\1,'
 .endif
 
 .if ${PORT_OPTIONS:MAUTH_RADIUS}
@@ -514,9 +515,8 @@ SEDLIST+=	-e 's,XX_SPF_FLAGS_XX,,' \
 .endif
 
 .if ${PORT_OPTIONS:MSRS}
-LIB_DEPENDS+=	libsrs_alt.so:mail/libsrs_alt
-SEDLIST+=	-e 's,XX_SRS_FLAGS_XX,-DEXPERIMENTAL_SRS,' \
-		-e 's,XX_SRS_LIBS_XX,-L${LOCALBASE}/lib -lsrs_alt,'
+SEDLIST+=	-e 's,XX_SRS_FLAGS_XX,-DSUPPORT_SRS,' \
+		-e 's,XX_SRS_LIBS_XX,,'
 .else
 SEDLIST+=	-e 's,XX_SRS_FLAGS_XX,,' \
 		-e 's,XX_SRS_LIBS_XX,,'
@@ -615,8 +615,6 @@ do-configure:
 	@${REINPLACE_CMD} -e 's,/usr/bin/spamc,${LOCALBASE}/bin/spamc,' \
 	    ${WRKSRC}/Local/sa-exim.conf
 .endif
-	@${REINPLACE_CMD} -E -e 's/XX_STRIPCMD_XX/${STRIP_CMD:S,/,\/,g}/' \
-		${WRKSRC}/OS/Makefile-FreeBSD
 	@(cd ${WRKSRC}; ${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} configure)
 
 post-build:

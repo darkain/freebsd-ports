@@ -1,14 +1,13 @@
-# Created by: Kris Moore
-
 PORTNAME=	kmplayer
 PORTVERSION=	0.12.0b
-PORTREVISION=	5
+PORTREVISION=	7
 PORTEPOCH=	3
 CATEGORIES=	multimedia audio kde
 MASTER_SITES=	KDE/stable/${PORTNAME}/${PORTVERSION:R}
 
 MAINTAINER=	jhale@FreeBSD.org
 COMMENT=	KDE frontend to Phonon / KDE5
+WWW=		https://kmplayer.kde.org/
 
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	multi
@@ -29,18 +28,18 @@ LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libxcb-util.so:x11/xcb-util
 RUN_DEPENDS=	mplayer:multimedia/mplayer
 
-USES=		cmake compiler:c++11-lang desktop-file-utils gettext-runtime \
+USES=		cmake compiler:c++11-lang cpe desktop-file-utils gettext-runtime \
 		gnome kde:5 pkgconfig qt:5 tar:bz2 xorg
 USE_GNOME=	cairo gdkpixbuf2 gtk20
 USE_QT=		concurrent core dbus gui network phonon4 printsupport \
 		svg widgets x11extras xml \
-		buildtools_build qmake_build
+		buildtools:build qmake:build
 USE_KDE=	auth bookmarks codecs completion config configwidgets \
 		coreaddons crash ecm guiaddons i18n iconthemes init itemviews \
 		jobwidgets mediaplayer notifications parts service \
 		textwidgets unitconversion widgetsaddons windowsystem \
 		xmlgui kdelibs4support kio solid sonnet \
-		doctools_build
+		doctools:build
 USE_XORG=	x11 xcb
 
 .include <bsd.port.mk>

@@ -1,12 +1,11 @@
-# Created by: Edward Tomasz Napierala <trasz@FreeBSD.org>
-
 PORTNAME=	objecthash
 PORTVERSION=	20160802
-PORTREVISION=	14
+PORTREVISION=	18
 CATEGORIES=	devel
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Cross-language way to cryptographically hash JSON objects
+WWW=		https://github.com/benlaurie/objecthash
 
 LICENSE=	APACHE20
 
@@ -16,7 +15,6 @@ LIB_DEPENDS=	libicudata.so:devel/icu \
 USES=		pkgconfig ssl
 USE_GITHUB=	yes
 GH_ACCOUNT=	benlaurie
-GH_PROJECT=	objecthash
 GH_TAGNAME=	770874c
 
 USE_LDCONFIG=	yes

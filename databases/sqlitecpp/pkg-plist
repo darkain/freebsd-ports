@@ -5,6 +5,7 @@ include/SQLiteCpp/Database.h
 include/SQLiteCpp/Exception.h
 include/SQLiteCpp/ExecuteMany.h
 include/SQLiteCpp/SQLiteCpp.h
+include/SQLiteCpp/SQLiteCppExport.h
 include/SQLiteCpp/Savepoint.h
 include/SQLiteCpp/Statement.h
 include/SQLiteCpp/Transaction.h
@@ -16,3 +17,4 @@ lib/cmake/SQLiteCpp/SQLiteCppTargets-%%CMAKE_BUILD_TYPE%%.cmake
 lib/cmake/SQLiteCpp/SQLiteCppTargets.cmake
 lib/libSQLiteCpp.so
 lib/libSQLiteCpp.so.0
+share/SQLiteCpp/package.xml

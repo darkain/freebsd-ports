@@ -1,12 +1,13 @@
 PORTNAME=	libtommath
 DISTVERSION=	1.2.0
-PORTREVISION=	0
+PORTREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	https://github.com/libtom/libtommath/releases/download/v${DISTVERSION}/
 DISTNAME=	ltm-${DISTVERSION}
 
 MAINTAINER=	gahr@FreeBSD.org
 COMMENT=	Comprehensive, modular, and portable mathematical routines
+WWW=		https://libtom.net/
 
 LICENSE=	UNLICENSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

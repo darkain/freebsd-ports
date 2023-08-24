@@ -1,5 +1,3 @@
-# Created by: Martin Matuska <mm@FreeBSD.org>
-
 PORTNAME=	httest
 PORTVERSION=	2.4.24
 CATEGORIES=	www
@@ -7,6 +5,7 @@ MASTER_SITES=	SF/htt/htt${PORTVERSION:R}/${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	HTTP Test Tool
+WWW=		http://htt.sourceforge.net/
 
 LICENSE=	APACHE20
 
@@ -16,7 +15,7 @@ LIB_DEPENDS=	libexpat.so:textproc/expat2 \
 		libpcre.so:devel/pcre \
 		libapr-1.so:devel/apr1
 
-USES=		iconv lua libtool bdb ssl
+USES=		iconv lua:-52 libtool bdb ssl
 USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
@@ -37,12 +36,6 @@ INSTALL_TARGET=	install-strip
 
 MAKE_JOBS_UNSAFE=	yes
 
-.include <bsd.port.pre.mk>
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200085 && ${SSL_DEFAULT} == base
-BROKEN=	requires OpenSSL 1.1.1, upgrade to FreeBSD 12.x/13.x or add DEFAULT_VERSIONS+=ssl=openssl to /etc/make.conf
-.endif
-
 post-patch:
 	@${REINPLACE_CMD} -e 's|`$$APR_CONFIG --cflags`||; s|-llua|-llua-${LUA_VER}|g' ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|' ${WRKSRC}/generate_modules_c.sh
@@ -53,4 +46,4 @@ post-install:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	${INSTALL_DATA} ${WRKSRC}/examples/*.htt ${STAGEDIR}${EXAMPLESDIR}
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

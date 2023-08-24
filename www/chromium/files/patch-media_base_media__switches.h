@@ -1,15 +1,20 @@
---- media/base/media_switches.h.orig	2021-05-12 22:05:55 UTC
+--- media/base/media_switches.h.orig	2023-08-17 07:33:31 UTC
 +++ media/base/media_switches.h
-@@ -179,10 +179,10 @@ MEDIA_EXPORT extern const base::Feature kUseFakeDevice
- MEDIA_EXPORT extern const base::Feature kUseMediaHistoryStore;
- MEDIA_EXPORT extern const base::Feature kUseR16Texture;
- MEDIA_EXPORT extern const base::Feature kUseSodaForLiveCaption;
--#if defined(OS_LINUX)
-+#if defined(OS_LINUX) || defined(OS_BSD)
- MEDIA_EXPORT extern const base::Feature kVaapiVideoDecodeLinux;
- MEDIA_EXPORT extern const base::Feature kVaapiVideoEncodeLinux;
--#endif  // defined(OS_LINUX)
-+#endif  // defined(OS_LINUX) || defined(OS_BSD)
- MEDIA_EXPORT extern const base::Feature kVaapiAV1Decoder;
- MEDIA_EXPORT extern const base::Feature kVaapiLowPowerEncoderGen9x;
- MEDIA_EXPORT extern const base::Feature kVaapiEnforceVideoMinMaxResolution;
+@@ -300,7 +300,7 @@ MEDIA_EXPORT BASE_DECLARE_FEATURE(kUseDecoderStreamFor
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kUseFakeDeviceForMediaStream);
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kUseMediaHistoryStore);
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kUseR16Texture);
+-#if BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kVaapiVideoDecodeLinux);
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kVaapiVideoDecodeLinuxGL);
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kVaapiVideoEncodeLinux);
+@@ -436,7 +436,7 @@ MEDIA_EXPORT BASE_DECLARE_FEATURE(kExposeOutOfProcessV
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kUseOutOfProcessVideoDecoding);
+ #endif  // BUILDFLAG(ALLOW_OOP_VIDEO_DECODER)
+ 
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kUseOutOfProcessVideoEncoding);
+ #endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
+ 

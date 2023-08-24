@@ -1,11 +1,11 @@
 PORTNAME=	fossology
-PORTVERSION=	3.10.0
-PORTREVISION=	1
+PORTVERSION=	4.2.1
 CATEGORIES=	devel
 PKGNAMESUFFIX=	-nomos-standalone
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Standalone Nomos license scanner from fossology project
+WWW=		https://www.fossology.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -27,5 +27,8 @@ PLIST_FILES=	bin/nomossa
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/nomos/agent/nomossa ${STAGEDIR}${PREFIX}/bin
+
+do-test:
+	@${STAGEDIR}${PREFIX}/bin/nomossa ${WRKSRC}/src/nomos/agent/nomos.c | ${GREP} GPL-2.0
 
 .include <bsd.port.mk>

@@ -1,17 +1,21 @@
 PORTNAME=	datadog-agent
 DISTVERSION=	7.24.1
+PORTREVISION=	13
 CATEGORIES=	sysutils net www
 
 MAINTAINER=	uros@gruber.si
 COMMENT=	Datadog Agent: collect metrics and events from your systems and apps
+WWW=		https://www.datadoghq.com/
 
 LICENSE=	BSD4CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	cmake>=3.12:devel/cmake \
+BROKEN_i386=	fails to build: vendor/github.com/DataDog/gopsutil/process/process_freebsd.go:95:9: cannot use k.Start.Sec * 1000 (value of type int32) as type int64 in return statement
+
+BUILD_DEPENDS=	cmake-core>=3.12:devel/cmake-core \
 		go-bindata>0:devel/go-bindata
 
-USES=		go:modules python:3.7+
+USES=		go:modules python
 
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
@@ -313,10 +317,11 @@ APM_ALL_TARGET=		./cmd/trace-agent
 PROCESS_ALL_TARGET=	./cmd/process-agent
 DOGSTATSD_ALL_TARGET=	./cmd/dogstatsd
 GO_TARGET=	${ALL_TARGET}
+NO_CCACHE=		yes
 
 USE_RC_SUBR=	${PORTNAME}
 
-CGO_CFLAGS=	-w -I${WRKSRC}/rtloader/include -I${WRKSRC}/rtloader/common
+CGO_CFLAGS=	-w -I. -I${WRKSRC}/rtloader/include -I${WRKSRC}/rtloader/common
 CGO_LDFLAGS=	-L${WRKSRC}/rtloader/rtloader
 GO_BUILDFLAGS=	-tags '${AGENT_BUILD_TAGS}' \
     -ldflags="-s -X 'github.com/DataDog/${GH_PROJECT}/pkg/version.AgentVersion=${DISTVERSION}' -X 'github.com/DataDog/${GH_PROJECT}/pkg/config.DefaultPython=3'"
@@ -355,20 +360,20 @@ pre-build:
 		${MAKE_CMD} -C .)
 
 # Generate go source from templates
-	${SETENV} ${GO_ENV} GOCACHE=${TMPDIR} GO111MODULE=off GOFLAGS="-mod=vendor" ${GO_CMD} generate ${WRKSRC}/pkg/status/render.go
-	${SETENV} ${GO_ENV} GOCACHE=${TMPDIR} GO111MODULE=off GOFLAGS="-mod=vendor" ${GO_CMD} generate ${WRKSRC}/cmd/agent/gui/gui.go
+	${SETENV} ${MAKE_ENV} ${GO_ENV} GOCACHE=${TMPDIR} GO111MODULE=off GOFLAGS="-mod=vendor" ${GO_CMD} generate ${WRKSRC}/pkg/status/render.go
+	${SETENV} ${MAKE_ENV} ${GO_ENV} GOCACHE=${TMPDIR} GO111MODULE=off GOFLAGS="-mod=vendor" ${GO_CMD} generate ${WRKSRC}/cmd/agent/gui/gui.go
 
 post-build:
 # Generate config files
-	${SETENV} ${GO_ENV} GOCACHE=${TMPDIR} ${GO_CMD} run ${WRKSRC}/pkg/config/render_config.go agent-py3 \
+	${SETENV} ${MAKE_ENV} ${GO_ENV} GOCACHE=${TMPDIR} ${GO_CMD} run ${WRKSRC}/pkg/config/render_config.go agent-py3 \
 		${WRKSRC}/pkg/config/config_template.yaml \
 		${WRKSRC}/cmd/agent/dist/datadog.yaml
 
-	${SETENV} ${GO_ENV} GOCACHE=${TMPDIR} ${GO_CMD} run ${WRKSRC}/pkg/config/render_config.go system-probe \
+	${SETENV} ${MAKE_ENV} ${GO_ENV} GOCACHE=${TMPDIR} ${GO_CMD} run ${WRKSRC}/pkg/config/render_config.go system-probe \
 		${WRKSRC}/pkg/config/config_template.yaml \
 		${WRKSRC}/cmd/agent/dist/system-probe.yaml
 
-	${SETENV} ${GO_ENV} GOCACHE=${TMPDIR} ${GO_CMD} run ${WRKSRC}/pkg/config/render_config.go dogstatsd \
+	${SETENV} ${MAKE_ENV} ${GO_ENV} GOCACHE=${TMPDIR} ${GO_CMD} run ${WRKSRC}/pkg/config/render_config.go dogstatsd \
 		${WRKSRC}/pkg/config/config_template.yaml \
 		${WRKSRC}/cmd/agent/dist/dogstatsd.yaml
 

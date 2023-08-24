@@ -1,13 +1,13 @@
-# Created by: Matthias Petermann <matthias@petermann-it.de>
-
 PORTNAME=	elementary
-PORTVERSION=	0.15.2
+PORTVERSION=	0.17
 DISTVERSIONPREFIX=v
+PORTREVISION=	1
 CATEGORIES=	x11-themes xfce
 PKGNAMEPREFIX=	xfce-icons-
 
 MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	Elementary icons, extended and maintained for Xfce
+WWW=		https://github.com/shimmerproject/elementary-xfce
 
 LICENSE=	GPLv2
 
@@ -23,7 +23,6 @@ GH_ACCOUNT=	shimmerproject
 GH_PROJECT=	elementary-xfce
 
 NO_ARCH=	yes
-INSTALLS_ICONS=	yes
 
 post-patch:
 	${REINPLACE_CMD} -e 's|\/$$(PREFIX)|$$(PREFIX)|g' \

@@ -9,20 +9,24 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Mailing list archiver
+WWW=		http://lurker.sourceforge.net/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-MIMELIB_VERSION=	3.1.1
-
 USES=		iconv localbase
+USE_CXXSTD=	c++14
+
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-mimelib-local \
 		--with-default-www-dir=${PREFIX}/www/lurker \
 		--with-cgi-bin-dir=${PREFIX}/www/lurker
+
 PLIST_SUB=	WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 
 OPTIONS_DEFINE=	DOCS
+
+MIMELIB_VERSION=	3.1.1
 
 post-extract:
 	@cd ${WRKSRC} && ${TAR} ${EXTRACT_BEFORE_ARGS} \

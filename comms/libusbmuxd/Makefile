@@ -5,6 +5,7 @@ MASTER_SITES=	https://github.com/libimobiledevice/${PORTNAME}/releases/download/
 
 MAINTAINER=	jhale@FreeBSD.org
 COMMENT=	Communication interface library for usbmuxd
+WWW=		https://www.libimobiledevice.org
 
 LICENSE=	LGPL21+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -13,7 +14,8 @@ LIB_DEPENDS=	libplist-2.0.so:devel/libplist
 
 CONFLICTS_INSTALL=usbmuxd-1.0.[6-8]
 
-USES=		libtool pathfix pkgconfig tar:bzip2
+USES=		cpe libtool pathfix pkgconfig tar:bzip2
+CPE_VENDOR=	libimobiledevice
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 USE_LDCONFIG=	yes

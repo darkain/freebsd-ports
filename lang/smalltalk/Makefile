@@ -1,13 +1,14 @@
-# Created by: gpalmer
-
 PORTNAME=	smalltalk
 PORTVERSION=	3.2.5
-PORTREVISION=	16
+PORTREVISION=	17
 CATEGORIES=	lang
 MASTER_SITES=	GNU
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	GNU Smalltalk
+WWW=		https://smalltalk.gnu.org/
+
+LICENSE=	GPLv2+
 
 BROKEN_aarch64=		Fails to link: undefined reference to sbrk
 BROKEN_powerpc64=	Fails to build: gst-package: did not understand #~
@@ -40,6 +41,8 @@ sed_OLD_CMD=	/bin/sed
 sed_CMD=	${SED}
 SHEBANG_FILES=	packages/vfs/deb packages/vfs/mailfs \
 		examples/pepe.sed examples/xml.sed
+TEST_TARGET=	check
+
 PLIST_SUB=	VERSION="${PORTVERSION}"
 PORTDATA=	*
 
@@ -59,6 +62,8 @@ post-patch:
 	@${REINPLACE_CMD} -e 's/lrintl (truncl/lroundl (truncl/' \
 		${WRKSRC}/libgst/prims.def \
 		${WRKSRC}/libgst/prims.inl
+	@${REINPLACE_CMD} -e '/^gst_SkippedEntityHandler/,+1s/)/, int)/' \
+		${WRKSRC}/packages/xml/expat/expat.c
 	@${REINPLACE_CMD} -e '/^ac_include/s/\\$$/#include <wctype.h> \\/' \
 		${WRKSRC}/snprintfv/configure
 

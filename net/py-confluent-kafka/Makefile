@@ -1,18 +1,19 @@
 PORTNAME=	confluent-kafka
 DISTVERSION=	1.2.0
 CATEGORIES=	net python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sergey@akhmatov.ru
 COMMENT=	Confluent Apache Kafka Python client
+WWW=		https://github.com/confluentinc/confluent-kafka-python
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 LIB_DEPENDS=	librdkafka.so:net/librdkafka
 
-USES=		localbase python:3.6+
+USES=		localbase python
 USE_PYTHON=	autoplist distutils
 
 post-install:

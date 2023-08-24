@@ -1,12 +1,11 @@
-# Created by: Kyle Evans <kevans@FreeBSD.org>
-
 PORTNAME=	zdoom
 PORTVERSION=	2.8.1
-PORTREVISION=	6
+PORTREVISION=	11
 CATEGORIES=	games
 
 MAINTAINER=	kevans@FreeBSD.org
 COMMENT=	Source port for Doom-engine games
+WWW=		https://www.zdoom.org/
 
 LICENSE=	DOOM
 LICENSE_NAME=	Limited Use Software License Agreement
@@ -46,6 +45,11 @@ FLUIDSYNTH_LIB_DEPENDS=	libfluidsynth.so:audio/fluidsynth
 FLUIDSYNTH_CMAKE_BOOL=	WITH_FLUIDSYNTH
 
 .include "${.CURDIR}/../doom-data/Makefile.include"
+.include <bsd.port.options.mk>
+
+.if ${ARCH} != amd64 && ${ARCH} != i386
+CMAKE_ARGS+=	-DNO_ASM:BOOL=ON
+.endif
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}

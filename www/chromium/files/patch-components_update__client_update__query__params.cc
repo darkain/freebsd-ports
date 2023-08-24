@@ -1,8 +1,8 @@
---- components/update_client/update_query_params.cc.orig	2021-04-14 18:41:02 UTC
+--- components/update_client/update_query_params.cc.orig	2023-07-16 15:47:57 UTC
 +++ components/update_client/update_query_params.cc
-@@ -40,6 +40,8 @@ const char kOs[] =
+@@ -42,6 +42,8 @@ const char kOs[] =
      "fuchsia";
- #elif defined(OS_OPENBSD)
+ #elif BUILDFLAG(IS_OPENBSD)
      "openbsd";
 +#elif defined(OS_FREEBSD)
 +    "freebsd";

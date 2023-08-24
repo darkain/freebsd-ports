@@ -1,5 +1,5 @@
 PORTNAME=	commons-lang3
-PORTVERSION=	3.8.1
+PORTVERSION=	3.12.0
 CATEGORIES=	java devel
 MASTER_SITES=	APACHE_COMMONS_BINARIES/lang
 PKGNAMEPREFIX=	apache-
@@ -7,6 +7,7 @@ DISTNAME=	${PORTNAME}-${PORTVERSION}-bin
 
 MAINTAINER=	truckman@FreeBSD.org
 COMMENT=	Apache library with helper utilities for the java.lang API
+WWW=		https://commons.apache.org/proper/commons-lang/
 
 LICENSE=	APACHE20
 

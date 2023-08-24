@@ -1,5 +1,3 @@
-# Created by: marius@alchemy.franken.de
-
 PORTNAME=		afbinit
 PORTVERSION=		1.0
 PORTREVISION=		4
@@ -14,8 +12,11 @@ PATCH_SITES=		${MASTER_SITES}
 PATCHFILES=		${PORTNAME}_${PORTVERSION}-4.diff.gz:patch
 PATCH_DIST_STRIP=	-p1
 
-MAINTAINER=		marius@FreeBSD.org
+MAINTAINER=		ports@FreeBSD.org
 COMMENT=		Sun AFB aka Sun Elite 3D microcode firmware loader
+
+DEPRECATED=		sparc64 architecture is deprecated in FreeBSD
+EXPIRATION_DATE=	2023-12-31
 
 OPTIONS_DEFINE=		DOCS
 

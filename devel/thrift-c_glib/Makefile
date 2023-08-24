@@ -1,5 +1,3 @@
-# Created by: Valery Komarov <komarov@valerka.net>
-
 PORTNAME=	thrift
 PORTVERSION=	${THRIFT_PORTVERSION} # to keep in sync with thrift
 PORTEPOCH=	1
@@ -9,6 +7,7 @@ DISTNAME=	thrift-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	C glib interface to Thrift
+WWW=		https://thrift.apache.org/
 
 PKGNAMESUFFIX=	-c_glib
 
@@ -16,16 +15,18 @@ BUILDIR=	${WRKDIR}/${DISTNAME}/lib/c_glib
 
 DISTINFO_FILE=	${.CURDIR}/../thrift/distinfo
 
-USES=		bison cmake compiler:c++11-lang gnome libtool pathfix \
+USES=		bison cmake compiler:c++11-lang cpe gnome libtool pathfix \
 		pkgconfig ssl
-CMAKE_ON=      BUILD_C_GLIB BUILD_SHARED_LIBS
-CMAKE_OFF=     BUILD_CPP BUILD_JAVA BUILD_JAVASCRIPT BUILD_NODEJS BUILD_PYTHON BUILD_HASKELL
+CPE_VENDOR=	apache
+CMAKE_ON=	BUILD_C_GLIB BUILD_SHARED_LIBS
+CMAKE_OFF=	BUILD_CPP BUILD_HASKELL BUILD_JAVA BUILD_JAVASCRIPT \
+		BUILD_NODEJS BUILD_PYTHON
 USE_GNOME=	glib20
 USE_LDCONFIG=	yes
 
 .include "../thrift/bsd.thrift.mk"
 
-PLIST_SUB+=     PORTVERSION="${PORTVERSION}"
+PLIST_SUB+=	PORTVERSION="${PORTVERSION}"
 
 post-patch:
 	@${REINPLACE_CMD} 's,-Werror,,' ${WRKSRC}/compiler/cpp/Makefile.am \

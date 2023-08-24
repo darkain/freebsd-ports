@@ -1,11 +1,10 @@
-# Created by: Thierry Thomas <thierry@pompo.net>
-
 PORTNAME=	ibus-typing-booster
-PORTVERSION=	2.11.5
+PORTVERSION=	2.23.4
 CATEGORIES=	textproc
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Faster typing by context sensitive completion
+WWW=		https://mike-fabian.github.io/ibus-typing-booster/
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -18,6 +17,7 @@ RUN_DEPENDS=	CLDR>0:textproc/CLDR	\
 		${PYTHON_PKGNAMEPREFIX}xdg>0:devel/py-xdg@${PY_FLAVOR}		\
 		${PYTHON_PKGNAMEPREFIX}dbus>0:devel/py-dbus@${PY_FLAVOR}		\
 		${PYTHON_PKGNAMEPREFIX}hunspell>0:textproc/py-hunspell@${PY_FLAVOR}	\
+		${PYTHON_PKGNAMEPREFIX}pycountry>0:textproc/py-pycountry@${PY_FLAVOR}	\
 		${LOCALBASE}/share/unicode/ucd/Index.txt:textproc/UCD			\
 		${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
 TEST_DEPENDS=	${LOCALBASE}/share/hunspell/cs_CZ.dic:textproc/cs-hunspell	\
@@ -35,12 +35,17 @@ TEST_DEPENDS=	${LOCALBASE}/share/hunspell/cs_CZ.dic:textproc/cs-hunspell	\
 USE_GITHUB=	yes
 GH_ACCOUNT=	mike-fabian
 
-USES=		autoreconf gettext gmake gnome iconv pathfix pkgconfig python:3.6+
+USES=		autoreconf gettext gmake gnome iconv pathfix pkgconfig	\
+		python shebangfix
+SHEBANG_FILES=	engine/emoji-picker.in engine/ibus-engine-typing-booster.in	\
+		setup/ibus-setup-typing-booster.in
+SHEBANG_LANG=	sh
+sh_OLD_CMD=	/usr/bin/sh
+sh_CMD=		${SH}
 USE_GNOME=	glib20 gtk30 pygobject3
 USE_LOCALE=	en_US.UTF-8
 GNU_CONFIGURE=	yes
 NO_ARCH=	yes
-INSTALLS_ICONS=	yes
 GLIB_SCHEMAS=	org.freedesktop.ibus.engine.typing-booster.gschema.xml
 
 TEST_TARGET=	check

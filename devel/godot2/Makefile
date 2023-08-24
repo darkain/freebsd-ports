@@ -1,19 +1,21 @@
-# Created by: Shane Ambler <FreeBSD@Shaneware.biz>
-
 PORTNAME=	godot
 DISTVERSION=	2.1.6
-PORTREVISION=	3
 DISTVERSIONSUFFIX=	-stable
+PORTREVISION=	6
 CATEGORIES=	devel games
 PKGNAMESUFFIX?=	2
 
 MAINTAINER=	FreeBSD@Shaneware.biz
 COMMENT?=	Game runtime engine
+WWW=		https://www.godotengine.org/
 
 LICENSE=		MIT CC-BY-3.0
 LICENSE_COMB=		multi
 LICENSE_FILE_CC-BY-3.0=	${WRKSRC}/LOGO_LICENSE.md
 LICENSE_FILE_MIT=	${WRKSRC}/LICENSE.txt
+
+DEPRECATED=	Requires legacy OpenSSL 1.1.1 so use devel/godot
+EXPIRATION_DATE=	2023-07-08
 
 LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libpng.so:graphics/png \
@@ -23,7 +25,8 @@ RUN_DEPENDS=	xdg-user-dir:devel/xdg-user-dirs \
 		xdg-open:devel/xdg-utils \
 		xmessage:x11/xmessage
 
-USES=		compiler:c++11-lib gl pkgconfig scons ssl xorg
+USES=		compiler:c++11-lib cpe gl pkgconfig scons ssl xorg
+CPE_VENDOR=	godotengine
 USE_XORG=	x11 xcursor xi xinerama xrandr
 USE_GL=		gl glu
 
@@ -85,6 +88,10 @@ EXAMPLESDIR=		${PREFIX}/share/examples/godot2
 # use system libvpx on archs that break with built-in
 LIB_DEPENDS+=	libvpx.so:multimedia/libvpx
 MAKE_ARGS+=	builtin_libvpx=False
+.endif
+
+.if ${COMPILER_TYPE} == clang && ${COMPILER_VERSION} >= 160
+CXXFLAGS+=  -Dregister=
 .endif
 
 post-patch:

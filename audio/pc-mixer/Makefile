@@ -5,6 +5,7 @@ CATEGORIES=	audio
 
 MAINTAINER=	jmaloney@ixsystems.com
 COMMENT=	QT5 based audio mixer for FreeBSD
+WWW=		https://github.com/trueos/pc-mixer
 
 LICENSE=	BSD2CLAUSE
 
@@ -23,7 +24,6 @@ QMAKE_ARGS=	CONFIG+="configure"
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	trueos
-GH_PROJECT=	pc-mixer
 GH_TAGNAME=	ac1d74cc261337998526d091123c28d4ae85277e
 
 PLIST_FILES=	bin/pc-mixer \

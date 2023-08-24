@@ -1,13 +1,12 @@
-# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
-
 PORTNAME=	libgfx
 DISTVERSION=	1.1.0
-PORTREVISION=	12
+PORTREVISION=	13
 CATEGORIES=	graphics
 MASTER_SITES=	http://mgarland.org/files/dist/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OpenGL/FLTK development
+WWW=		https://mgarland.org/software/libgfx.html
 
 LICENSE=	MIT
 

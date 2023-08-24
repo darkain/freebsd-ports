@@ -1,12 +1,15 @@
 PORTNAME=	strongswan
-DISTVERSION=	5.9.2
-PORTREVISION=	2
+DISTVERSION=	5.9.11
+PORTREVISION=	1
 CATEGORIES=	security net-vpn
-MASTER_SITES=	http://download.strongswan.org/ \
-		http://download2.strongswan.org/
+MASTER_SITES=	https://download.strongswan.org/ \
+		https://download2.strongswan.org/
+PATCH_SITES=	https://github.com/strongswan/strongswan/commit/
+PATCHFILES=	a619356b5f21bfe3c13f1576eb1d16c015532ceb.patch:-p1
 
 MAINTAINER=	strongswan@nanoteq.com
 COMMENT=	Open Source IKEv2 IPsec-based VPN solution
+WWW=		https://www.strongswan.org
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -39,19 +42,20 @@ CONFIGURE_ARGS=	--disable-gmp \
 INSTALL_TARGET=	install-strip
 TEST_TARGET=	check
 
-OPTIONS_DEFINE=			CURL EAPAKA3GPP2 EAPDYNAMIC EAPRADIUS \
-				EAPSIMFILE FARP GCM IKEV1 IPSECKEY \
+OPTIONS_DEFINE=			CTR CURL EAPAKA3GPP2 EAPDYNAMIC EAPRADIUS \
+				EAPSIMFILE FARP GCM IKEV1 IPSECKEY KDF \
 				KERNELLIBIPSEC LDAP LOADTESTER MEDIATION MYSQL \
-				PKCS11 PKI PYTHON SCEP SMP SQLITE SWANCTL \
+				PKCS11 PKI PYTHON SMP SQLITE SWANCTL \
 				TESTVECTOR TPM TSS2 UNBOUND UNITY VICI XAUTH
 OPTIONS_DEFINE_i386=	VIA
-OPTIONS_DEFAULT=		BUILTIN CURL IKEV1 PKI SWANCTL VICI
+OPTIONS_DEFAULT=		BUILTIN CURL GCM IKEV1 KDF PKI SWANCTL VICI
 OPTIONS_SINGLE=			PRINTF_HOOKS
 OPTIONS_SINGLE_PRINTF_HOOKS=	BUILTIN LIBC VSTR
 OPTIONS_SUB=			yes
 
 # Description of options
 BUILTIN_DESC=		Use builtin printf hooks
+CTR_DESC=		Enable CTR cipher mode wrapper plugin
 CURL_DESC=		Enable CURL to fetch CRL/OCSP
 EAPAKA3GPP2_DESC=	Enable EAP AKA with 3gpp2 backend
 EAPDYNAMIC_DESC=	Enable EAP dynamic proxy module
@@ -61,6 +65,7 @@ FARP_DESC=		Enable farp plugin
 GCM_DESC=		Enable GCM AEAD wrapper crypto plugin
 IKEV1_DESC=		Enable IKEv1 support
 IPSECKEY_DESC=		Enable authentication with IPSECKEY resource records with DNSSEC
+KDF_DESC=		Enable KDF (prf+) implementation plugin
 KERNELLIBIPSEC_DESC=	Enable IPSec userland backend
 LIBC_DESC=		Use libc printf hooks
 LOADTESTER_DESC=	Enable load testing plugin
@@ -68,7 +73,6 @@ MEDIATION_DESC=		Enable IKEv2 Mediation Extension
 PKCS11_DESC=		Enable PKCS11 token support
 PKI_DESC=		Enable PKI tools
 PYTHON_DESC=		Python VICI protocol plugin
-SCEP_DESC=		Enable Simple Certificate Enrollment Protocol
 SMP_DESC=		Enable XML-based management protocol (DEPRECATED)
 SWANCTL_DESC=		Install swanctl (requires VICI)
 TESTVECTOR_DESC=	Enable crypto test vectors
@@ -83,6 +87,7 @@ XAUTH_DESC=		Enable XAuth password verification
 
 # Extra options
 BUILTIN_CONFIGURE_ON=		--with-printf-hooks=builtin
+CTR_CONFIGURE_ON=		--enable-ctr
 CURL_LIB_DEPENDS=		libcurl.so:ftp/curl
 CURL_CONFIGURE_ON=		--enable-curl
 EAPAKA3GPP2_LIB_DEPENDS=	libgmp.so:math/gmp
@@ -96,8 +101,9 @@ FARP_CONFIGURE_ON=		--enable-farp
 GCM_CONFIGURE_ON=		--enable-gcm
 IKEV1_CONFIGURE_OFF=		--disable-ikev1
 IPSECKEY_CONFIGURE_ON=		--enable-ipseckey
+KDF_CONFIGURE_ON=		--enable-kdf
 KERNELLIBIPSEC_CONFIGURE_ON=	--enable-kernel-libipsec
-LDAP_USE=			OPENLDAP=yes
+LDAP_USES=			ldap
 LDAP_CONFIGURE_ON=		--enable-ldap
 LIBC_CONFIGURE_ON=		--with-printf-hooks=glibc
 LOADTESTER_CONFIGURE_ON=	--enable-load-tester
@@ -109,7 +115,6 @@ PKI_CONFIGURE_OFF=		--disable-pki
 PYTHON_IMPLIES=			VICI
 PYTHON_RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}vici>0:security/py-vici@${PY_FLAVOR}
 PYTHON_USES=			python
-SCEP_CONFIGURE_OFF=		--disable-scepclient
 SMP_LIB_DEPENDS=		libxml2.so:textproc/libxml2
 SMP_CONFIGURE_ON=		--enable-smp
 SQLITE_LIB_DEPENDS=		libsqlite3.so:databases/sqlite3

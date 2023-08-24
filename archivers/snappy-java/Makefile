@@ -1,4 +1,3 @@
-# Created by: Radim Kolar <hsn@filez.com>
 # Note to committers:
 # With each version update, a new maven repository must be created
 # and distributed so build is repeatable and cluster-safe.
@@ -14,13 +13,14 @@ EXTRACT_ONLY=	${DISTFILE_DEFAULT} \
 
 MAINTAINER=	language.devel@gmail.com
 COMMENT=	Fast compressor/decompressor library
+WWW=		https://github.com/xerial/snappy-java
 
 LICENSE=	APACHE20
 
 BROKEN_armv6=		fails to build: maven-assembly-plugin: Failed to retrieve numeric file attributes
 BROKEN_armv7=		fails to build: maven-assembly-plugin: Failed to retrieve numeric file attributes
 
-BUILD_DEPENDS=	cmake:devel/cmake \
+BUILD_DEPENDS=	cmake:devel/cmake-core \
 		sbt:devel/sbt
 
 USES=		gmake
@@ -66,6 +66,10 @@ PLATFORM_DIR_SUFFIX=	FreeBSD-x86_64
 PLATFORM_DIR_SUFFIX=	FreeBSD-x86
 .	elif ${ARCH} == aarch64
 PLATFORM_DIR_SUFFIX=	FreeBSD-aarch64
+.	elif ${ARCH} == powerpc64
+PLATFORM_DIR_SUFFIX=	FreeBSD-ppc64
+.	elif ${ARCH} == powerpc64le
+PLATFORM_DIR_SUFFIX=	FreeBSD-ppc64le
 .	else
 PLATFORM_DIR_SUFFIX=	Default
 .	endif

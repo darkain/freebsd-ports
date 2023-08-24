@@ -2,17 +2,18 @@ PORTNAME=	merkletools
 DISTVERSION=	1.0.3
 PORTREVISION=	1
 CATEGORIES=	security python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Tools for working with Merkle trees
+WWW=		https://github.com/Tierion/pymerkletools
 
 LICENSE=	MIT
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pysha3>0:security/py-pysha3@${PY_FLAVOR}
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
 
 NO_ARCH=	yesA

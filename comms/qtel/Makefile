@@ -1,8 +1,5 @@
-# Created by: shurd
-
 PORTNAME=	qtel
 
-MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Qtel Echolink client
 
 LICENSE=	GPLv2

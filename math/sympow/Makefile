@@ -1,13 +1,12 @@
-# Created by: thierry@pompo.net
-
 PORTNAME=	sympow
 PORTVERSION=	2.023.6
 DISTVERSIONPREFIX=	v
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	math
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Mathematical program for SYMmetric POWer elliptic curve L-functions
+WWW=		https://gitlab.com/rezozer/forks/sympow
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -21,7 +20,7 @@ SHEBANG_FILES=	${CONFIGURE_SCRIPT}
 
 USE_GITLAB=	yes
 GL_ACCOUNT=	rezozer/forks
-GL_COMMIT=	7fd4d97cabc07951200b98ee841afc4151c2c287
+GL_TAGNAME=	7fd4d97cabc07951200b98ee841afc4151c2c287
 
 HAS_CONFIGURE=	yes
 CONFIGURE_SCRIPT=Configure

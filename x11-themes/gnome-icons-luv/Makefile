@@ -6,6 +6,7 @@ PKGNAMEPREFIX=	gnome-icons-
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Flat but complex icon theme for freedesktop environments
+WWW=		https://github.com/NitruxSA/luv-icon-theme
 
 LICENSE=	CC-BY-SA-4.0
 LICENSE_FILE=	${WRKSRC}/Luv/LICENSE
@@ -16,7 +17,6 @@ GH_ACCOUNT=	NitruxSA
 GH_PROJECT=	luv-icon-theme
 
 DATADIR=	${PREFIX}/share/icons/Luv
-INSTALLS_ICONS=	yes
 NO_ARCH=	yes
 NO_BUILD=	yes
 

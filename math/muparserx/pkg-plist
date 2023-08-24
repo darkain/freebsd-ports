@@ -1,4 +1,3 @@
-include/muparserx/mpCompat.h
 include/muparserx/mpDefines.h
 include/muparserx/mpError.h
 include/muparserx/mpFuncCmplx.h
@@ -9,6 +8,7 @@ include/muparserx/mpFuncStr.h
 include/muparserx/mpFwdDecl.h
 include/muparserx/mpICallback.h
 include/muparserx/mpIOprt.h
+include/muparserx/mpIOprtBinShortcut.h
 include/muparserx/mpIPackage.h
 include/muparserx/mpIPrecedence.h
 include/muparserx/mpIToken.h
@@ -19,6 +19,7 @@ include/muparserx/mpMatrix.h
 include/muparserx/mpMatrixError.h
 include/muparserx/mpOprtBinAssign.h
 include/muparserx/mpOprtBinCommon.h
+include/muparserx/mpOprtBinShortcut.h
 include/muparserx/mpOprtCmplx.h
 include/muparserx/mpOprtIndex.h
 include/muparserx/mpOprtMatrix.h
@@ -36,6 +37,7 @@ include/muparserx/mpParserMessageProvider.h
 include/muparserx/mpRPN.h
 include/muparserx/mpScriptTokens.h
 include/muparserx/mpStack.h
+include/muparserx/mpStringConversionHelper.h
 include/muparserx/mpTest.h
 include/muparserx/mpTokenReader.h
 include/muparserx/mpTypes.h
@@ -47,7 +49,7 @@ include/muparserx/suSortPred.h
 include/muparserx/suStringTokens.h
 include/muparserx/utGeneric.h
 lib/libmuparserx.so
-lib/libmuparserx.so.4.0.9
+lib/libmuparserx.so.4.0.12
 libdata/pkgconfig/muparserx.pc
 share/cmake/muparserx/muparserxConfig.cmake
 share/cmake/muparserx/muparserxConfigVersion.cmake

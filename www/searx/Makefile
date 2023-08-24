@@ -1,5 +1,3 @@
-# Created by: Loic Blot <loic.blot@unix-experience.fr>
-
 PORTNAME=	searx
 DISTVERSIONPREFIX=	v
 DISTVERSION=	1.0.0
@@ -7,6 +5,7 @@ CATEGORIES=	www python
 
 MAINTAINER=	vvelox@vvelox.net
 COMMENT=	Privacy-respecting, hackable metasearch engine
+WWW=		https://asciimoo.github.io/searx/
 
 LICENSE=	AGPLv3
 
@@ -32,7 +31,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}certifi>0:security/py-certifi@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}werkzeug>0:www/py-werkzeug@${PY_FLAVOR}
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
-USES=		python:3.7+
+USES=		python
 USE_GITHUB=	yes
 GH_ACCOUNT=	asciimoo
 USE_PYTHON=	distutils autoplist noflavors

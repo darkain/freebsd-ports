@@ -1,16 +1,15 @@
 PORTNAME=	orange3-network
 DISTVERSION=	1.5.1.20210224 # the 1.5.1 was forgotten
+PORTREVISION=	2
 CATEGORIES=	misc python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Network analysis add-on for Orange data mining suite
+WWW=		https://github.com/biolab/orange3-network
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
-
-DEPRECATED=	Uses EOL Python 2.7 via misc/orange3
-EXPIRATION_DATE=2021-06-23
 
 BUILD_DEPENDS=	${PYNUMPY}
 RUN_DEPENDS=	orange3>0:misc/orange3 \
@@ -18,7 +17,7 @@ RUN_DEPENDS=	orange3>0:misc/orange3 \
 		${PYTHON_PKGNAMEPREFIX}gensim>0:textproc/py-gensim@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyqtgraph>=0.9.10:graphics/py-pyqtgraph@${PY_FLAVOR}
 
-USES=		python:3.4+
+USES=		python
 USE_PYTHON=	distutils cython autoplist
 
 USE_GITHUB=	yes

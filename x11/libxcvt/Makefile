@@ -1,18 +1,16 @@
 PORTNAME=	libxcvt
-DISTVERSIONPREFIX=	${PORTNAME}-
-DISTVERSION=	0.1.0
+DISTVERSION=	0.1.2
+PORTREVISION=	1
 CATEGORIES=	x11
+MASTER_SITES=	XORG/individual/lib
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Calculate VESA CVT mode lines
+WWW=		https://gitlab.freedesktop.org/xorg/lib/libxcvt
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		meson
-USE_GITLAB=	yes
-GL_SITE=	https://gitlab.freedesktop.org
-GL_ACCOUNT=	xorg/lib
-GL_COMMIT=	93c1eef3e325f292aa5b3bb137bea778e449bf1e
+USES=		meson tar:xz
 
 .include <bsd.port.mk>

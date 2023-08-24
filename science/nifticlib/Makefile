@@ -6,6 +6,7 @@ MASTER_SITES=	SF/niftilib/nifticlib/nifticlib_2_0_0
 
 MAINTAINER=	jwb@FreeBSD.org
 COMMENT=	Neuroimaging Informatics Technology Initiative data format
+WWW=		https://nifti.nimh.nih.gov/
 
 LICENSE=	PD
 
@@ -13,7 +14,7 @@ USES=		gmake
 
 # AFNI currently has nifti embedded in the distfile and installs the
 # nifti bins by itself.
-CONFLICTS=	afni-[0-9]* dbh-[0-9]*
+CONFLICTS=	afni dbh
 
 CFLAGS+=	-fPIC
 MAKE_JOBS_UNSAFE=	yes

@@ -1,6 +1,6 @@
 PORTNAME=	tome4
-DISTVERSION?=	1.7.4
-PORTREVISION=	1
+DISTVERSION?=	1.7.6
+PORTREVISION?=	0
 CATEGORIES=	games
 MASTER_SITES=	https://te4.org/dl/t-engine/ \
 		SF/lifanov-ports-distfiles/${PORTNAME}/:icons
@@ -10,6 +10,7 @@ EXTRACT_ONLY=	t-engine4-src-${DISTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	pkubaj@FreeBSD.org
 COMMENT=	Epic tactical turn-based roguelike adventure
+WWW=		https://te4.org/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -31,11 +32,20 @@ DESKTOP_ENTRIES="ToME 4" "" "${PORTNAME}" \
 PLIST_SUB=	PORTVERSION=${PORTVERSION}
 WRKSRC=		${WRKDIR}/t-engine4-src-${DISTVERSION}
 MAKE_ARGS+=	config=release verbose=yes ARCH="" CC=${CC} CXX=${CXX}
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
 LDFLAGS_i386=	-Wl,-znotext
+
+.include <bsd.port.options.mk>
 
 pre-build:
 	@${REINPLACE_CMD} 's|%%LOCALBASE%%|${LOCALBASE}|' ${WRKSRC}/premake4.lua
+.if ${ARCH} == aarch64 || ${ARCH:Mpowerpc64*} || ${ARCH} == riscv64
 	(cd ${WRKSRC} && premake4 --lua=default gmake)
+.else
+	(cd ${WRKSRC} && premake4 gmake)
+	@${ECHO} '.NOTPARALLEL:' >> ${WRKSRC}/build/buildvm.make
+	@${ECHO} '.NOTPARALLEL:' >> ${WRKSRC}/build/luajit2.make
+.endif
 	@${REINPLACE_CMD} 's|-lpthread|-pthread|' ${WRKSRC}/build/TEngine.make
 
 do-install:

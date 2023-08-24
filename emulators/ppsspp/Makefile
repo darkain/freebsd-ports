@@ -1,6 +1,6 @@
 PORTNAME=	ppsspp
 DISTVERSIONPREFIX=	v
-DISTVERSION?=	1.11.3
+DISTVERSION?=	1.15.4
 PORTREVISION?=	2
 CATEGORIES=	emulators
 # XXX Get from Debian once #697821 lands
@@ -8,23 +8,9 @@ MASTER_SITES=	https://bazaar.launchpad.net/~sergio-br2/${PORTNAME}/debian-sdl/do
 DISTFILES=	${PORTNAME}.1:manpage
 EXTRACT_ONLY=	${DISTFILES:N*\:manpage:C/:.*//}
 
-PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
-PATCHFILES+=	2362d71d70ad.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	26eca0ba3dc0.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	6656c8a533ee.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	2b2dae60d316.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	b19e39efb0ca.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	e5849d109dc2.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	e3be3d5f7b0e.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	0ab6f1d0804c.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	54dd4e4c0cd7.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14176
-PATCHFILES+=	ed2610cf1a89.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14188
-PATCHFILES+=	d8e3bae2da1a.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14188
-PATCHFILES+=	9d031caa9d8b.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14188
-PATCHFILES+=	d6dc6e9d642f.patch:-p1 # https://github.com/hrydgard/ppsspp/pull/14199
-
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	PSP emulator in C++ with dynarec JIT for x86, ARM, MIPS
+WWW=		https://www.ppsspp.org/
 
 LICENSE=	GPLv2+
 
@@ -35,24 +21,27 @@ NOT_FOR_ARCHS_REASON=	only little-endian is supported, see \
 
 LIB_DEPENDS=	libzip.so:archivers/libzip \
 		libsnappy.so:archivers/snappy \
+		libzstd.so:archivers/zstd \
 		libavcodec.so:multimedia/ffmpeg
 RUN_DEPENDS=	xdg-open:devel/xdg-utils
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	hrydgard
-GH_TUPLE?=	hrydgard:glslang:8.13.3559-76-gd0850f87:glslang/ext/glslang \
-		hrydgard:miniupnp:miniupnpd_2_1-354-g7e229dd:miniupnp/ext/miniupnp \
-		hrydgard:${PORTNAME}-lang:6bd5b4b:lang/assets/lang \
-		KhronosGroup:SPIRV-Cross:2019-05-20-60-ga1f7c8dc:SPIRV/ext/SPIRV-Cross \
-		Kingcom:armips:v0.10.0-28-g7885552:armips/ext/armips
+GH_TUPLE?=	hrydgard:glslang:8.13.3743-948-gb34f619e:glslang/ext/glslang \
+		hrydgard:miniupnp:miniupnpd_2_1-502-g3a87be3:miniupnp/ext/miniupnp \
+		google:cpu_features:v0.7.0-60-g75ec988:cpu_features/ext/cpu_features \
+		unknownbrackets:ppsspp-debugger:9776332:debugger/assets/debugger \
+		KhronosGroup:SPIRV-Cross:sdk-1.3.239.0:SPIRV/ext/SPIRV-Cross \
+		Kingcom:armips:v0.11.0-188-g7bd1ec9:armips/ext/armips \
+		Kingcom:filesystem:v1.3.2-12-g3f1c185:filesystem/ext/armips/ext/filesystem
 
 CONFLICTS_INSTALL=	${PORTNAME}-*
 
-USES=		cmake compiler:c++11-lib gl localbase:ldflags pkgconfig
+USES=		cmake compiler:c++11-lib gl localbase:ldflags pkgconfig shared-mime-info
 EXCLUDE=	libzip zlib
 EXTRACT_AFTER_ARGS=${EXCLUDE:S,^,--exclude ,}
-USE_GL=		gl glew glu
-CMAKE_ON=	USE_SYSTEM_FFMPEG USE_SYSTEM_LIBZIP USE_SYSTEM_SNAPPY USE_WAYLAND_WSI
+USE_GL=		glew opengl
+CMAKE_ON=	${FFMPEG LIBZIP SNAPPY ZSTD:L:S/^/USE_SYSTEM_/} USE_WAYLAND_WSI USE_VULKAN_DISPLAY_KHR
 CMAKE_OFF=	USE_DISCORD
 SUB_FILES=	pkg-message
 PORTDATA=	assets
@@ -75,16 +64,17 @@ LIBRETRO_DESC=	libretro core for games/retroarch
 LIBRETRO_CMAKE_BOOL=	LIBRETRO
 LIBRETRO_PLIST_FILES=	lib/libretro/${PORTNAME}_libretro.so
 LIBRETRO_VARS=	CONFLICTS_INSTALL= DESKTOP_ENTRIES= PLIST= PORTDATA= PKGMESSAGE= SUB_FILES=
-QT5_USES=	qt:5 sdl
-QT5_USE=	QT=qmake_build,buildtools_build,linguisttools_build,gui,multimedia,opengl,widgets
+QT5_USES=	elfctl qt:5 sdl
+QT5_USE=	QT=qmake:build,buildtools:build,linguisttools:build,gui,multimedia,opengl,widgets
 QT5_USE+=	SDL=sdl2 # audio, joystick
 QT5_CMAKE_BOOL=	USING_QT_UI
-QT5_VARS=	EXENAME=PPSSPPQt
+QT5_VARS=	EXENAME=PPSSPPQt ELF_FEATURES=+wxneeded:PPSSPPQt
+SDL_CATEGORIES=		wayland
 SDL_BUILD_DEPENDS=	png>=1.6:graphics/png
 SDL_LIB_DEPENDS=	libpng.so:graphics/png
-SDL_USES=	sdl
+SDL_USES=	elfctl sdl
 SDL_USE=	SDL=sdl2
-SDL_VARS=	EXENAME=PPSSPPSDL
+SDL_VARS=	EXENAME=PPSSPPSDL ELF_FEATURES=+wxneeded:PPSSPPSDL
 VULKAN_DESC=		Vulkan renderer
 VULKAN_RUN_DEPENDS=	${LOCALBASE}/lib/libvulkan.so:graphics/vulkan-loader
 

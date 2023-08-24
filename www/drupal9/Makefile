@@ -1,5 +1,5 @@
 PORTNAME=	drupal9
-PORTVERSION=	9.0.14
+PORTVERSION=	9.5.9
 CATEGORIES=	www
 MASTER_SITES=	http://ftp.drupal.org/files/projects/
 DISTNAME=	drupal-${PORTVERSION}
@@ -7,18 +7,22 @@ DIST_SUBDIR=	drupal
 
 MAINTAINER=	acm@FreeBSD.org
 COMMENT=	Database driven web content management system (CMS)
+WWW=		https://www.drupal.org/
 
 LICENSE=	GPLv2+
 
+DEPRECATED=	Upstream EOL reaches on 2023-11-01
+EXPIRATION_DATE=	2023-12-31
+
 USES=		php:web shebangfix
-USE_PHP=	dom filter gd hash json mbstring opcache pcre pdo session \
+USE_PHP=	dom filter gd mbstring opcache pdo session \
 		simplexml tokenizer xml
 SHEBANG_FILES=	core/scripts/password-hash.sh
 
 NO_ARCH=	yes
 NO_BUILD=	yes
 DOCS=		core/CHANGELOG.txt core/INSTALL.mysql.txt core/INSTALL.sqlite.txt \
-		LICENSE.txt README.txt core/COPYRIGHT.txt core/INSTALL.pgsql.txt \
+		LICENSE.txt core/COPYRIGHT.txt core/INSTALL.pgsql.txt \
 		core/INSTALL.txt core/MAINTAINERS.txt core/UPDATE.txt
 
 OPTIONS_DEFINE=		MYSQL SQLITE3 PGSQL DOCS

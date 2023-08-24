@@ -1,18 +1,17 @@
 PORTNAME=	spotify-tui
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.24.0
-PORTREVISION=	2
+DISTVERSION=	0.25.0
+PORTREVISION=	20
 CATEGORIES=	audio
 
 MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	Spotify for the terminal written in Rust
+WWW=		https://github.com/Rigellute/spotify-tui
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BROKEN=		does not build: rust/crates/anyhow-1.0.38.tar.gz is not in /usr/ports/audio/spotify-tui/distinfo.
-
-USES=		cargo localbase:ldflags python:3.6+,build ssl xorg
+USES=		cargo localbase:ldflags python:build ssl xorg
 USE_GITHUB=	yes
 GH_ACCOUNT=	Rigellute
 USE_XORG=	xcb
@@ -22,9 +21,8 @@ CARGO_CRATES=	addr2line-0.14.1 \
 		adler32-1.2.0 \
 		aho-corasick-0.7.13 \
 		ansi_term-0.11.0 \
-		anyhow-1.0.38 \
-		arboard-1.1.0 \
-		arc-swap-0.4.7 \
+		anyhow-1.0.43 \
+		arboard-1.2.0 \
 		arrayref-0.3.6 \
 		arrayvec-0.5.1 \
 		atty-0.2.14 \
@@ -60,10 +58,8 @@ CARGO_CRATES=	addr2line-0.14.1 \
 		core-graphics-0.21.0 \
 		crc32fast-1.2.1 \
 		crossbeam-utils-0.7.2 \
-		crossterm-0.18.2 \
-		crossterm-0.19.0 \
-		crossterm_winapi-0.6.2 \
-		crossterm_winapi-0.7.0 \
+		crossterm-0.20.0 \
+		crossterm_winapi-0.8.0 \
 		darling-0.9.0 \
 		darling_core-0.9.0 \
 		darling_macro-0.9.0 \
@@ -95,6 +91,7 @@ CARGO_CRATES=	addr2line-0.14.1 \
 		futures-sink-0.3.5 \
 		futures-task-0.3.5 \
 		futures-util-0.3.5 \
+		gethostname-0.2.1 \
 		getrandom-0.1.14 \
 		getrandom-0.2.2 \
 		gimli-0.23.0 \
@@ -139,6 +136,7 @@ CARGO_CRATES=	addr2line-0.14.1 \
 		miow-0.3.5 \
 		native-tls-0.2.4 \
 		net2-0.2.37 \
+		nix-0.20.0 \
 		ntapi-0.3.4 \
 		num-integer-0.1.43 \
 		num-iter-0.1.42 \
@@ -206,16 +204,17 @@ CARGO_CRATES=	addr2line-0.14.1 \
 		scopeguard-1.1.0 \
 		security-framework-0.4.4 \
 		security-framework-sys-0.4.3 \
-		serde-1.0.125 \
-		serde_derive-1.0.125 \
+		serde-1.0.128 \
+		serde_derive-1.0.128 \
 		serde_json-1.0.64 \
 		serde_urlencoded-0.6.1 \
-		serde_yaml-0.8.17 \
-		signal-hook-0.1.16 \
-		signal-hook-registry-1.2.0 \
+		serde_yaml-0.8.19 \
+		signal-hook-0.3.9 \
+		signal-hook-mio-0.2.1 \
+		signal-hook-registry-1.4.0 \
 		slab-0.4.2 \
 		smallvec-1.4.1 \
-		socket2-0.3.12 \
+		socket2-0.3.19 \
 		str-buf-1.0.5 \
 		strsim-0.7.0 \
 		strsim-0.8.0 \
@@ -240,7 +239,7 @@ CARGO_CRATES=	addr2line-0.14.1 \
 		tracing-0.1.17 \
 		tracing-core-0.1.11 \
 		try-lock-0.2.3 \
-		tui-0.14.0 \
+		tui-0.16.0 \
 		unicase-2.6.0 \
 		unicode-bidi-0.3.4 \
 		unicode-normalization-0.1.13 \
@@ -271,10 +270,11 @@ CARGO_CRATES=	addr2line-0.14.1 \
 		winapi-build-0.1.1 \
 		winapi-i686-pc-windows-gnu-0.4.0 \
 		winapi-util-0.1.5 \
+		winapi-wsapoll-0.1.1 \
 		winapi-x86_64-pc-windows-gnu-0.4.0 \
 		winreg-0.7.0 \
 		ws2_32-sys-0.2.1 \
-		xcb-0.9.0 \
+		x11rb-0.8.1 \
 		yaml-rust-0.4.5
 
 BINARY_ALIAS=	python3=${PYTHON_CMD}
@@ -287,6 +287,13 @@ OPTIONS_DEFINE=	DOCS SPOTIFYD
 SPOTIFYD_DESC=	Lightweight Spotify client daemon
 
 SPOTIFYD_RUN_DEPENDS=	spotifyd:audio/spotifyd
+
+.include <bsd.port.options.mk>
+
+.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+BROKEN_SSL=	base openssl30 openssl31
+BROKEN_SSL_REASON=	Fails to detect OpenSSL 3.0.0 and later
+.endif
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/spt

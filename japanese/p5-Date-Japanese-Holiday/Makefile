@@ -4,8 +4,9 @@ PORTREVISION=	3
 CATEGORIES=	japanese perl5
 MASTER_SITES=	CPAN
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl module for Calculate Japanese Holiday
+WWW=		https://metacpan.org/release/Date-Japanese-Holiday
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
 RUN_DEPENDS=	p5-Date-Calc>5.3:devel/p5-Date-Calc \

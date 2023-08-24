@@ -5,6 +5,7 @@ CATEGORIES=	net
 
 MAINTAINER=	olevole@olevole.ru
 COMMENT=	Cluster synchronization tool
+WWW=		https://github.com/LINBIT/csync2/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -13,11 +14,10 @@ LIB_DEPENDS=	libgnutls.so:security/gnutls \
 		librsync.so:net/librsync \
 		libsqlite3.so:databases/sqlite3
 
-USES=		autoreconf pkgconfig shebangfix
-
+USES=		autoreconf cpe pkgconfig shebangfix
+CPE_VENDOR=	linbit
 USE_GITHUB=	yes
 GH_ACCOUNT=	LINBIT
-GH_PROJECT=	csync2
 GH_TAGNAME=	a8d38eb
 USE_RC_SUBR=	csync2
 

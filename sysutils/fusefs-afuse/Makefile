@@ -1,5 +1,3 @@
-# Created by: Alexander Logvinov <ports@logvinov.com>
-
 PORTNAME=	afuse
 PORTVERSION=	0.4.1
 PORTREVISION=	1
@@ -9,11 +7,12 @@ PKGNAMEPREFIX=	fusefs-
 
 MAINTAINER=	portmaster@BSDforge.com
 COMMENT=	File system automounting implemented in user-space using FUSE
+WWW=		https://github.com/pcarrier/afuse
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		fuse pkgconfig
+USES=		cpe fuse pkgconfig
 GNU_CONFIGURE=	yes
 
 PORTDOCS=	AUTHORS README

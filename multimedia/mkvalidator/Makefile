@@ -5,6 +5,7 @@ MASTER_SITES=	SF/matroska/${PORTNAME}/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Command line tool to verify Matroska and WebM files
+WWW=		https://www.matroska.org/downloads/mkvalidator.html
 
 LICENSE=	BSD3CLAUSE BSD4CLAUSE GPLv2
 LICENSE_COMB=	multi
@@ -16,7 +17,8 @@ BROKEN_sparc64=		build broken on big endian architectures
 
 BUILD_WRKSRC=	${WRKSRC}/${PORTNAME}
 
-USES=		gmake iconv localbase tar:bzip2
+USES=		cpe gmake iconv localbase tar:bzip2
+CPE_VENDOR=	matroska
 HAS_CONFIGURE=	yes
 MAKE_ENV=	V=1
 MAKEFILE=	GNUmakefile
@@ -26,6 +28,12 @@ LIBS+=		${ICONV_LIB}
 PLIST_FILES=	bin/mkvalidator bin/mkvtree
 
 MAKE_JOBS_UNSAFE=	yes
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e \

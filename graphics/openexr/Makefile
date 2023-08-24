@@ -1,19 +1,18 @@
-# Created by: nork@FreeBSD.org
-
 PORTNAME=	openexr
-PORTVERSION=	3.0.5
-PORTREVISION=	1
+PORTVERSION=	3.1.11
+PORTREVISION=	0
 CATEGORIES=	graphics devel
 
 MAINTAINER=	mandree@FreeBSD.org
 COMMENT=	High dynamic-range (HDR) image file format
+WWW=		https://www.openexr.com/
 
 LICENSE=	BSD3CLAUSE
 
 # exact version required to avoid hard-to-debug issues
 LIB_DEPENDS=	libImath-3_1.so.29:math/Imath
 
-USES=		cmake compiler:c++14-lang pathfix pkgconfig
+USES=		cmake compiler:c++14-lang cpe pathfix pkgconfig
 
 USE_GITHUB=	yes
 GH_TUPLE=	AcademySoftwareFoundation:openexr:v${PORTVERSION}
@@ -24,12 +23,10 @@ CPPFLAGS+=	-I.
 # must be linked with -l{thr|pthread} explicitly
 LDFLAGS+=	-lpthread
 
-PATCH_STRIP=	-p1
-
-_MAJORVER=	3_0
-_VER=		29
-_MINVER=	0
-_PLVER=		0
+_MAJORVER=	3_1
+_VER=		30
+_MINVER=	11
+_PLVER=		1
 
 PLIST_SUB+=	MAJORVER=${_MAJORVER} \
 		VER=${_VER} \
@@ -41,12 +38,15 @@ PORTEXAMPLES=	*
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 OPTIONS_SUB=	yes
+DOCS_BUILD_DEPENDS=breathe-apidoc:devel/py-breathe \
+		${PYTHON_PKGNAMEPREFIX}sphinx_press_theme>=0:textproc/py-sphinx_press_theme
+DOCS_USES=	python:build
+DOCS_CMAKE_BOOL=BUILD_DOCS
+DOCS_CMAKE_ON=	-DPython_EXECUTABLE:STRING=${PYTHON_CMD}
 
 _DOCSRCDIR1=	${WRKSRC}
-_DOCSRCDIR2=	${WRKSRC}/docs
 _DOC_FILES1=	CHANGES.md CONTRIBUTING.md GOVERNANCE.md LICENSE.md SECURITY.md \
 		CODE_OF_CONDUCT.md CONTRIBUTORS.md README.md
-_DOC_FILES2=	*.odt *.pdf
 
 # too many reports about compilation failures, so
 # sanity check we are using the same C++ standard library
@@ -62,10 +62,10 @@ pre-configure:
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${_DOC_FILES1:S|^|${_DOCSRCDIR1}/|} ${STAGEDIR}${DOCSDIR}
-	${INSTALL_DATA} ${_DOC_FILES2:S|^|${_DOCSRCDIR2}/|} ${STAGEDIR}${DOCSDIR}
+	( cd ${BUILD_WRKSRC}/docs/sphinx && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR} )
+	${RM} -r ${STAGEDIR}${DOCSDIR}/.??* ${STAGEDIR}${DOCSDIR}/../OpenEXR/sphinx
 
 post-install-DOCS-off:
-	${RM} ${STAGEDIR}${DOCSDIR:H}/OpenEXR/*.pdf
 	@${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/${PORTNAME} 2>/dev/null || :
 
 post-install-EXAMPLES-on:

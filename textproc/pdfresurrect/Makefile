@@ -1,15 +1,17 @@
 PORTNAME=	pdfresurrect
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.22
+DISTVERSION=	0.23
 CATEGORIES=	textproc
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Analyze and extract older versions of a pdf from the current pdf
+WWW=		https://github.com/enferex/pdfresurrect
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		gmake
+USES=		cpe gmake
+CPE_VENDOR=	${PORTNAME}_project
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 

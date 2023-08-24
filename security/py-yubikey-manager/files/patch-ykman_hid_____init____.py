@@ -1,21 +1,12 @@
---- ykman/hid/__init__.py.orig	2021-04-12 07:23:08 UTC
+See https://github.com/Yubico/yubikey-manager/commit/ecd7897b3f02054
+--- ykman/hid/__init__.py.orig	2022-05-27 13:02:44 UTC
 +++ ykman/hid/__init__.py
-@@ -42,12 +42,15 @@ elif sys.platform.startswith("win32"):
+@@ -41,6 +41,8 @@ elif sys.platform.startswith("win32"):
      from . import windows as backend
  elif sys.platform.startswith("darwin"):
      from . import macos as backend
 +elif sys.platform.startswith("freebsd"):
-+    backend = None
++    from . import freebsd as backend
  else:
-     raise Exception("Unsupported platform")
  
--
--list_otp_devices: Callable[[], List[OtpYubiKeyDevice]] = backend.list_devices
--
-+if backend is not None:
-+    list_otp_devices: Callable[[], List[OtpYubiKeyDevice]] = backend.list_devices
-+else:
-+    list_otp_devices: Callable[[], List[OtpYubiKeyDevice]] = lambda: []
- 
- class CtapYubiKeyDevice(YkmanDevice):
-     """YubiKey FIDO USB HID device"""
+     class backend:

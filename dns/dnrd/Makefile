@@ -1,5 +1,3 @@
-# Created by: George Reid <greid@ukug.uk.freebsd.org>
-
 PORTNAME=	dnrd
 PORTVERSION=	2.20.3
 PORTREVISION=	1
@@ -8,11 +6,12 @@ MASTER_SITES=	SF
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Proxy DNS daemon
+WWW=		http://dnrd.sourceforge.net/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gmake
+USES=		cpe gmake
 USE_RC_SUBR=	${PORTNAME}
 GNU_CONFIGURE=	yes
 

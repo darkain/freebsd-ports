@@ -6,6 +6,7 @@ PKGNAMEPREFIX=		${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=		vendion@gmail.com
 COMMENT=		Jinja2 Command-Line Tool, reworked
+WWW=		https://github.com/kolypto/j2cli
 
 LICENSE=		BSD2CLAUSE
 LICENSE_FILE=		${WRKSRC}/LICENSE
@@ -14,7 +15,7 @@ RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}Jinja2>0:devel/py-Jinja2@${PY_FLAVOR}
 
 TEST_DEPENDS=		${PYTHON_PKGNAMEPREFIX}tox>0:devel/py-tox@${PY_FLAVOR}
 
-USES=			python:3.6+
+USES=			python
 
 OPTIONS_DEFINE=		TEST YAML
 OPTIONS_DEFAULT=	TEST YAML

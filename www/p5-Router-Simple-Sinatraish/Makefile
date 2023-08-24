@@ -5,8 +5,9 @@ CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for Sinatra-ish routers on Router::Simple
+WWW=		https://metacpan.org/release/Router-Simple-Sinatraish
 
 RUN_DEPENDS=	\
 	p5-Router-Simple>=0.09:www/p5-Router-Simple

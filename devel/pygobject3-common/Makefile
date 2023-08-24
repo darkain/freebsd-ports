@@ -1,8 +1,5 @@
-# Created by: Gustau Perez i Querol <gustau.perez@gmail.com>
-
 PORTNAME=	gobject
-PORTVERSION=	3.38.0
-PORTREVISION=	0
+PORTVERSION=	3.42.2
 CATEGORIES=	devel python
 MASTER_SITES=	GNOME/sources/pygobject/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}
 PKGNAMEPREFIX?=	py
@@ -35,6 +32,7 @@ PORTSCOUT?=	limitw:1,even
 BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}cairo>=0:graphics/py-cairo@${PY_FLAVOR}
 USES+=		gnome python:build
 USE_GNOME=	glib20:build introspection:build
+NO_ARCH=	yes
 NO_BUILD=	yes
 
 do-install:
@@ -52,7 +50,7 @@ LIB_DEPENDS+=	libffi.so:devel/libffi
 RUN_DEPENDS+=	pygobject3-common>=0:devel/pygobject3-common
 
 .  if ${SLAVE_PORT} == python
-USES+=		python:3.6+
+USES+=		python
 USE_PYTHON=	flavors py3kplist
 MESON_ARGS+=	-Dpython=${PYTHON_VERSION}
 BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}cairo>=0:graphics/py-cairo@${PY_FLAVOR}

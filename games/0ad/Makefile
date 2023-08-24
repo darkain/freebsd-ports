@@ -1,6 +1,6 @@
 PORTNAME=	0ad
-PORTVERSION=	0.0.24b
-PORTREVISION=	6
+PORTVERSION=	0.0.26
+PORTREVISION=	13
 CATEGORIES=	games
 MASTER_SITES=	http://releases.wildfiregames.com/ \
 		SF/zero-ad/releases
@@ -9,8 +9,8 @@ DISTFILES=	${PORTNAME}-${PORTVERSION}-alpha-unix-build.tar.xz \
 
 MAINTAINER=	madpilot@FreeBSD.org
 COMMENT=	Real-time strategy (RTS) game of ancient warfare
+WWW=		https://play0ad.com/
 
-BROKEN_FreeBSD_11=	fails to link: undefined reference to gloox::Client::Client(...)
 BROKEN_aarch64=		fails to compile: no member named verifyHeapAccessDisassembly
 BROKEN_armv6=		fails to link: fatal error: conftest: Unknown error: -1
 BROKEN_armv7=		fails to link: fatal error: conftest: Unknown error: -1
@@ -18,7 +18,7 @@ BROKEN_powerpc64=	fails to compile: _psutil_bsd.c: error: 'struct xtcpcb' has no
 
 BUILD_DEPENDS=	${RUST_DEFAULT}>=1.35:lang/${RUST_DEFAULT} \
 		zip:archivers/zip \
-		cmake:devel/cmake
+		cmake:devel/cmake-core
 LIB_DEPENDS=	libboost_thread.so:devel/boost-libs \
 		libicui18n.so:devel/icu \
 		libpng.so:graphics/png \
@@ -68,10 +68,6 @@ post-patch:
 			-e '1441s/"execinfo",/& "ssp_nonshared",/' \
 		${WRKSRC}/build/premake/premake5.lua
 .endif
-	@${REINPLACE_CMD} 's,^\(Exec=\)/usr/local,\1${PREFIX},' \
-		${WRKSRC}/build/resources/0ad.desktop
-	@${REINPLACE_CMD} 's|%%PREFIX%%|${PREFIX}|' \
-		${WRKSRC}/build/resources/0ad.sh
 
 pre-build:
 	(cd ${WRKSRC}/build/workspaces && ${SETENV} ${MAKE_ENV} ./update-workspaces.sh --bindir=${PREFIX}/bin --datadir=${DATADIR} --libdir=${PREFIX}/lib/${PORTNAME})

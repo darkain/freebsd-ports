@@ -1,11 +1,11 @@
-# Created by: chinsan
-
 PORTNAME=	vld
-PORTVERSION=	0.17.1
+PORTVERSION=	0.18.0
 CATEGORIES=	devel pear
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Dump the internal representation of PHP scripts
+WWW=		https://pecl.php.net/package/vld \
+		https://github.com/derickr/vld
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

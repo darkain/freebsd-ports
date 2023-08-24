@@ -1,12 +1,12 @@
-# Created by: Jean-Marc Zucconi <jmz@FreeBSD.org>
-
 PORTNAME=	netpbm
 DISTVERSION=	10.91.01
+PORTREVISION=	3
 CATEGORIES=	graphics
-MASTER_SITES=	https://github.com/t6/netpbm/releases/download/v${DISTVERSION}/
+MASTER_SITES=	LOCAL/tobik
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	leres@FreeBSD.org
 COMMENT=	Toolkit for conversion of images between different formats
+WWW=		http://netpbm.sourceforge.net/
 
 LICENSE=	GPLv2 IJG LGPL21 MIT PD
 LICENSE_COMB=	multi
@@ -21,9 +21,10 @@ TEST_DEPENDS=	bash:shells/bash
 # http://netpbm.sourceforge.net/getting_netpbm.php.  To checkout the
 # sources yourself see the netpbm-version-check and netpbm-fetch
 # targets below.
-USES=		ghostscript:test gmake perl5 shebangfix tar:xz
+USES=		cpe ghostscript:test gmake perl5 shebangfix tar:xz
 USE_LDCONFIG=	yes
 USE_PERL5=	build test
+CPE_VENDOR=	netpbm_project
 
 SHEBANG_FILES=	buildtools/makeman converter/pbm/pbmtox10bm editor/pnmflip \
 		editor/pnmquant editor/ppmfade editor/ppmquant editor/ppmshadow \
@@ -81,6 +82,12 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|pkg-config|false|g' ${WRKSRC}/GNUmakefile
 	@${REINPLACE_CMD} ${_DISABLE_TESTS:@.test.@-e '/${.test.}/d'@} \
 		${WRKSRC}/test/Test-Order
+.ifdef WITH_PIE
+.for dn in buildtools test
+	@${REINPLACE_CMD} -e '/^all:/s/^/CFLAGS_FOR_BUILD+=${PIE_CFLAGS}\n/' \
+	    ${WRKSRC}/${dn}/Makefile
+.endfor
+.endif
 
 post-patch-STATIC-on:
 	@${REINPLACE_CMD} -e 's|$$(LD)|$$(LD) -static|g' \
@@ -120,8 +127,8 @@ NETPBM_REPO=	https://svn.code.sf.net/p/netpbm/code
 NETPBM_SERIES=	advanced
 
 netpbm-version-check:
-	@REV=`svnlite info ${NETPBM_REPO}/${NETPBM_SERIES}/version.mk | sed -n 's/Last Changed Rev: //p'`; \
-	VERSION=`(svnlite cat -r$$REV ${NETPBM_REPO}/${NETPBM_SERIES}/version.mk; \
+	@REV=`svnlite info ${NETPBM_REPO}/${NETPBM_SERIES}/version.mk | ${SED} -n 's/Last Changed Rev: //p'`; \
+	VERSION=`(svnlite ${CAT} -r$$REV ${NETPBM_REPO}/${NETPBM_SERIES}/version.mk; \
 			echo 'all:'; \
 			echo '	@printf "%02d.%02d.%02d" \'; \
 			echo '		$${NETPBM_MAJOR_RELEASE} \' ; \

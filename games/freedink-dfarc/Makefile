@@ -1,5 +1,3 @@
-# Created by: Stephen Hurd <shurd@FreeBSD.org>
-
 PORTNAME=	freedink-dfarc
 PORTVERSION=	3.14
 PORTREVISION=	4
@@ -15,7 +13,6 @@ USES=		compiler:c++11-lib desktop-file-utils gettext gmake gnome \
 USE_CXXSTD=	c++11
 USE_WX=		3.0
 GNU_CONFIGURE=	yes
-INSTALLS_ICONS=	yes
 USE_GNOME=	intltool
 CONFIGURE_ARGS=	--with-wx-config=${WX_CONFIG} --disable-upx --disable-static
 CONFIGURE_ENV+=	ac_cv_path_XDG_DESKTOP_MENU= ac_cv_path_XDG_ICON_RESOURCE= \

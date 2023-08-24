@@ -9,6 +9,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Italian hunspell dictionaries
+WWW=		https://extensions.openoffice.org/en/project/italian-dictionary-thesaurus-hyphenation-patterns
 
 LICENSE=	GPLv3
 
@@ -16,8 +17,8 @@ NO_ARCH=	yes
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
 
-PLIST_FILES=	%%DATADIR%%/it_IT.aff \
-		%%DATADIR%%/it_IT.dic
+PLIST_FILES=	${DATADIR}/it_IT.aff \
+		${DATADIR}/it_IT.dic
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

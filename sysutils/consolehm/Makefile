@@ -1,5 +1,3 @@
-# Created by: Mike Muir <mmuir@es.co.nz>
-
 PORTNAME=	consolehm
 PORTVERSION=	1.31
 PORTREVISION=	1
@@ -8,6 +6,8 @@ MASTER_SITES=	LOCAL/fenner
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Console based hardware monitor for FreeBSD
+
+BROKEN_aarch64=	fails to build: fatal error: 'machine/pio.h' file not found
 
 USES=		uidfix
 GNU_CONFIGURE=	yes

@@ -1,14 +1,13 @@
-# Created by: Alex Dupre <ale@FreeBSD.org>
-
 PORTNAME=	tomcat
-PORTVERSION=	10.0.4
+DISTVERSION=	11.0.0-M6
 CATEGORIES=	www java
-MASTER_SITES=	APACHE/${PORTNAME}/${PORTNAME}-${PORTVERSION:C/([0-9]+)(.*)/\1/}/v${PORTVERSION}/bin
+MASTER_SITES=	APACHE/${PORTNAME}/${PORTNAME}-${DISTVERSION:C/([0-9]+)(.*)/\1/}/v${DISTVERSION}/bin
 PKGNAMESUFFIX=	-devel
-DISTNAME=	apache-${PORTNAME}-${PORTVERSION}
+DISTNAME=	apache-${PORTNAME}-${DISTVERSION}
 
-MAINTAINER=	vvd@unislabs.com
-COMMENT=	Open-source Java web server by Apache, 10.0.x branch
+MAINTAINER=	vvd@FreeBSD.org
+COMMENT=	Open-source Java web server by Apache, 10.1.x branch
+WWW=		https://tomcat.apache.org/
 
 LICENSE=	APACHE20
 
@@ -17,7 +16,7 @@ RUN_DEPENDS=	jsvc:devel/apache-commons-daemon
 USES=		cpe
 CPE_VENDOR=	apache
 USE_JAVA=	yes
-JAVA_VERSION=	1.8+
+JAVA_VERSION=	17+
 USE_RC_SUBR=	${PKGBASE:C/-/_/}
 
 NO_ARCH=	yes
@@ -39,7 +38,7 @@ HOST_MANAGER_DESC=	Install Host Manager application
 MANAGER_DESC=		Install Manager web application
 ROOT_DESC=		Install default ROOT web application
 
-TOMCAT_SUBDIR?=	${DISTNAME:R}
+TOMCAT_SUBDIR?=	${DISTNAME:R}${PKGNAMESUFFIX}
 TOMCAT_HOME=	${PREFIX}/${TOMCAT_SUBDIR}
 
 post-patch:

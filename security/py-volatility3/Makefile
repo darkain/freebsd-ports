@@ -5,6 +5,7 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	antoine@FreeBSD.org
 COMMENT=	Advanced memory forensics framework
+WWW=		https://www.volatilityfoundation.org/
 
 LICENSE=	VSL
 LICENSE_NAME=	Volatility Software License
@@ -21,7 +22,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	volatilityfoundation
 GH_TAGNAME=	94426ad
 
-USES=		python:3.5+
+USES=		python:3.8-3.9
 USE_PYTHON=	distutils autoplist
 
 NO_ARCH=	yes

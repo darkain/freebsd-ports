@@ -1,8 +1,6 @@
-# Created by: Roland Jesse <roland.jesse@gmx.net>
-
 PORTNAME=	squeak
 PORTVERSION=	4.10.2
-PORTREVISION=	10
+PORTREVISION=	13
 CATEGORIES=	lang
 MASTER_SITES=	http://www.squeakvm.org/unix/release/:vmsrc \
 		http://ftp.squeak.org/${IMAGE_VERSION}/:src \
@@ -16,26 +14,28 @@ EXTRACT_ONLY=	Squeak-${VM_VERSION}-src${EXTRACT_SUFX}
 
 MAINTAINER=	takeshi.mutoh@gmail.com
 COMMENT=	Full Smalltalk 80 with portability to Unix, Mac, and Windows
+WWW=		https://www.squeak.org/
 
 LICENSE=	APACHE20 MIT
 LICENSE_COMB=	multi
 
 ONLY_FOR_ARCHS=		aarch64 amd64 i386 powerpc powerpc64 powerpc64le powerpcspe
 
-BUILD_DEPENDS=	cmake:devel/cmake \
+BUILD_DEPENDS=	cmake:devel/cmake-core \
 		v4l_compat>=1.0.20120501:multimedia/v4l_compat
 LIB_DEPENDS=	libaudio.so:audio/nas \
 		libdbus-1.so:devel/dbus \
 		libffi.so:devel/libffi \
 		libfreetype.so:print/freetype2 \
+		libharfbuzz.so:print/harfbuzz \
 		libasound.so:audio/alsa-lib \
 		libpulse-simple.so:audio/pulseaudio \
 		libv4l2.so:multimedia/libv4l
 
-USES=		gl gnome iconv pkgconfig xorg
+USES=		gl gnome iconv:wchar_t pkgconfig xorg
 USE_GL=		gl
 USE_GNOME=	cairo pango
-USE_XORG=	ice sm x11 xext xrender 
+USE_XORG=	ice sm x11 xext xrender
 
 VM_VERSION=	${PORTVERSION}.${SVN_VERSION}
 SVN_VERSION=	2614
@@ -62,6 +62,15 @@ PLIST_SUB=	SQUEAK_LIB_DIR=${SQUEAK_LIB_DIR} \
 IMAGES=		Squeak${IMAGE_FULL_VERSION}.image \
 		Squeak${IMAGE_FULL_VERSION}.changes \
 		${SQUEAK_SRC}
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=int-conversion
+.if ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 )
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
+.endif
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's,<utmp\.h>,<utmpx.h>,' \

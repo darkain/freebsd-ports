@@ -1,7 +1,5 @@
-# Created by: Shaun Amott <shaun@inerd.com>
-
 PORTNAME=	netdisco
-DISTVERSION=	2.047002
+DISTVERSION=	2.061001
 CATEGORIES=	net-mgmt perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:OLIVER
@@ -9,6 +7,7 @@ DISTNAME=	App-Netdisco-${PORTVERSION}
 
 MAINTAINER=	dgeo@centrale-marseille.fr
 COMMENT=	Network discovery/management tool with web console
+WWW=		http://netdisco.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
@@ -27,6 +26,7 @@ RUN_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg \
 		p5-Authen-Radius>=0:security/p5-Authen-Radius \
 		p5-Authen-TacacsPlus>=0:security/p5-Authen-TacacsPlus \
 		p5-CGI-Expand>=2.05:www/p5-CGI-Expand \
+		p5-Crypt-Bcrypt>=0:security/p5-Crypt-Bcrypt \
 		p5-Data-Printer>=0:devel/p5-Data-Printer \
 		p5-Data-Visitor-Tiny>=0:devel/p5-Data-Visitor-Tiny \
 		p5-DBIx-Class-Helpers>=2.033004:databases/p5-DBIx-Class-Helpers \
@@ -64,6 +64,7 @@ RUN_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg \
 		p5-Plack-Middleware-Debug>=0:www/p5-Plack-Middleware-Debug \
 		p5-Plack-Middleware-Expires>=0.03:www/p5-Plack-Middleware-Expires \
 		p5-Plack-Middleware-ReverseProxy>=0.15:www/p5-Plack-Middleware-ReverseProxy \
+		p5-Plack-Middleware-Headers>=0:www/p5-Plack-Middleware-Headers \
 		p5-Regexp-Common>=0:textproc/p5-Regexp-Common \
 		p5-Role-Tiny>=1.002005:devel/p5-Role-Tiny \
 		p5-Sereal>=0:converters/p5-Sereal \
@@ -88,7 +89,7 @@ RUN_DEPENDS=	p5-DBD-Pg>=0:databases/p5-DBD-Pg \
 		p5-IO-Socket-SSL>=2.048:security/p5-IO-Socket-SSL \
 		p5-File-Slurper>=0:devel/p5-File-Slurper
 
-USES=		perl5 pgsql
+USES=		cpe perl5 pgsql
 USE_PERL5=	modbuild
 USE_RC_SUBR=	netdisco
 

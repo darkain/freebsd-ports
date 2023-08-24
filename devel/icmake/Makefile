@@ -4,6 +4,7 @@ CATEGORIES=	devel
 
 MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Intelligent C-like Maker
+WWW=		https://fbb-git.gitlab.io/icmake/
 
 LICENSE=	GPLv3
 
@@ -26,7 +27,7 @@ icmake_OLD_CMD=	/usr/bin/icmake
 icmake_CMD=	${LOCALBASE}/bin/icmake
 
 GL_ACCOUNT=	fbb-git
-GL_COMMIT=	9b958b05ac462adf6cde394875964a8127599514
+GL_TAGNAME=	9b958b05ac462adf6cde394875964a8127599514
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 

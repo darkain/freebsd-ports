@@ -4,8 +4,9 @@ CATEGORIES=	mail www pear
 
 MAINTAINER=	horde@FreeBSD.org
 COMMENT=	Horde Mail Autoconfiguration
+WWW=		https://pear.horde.org
 
-USES=	horde
+USES=	horde cpe
 USE_HORDE_RUN=	Horde_Exception \
 		Horde_Http \
 		Horde_Imap_Client \

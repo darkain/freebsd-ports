@@ -1,5 +1,3 @@
-# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
-
 PORTNAME=	ruby
 PORTVERSION=	${RUBY_PORTVERSION}
 PORTREVISION=	${RUBY_PORTREVISION}
@@ -11,18 +9,22 @@ DIST_SUBDIR=	ruby
 
 MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Object-oriented interpreted scripting language
+WWW=		https://www.ruby-lang.org/en/
 
 LICENSE=	BSD2CLAUSE RUBY
 LICENSE_COMB=	dual
 LICENSE_FILE_BSD2CLAUSE=${WRKSRC}/BSDL
 LICENSE_FILE_RUBY=	${WRKSRC}/COPYING
 
+DEPRECATED=	Please migrate to newer versions. Ruby 3.0 will reach its EoL on March 30, 2024
+EXPIRATION_DATE=2024-03-30
+
 # Using LIB_DEPENDS finds the libffi from gcc which causes problems
 BUILD_DEPENDS=	libffi>=0:devel/libffi
 LIB_DEPENDS=	libyaml.so:textproc/libyaml
 RUN_DEPENDS=	libffi>=0:devel/libffi
 
-USES=		autoreconf cpe ssl tar:xz
+USES=		autoreconf cpe localbase ruby:none tar:xz
 
 CONFIGURE_ARGS=	${RUBY_CONFIGURE_ARGS} \
 		--disable-rpath \
@@ -33,29 +35,28 @@ CONFIGURE_ARGS=	${RUBY_CONFIGURE_ARGS} \
 		--with-sitedir="${PREFIX}/lib/ruby/site_ruby" \
 		--with-vendordir="${PREFIX}/lib/ruby/vendor_ruby"
 CONFIGURE_ENV=	debugflags=
-CPPFLAGS+=	-I${LOCALBASE}/include
 GNU_CONFIGURE=	yes
 # Keep this, else ruby will fail to load libraries dependent of libpthread.
-LIBS+=		-lpthread -L${LOCALBASE}/lib
+LIBS+=		-lpthread
 USE_LDCONFIG=	yes
 WRKSRC=		${RUBY_WRKSRC}
 
 RUBY_VER=		3.0
-USE_RUBY=		yes
-RUBY_NO_BUILD_DEPENDS=	yes
-RUBY_NO_RUN_DEPENDS=	yes
 
-OPTIONS_DEFINE=		CAPIDOCS DEBUG DOCS EXAMPLES GMP RDOC
-OPTIONS_DEFAULT=	RDOC LIBEDIT
+OPTIONS_DEFINE=		CAPIDOCS DEBUG DOCS EXAMPLES GMP RDOC OPENSSL
+OPTIONS_DEFAULT=	RDOC LIBEDIT OPENSSL
 OPTIONS_SINGLE=		EDIT
 OPTIONS_SINGLE_EDIT=	LIBEDIT READLINE
 OPTIONS_SUB=		yes
+OPTIONS_EXCLUDE_FreeBSD_14=	OPENSSL
+
 CAPIDOCS_DESC=		Build and install C API documents
 GMP_DESC=		Use GMP to accelerate Bignum operations
 RDOC_DESC=		Build and install Rdoc indexes
 EDIT_DESC=		Which line editing lib to use
 LIBEDIT_DESC=		Use libedit
 READLINE_DESC=		Use libreadline
+
 CAPIDOCS_BUILD_DEPENDS=	doxygen>=1.8.13,2:devel/doxygen \
 			dot:graphics/graphviz
 CAPIDOCS_CONFIGURE_ENABLE=	install-capi
@@ -63,6 +64,7 @@ GMP_CONFIGURE_WITH=	gmp
 GMP_LIB_DEPENDS=	libgmp.so:math/gmp
 LIBEDIT_CONFIGURE_ON=	--enable-libedit --with-libedit-dir=${LOCALBASE}
 LIBEDIT_USES=		libedit
+OPENSSL_USES=	ssl
 RDOC_CONFIGURE_ENABLE=	install-rdoc
 READLINE_CONFIGURE_ON=	--disable-libedit --with-readline-dir=${LOCALBASE}
 READLINE_USES=		readline
@@ -84,7 +86,7 @@ _SUF2=	,${PORTEPOCH}
 .endif
 
 #.if ${OPSYS} == "FreeBSD"
-#.if exists(/usr/sbin/dtrace) && (${ARCH} == amd64 || ${ARCH} == i386)
+#.if exists(/usr/sbin/dtrace) && (${ARCH} == amd64 || ${ARCH} == i386 || ${ARCH} == powerpc64le || ${ARCH} == powerpc64 || ${ARCH} == powerpc)
 #CONFIGURE_ARGS+=--enable-dtrace
 #.else
 #CONFIGURE_ARGS+=--disable-dtrace
@@ -92,15 +94,15 @@ _SUF2=	,${PORTEPOCH}
 #.endif
 
 # keep in sync with all platforms where libunwind is available
-.if ${ARCH} == aarch64 || ${ARCH} == amd64 || ${ARCH} == armv7 || ${ARCH} == i386 || ${ARCH} == powerpc64 || ${ARCH} == powerpc64le
+.if ${ARCH} == aarch64 || ${ARCH} == amd64 || ${ARCH} == armv7 || ${ARCH} == i386 || ${ARCH} == powerpc || ${ARCH} == powerpc64 || ${ARCH} == powerpc64le
 LIB_DEPENDS+=	libunwind.so:devel/libunwind
 .endif
 
-.if (defined(PPC_ABI) && ${PPC_ABI} == ELFv1) || ${ARCH} == powerpc
+.if defined(PPC_ABI) && ${PPC_ABI} == ELFv1
 USE_GCC=	yes
 .endif
 
-.if ${ARCH} == armv6 || ${ARCH} == armv7
+.if ${ARCH} == armv6 || ${ARCH} == armv7 || ${ARCH} == powerpc
 CONFIGURE_ARGS+=--with-setjmp-type=_setjmp
 CONFIGURE_ENV+=	ac_cv_func__setjmp=yes
 .endif
@@ -110,6 +112,10 @@ PLIST_SUB+=	IF_DEFAULT=""
 .else
 PKGNAMESUFFIX=	${RUBY_SUFFIX}
 PLIST_SUB+=	IF_DEFAULT="@comment "
+.endif
+
+.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+OPTIONS_EXCLUDE=	OPENSSL
 .endif
 
 INSTALLED_SCRIPTS=	ruby
@@ -162,18 +168,22 @@ pre-install-RDOC-on:
 post-install:
 .if ${RUBY_VER} == ${RUBY_DEFAULT_VER}
 #
-# Link just installed "ruby" to "ruby27", etc.
+# Link just installed "ruby" to "ruby30", etc.
 #
 . for FILE in ${INSTALLED_SCRIPTS}
 	${LN} -fs ${FILE}${RUBY_SUFFIX} ${STAGEDIR}${PREFIX}/bin/${FILE}
 . endfor
 #
-# Link "ruby.1.gz" to "ruby27.1.gz", etc.
+# Link "ruby.1.gz" to "ruby30.1.gz", etc.
 #
 . for FILE in ${INSTALLED_MANUALS}
 	${LN} -fs ${FILE}${RUBY_SUFFIX}.1.gz ${STAGEDIR}${MANPREFIX}/man/man1/${FILE}.1.gz
 . endfor
 .endif
+
+post-install-CAPIDOCS-on:
+	${RM} ${WRKSRC}/doc/capi/.timestamp ${STAGEDIR}${PREFIX}/share/doc/ruby${RUBY_SUFFIX}/capi/.timestamp
+	cd ${STAGEDIR}${PREFIX} && ${FIND} share/doc/ruby${RUBY_SUFFIX}/capi/ -type f >> ${TMPPLIST}
 
 post-install-DEBUG-off:
 #
@@ -181,13 +191,13 @@ post-install-DEBUG-off:
 # bogus to hack.
 #
 .if defined(STRIP) && ${STRIP} == -s
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${RUBY_NAME}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ruby${RUBY_SUFFIX}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libruby${RUBY_SHLIBVER}.so.${RUBY_SHLIBVER}
 	${FIND} ${STAGEDIR}${RUBY_ARCHLIBDIR} -type f -name '*\.so' -exec ${STRIP_CMD} {} \;
 .endif
 
 post-install-DOCS-on:
-	# Create all dirs required (":u" isn't avaiable in STABLE yet :-()
+	# Create all dirs required (":u" isn't available in STABLE yet :-()
 	${MKDIR} ${EXTDOCS:C|^([^/]+)/.*|\1|:S|^|${STAGEDIR}${RUBY_DOCDIR}/|}
 .for FILE in ${EXTDOCS}
 	${INSTALL_DATA} ${WRKSRC}/ext/${FILE} \
@@ -201,7 +211,7 @@ post-install-DOCS-on:
 			${STAGEDIR}${RUBY_DOCDIR}/
 
 post-install-EXAMPLES-on:
-	# Create all dirs required (":u" isn't avaiable in STABLE yet :-()
+	# Create all dirs required (":u" isn't available in STABLE yet :-()
 	${MKDIR} ${EXTSAMPLES:C|^([^/]+)/.*|\1|:S|^|${STAGEDIR}${RUBY_EXAMPLESDIR}/|}
 .for FILE in ${EXTSAMPLES}
 	${INSTALL_DATA} ${WRKSRC}/ext/${FILE} \

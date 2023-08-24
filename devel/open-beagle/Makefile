@@ -1,5 +1,3 @@
-# Created by: ijliao
-
 PORTNAME=	open-beagle
 PORTVERSION=	3.0.3
 PORTREVISION=	1
@@ -9,18 +7,24 @@ DISTNAME=	beagle-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Evolutionary Computation Framework
+WWW=		http://beagle.sourceforge.net/
 
-CONFLICTS=	beagle-[0-9]*
+BUILD_DEPENDS+=	gsed:textproc/gsed
+
+USES=		gmake libtool
+USE_CXXSTD=	c++14
+USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-optimization --with-zlib=/usr
-USE_LDCONFIG=	yes
-USES=		gmake libtool
+
 INSTALL_TARGET=	install-strip
-PACCVERSION=	1.3.1b
+
+CONFLICTS=	beagle
 
 PLIST_SUB=	PORTVERSION=${PORTVERSION} PACCVERSION=${PACCVERSION}
-BUILD_DEPENDS+=	gsed:textproc/gsed
+
+PACCVERSION=	1.3.1b
 
 #unfortunately, some important sed statements rely on GNU sed behavior, and can't be
 #easily changed to call GNU sed by means of the configure script

@@ -1,13 +1,12 @@
-# Created by: Murilo Opsfelder <mopsfelder@gmail.com>
-
 PORTNAME=	Mojolicious
-PORTVERSION=	9.19
+PORTVERSION=	9.33
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	adamw@FreeBSD.org
 COMMENT=	High-level MVC web framework written in Perl
+WWW=		https://www.mojolicious.org
 
 LICENSE=	ART20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -17,7 +16,7 @@ TEST_DEPENDS=	p5-IO-Socket-Socks>=0.64:net/p5-IO-Socket-Socks \
 		p5-YAML-LibYAML>0:textproc/p5-YAML-LibYAML \
 		${JSONXS_BUILD_DEPENDS}
 
-USES=		perl5
+USES=		cpe perl5
 USE_PERL5=	configure
 
 NO_ARCH=	yes

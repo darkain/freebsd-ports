@@ -1,5 +1,3 @@
-# Created by: Danilo Egea Gondolfo <danilogondolfo@gmail.com>
-
 PORTNAME=	yap
 PORTVERSION=	6.2.2
 PORTREVISION=	11
@@ -10,6 +8,7 @@ MASTER_SITES=	https://mirrors.dotsrc.org/mirrors/exherbo/	\
 
 MAINTAINER=	eugen@FreeBSD.org
 COMMENT=	High-performance Prolog compiler
+WWW=		http://www.dcc.fc.up.pt/~vsc/Yap/
 
 LICENSE=		ART20 LGPL20
 LICENSE_COMB=		dual
@@ -20,13 +19,14 @@ LICENSE_FILE_LGPL20=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libgmp.so:math/gmp
 
-USES=		gmake localbase readline
+USES=		compiler:features gmake localbase readline
 PORTSCOUT=	limit:^6\.2\.
 
 OPTIONS_DEFINE=		DOCS BUILDDOCS
 BUILDDOCS_DESC=	Rebuild documentation (requires TeX)
 DOCS_DESC=	Install documentation
 
+BUILDDOCS_USES=		tex
 BUILDDOCS_USE=		TEX=formats:build,dvipsk:build
 BUILDDOCS_BUILD_DEPENDS=${LOCALBASE}/bin/texi2html:textproc/texi2html \
 			${LOCALBASE}/bin/texi2pdf:print/texinfo
@@ -45,7 +45,16 @@ post-build-DOCS-off:
 	# prevent the instalation of three docs files
 	${REINPLACE_CMD} -e '559,562d' ${WRKSRC}/Makefile
 
-.include <bsd.port.options.mk>
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ${COMPILER_TYPE} == clang && ${COMPILER_VERSION} >= 160
+CFLAGS+=	-Wno-incompatible-function-pointer-types
+CONFIGURE_ENV+=	CFLAGS="${CFLAGS}"
+.endif
+
+.if ${ARCH:Mpowerpc*}
+USES+=		compiler:gcc-c++11-lib
+.endif
 
 .if ${PORT_OPTIONS:MDOCS} && !${PORT_OPTIONS:MBUILDDOCS}
 MASTER_SITES+=	http://www.grosbein.net/freebsd/distfiles/:docs \
@@ -53,4 +62,4 @@ MASTER_SITES+=	http://www.grosbein.net/freebsd/distfiles/:docs \
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} ${DOCS_PACKAGE}${EXTRACT_SUFX}:docs
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

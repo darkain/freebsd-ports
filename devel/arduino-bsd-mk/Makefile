@@ -1,17 +1,16 @@
-# Created by: Craig Leres <leres@FreeBSD.org>
-
 PORTNAME=	arduino-bsd-mk
-PORTVERSION=	2.3
+PORTVERSION=	2.4
 CATEGORIES=	devel
 MASTER_SITES=	https://xse.com/leres/arduino/arduino-bsd-mk/ \
 		LOCAL/leres/arduino-bsd-mk
 
 MAINTAINER=	leres@FreeBSD.org
 COMMENT=	Build Arduino sketches from the command line on FreeBSD
+WWW=		https://xse.com/leres/arduino/arduino-bsd-mk/
 
 LICENSE=	BSD2CLAUSE
 
-USES=		python:3.6+,run shebangfix
+USES=		python:run shebangfix
 
 SHEBANG_FILES=	arduino-boards.py
 

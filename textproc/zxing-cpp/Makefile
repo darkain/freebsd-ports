@@ -1,12 +1,13 @@
-# Created by: Yuri Victorovich <yuri@rawbw.com>
-
 PORTNAME=	zxing-cpp
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.2.0
+DISTVERSION=	2.1.0
 CATEGORIES=	textproc
+
+PATCH_SITES=	https://github.com/zxing-cpp/zxing-cpp/commit/
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	ZXing C++ Library for QR code recognition
+WWW=		https://github.com/nu-book/zxing-cpp
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE

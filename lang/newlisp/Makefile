@@ -1,19 +1,18 @@
-# Created by: Stanislav Sedov <ssedov@mbsd.msk.ru>
-
 PORTNAME=	newlisp
 PORTVERSION=	10.7.5
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	lang
 MASTER_SITES=	http://www.newlisp.org/downloads/
 
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	LISP like scripting language
+WWW=		http://www.newlisp.org/
 
 LICENSE=	GPLv3
 
 LIB_DEPENDS=	libffi.so:devel/libffi
 
-CONFLICTS=	newlisp-devel-[0-9]*
+CONFLICTS=	newlisp-devel
 
 USES=		readline tar:tgz
 OPTIONS_SUB=	yes

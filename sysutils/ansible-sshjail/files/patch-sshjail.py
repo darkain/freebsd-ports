@@ -1,76 +1,56 @@
-From bcb0a961df77a0d7a3b2e7e58fac3e283b5ef8c4 Mon Sep 17 00:00:00 2001
-From: Mohamad Safadieh <self@mhmd.sh>
-Date: Wed, 5 May 2021 12:38:26 -0400
-Subject: [PATCH] added sshpass_prompt, ssh_transfer_method, timeout
+From 3b6fec58dd3e6b070176e0aafcbfed3cb5a0bd18 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Lo=C3=AFc=20Blot?= <nerzhul@users.noreply.github.com>
+Date: Sat, 18 Dec 2021 11:16:53 +0100
+Subject: [PATCH] fix: ansible 2.12 and + compat + become fix
 
----
- sshjail.py | 42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
-
-diff --git a/sshjail.py b/sshjail.py
-index 5973380..0e26c68 100644
---- sshjail.py
+--- sshjail.py.orig	2021-08-15 18:02:16 UTC
 +++ sshjail.py
-@@ -49,6 +49,17 @@
+@@ -24,6 +24,7 @@ DOCUMENTATION = '''
+           description: Hostname/ip to connect to.
+           default: inventory_hostname
            vars:
-               - name: ansible_password
-               - name: ansible_ssh_pass
-+      sshpass_prompt:
-+          description: Password prompt that sshpass should search for. Supported by sshpass 1.06 and up
-+          default: ''
-+          ini:
-+              - section: 'ssh_connection'
-+                key: 'sshpass_prompt'
-+          env:
-+              - name: ANSIBLE_SSHPASS_PROMPT
-+          vars:
-+              - name: ansible_sshpass_prompt
-+          version_added: '2.10'
-       ssh_args:
-           description: Arguments to pass to all ssh cli tools
-           default: '-C -o ControlMaster=auto -o ControlPersist=60s'
-@@ -247,6 +258,16 @@
-         vars:
-           - name: ansible_sftp_batch_mode
-             version_added: '2.7'
-+      ssh_transfer_method:
-+        default: smart
-+        description:
-+            - "Preferred method to use when transferring files over ssh"
-+            - Setting to 'smart' (default) will try them in order, until one succeeds or they all fail
-+            - Using 'piped' creates an ssh pipe with ``dd`` on either side to copy the data
-+        choices: ['sftp', 'scp', 'piped', 'smart']
-+        env: [{name: ANSIBLE_SSH_TRANSFER_METHOD}]
-+        ini:
-+            - {key: transfer_method, section: ssh_connection}
-       scp_if_ssh:
-         default: smart
-         description:
-@@ -270,6 +291,27 @@
++               - name: inventory_hostname
+                - name: ansible_host
+                - name: ansible_ssh_host
+       host_key_checking:
+@@ -289,6 +290,17 @@ DOCUMENTATION = '''
          vars:
            - name: ansible_ssh_use_tty
              version_added: '2.7'
-+      timeout:
-+        default: 10
++      pkcs11_provider:
++        version_added: '2.12'
++        default: ''
 +        description:
-+            - This is the default ammount of time we will wait while establishing an ssh connection
-+            - It also controls how long we can wait to access reading the connection once established (select on the socket)
-+        env:
-+            - name: ANSIBLE_TIMEOUT
-+            - name: ANSIBLE_SSH_TIMEOUT
-+              version_added: '2.11'
++          - PKCS11 SmartCard provider such as opensc, example: /usr/local/lib/opensc-pkcs11.so
++          - Requires sshpass version 1.06+, sshpass must support the -P option.
++        env: [{name: ANSIBLE_PKCS11_PROVIDER}]
 +        ini:
-+            - key: timeout
-+              section: defaults
-+            - key: timeout
-+              section: ssh_connection
-+              version_added: '2.11'
++          - {key: pkcs11_provider, section: ssh_connection}
 +        vars:
-+            - name: ansible_ssh_timeout
-+              version_added: '2.11'
-+        cli:
-+            - name: timeout
-+        type: integer
- '''
++          - name: ansible_ssh_pkcs11_provider
+       timeout:
+         default: 10
+         description:
+@@ -420,6 +432,7 @@ class Connection(ConnectionBase):
+         if 'sudo' in cmd:
+             cmd = self._strip_sudo(executable, cmd)
  
- try:
++        self.set_option('host', self.host)
+         cmd = ' '.join([executable, '-c', pipes.quote(cmd)])
+         if slpcmd:
+             cmd = '%s %s %s %s' % (self.get_jail_connector(), self.get_jail_id(), cmd, '&& sleep 0')
+@@ -442,9 +455,11 @@ class Connection(ConnectionBase):
+         return os.path.join(prefix, normpath[1:])
+ 
+     def _copy_file(self, from_file, to_file, executable='/bin/sh'):
+-        plugin = self.become
+-        shell = get_shell_plugin(executable=executable)
+-        copycmd = plugin.build_become_command(' '.join(['cp', from_file, to_file]), shell)
++        copycmd = ' '.join(['cp', from_file, to_file])
++        if self._play_context.become:
++        	plugin = self.become
++        	shell = get_shell_plugin(executable=executable)
++        	copycmd = plugin.build_become_command(copycmd, shell)
+ 
+         display.vvv(u"REMOTE COPY {0} TO {1}".format(from_file, to_file), host=self.inventory_hostname)
+         code, stdout, stderr = self._jailhost_command(copycmd)

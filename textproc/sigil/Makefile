@@ -1,26 +1,23 @@
-# Created by: Jonathan Chen <jonc@chen.org.nz>
-
 PORTNAME=	sigil
-PORTVERSION=	1.6.0
+PORTVERSION=	2.0.0
 CATEGORIES=	textproc
 
 MAINTAINER=	jonc@chen.org.nz
 COMMENT=	WYSIWYG ePub editor
+WWW=		https://sigil-ebook.com/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING.txt
 
-DEPRECATED=	Uses EOL Python 2.7 via www/qt5-webengine
-EXPIRATION_DATE=2021-06-23
-
-LIB_DEPENDS=	libminizip.so:archivers/minizip \
-		libpcre.so:devel/pcre \
-		libhunspell-1.7.so:textproc/hunspell
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dulwich>=0.15.0:devel/dulwich@${PY_FLAVOR} \
+LIB_DEPENDS=	libpcre2-16.so:devel/pcre2 \
+		libhunspell-1.7.so:textproc/hunspell \
+		libGLX.so:graphics/libglvnd
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dulwich>=0.15.0:devel/py-dulwich@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}lxml>0:devel/py-lxml@${PY_FLAVOR}
 
-USES=		cmake compiler:c++11-lib desktop-file-utils \
-		pkgconfig python:3.4+ qt:5 shebangfix
+USES=		cmake cpe desktop-file-utils \
+		minizip pkgconfig python qt:6 shebangfix
+CPE_VENDOR=	${PORTNAME}-ebook
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Sigil-Ebook
@@ -28,15 +25,14 @@ GH_PROJECT=	Sigil
 
 USE_LDCONFIG=	${PREFIX}/lib/sigil
 
-USE_QT=		concurrent core declarative gui location network printsupport \
-		svg webchannel webengine widgets xml xmlpatterns \
-		buildtools_build linguisttools_build qmake_build \
-		imageformats_run
+USE_QT=		base 5compat declarative location \
+		svg tools:build positioning webchannel webengine \
+		imageformats:run
 
 SHEBANG_FILES=	src/Resource_Files/plugin_launchers/python/*.py \
 		src/Resource_Files/python3lib/*.py
 
-CMAKE_ARGS=	-DUSE_SYSTEM_LIBS:BOOL=1
+CMAKE_ARGS=	-DUSE_SYSTEM_LIBS:BOOL=1 -DUSE_QT6=1
 
 # Upstream uses pkg-config output to pass libhunspell-1.7.so and
 # libpcre16.so to the linker. pkg-config output does not include full

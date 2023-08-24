@@ -1,23 +1,19 @@
-# Created by: Sofian Brabez <sbrabez@gmail.com>
-
 PORTNAME=	bitarray
-PORTVERSION=	2.1.3
+PORTVERSION=	2.8.1
 CATEGORIES=	devel python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sbz@FreeBSD.org
 COMMENT=	Efficient arrays of booleans
+WWW=		https://pypi.org/project/bitarray/
 
 LICENSE=	PSFL
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python:3.6+
-
+USES=		python
 USE_GITHUB=	yes
-USE_PYTHON=	autoplist distutils
-
 GH_ACCOUNT=	ilanschnell
-GH_PROJECT=	bitarray
+USE_PYTHON=	autoplist distutils
 
 DOCSDIR=	${PREFIX}/share/doc/${PKGNAMEPREFIX}${PORTNAME}
 EXAMPLESDIR=	${PREFIX}/share/examples/${PKGNAMEPREFIX}${PORTNAME}

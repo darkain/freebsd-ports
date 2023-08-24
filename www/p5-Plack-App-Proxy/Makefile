@@ -6,8 +6,9 @@ MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:LEEDO
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Plack extension for proxy requests
+WWW=		https://metacpan.org/release/Plack-App-Proxy
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
 RUN_DEPENDS=	\

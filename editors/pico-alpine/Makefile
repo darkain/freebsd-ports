@@ -4,6 +4,7 @@ CATEGORIES=	editors
 DISTNAME=	alpine-${PORTVERSION}
 
 COMMENT=	[Al]PIne's message COmposition editor and Pilot file manager
+WWW=		http://www.washington.edu/alpine/
 
 MASTERDIR=	${.CURDIR}/../../mail/alpine
 
@@ -13,6 +14,7 @@ PLIST=		${.CURDIR}/pkg-plist
 PATCHDIR=			# To void equivalent in master port
 PKGMESSAGE=	/nonexistent	# To void equivalent in master port
 PKGINSTALL=	/nonexistent	# To void equivalent in master port
+CPE_PRODUCT=	alpine
 
 PICO_ALPINE_SLAVE=	yes
 

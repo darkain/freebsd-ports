@@ -1,5 +1,3 @@
-# Created by: Alexander Moisseev <moiseev@mezonplus.ru>
-
 PORTNAME=	backuppc
 PORTVERSION=	4.4.0
 CATEGORIES=	sysutils
@@ -10,6 +8,7 @@ DISTNAME=	BackupPC-${DISTVERSION}
 
 MAINTAINER=	moiseev@mezonplus.ru
 COMMENT=	Multi-platform backup to disk-based storage
+WWW=		https://backuppc.github.io/backuppc/
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -18,9 +17,11 @@ RUN_DEPENDS=	p5-CGI>0:www/p5-CGI \
 		p5-File-Listing>=0:sysutils/p5-File-Listing \
 		p5-BackupPC-XS>=0.62:sysutils/p5-BackupPC-XS
 
-USES=		perl5
+USES=		cpe perl5
 
 CONFLICTS_INSTALL=	backuppc backuppc-devel
+
+CPE_VENDOR=	craig_barratt
 
 NO_BUILD=	yes
 NO_ARCH=	yes

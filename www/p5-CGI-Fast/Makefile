@@ -1,7 +1,5 @@
-# Created by: Adam Weinberger <adamw@FreeBSD.org>
-
 PORTNAME=	CGI-Fast
-PORTVERSION=	2.15
+PORTVERSION=	2.16
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:LEEJO
@@ -9,6 +7,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Perl CGI Interface for FastCGI
+WWW=		https://metacpan.org/release/CGI-Fast
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

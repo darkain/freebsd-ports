@@ -1,13 +1,12 @@
-# Created by: Yen-Ming Lee <leeym@leeym.com>
-
 PORTNAME=	upnp
 DISTVERSIONPREFIX=	release-
-DISTVERSION=	1.14.7
+DISTVERSION=	1.14.17
 PORTEPOCH=	1
 CATEGORIES=	devel
 
-MAINTAINER=	driesm.michiels@gmail.com
+MAINTAINER=	driesm@FreeBSD.org
 COMMENT=	Universal Plug and Play Software Development Kit
+WWW=		http://pupnp.sourceforge.net/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING

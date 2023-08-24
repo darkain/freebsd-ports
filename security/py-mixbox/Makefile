@@ -1,13 +1,12 @@
-# Created by: Antoine Brodin <antoine@FreeBSD.org>
-
 PORTNAME=	mixbox
 PORTVERSION=	1.0.5
 CATEGORIES=	security python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	antoine@FreeBSD.org
 COMMENT=	Utility library for cybox, maec, and stix
+WWW=		https://github.com/CybOXProject/mixbox
 
 LICENSE=	BSD3CLAUSE
 
@@ -16,7 +15,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateutil>=0:devel/py-dateutil@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}ordered-set>=0:devel/py-ordered-set@${PY_FLAVOR}
 
 NO_ARCH=	yes
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

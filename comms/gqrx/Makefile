@@ -1,14 +1,13 @@
-# Created by: Ganael Laplanche <ganael.laplanche@martymac.org>
-
 PORTNAME=	gqrx
-PORTVERSION=	2.14.4
+PORTVERSION=	2.16
 DISTVERSIONPREFIX=	v
-PORTREVISION=	1
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	comms hamradio
 
 MAINTAINER=	martymac@FreeBSD.org
 COMMENT=	Software defined radio receiver powered by GNU Radio and Qt
+WWW=		https://gqrx.dk
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -33,10 +32,12 @@ LIB_DEPENDS=	libgnuradio-runtime.so:comms/gnuradio \
 		libjack.so:audio/jack \
 		libportaudio.so:audio/portaudio
 
-USES=		cmake compiler:c++11-lang gl pkgconfig qt:5
+USES=		cmake compiler:c++11-lang elfctl gl pkgconfig qt:5
+
+ELF_FEATURES=	+noaslr:src/gqrx
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	csete
+GH_ACCOUNT=	gqrx-sdr
 USE_GL=		gl
 USE_QT=		core gui network svg widgets
 
@@ -45,12 +46,12 @@ USE_QT=		core gui network svg widgets
 CMAKE_ARGS+=	-DLINUX_AUDIO_BACKEND:STRING="Portaudio"
 
 PLIST_FILES=	bin/gqrx \
-		share/applications/gqrx.desktop \
+		share/applications/dk.gqrx.gqrx.desktop \
 		man/man1/gqrx.1.gz
 
 do-install:
 	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/src/gqrx ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_DATA} ${WRKSRC}/gqrx.desktop \
+	${INSTALL_DATA} ${WRKSRC}/dk.gqrx.gqrx.desktop \
 		${STAGEDIR}${PREFIX}/share/applications
 	${INSTALL_MAN} ${WRKSRC}/resources/gqrx.1 \
 		${STAGEDIR}${MANPREFIX}/man/man1

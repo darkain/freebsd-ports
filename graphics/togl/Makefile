@@ -1,5 +1,3 @@
-# Created by: Randall Hopper <aa8vb@ipass.net>
-
 PORTNAME=	togl
 DISTVERSION=	2.0
 DISTVERSIONSUFFIX=	-src
@@ -10,23 +8,30 @@ DISTNAME=	Togl${DISTVERSIONFULL}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Tk OpenGL widget
+WWW=		http://togl.sourceforge.net/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		gl gmake tk:tea xorg
-USE_XORG=	x11 xt xmu
+USES=		gl gmake tk:86,tea xorg
 USE_GL=		gl
 USE_LDCONFIG=	${PREFIX}/lib/Togl2.0
+USE_XORG=	x11 xt xmu
 
 WRKSRC=		${WRKDIR}/Togl2.0
 
-TOGL_INSTDIR=	${PREFIX}/lib/${DISTNAME}
+PORTDOCS=	*
+PORTEXAMPLES=	*
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
-PORTDOCS=	*
-PORTEXAMPLES=	*
+TOGL_INSTDIR=	${PREFIX}/lib/${DISTNAME}
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|wish |${WISH:T} |' ${WRKSRC}/*.tcl

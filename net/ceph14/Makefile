@@ -1,17 +1,18 @@
-# Created by: Willem Jan Withagen <wjw@digiware.nl>
-
 PORTNAME=	ceph
 DISTVERSIONPREFIX=	v
-DISTVERSION=	14.2.21
+DISTVERSION=	14.2.22
+PORTREVISION=	11
 CATEGORIES=	net
 PKGNAMESUFFIX=	14
 
 MAINTAINER=	wjw@digiware.nl
 COMMENT=	Ceph delivers object, block, and file storage in a unified system
+WWW=		https://ceph.com/
 
 LICENSE=	GPLv2 LGPL3
 LICENSE_COMB=	dual
 
+BROKEN_FreeBSD_14=	fails to build: static_assert failed due to requirement
 # even though i386 will build, it is not really advised.
 ONLY_FOR_ARCHS=	amd64 powerpc64 powerpc64le
 
@@ -38,7 +39,6 @@ LIB_DEPENDS=	\
 	libtcmalloc.so:devel/google-perftools \
 	librabbitmq.so:net/rabbitmq-c \
 	libfmt.so:devel/libfmt
-#	libleveldb.so:databases/leveldb \
 RUN_DEPENDS=	\
 	bash:shells/bash \
 	flock:sysutils/flock \
@@ -51,19 +51,20 @@ RUN_DEPENDS=	\
 	${PYTHON_PKGNAMEPREFIX}six>=0:devel/py-six@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}virtualenv>=0:devel/py-virtualenv@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}protobuf>=0:devel/py-protobuf@${PY_FLAVOR} \
+	${PYTHON_PKGNAMEPREFIX}yaml>=0:devel/py-yaml@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}bcrypt>=0:security/py-bcrypt@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}openssl>=0:security/py-openssl@${PY_FLAVOR} \
-	${PYTHON_PKGNAMEPREFIX}pyjwt>=0:www/py-pyjwt@${PY_FLAVOR} \
+	${PYTHON_PKGNAMEPREFIX}pyjwt1>=0:www/py-pyjwt1@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}werkzeug>=0:www/py-werkzeug@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}cherrypy>=0:www/py-cherrypy@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}pecan>=0:www/py-pecan@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}requests>=0:www/py-requests@${PY_FLAVOR} \
 	${PYTHON_PKGNAMEPREFIX}routes>=0:www/py-routes@${PY_FLAVOR}
 
-USES=		cmake:noninja compiler:c++17-lang dos2unix fuse gettext-runtime gmake ncurses \
-		pkgconfig python:3.7+ readline shebangfix ssl
+USES=		cmake:noninja compiler:c++17-lang cpe dos2unix fuse gettext-runtime gmake ldap ncurses \
+		pkgconfig python:3.8-3.9 readline shebangfix ssl
+CPE_VENDOR=	linuxfoundation
 USE_PYTHON=	cython py3kplist
-USE_OPENLDAP=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	ceph:DEFAULT
 DOS2UNIX_FILES=	src/pybind/mgr/diskprediction_cloud/common/__init__.py
@@ -84,7 +85,7 @@ GH_TUPLE+=	ceph:lua:1fce39c:lua/src/lua
 GH_TUPLE+=	ceph:rapidjson:f54b0e4:rapidjson/src/rapidjson
 GH_TUPLE+=	ceph:rocksdb:4c736f1:rocksdb/src/rocksdb
 GH_TUPLE+=	ceph:xxHash:1f40c65:xxHash/src/xxHash
-GH_TUPLE+=	facebook:zstd:f4340f4:zstd/src/zstd
+GH_TUPLE+=	facebook:zstd:b706286:zstd/src/zstd
 GH_TUPLE+=	ceph:spawn:5f4742f:spawn/src/spawn
 
 OPTIONS_DEFINE=	TESTS
@@ -102,11 +103,9 @@ SHEBANG_FILES=	src/rbdmap src/ceph-post-file.in src/rbd-replay-many \
 		src/tools/ceph-monstore-update-crush.sh src/mount.fuse.ceph \
 		src/ceph-create-keys
 
-TESTS_DESC=	Build test/debug tools (Broken with Clang)
+TESTS_DESC=	Build test/debug tools
 TESTS_CMAKE_ON=	-DWITH_TESTS:BOOL=ON
 TESTS_CMAKE_OFF=-DWITH_TESTS:BOOL=OFF
-
-USE_CXXSTD=	gnu++17
 
 USE_RC_SUBR=	ceph
 USE_LDCONFIG=	yes

@@ -1,9 +1,10 @@
 PORTNAME=	ansiweather
-PORTVERSION=	1.17.0
+PORTVERSION=	1.18.0
 CATEGORIES=	misc
 
 MAINTAINER=	dbaio@FreeBSD.org
 COMMENT=	Shell script for displaying the current weather in your terminal
+WWW=		https://github.com/fcambus/ansiweather/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

@@ -1,11 +1,12 @@
 PORTNAME=		cereal
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.3.0-10
-DISTVERSIONSUFFIX=	-g64f50dbd
+DISTVERSION=	1.3.2
+PORTREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	teodor@sigaev.ru
 COMMENT=	C++11 library for serialization
+WWW=		https://github.com/USCiLab/cereal
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -13,7 +14,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 BUILD_DEPENDS=	boost-libs>0:devel/boost-libs
 RUN_DEPENDS=	boost-libs>0:devel/boost-libs
 
-USES=		cmake compiler:c++11-lang
+USES=		cmake compiler:c++11-lang cpe
+CPE_VENDOR=	usc
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	USCiLab
@@ -21,7 +23,7 @@ GH_ACCOUNT=	USCiLab
 CFLAGS+=	-Wno-unused-private-field
 
 CMAKE_ON=	SKIP_PORTABILITY_TEST
-CMAKE_OFF=	BUILD_TESTS WITH_WERROR
+CMAKE_OFF=	BUILD_TESTS BUILD_SANDBOX WITH_WERROR
 
 NO_ARCH=	yes
 

@@ -1,13 +1,12 @@
-# Created by: Fernan Aguero <fernan@iib.unsam.edu.ar>
-
 PORTNAME=	mafft
-PORTVERSION=	7.266
+PORTVERSION=	7.267
 CATEGORIES=	biology
 MASTER_SITES=	http://mafft.cbrc.jp/alignment/software/
 DISTNAME=	${PORTNAME}-${PORTVERSION}-without-extensions-src
 
 MAINTAINER=	cartwright@asu.edu
 COMMENT=	Multiple alignment program for amino acid or nucleotide sequences
+WWW=		https://mafft.cbrc.jp/alignment/software/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/license

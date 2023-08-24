@@ -1,9 +1,10 @@
 PORTNAME=	openconnect-freebsd-daemon
-DISTVERSION=	2.0.0
+DISTVERSION=	2.1.0
 CATEGORIES=	security net-vpn
 
 MAINTAINER=	0mp@FreeBSD.org
 COMMENT=	OpenConnect service daemon for FreeBSD rc(8)
+WWW=		https://github.com/0mp/openconnect-freebsd-daemon
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

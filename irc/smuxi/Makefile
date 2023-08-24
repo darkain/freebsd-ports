@@ -1,12 +1,12 @@
-# Created by: Romain Tartiere <romain@blogreen.org>
-
 PORTNAME=	smuxi
 PORTVERSION=	1.1
+PORTREVISION=	3
 CATEGORIES=	irc
 MASTER_SITES=	http://www.smuxi.org/jaws/data/files/
 
 MAINTAINER=	fox@FreeBSD.org
 COMMENT=	Smart MUltipleXed Irc
+WWW=		https://smuxi.im/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -23,7 +23,6 @@ GNU_CONFIGURE=	yes
 USES=		desktop-file-utils gettext-tools:build gmake gnome mono \
 		pkgconfig
 USE_GNOME=	gtksharp20
-INSTALLS_ICONS=	yes
 
 OPTIONS_DEFINE=		DBUS NLS SPELLCHECK
 OPTIONS_DEFAULT=	DBUS NLS SPELLCHECK

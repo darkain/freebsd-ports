@@ -1,8 +1,6 @@
-# Created by: paulo@isr.uc.pt
-
 PORTNAME=	povray
 PORTVERSION=	3.6.1
-PORTREVISION=	13
+PORTREVISION=	14
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.povray.org/pub/povray/%SUBDIR%/ \
 		ftp://ftp.mirrorservice.org/sites/ftp.povray.org/pub/povray/%SUBDIR%/
@@ -12,6 +10,7 @@ DIST_SUBDIR=	povray36
 
 MAINTAINER=	bsd@philippost.de
 COMMENT=	Persistence of Vision Ray Tracer
+WWW=		https://www.povray.org/
 
 LIB_DEPENDS=	libpng.so:graphics/png \
 		libtiff.so:graphics/tiff

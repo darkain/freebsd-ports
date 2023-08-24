@@ -1,11 +1,11 @@
-# Created by: Gea-Suan Lin <gslin@gslin.org>
-
 PORTNAME=	zookeeper
-PORTVERSION=	1.0.0
+PORTVERSION=	1.2.1
 CATEGORIES=	devel
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	PHP extension for interfacing with Apache ZooKeeper
+WWW=		https://pecl.php.net/package/zookeeper \
+		https://github.com/php-zookeeper/php-zookeeper
 
 LICENSE=	PHP301
 LICENSE_FILE=	${WRKSRC}/LICENSE

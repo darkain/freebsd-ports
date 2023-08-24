@@ -1,12 +1,13 @@
 PORTNAME=	lemon
 DISTVERSION=	1.3.1
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	math
 MASTER_SITES=	https://lemon.cs.elte.hu/pub/sources/
 PKGNAMEPREFIX=	coin-or-
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Library for Efficient Modeling and Optimization in Networks
+WWW=		https://lemon.cs.elte.hu/trac/lemon/
 
 LICENSE=	BSL
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -18,6 +19,7 @@ LIB_DEPENDS=	libCbc.so:math/cbc \
 		libOsi.so:math/osi
 
 USES=		cmake
+USE_CXXSTD=	c++14
 USE_LDCONFIG=	yes
 
 CMAKE_ON=	BUILD_SHARED_LIBS

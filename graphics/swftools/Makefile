@@ -1,14 +1,13 @@
-# Created by: ijliao
-
 PORTNAME=	swftools
 PORTVERSION=	0.9.2
-PORTREVISION=	11
-CATEGORIES=	graphics
+PORTREVISION=	12
+CATEGORIES=	graphics multimedia
 MASTER_SITES=	http://www.swftools.org/ \
 		http://www.c-s.li/ports/
 
 MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	SWF manipulation and generation utilities
+WWW=		http://www.swftools.org/
 
 LICENSE=	GPLv2
 
@@ -18,7 +17,7 @@ LIB_DEPENDS=	libt1.so:devel/t1lib \
 		libfreetype.so:print/freetype2 \
 		libfontconfig.so:x11-fonts/fontconfig
 
-USES=		gmake pkgconfig jpeg
+USES=		cpe gmake pkgconfig jpeg
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	ac_cv_lib_zzip_zzip_file_open=no
 

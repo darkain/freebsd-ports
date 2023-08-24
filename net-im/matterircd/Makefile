@@ -1,15 +1,16 @@
 PORTNAME=	matterircd
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.24.2
+DISTVERSION=	0.27.1
 CATEGORIES=	net-im irc
 
-MAINTAINER=	norrland@nullbyte.se
+MAINTAINER=	chalpin@cs.wisc.edu
 COMMENT=	IRC bridge for Mattermost and Slack
+WWW=		https://github.com/42wim/matterircd
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=	aarch64 amd64 armv6 armv7 i386
+ONLY_FOR_ARCHS=	aarch64 amd64 armv6 armv7 i386 riscv64
 
 USES=		go:modules
 USE_GITHUB=	yes

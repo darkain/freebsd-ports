@@ -5,8 +5,9 @@ CATEGORIES=	audio perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for liblo Lightweight OSC library
+WWW=		https://metacpan.org/release/Net-LibLO
 
 LIB_DEPENDS=	liblo.so:audio/liblo
 

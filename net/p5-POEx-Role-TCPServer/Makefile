@@ -6,8 +6,9 @@ MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:NPEREZ
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for TCPServer Moose role on POE
+WWW=		https://metacpan.org/release/NPEREZ/POEx-Role-TCPServer-1.102740
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

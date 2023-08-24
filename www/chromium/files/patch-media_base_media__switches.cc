@@ -1,38 +1,56 @@
---- media/base/media_switches.cc.orig	2021-05-12 22:05:55 UTC
+--- media/base/media_switches.cc.orig	2023-08-17 07:33:31 UTC
 +++ media/base/media_switches.cc
-@@ -379,7 +379,7 @@ const base::Feature kGav1VideoDecoder{"Gav1VideoDecode
- // Show toolbar button that opens dialog for controlling media sessions.
- const base::Feature kGlobalMediaControls {
-   "GlobalMediaControls",
--#if defined(OS_WIN) || defined(OS_MAC) || defined(OS_LINUX) || \
-+#if defined(OS_WIN) || defined(OS_MAC) || defined(OS_LINUX) || defined(OS_BSD) || \
-     BUILDFLAG(IS_CHROMEOS_LACROS)
-       base::FEATURE_ENABLED_BY_DEFAULT
- #else
-@@ -421,7 +421,7 @@ const base::Feature kGlobalMediaControlsOverlayControl
- // Show picture-in-picture button in Global Media Controls.
- const base::Feature kGlobalMediaControlsPictureInPicture {
-   "GlobalMediaControlsPictureInPicture",
--#if defined(OS_WIN) || defined(OS_MAC) || defined(OS_LINUX) || \
-+#if defined(OS_WIN) || defined(OS_MAC) || defined(OS_LINUX) || defined(OS_BSD) || \
-     BUILDFLAG(IS_CHROMEOS_LACROS)
-       base::FEATURE_ENABLED_BY_DEFAULT
- #else
-@@ -463,7 +463,7 @@ const base::Feature kUseR16Texture{"use-r16-texture",
- const base::Feature kUnifiedAutoplay{"UnifiedAutoplay",
-                                      base::FEATURE_ENABLED_BY_DEFAULT};
+@@ -15,7 +15,7 @@
+ #include "gpu/config/gpu_finch_features.h"
+ #include "media/media_buildflags.h"
  
--#if defined(OS_LINUX)
-+#if defined(OS_LINUX) || defined(OS_BSD)
+-#if BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+ #include "base/cpu.h"
+ #endif
+ 
+@@ -648,7 +648,7 @@ BASE_FEATURE(kFallbackAfterDecodeError,
+ // Show toolbar button that opens dialog for controlling media sessions.
+ BASE_FEATURE(kGlobalMediaControls,
+              "GlobalMediaControls",
+-#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+              base::FEATURE_ENABLED_BY_DEFAULT
+ #else
+              base::FEATURE_DISABLED_BY_DEFAULT
+@@ -671,7 +671,7 @@ BASE_FEATURE(kGlobalMediaControlsCrOSUpdatedUI,
+ // If enabled, users can request Media Remoting without fullscreen-in-tab.
+ BASE_FEATURE(kMediaRemotingWithoutFullscreen,
+              "MediaRemotingWithoutFullscreen",
+-#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+              base::FEATURE_ENABLED_BY_DEFAULT
+ #else
+              base::FEATURE_DISABLED_BY_DEFAULT
+@@ -683,7 +683,7 @@ BASE_FEATURE(kMediaRemotingWithoutFullscreen,
+ BASE_FEATURE(kGlobalMediaControlsPictureInPicture,
+              "GlobalMediaControlsPictureInPicture",
+ #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || \
+-    BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_CHROMEOS_LACROS)
++    BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_CHROMEOS_LACROS) || BUILDFLAG(IS_BSD)
+              base::FEATURE_ENABLED_BY_DEFAULT
+ #else
+              base::FEATURE_DISABLED_BY_DEFAULT
+@@ -727,7 +727,7 @@ BASE_FEATURE(kUnifiedAutoplay,
+              "UnifiedAutoplay",
+              base::FEATURE_ENABLED_BY_DEFAULT);
+ 
+-#if BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
  // Enable vaapi video decoding on linux. This is already enabled by default on
  // chromeos, but needs an experiment on linux.
- const base::Feature kVaapiVideoDecodeLinux{"VaapiVideoDecoder",
-@@ -471,7 +471,7 @@ const base::Feature kVaapiVideoDecodeLinux{"VaapiVideo
+ BASE_FEATURE(kVaapiVideoDecodeLinux,
+@@ -1294,7 +1294,7 @@ const base::Feature MEDIA_EXPORT kUseOutOfProcessVideo
+ };
+ #endif  // BUILDFLAG(ALLOW_OOP_VIDEO_DECODER)
  
- const base::Feature kVaapiVideoEncodeLinux{"VaapiVideoEncoder",
-                                            base::FEATURE_DISABLED_BY_DEFAULT};
--#endif  // defined(OS_LINUX)
-+#endif  // defined(OS_LINUX) || defined(OS_BSD)
- 
- // Enable VA-API hardware decode acceleration for AV1.
- const base::Feature kVaapiAV1Decoder{"VaapiAV1Decoder",
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
+ // Spawn utility processes to perform hardware encode acceleration instead of
+ // using the GPU process.
+ const base::Feature MEDIA_EXPORT kUseOutOfProcessVideoEncoding{

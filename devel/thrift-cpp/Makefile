@@ -1,8 +1,6 @@
-# Created by: Valery Komarov <komarov@valerka.net>
-
 PORTNAME=	thrift
 PORTVERSION=	${THRIFT_PORTVERSION} # to keep in sync with thrift
-PORTREVISION=	0
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	devel
 MASTER_SITES=	APACHE/thrift/${PORTVERSION}
@@ -11,6 +9,7 @@ DISTNAME=	thrift-${PORTVERSION}
 
 MAINTAINER=	komarov@valerka.net
 COMMENT=	C++ interface to Thrift
+WWW=		https://thrift.apache.org/
 
 BROKEN_i386=	undefined reference to 'boost::atomics::detail::lockpool::scoped_lock::scoped_lock(void const volatile*)'
 
@@ -19,8 +18,9 @@ LIB_DEPENDS=	libboost_system.so:devel/boost-libs \
 
 DISTINFO_FILE=		${.CURDIR}/../thrift/distinfo
 
-USES=			bison cmake pkgconfig compiler:c++11-lang \
+USES=			bison cmake pkgconfig compiler:c++11-lang cpe \
 			libtool pathfix ssl
+CPE_VENDOR=		apache
 USE_LDCONFIG=		yes
 MAKE_JOBS_UNSAFE=	yes
 PLIST_SUB=		PORTVERSION="${THRIFT_PORTVERSION}"

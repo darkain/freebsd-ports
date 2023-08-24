@@ -3,7 +3,7 @@ bin/mecrisp-stellaris
 %%DOCSDIR%%/README
 %%DATADIR%%/VIS/VIS-README
 %%DATADIR%%/VIS/vis-0.8.4-disassembler-m3.fs
-%%DATADIR%%/VIS/vis-0.8.4-mecrisp-stellaris.fs
+%%DATADIR%%/VIS/vis-0.8.4.1-mecrisp-stellaris.fs
 %%DATADIR%%/VIS/vis-conditional-200x.txt
 %%DATADIR%%/accept-replacement.txt
 %%DATADIR%%/ansification-tester.txt
@@ -12,6 +12,7 @@ bin/mecrisp-stellaris
 %%DATADIR%%/assembler-m0.txt
 %%DATADIR%%/bitflip.txt
 %%DATADIR%%/bitlog.txt
+%%DATADIR%%/bits.fs
 %%DATADIR%%/blocks.txt
 %%DATADIR%%/calltrace.txt
 %%DATADIR%%/catchthrow.txt
@@ -25,15 +26,18 @@ bin/mecrisp-stellaris
 %%DATADIR%%/date-time-tests.fs
 %%DATADIR%%/date-time.fs
 %%DATADIR%%/defcount.txt
+%%DATADIR%%/dictionary-tools.txt
 %%DATADIR%%/disassembler-m0.txt
 %%DATADIR%%/disassembler-m3.txt
 %%DATADIR%%/dump.txt
 %%DATADIR%%/editor.txt
 %%DATADIR%%/examples.txt
+%%DATADIR%%/experimental/basepri.fs
 %%DATADIR%%/experimental/bignum.txt
+%%DATADIR%%/experimental/bits-example.fs
 %%DATADIR%%/experimental/definitioncount.txt
 %%DATADIR%%/experimental/float.txt
-%%DATADIR%%/experimental/forget-stellaris.txt
+%%DATADIR%%/experimental/sv.fs
 %%DATADIR%%/experimental/vocs-0.7.0/README
 %%DATADIR%%/experimental/vocs-0.7.0/VOC-HOWTO-Classes-1.log
 %%DATADIR%%/experimental/vocs-0.7.0/VOC-HOWTO-Classes-2.log
@@ -88,7 +92,7 @@ bin/mecrisp-stellaris
 %%DATADIR%%/fonts/tiny/bdf2forth.pas
 %%DATADIR%%/fonts/tiny/tom-thumb-b.txt
 %%DATADIR%%/fonts/tiny/tom-thumb.bdf
-%%DATADIR%%/forget-stellaris.txt
+%%DATADIR%%/forget.txt
 %%DATADIR%%/graphics-unicode-3x3.txt
 %%DATADIR%%/graphics-unicode-4x6.txt
 %%DATADIR%%/graphics-unicode-8x16.txt

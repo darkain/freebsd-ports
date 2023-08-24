@@ -1,11 +1,12 @@
 PORTNAME=		cd-hit
 DISTVERSIONPREFIX=	V
 DISTVERSION=		4.8.1
-PORTREVISION=		2
+PORTREVISION=		3
 CATEGORIES=		biology
 
 MAINTAINER=	jwb@FreeBSD.org
 COMMENT=	Clustering and comparing protein or nucleotide sequences
+WWW=		http://weizhong-lab.ucsd.edu/cd-hit/
 
 LICENSE=	GPLv2
 
@@ -16,12 +17,10 @@ GH_ACCOUNT=	weizhongli
 GH_PROJECT=	cdhit
 SHEBANG_FILES=	${WRKSRC}/*.pl
 
+.if exists(/usr/include/omp.h)
 MAKE_FLAGS=	openmp=yes
-
-.include <bsd.port.options.mk>
-
-.if ${ARCH} == powerpc
-USES+=		compiler:gcc-c++11-lib
+.else
+MAKE_FLAGS=	openmp=no
 .endif
 
 post-patch:

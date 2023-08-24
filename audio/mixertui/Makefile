@@ -5,6 +5,7 @@ CATEGORIES=	audio
 
 MAINTAINER=	alfix86@gmail.com
 COMMENT=	Audio Mixer with a Terminal User Interface
+WWW=		https://gitlab.com/alfix/mixertui/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,7 +15,7 @@ LIB_DEPENDS=	libsysctlmibinfo2.so:devel/libsysctlmibinfo2
 USE_GITLAB=	yes
 
 GL_ACCOUNT=	alfix
-GL_COMMIT=	4d9092861f57bbb4a8e64d14b29ec6aaa1c9190f
+GL_TAGNAME=	4d9092861f57bbb4a8e64d14b29ec6aaa1c9190f
 
 PLIST_FILES=	sbin/${PORTNAME} \
 		share/man/man8/${PORTNAME}.8.gz

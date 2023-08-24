@@ -1,12 +1,12 @@
-# Created by: Muhammad Moinur Rahman <5u623l20@gmail.com>
-
 PORTNAME=	ntopng
-PORTVERSION=	4.2.d20210615
+PORTVERSION=	5.6.d20230531
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	net
 
 MAINTAINER=	madpilot@FreeBSD.org
 COMMENT=	Network monitoring tool with command line and web interfaces
+WWW=		https://www.ntop.org/products/traffic-analysis/ntop/
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -21,13 +21,14 @@ LIB_DEPENDS=	librrd.so:databases/rrdtool \
 		libexpat.so:textproc/expat2 \
 		libzstd.so:archivers/zstd \
 		libgcrypt.so:security/libgcrypt \
-		libgpg-error.so:security/libgpg-error
+		libgpg-error.so:security/libgpg-error \
+		libhiredis.so:databases/hiredis
 BUILD_DEPENDS=	bash:shells/bash
 
-USES=		autoreconf compiler:c++11-lang cpe gmake libtool localbase \
-		mysql pathfix pkgconfig shebangfix sqlite ssl
+USES=		autoreconf compiler:c++11-lang cpe gmake ldap libtool localbase \
+		lua:54 mysql pathfix pkgconfig shebangfix sqlite ssl
 
-SUB_FILES=	ntopng-geoip2update.sh pkg-deinstall
+SUB_FILES=	ntopng-geoip2update.sh pkg-deinstall pkg-message
 SHEBANG_FILES=	httpdocs/misc/ntopng-add-user.sh \
 		httpdocs/misc/ntopng-utils-manage-config.in
 GNU_CONFIGURE=	yes
@@ -38,8 +39,9 @@ GROUPS=		ntopng
 PLIST_SUB=	NTOPNGUSER="${USERS}" NTOPNGROUP="${GROUPS}"
 
 USE_GITHUB=	yes
+GH_TUPLE=	ntop:ntopng-dist:535c490:dist/httpdocs/dist
 GH_ACCOUNT=	ntop
-GH_TAGNAME=	0139dd5
+GH_TAGNAME=	a4917fa
 
 CPE_VENDOR=	ntop
 
@@ -52,6 +54,9 @@ NLS_USES=	gettext
 USE_RC_SUBR=	ntopng
 
 post-patch:
+	@${REINPLACE_CMD} 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+		${WRKSRC}/Makefile.in \
+		${WRKSRC}/configure.ac.in
 	cd ${WRKSRC} && ${SH} autogen.sh
 
 post-install:

@@ -1,17 +1,17 @@
-# Created by: Nicola Vitale <nivit@FreeBSD.org>
-
 PORTNAME=	libsass
-DISTVERSION=	3.6.4
+DISTVERSION=	3.6.5
 PORTREVISION=	0
 CATEGORIES=	textproc
 
 MAINTAINER=	nivit@FreeBSD.org
 COMMENT=	C/C++ implementation of a Sass compiler
+WWW=		https://sass-lang.com/libsass
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		autoreconf compiler:c++11-lib gmake libtool pathfix
+USES=		autoreconf compiler:c++11-lib cpe gmake libtool pathfix
+CPE_VENDOR=	sass-lang
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 

@@ -1,8 +1,6 @@
-# Created by: alepulver
-
 PORTNAME=	ezquake
 DISTVERSION=	3.2.3
-PORTREVISION=	1
+PORTREVISION=	3
 PORTEPOCH=	2
 CATEGORIES=	games
 MASTER_SITES=	https://github.com/ezQuake/ezquake-source/archive/ \
@@ -11,8 +9,9 @@ DISTFILES=	${PORTVERSION}.tar.gz \
 		${PORTNAME}-ubuntu-${PORTVERSION}-full.tar.gz
 DIST_SUBDIR=	${PORTNAME}
 
-MAINTAINER=	vvd@unislabs.com
+MAINTAINER=	vvd@FreeBSD.org
 COMMENT=	Modern QuakeWorld client
+WWW=		https://www.ezquake.com/
 
 LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libexpat.so:textproc/expat2 \

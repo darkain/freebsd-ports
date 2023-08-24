@@ -1,10 +1,11 @@
 PORTNAME=	xf86-video-openchrome
 PORTVERSION=	0.6.0
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	x11-drivers
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X.Org openChrome display driver
+WWW=		https://www.x.org/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -28,6 +29,10 @@ USE_XORG+=	xvmc
 PLIST_SUB+=	XVMC=""
 .else
 PLIST_SUB+=	XVMC="@comment "
+.endif
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=int-conversion
 .endif
 
 .include <bsd.port.mk>

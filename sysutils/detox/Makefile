@@ -1,12 +1,11 @@
-# Created by: Doug Harple
-
 PORTNAME=	detox
-PORTVERSION=	1.4.2
+PORTVERSION=	1.4.5
 DISTVERSIONPREFIX=v
 CATEGORIES=	sysutils
 
 MAINTAINER=	krion@FreeBSD.org
 COMMENT=	Removes non-standard characters from filenames
+WWW=		https://github.com/dharple/detox
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

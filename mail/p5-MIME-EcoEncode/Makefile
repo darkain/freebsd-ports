@@ -5,8 +5,9 @@ CATEGORIES=	mail perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for economical MIME Encoding
+WWW=		https://metacpan.org/release/MIME-EcoEncode
 
 USES=		perl5
 USE_PERL5=	configure

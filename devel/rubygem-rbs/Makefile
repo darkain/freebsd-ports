@@ -1,12 +1,11 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	rbs
-PORTVERSION=	1.2.1
+PORTVERSION=	3.1.3
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Language for type signatures for Ruby and standard library definitions
+WWW=		https://github.com/ruby/rbs
 
 LICENSE=	BSD2CLAUSE RUBY
 LICENSE_COMB=	dual
@@ -14,9 +13,6 @@ LICENSE_FILE_BSD2CLAUSE=${WRKSRC}/BSDL
 LICENSE_FILE_RUBY=	${WRKSRC}/COPYING
 
 USES=		gem
-USE_RUBY=	yes
-
-NO_ARCH=	yes
 
 PLIST_FILES=	bin/rbs
 

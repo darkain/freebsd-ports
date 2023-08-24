@@ -1,16 +1,16 @@
 PORTNAME=	libepoxy
-DISTVERSION=	1.5.8
-PORTREVISION=	1
+DISTVERSION=	1.5.9
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/anholt/${PORTNAME}/releases/download/${DISTVERSION}/
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Library to handle OpenGL function pointer management
+WWW=		https://github.com/anholt/libepoxy
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gl localbase meson pkgconfig python:3.6+,build shebangfix tar:xz
+USES=		gl localbase meson pkgconfig python:build shebangfix tar:xz
 USE_GL=		glesv2 egl
 USE_LDCONFIG=	yes
 SHEBANG_FILES=	src/gen_dispatch.py

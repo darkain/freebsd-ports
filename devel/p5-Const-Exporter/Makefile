@@ -1,7 +1,5 @@
-# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	Const-Exporter
-PORTVERSION=	1.2.0
+PORTVERSION=	1.2.3
 DISTVERSIONPREFIX=	v
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
@@ -10,6 +8,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Declare constants for export
+WWW=		https://metacpan.org/release/Const-Exporter
 
 LICENSE=	ART20
 LICENSE_FILE=	${WRKSRC}/LICENSE

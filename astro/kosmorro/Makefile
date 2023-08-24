@@ -1,29 +1,35 @@
-# Created by: thierry@pompo.net
-
 PORTNAME=	kosmorro
-PORTVERSION=	0.10.1
-DISTVERSIONPREFIX=	v
+PORTVERSION=	0.10.12
 CATEGORIES=	astro python
+MASTER_SITES=	PYPI
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Ephemerides computation
+WWW=		https://kosmorro.space/
 
 LICENSE=	AGPLv3
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tabulate>0:devel/py-tabulate@${PY_FLAVOR}\
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}Babel>0:devel/py-babel@${PY_FLAVOR}\
+		${PYTHON_PKGNAMEPREFIX}tabulate>0:devel/py-tabulate@${PY_FLAVOR}\
+		${PYTHON_PKGNAMEPREFIX}Babel>0:devel/py-babel@${PY_FLAVOR}\
 		${PYTHON_PKGNAMEPREFIX}dateutil>0:devel/py-dateutil@${PY_FLAVOR}\
 		${PYTHON_PKGNAMEPREFIX}termcolor>0:devel/py-termcolor@${PY_FLAVOR}\
-		${PYTHON_PKGNAMEPREFIX}kosmorrolib>0:astro/py-kosmorrolib@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tabulate>0:devel/py-tabulate@${PY_FLAVOR}\
+		${PYTHON_PKGNAMEPREFIX}kosmorrolib>0:astro/py-kosmorrolib@${PY_FLAVOR}\
+		${PYTHON_PKGNAMEPREFIX}poetry-core>0:devel/py-poetry-core@${PY_FLAVOR}\
+		${PYTHON_PKGNAMEPREFIX}importlib-metadata>0:devel/py-importlib-metadata@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}Babel>0:devel/py-babel@${PY_FLAVOR}\
+		${PYTHON_PKGNAMEPREFIX}tabulate>0:devel/py-tabulate@${PY_FLAVOR}\
 		${PYTHON_PKGNAMEPREFIX}dateutil>0:devel/py-dateutil@${PY_FLAVOR}\
 		${PYTHON_PKGNAMEPREFIX}termcolor>0:devel/py-termcolor@${PY_FLAVOR}\
 		${PYTHON_PKGNAMEPREFIX}kosmorrolib>0:astro/py-kosmorrolib@${PY_FLAVOR}
 
-USE_GITHUB=	yes
+#USE_GITHUB=	yes
 
-USES=		python:3.7+ shebangfix
-USE_PYTHON=	distutils noflavors
+USES=		gettext-runtime:run python shebangfix
+USE_PYTHON=	noflavors pep517
 SHEBANG_FILES=	${PORTNAME}
+
+PLIST_SUB=	VE=${PORTVERSION}
 
 OPTIONS_DEFINE=	PDF
 OPTIONS_DEFAULT=PDF
@@ -32,25 +38,4 @@ PDF_RUN_DEPENDS=pdflatex:print/tex-formats
 
 NO_ARCH=	yes
 
-.include <bsd.port.pre.mk>
-
-# ronn is broken on 11.x => do not build manpages
-.if ${OSVERSION} < 1200000
-PLIST_SUB+=	MAN="@comment "
-.else
-BUILD_DEPENDS+=	ronn:textproc/rubygem-ronn
-PLIST_SUB+=	MAN=""
-.endif
-
-pre-configure:
-	${REINPLACE_CMD} -e 's|python3|${PYTHON_CMD}|' ${WRKSRC}/Makefile
-.if ${OSVERSION} < 1200000
-	${REINPLACE_CMD} -e 's|i18n manpages|manpages|' ${WRKSRC}/Makefile
-	${REINPLACE_CMD} -e '/manpage\/kosmorro/d' ${WRKSRC}/setup.py
-.else
-
-post-build:
-	(cd ${WRKSRC} && LC_ALL=C.UTF-8 ${MAKE} manpages)
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

@@ -1,11 +1,21 @@
---- base/debug/stack_trace.cc.orig	2021-04-14 18:40:48 UTC
+--- base/debug/stack_trace.cc.orig	2023-03-09 06:31:50 UTC
 +++ base/debug/stack_trace.cc
-@@ -15,7 +15,7 @@
+@@ -273,7 +273,9 @@ void StackTrace::Print() const {
+ }
  
- #if BUILDFLAG(CAN_UNWIND_WITH_FRAME_POINTERS)
+ void StackTrace::OutputToStream(std::ostream* os) const {
++#if !BUILDFLAG(IS_BSD)
+   OutputToStreamWithPrefix(os, nullptr);
++#endif
+ }
  
--#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_ANDROID)
-+#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_ANDROID) || defined(OS_BSD)
- #include <pthread.h>
- #include "base/process/process_handle.h"
- #include "base/threading/platform_thread.h"
+ std::string StackTrace::ToString() const {
+@@ -281,7 +283,7 @@ std::string StackTrace::ToString() const {
+ }
+ std::string StackTrace::ToStringWithPrefix(const char* prefix_string) const {
+   std::stringstream stream;
+-#if !defined(__UCLIBC__) && !defined(_AIX)
++#if !defined(__UCLIBC__) && !defined(_AIX) && !BUILDFLAG(IS_BSD)
+   OutputToStreamWithPrefix(&stream, prefix_string);
+ #endif
+   return stream.str();

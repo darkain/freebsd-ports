@@ -1,5 +1,3 @@
-# Created by: Ryan Steinmetz <rpsfa@rit.edu>
-
 PORTNAME=		vmware-vsphere-cli
 PORTVERSION=		6.7.0
 CATEGORIES=		net perl5
@@ -8,6 +6,7 @@ DISTNAME=		VMware-vSphere-Perl-SDK-${PORTVERSION}-${DISTREL}.i386
 
 MAINTAINER=		zi@FreeBSD.org
 COMMENT=		VMware vSphere SDK for Perl with CLI tools
+WWW=		http://communities.vmware.com/community/vmtn/server/vsphere/automationtools/vsphere_cli
 
 # Converted from RESTRICTED
 LICENSE=	VMware
@@ -42,7 +41,6 @@ RUN_DEPENDS=		p5-Class-MethodMaker>=0:devel/p5-Class-MethodMaker \
 			p5-IO-Socket-INET6>0:net/p5-IO-Socket-INET6 \
 			p5-Net-INET6Glue>0:net/p5-Net-INET6Glue \
 			p5-Net-HTTP>0:net/p5-Net-HTTP
-
 
 USES=			perl5 shebangfix
 USE_PERL5=		configure

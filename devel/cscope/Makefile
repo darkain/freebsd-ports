@@ -5,10 +5,11 @@ MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/v${PORTVERSION}
 
 MAINTAINER=	moritz@schmi.tt
 COMMENT=	Interactive C source code browser
+WWW=		http://cscope.sourceforge.net/
 
 LICENSE=	BSD3CLAUSE
 
-USES=		ncurses
+USES=		cpe ncurses
 
 GNU_CONFIGURE=	yes
 

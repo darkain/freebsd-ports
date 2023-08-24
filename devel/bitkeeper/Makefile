@@ -1,5 +1,3 @@
-# Created by: Pedro Giffuni
-
 PORTNAME=	bitkeeper
 PORTVERSION=	7.3.3
 PORTREVISION=	6
@@ -9,12 +7,13 @@ DISTNAME=	bk-${PORTVERSION}.src
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Scalable Distributed Source Management System
+WWW=		https://www.bitkeeper.org/
 
 LICENSE=	APACHE20
 
+BROKEN_FreeBSD_14=	tcl/tk bindings break under LLVM16
 BROKEN_aarch64=		ld: error: undefined symbol: fpsetround
 BROKEN_riscv64=		fails to compile: src/gui/tcltk/tcl/unix/tclUnixInit.c:401:16: error: use of undeclared identifier 'FP_RN'
-BROKEN_FreeBSD_11=	perl: No such file or directory
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/gperf:devel/gperf \
 		${LOCALBASE}/include/tommath.h:math/libtommath \

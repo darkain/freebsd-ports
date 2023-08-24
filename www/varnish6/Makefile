@@ -1,12 +1,13 @@
 PORTNAME=	varnish
-PORTVERSION=	6.6.0
+PORTVERSION=	6.6.2
 DISTVERSIONPREFIX=	varnish-
 PORTREVISION=	0
 CATEGORIES=	www
 PKGNAMESUFFIX=	6
 
-MAINTAINER=	feld@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	High-performance HTTP accelerator
+WWW=		https://www.varnish-cache.org/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -16,12 +17,13 @@ BUILD_DEPENDS=	rst2man:textproc/py-docutils@${PY_FLAVOR} \
 LIB_DEPENDS=	libpcre.so:devel/pcre
 
 USES=		autoreconf compiler cpe gmake libedit libtool ncurses pathfix \
-		pkgconfig python:3.4+,build readline shebangfix
+		pkgconfig python:build readline shebangfix
 
-CONFLICTS=	varnish-2.* varnish-3.* varnish4-4.* varnish5-5.*
+CONFLICTS=	varnish4 varnish7
 
 SHEBANG_FILES=	lib/libvcc/*.py
 CPE_VENDOR=	varnish-cache
+CPE_PRODUCT=	varnish_cache
 CFLAGS+=	-I${LOCALBASE}/include
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--localstatedir=${PREFIX} --without-dot
@@ -46,6 +48,10 @@ EXTRA_PATCHES+=	${FILESDIR}/no-inet6.patch
 OPTIONS_DEFINE=	DOCS
 
 .include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=deprecated-non-prototype
+.endif
 
 post-patch:
 .if defined(BAD_TESTS)

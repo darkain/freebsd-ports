@@ -1,10 +1,12 @@
 PORTNAME=	dash.el
-DISTVERSION=	2.19.0
+DISTVERSION=	2.19.1
+PORTREVISION=	8
 CATEGORIES=	devel elisp
 PKGNAMESUFFIX=	${EMACS_PKGNAMESUFFIX}
 
-MAINTAINER=	yasu@utahime.org
+MAINTAINER=	yasu@FreeBSD.org
 COMMENT=	Modern list library for Emacs
+WWW=		https://github.com/magnars/dash.el
 
 LICENSE=	GPLv3
 

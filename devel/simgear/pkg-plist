@@ -275,6 +275,7 @@ include/simgear/scene/util/DeletionManager.hxx
 include/simgear/scene/util/NodeAndDrawableVisitor.hxx
 include/simgear/scene/util/Noise.hxx
 include/simgear/scene/util/OptionsReadFileCallback.hxx
+include/simgear/scene/util/OrthophotoManager.hxx
 include/simgear/scene/util/OsgDebug.hxx
 include/simgear/scene/util/OsgMath.hxx
 include/simgear/scene/util/OsgSingleton.hxx
@@ -286,6 +287,7 @@ include/simgear/scene/util/SGEnlargeBoundingBox.hxx
 include/simgear/scene/util/SGImageUtils.hxx
 include/simgear/scene/util/SGNodeMasks.hxx
 include/simgear/scene/util/SGPickCallback.hxx
+include/simgear/scene/util/SGProgram.hxx
 include/simgear/scene/util/SGReaderWriterOptions.hxx
 include/simgear/scene/util/SGSceneFeatures.hxx
 include/simgear/scene/util/SGSceneUserData.hxx

@@ -1,9 +1,11 @@
 PORTNAME=	endlessh
 PORTVERSION=	1.1
+PORTREVISION=	1
 CATEGORIES=	net
 
 MAINTAINER=	brnrd@FreeBSD.org
 COMMENT=	SSH tarpit
+WWW=		https://github.com/skeeto/endlessh
 
 LICENSE=	UNLICENSE
 LICENSE_FILE=	${WRKSRC}/UNLICENSE
@@ -28,6 +30,6 @@ post-patch:
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/endlessh.newsyslog.conf \
 		${FILESDIR}/endlessh.conf.sample ${STAGEDIR}${PREFIX}/etc/
-	${STRIP} ${STAGEDIR}${PREFIX}/bin/endlessh
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/endlessh
 
 .include <bsd.port.mk>

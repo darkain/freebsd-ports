@@ -1,5 +1,3 @@
-# Created by: Pete Fritchman <petef@FreeBSD.org>
-
 PORTNAME=	synaesthesia
 PORTVERSION=	2.4
 PORTREVISION=	7
@@ -8,17 +6,20 @@ MASTER_SITES=	http://www.logarithmic.net/pfh-files/synaesthesia/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Real-time graphical music representation program
+WWW=		https://www.logarithmic.net/pfh/synaesthesia
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		alias gmake sdl
-GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-sdl-prefix=${LOCALBASE}
+USES=		alias cpe gmake sdl
+USE_CXXSTD=	c++14
 USE_SDL=	sdl
 
-PORTDOCS=	*
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--with-sdl-prefix=${LOCALBASE}
+
 PLIST_FILES=	bin/${PORTNAME}
+PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS
 

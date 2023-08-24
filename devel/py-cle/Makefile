@@ -4,8 +4,9 @@ DISTVERSION=	${ANGR_VERSION}
 CATEGORIES=	devel python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	0mp@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Pythonic interface to analyze binary formats
+WWW=		https://github.com/angr/cle
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -17,7 +18,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>0:devel/py-cffi@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyvex>=${ANGR_VERSION}:security/py-pyvex@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sortedcontainers>=2.0:devel/py-sortedcontainers@${PY_FLAVOR}
 
-USES=		angr:binaries,nose python:3.6+
+USES=		angr:binaries,nose python
 USE_GITHUB=	yes
 GH_ACCOUNT=	angr
 USE_PYTHON=	autoplist distutils

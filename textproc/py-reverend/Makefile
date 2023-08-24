@@ -1,5 +1,3 @@
-# Created by: Nicola Vitale	<nivit@email.it>
-
 PORTNAME=	reverend
 PORTVERSION=	0.3
 CATEGORIES=	textproc mail math python
@@ -9,8 +7,9 @@ DISTNAME=	Reverend-${PORTVERSION}
 
 MAINTAINER=	nivit@FreeBSD.org
 COMMENT=	Simple Bayesian classifier written in Python
+WWW=		http://www.divmod.org/trac/wiki/DivmodReverend
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
 OPTIONS_DEFINE=	EXAMPLES
 

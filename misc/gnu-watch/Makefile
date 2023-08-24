@@ -1,5 +1,3 @@
-# Created by: Emanuel Haupt <ehaupt@critical.ch>
-
 PORTNAME=	watch
 DISTVERSIONPREFIX=	v
 DISTVERSION=	3.3.17
@@ -8,6 +6,7 @@ PKGNAMEPREFIX=	gnu-
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	GNU watch command
+WWW=		https://gitlab.com/procps-ng/procps/
 
 LICENSE=	GPLv2
 
@@ -17,7 +16,7 @@ USE_CSTD=	gnu99
 USE_GITLAB=	yes
 GL_ACCOUNT=	procps-ng
 GL_PROJECT=	procps
-GL_COMMIT=	19a508ea121c0c4ac6d0224575a036de745eaaf8
+GL_TAGNAME=	19a508ea121c0c4ac6d0224575a036de745eaaf8
 GNU_CONFIGURE=	yes
 
 ALL_TARGET=	watch

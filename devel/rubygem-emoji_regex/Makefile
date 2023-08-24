@@ -1,18 +1,16 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	emoji_regex
-PORTVERSION=	3.2.2
+PORTVERSION=	15.0.0
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Regular expressions for matching Unicode Emoji symbols
+WWW=		https://github.com/ticky/ruby-emoji-regex
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 USES=		gem
-USE_RUBY=	yes
 
 NO_ARCH=	yes
 

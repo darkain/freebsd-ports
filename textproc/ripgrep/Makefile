@@ -1,12 +1,11 @@
-# Created by: Petteri Valkonen <petteri.valkonen@iki.fi>
-
 PORTNAME=	ripgrep
 DISTVERSION=	13.0.0
-PORTREVISION=	1
+PORTREVISION=	22
 CATEGORIES=	textproc
 
 MAINTAINER=	petteri.valkonen@iki.fi
 COMMENT=	Command line search tool
+WWW=		https://blog.burntsushi.net/ripgrep/
 
 LICENSE=	MIT UNLICENSE
 LICENSE_COMB=	dual
@@ -15,7 +14,8 @@ LICENSE_FILE_UNLICENSE=	${WRKSRC}/UNLICENSE
 
 BUILD_DEPENDS=	asciidoctor:textproc/rubygem-asciidoctor
 
-USES=		cargo
+USES=		cargo cpe
+CPE_VENDOR=	${PORTNAME}_project
 USE_GITHUB=	yes
 GH_ACCOUNT=	BurntSushi
 
@@ -58,7 +58,7 @@ CARGO_CRATES=	aho-corasick-0.7.18 \
 		memmap2-0.3.0 \
 		num_cpus-1.13.0 \
 		once_cell-1.7.2 \
-		packed_simd_2-0.3.5 \
+		packed_simd_2-0.3.8 \
 		pcre2-0.2.3 \
 		pcre2-sys-0.2.5 \
 		pkg-config-0.3.19 \
@@ -107,10 +107,7 @@ PCRE2_DESC=	${PCRE_DESC} version 2
 PCRE2_LIB_DEPENDS=	libpcre2-8.so:devel/pcre2
 PCRE2_VARS=	CARGO_FEATURES+=pcre2
 
-# simd crate uses cfg_target_feature which isn't stable yet, so unlock
-# unstable features similar to how lang/rust bootstraps. www/firefox
-# uses the same hack when building with --enable-rust-simd.
-SIMD_MAKE_ENV=	RUSTC_BOOTSTRAP=1
+SIMD_MAKE_ENV=	RUSTC_BOOTSTRAP=encoding_rs,packed_simd_2
 SIMD_VARS=	CARGO_FEATURES+=simd-accel ${SIMD_VARS_${ARCH}}
 SIMD_VARS_i386=	RUSTFLAGS+="-C target-feature=+sse2"
 

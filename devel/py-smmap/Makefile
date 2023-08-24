@@ -1,21 +1,18 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	smmap
-PORTVERSION=	4.0.0
+PORTVERSION=	5.0.0
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Sliding-window memory map manager
+WWW=		https://github.com/gitpython-developers/smmap
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}nose>=0:devel/py-nose@${PY_FLAVOR}
-
-USES=		python:3.5+
-USE_PYTHON=	autoplist concurrent distutils
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils unittest
 
 NO_ARCH=	yes
 

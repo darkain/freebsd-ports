@@ -1,13 +1,12 @@
-# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	backup
 PORTVERSION=	4.4.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	sysutils rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Perform backup operations on remote and local environment
+WWW=		https://github.com/backup/backup
 
 LICENSE=	MIT
 
@@ -69,14 +68,13 @@ RUN_DEPENDS=	rubygem-CFPropertyList>=2.3.1:devel/rubygem-CFPropertyList \
 		rubygem-ruby-hmac>=0.4.0:security/rubygem-ruby-hmac \
 		rubygem-simple_oauth>=0.2.0:net/rubygem-simple_oauth \
 		rubygem-thor>=0.18.1:devel/rubygem-thor \
-		rubygem-thread_safe1>=0.1.3:devel/rubygem-thread_safe1 \
+		rubygem-thread_safe>=0.1.3:devel/rubygem-thread_safe \
 		rubygem-twitter>=5.5.0:net/rubygem-twitter \
 		rubygem-unf>=0.1.3:textproc/rubygem-unf \
 		rubygem-unf_ext>=0.0.6:textproc/rubygem-unf_ext \
 		rubygem-xml-simple>=1.1.4:textproc/rubygem-xml-simple
 
 USES=		gem
-USE_RUBY=	yes
 
 NO_ARCH=	yes
 

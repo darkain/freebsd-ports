@@ -1,11 +1,12 @@
 PORTNAME=	gogs
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.12.3
-PORTREVISION=	1
+DISTVERSION=	0.12.11
+PORTREVISION=	3
 CATEGORIES=	devel www
 
 MAINTAINER=	dmgk@FreeBSD.org
 COMMENT=	Painless self-hosted Git service
+WWW=		https://gogs.io/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,7 +15,7 @@ BUILD_DEPENDS=	go-bindata:devel/go-bindata
 RUN_DEPENDS=	git:devel/git \
 		bash:shells/bash
 
-USES=		go:modules
+USES=		cpe go:modules
 
 GO_MODULE=	gogs.io/gogs
 GO_TARGET=	:${PREFIX}/libexec/${PORTNAME}/${PORTNAME}

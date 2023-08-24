@@ -1,5 +1,3 @@
-# Created by: ijliao
-
 PORTNAME=	cvsps
 DISTVERSION=	2.2b1
 CATEGORIES=	devel
@@ -8,11 +6,12 @@ PKGNAMESUFFIX?=	-devel
 
 MAINTAINER=	garga@FreeBSD.org
 COMMENT=	Create patchset information from CVS
+WWW=		http://cvsps.sourceforge.net/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-CONFLICTS=	cvsps-[0-9]*
+CONFLICTS=	cvsps
 
 USES=		gmake
 ALL_TARGET=	cvsps

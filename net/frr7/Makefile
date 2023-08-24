@@ -1,7 +1,7 @@
 PORTNAME=	frr
 PORTVERSION=	7.5.1
 DISTVERSIONPREFIX=	frr-
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	net
 .if defined(PYTHONTOOLS)
 PKGNAMESUFFIX=	7-pythontools
@@ -12,6 +12,7 @@ PKGNAMESUFFIX=	7
 MAINTAINER=	olivier@FreeBSD.org
 
 COMMENT?=	IP routing protocol suite including BGP, IS-IS, OSPF and RIP
+WWW=		https://frrouting.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -19,7 +20,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 .if defined(PYTHONTOOLS)
 RUN_DEPENDS=	frr-reload:net/frr7
 
-USES=	python:run,3.6+ shebangfix
+USES=	python:run shebangfix
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/etc/frr|${ETCDIR}|g' \
@@ -33,11 +34,14 @@ do-install:
 .else
 
 BUILD_DEPENDS=	gawk:lang/gawk
+
 LIB_DEPENDS=	libjson-c.so:devel/json-c \
-		libyang.so:net/libyang
+		libyang.so:net/libyang \
+		libpcre.so:devel/pcre \
+		libcares.so:dns/c-ares
 
 USES=		autoreconf bison compiler:c++11-lang gmake pkgconfig libtool \
-		makeinfo python:build,3.6+ readline shebangfix
+		makeinfo python:build readline shebangfix
 
 BINARY_ALIAS=	python=${PYTHON_VERSION}
 
@@ -81,7 +85,7 @@ VTYSH_DESC=		Build integrated vty shell
 USERS=	frr
 GROUPS=	frr frrvty
 
-CPPFLAGS+=	-I${LOCALBASE}/include
+CPPFLAGS+=	-I${LOCALBASE}/include -Wno-error
 LDFLAGS+=	-L${LOCALBASE}/lib
 
 # PIM compile but didn't work on FreeBSD

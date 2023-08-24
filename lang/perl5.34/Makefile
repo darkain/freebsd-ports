@@ -1,12 +1,13 @@
 PORTNAME=	perl
 DISTVERSION=	${PERL_VERSION}
-PORTREVISION=	0
+PORTREVISION=	3
 CATEGORIES=	lang devel perl5
 MASTER_SITES=	CPAN/../../src/5.0
 DIST_SUBDIR=	perl
 
 MAINTAINER=	mat@FreeBSD.org
 COMMENT=	Practical Extraction and Report Language
+WWW=		https://www.perl.org/
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
@@ -52,7 +53,8 @@ CONFIGURE_ARGS=		-Darchlib=${PREFIX}/${_ARCH_LIB} \
 			-sde \
 			-Ui_iconv \
 			-Ui_malloc \
-			-Uinstallusrbinperl
+			-Uinstallusrbinperl \
+			-Accflags='-DUSE_THREAD_SAFE_LOCALE'
 # Keep the following two in sync.
 # lddlflags is used for all .so linking
 # shrpldflags is used for libperl.so, so remove all the extra bits inherited from lddlflags.
@@ -171,10 +173,6 @@ _PERL5_DEFAULT_FILE=	/tmp/PERL5_DEFAULT
 # Get the default version, and possibly, overwrite it.
 .include <bsd.port.options.mk>
 .sinclude "${_PERL5_DEFAULT_FILE}"
-
-.if ${OSVERSION} >= 1200004
-CONFIGURE_ARGS+=	-Accflags='-DUSE_THREAD_SAFE_LOCALE'
-.endif
 
 # if this port is default due PERL5_DEFAULT
 # change PKGNAME to reflect this

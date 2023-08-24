@@ -1,5 +1,3 @@
-# Created by: Sander Vesik <sander@haldjas.folklore.ee>
-
 PORTNAME=	tkcron
 PORTVERSION=	2.12
 PORTREVISION=	3
@@ -17,8 +15,8 @@ COMMENT=	Frontend to crontab
 USES=		tk:,run
 
 EXTRACT_CMD=	${GZIP_CMD}
-EXTRACT_BEFORE_ARGS= -cd
-EXTRACT_AFTER_ARGS= > tkcron.tcl
+EXTRACT_BEFORE_ARGS=	-cd
+EXTRACT_AFTER_ARGS=	> tkcron.tcl
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
 PLIST_FILES=	bin/tkcron

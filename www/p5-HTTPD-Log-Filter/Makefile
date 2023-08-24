@@ -6,8 +6,9 @@ MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:AWRIGLEY
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl module to filter entries out of an httpd log
+WWW=		https://metacpan.org/release/HTTPD-Log-Filter
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

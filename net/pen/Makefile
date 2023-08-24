@@ -1,5 +1,3 @@
-# Created by: ijliao
-
 PORTNAME=	pen
 PORTVERSION=	0.34.1
 CATEGORIES=	net
@@ -7,10 +5,12 @@ MASTER_SITES=	http://siag.nu/pub/pen/
 
 MAINTAINER=	portmaster@BSDforge.com
 COMMENT=	Load balancer for UDP and TCP based protocols
+WWW=		https://siag.nu/pen/
 
 LICENSE=	GPLv2
 
-USES=		ssl
+USES=		cpe ssl
+CPE_VENDOR=	${PORTNAME}_project
 
 GNU_CONFIGURE=	yes
 USE_RC_SUBR=	pen

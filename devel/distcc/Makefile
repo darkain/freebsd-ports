@@ -1,14 +1,11 @@
-# Created by: Frerich Raabe <frerich.raabe@gmx.de>
-#   $MCom: ports/devel/distcc/Makefile,v 1.3 2007/10/21 02:46:13 ahze Exp $
-
 PORTNAME=	distcc
 DISTVERSIONPREFIX=	v
-DISTVERSION=	3.3.5
-PORTREVISION=	0
+DISTVERSION=	3.4
 CATEGORIES=	devel
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Distribute compilation of C(++) code across machines on a network
+WWW=		https://distcc.github.io/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	${LOCALBASE}/lib/libiberty.a:devel/gnulibiberty
 LIB_DEPENDS=	libpopt.so:devel/popt
 
-USES=		alias autoreconf gmake libtool localbase pkgconfig
+USES=		alias autoreconf cpe gmake libtool localbase pkgconfig
 USE_GITHUB=	yes
 USE_RC_SUBR=	distccd
 
@@ -58,7 +55,7 @@ GUI_USES=		gnome
 GUI_USE=		GNOME=gtk20
 GUI_CONFIGURE_WITH=	gtk
 IPV6_CONFIGURE_ENABLE=	rfc2553
-PUMP_USES=		python:3.1+
+PUMP_USES=		python
 PUMP_CONFIGURE_ENABLE=	pump-mode
 PUMP_PLIST_FILES=	${PYTHON_SITELIBDIR}/include_server-${PORTVERSION}-py${PYTHON_VER}.egg-info \
 			${PYTHON_SITELIBDIR}/include_server/basics.py \
@@ -67,7 +64,7 @@ PUMP_PLIST_FILES=	${PYTHON_SITELIBDIR}/include_server-${PORTVERSION}-py${PYTHON_
 			${PYTHON_SITELIBDIR}/include_server/cache_basics.py \
 			${PYTHON_SITELIBDIR}/include_server/compiler_defaults.py \
 			${PYTHON_SITELIBDIR}/include_server/compress_files.py \
-			${PYTHON_SITELIBDIR}/include_server/distcc_pump_c_extensions.so \
+			${PYTHON_SITELIBDIR}/include_server/distcc_pump_c_extensions.cpython-${PYTHON_SUFFIX}.so \
 			${PYTHON_SITELIBDIR}/include_server/include_analyzer.py \
 			${PYTHON_SITELIBDIR}/include_server/include_analyzer_memoizing_node.py \
 			${PYTHON_SITELIBDIR}/include_server/include_analyzer_memoizing_node_test.py \
@@ -144,7 +141,7 @@ post-install:
 	${RM} -rf ${STAGEDIR}${PREFIX}/${DOCSDIR_REL}/example
 
 post-install-PUMP-on:
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/include_server/distcc_pump_c_extensions.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/include_server/distcc_pump_c_extensions.cpython-${PYTHON_SUFFIX}.so
 
 post-install-PUMP-off:
 	${RM} ${STAGEDIR}${PUMP_PLIST_FILES}

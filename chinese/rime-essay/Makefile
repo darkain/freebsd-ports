@@ -1,11 +1,10 @@
-# Created by: Ka Ho Ng <khng300@gmail.com>
-
 PORTNAME=	rime-essay
-DISTVERSION=	g20201222
+DISTVERSION=	g20210805
 CATEGORIES=	chinese textproc
 
-MAINTAINER=	khng300@gmail.com
+MAINTAINER=	khng@FreeBSD.org
 COMMENT=	Essay - the shared vocabulary and language model for Rime
+WWW=		https://github.com/rime/rime-essay
 
 LICENSE=	LGPL3
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -15,7 +14,7 @@ OPTIONS_SUB=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	rime
-GH_TAGNAME=	8db7fd4e2d9e081dd4c3b859107070495660238d
+GH_TAGNAME=	8882482d07f38b5713ea3f49cb593eed94e671dd
 
 NO_BUILD=	yes
 NO_ARCH=	yes

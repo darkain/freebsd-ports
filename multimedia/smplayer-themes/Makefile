@@ -1,5 +1,3 @@
-# Created by: Diego Depaoli <trebestie@gmail.com> and Yinghong Liu <relaxbsd@gmail.com>
-
 PORTNAME=	smplayer-themes
 PORTVERSION=	20.11.0
 PORTREVISION=	1
@@ -7,11 +5,12 @@ PORTEPOCH=	1
 CATEGORIES=	multimedia audio kde
 MASTER_SITES=	SF/smplayer/SMPlayer-themes/${PORTVERSION}/
 
-MAINTAINER=	vvd@unislabs.com
+MAINTAINER=	vvd@FreeBSD.org
 COMMENT=	Themes for SMPlayer
+WWW=		http://smplayer.sourceforge.net/
 
 USES=		qt:5 tar:bzip2
-USE_QT=		buildtools_build
+USE_QT=		buildtools:build
 
 NO_ARCH=	yes
 

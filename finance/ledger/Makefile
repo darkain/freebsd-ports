@@ -1,18 +1,16 @@
-# Created by: wcarey
-
 PORTNAME=	ledger
 PORTVERSION=	3.2.1
-PORTREVISION=	1
+PORTREVISION=	5
 DISTVERSIONPREFIX=	v
 CATEGORIES=	finance
 
 MAINTAINER=	woodycarey@hotmail.com
 COMMENT=	John Wiegley's command line accounting program
+WWW=		https://ledger-cli.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-BROKEN_FreeBSD_11_powerpc64=	fails to link on powerpc64 elfv1: ibledger.so.3: undefined reference to boost::match_results
 BROKEN_FreeBSD_12_powerpc64=	fails to link on powerpc64 elfv1: ibledger.so.3: undefined reference to boost::match_results
 
 BUILD_DEPENDS=	${LOCALBASE}/include/utf8cpp/utf8.h:devel/utf8cpp
@@ -20,7 +18,8 @@ LIB_DEPENDS=	libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr \
 		libboost_system.so:devel/boost-libs
 
-USES=		cmake compiler:c++11-lib libedit
+USES=		cmake compiler:c++11-lib cpe libedit
+CPE_VENDOR=	${PORTNAME}-cli
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 

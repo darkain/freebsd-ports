@@ -5,8 +5,9 @@ CATEGORIES=	japanese www
 MASTER_SITES=	http://openlab.ring.gr.jp/k16/htmllint/archives/
 DISTNAME=	htmllint
 
-MAINTAINER=	yasu@utahime.org
+MAINTAINER=	yasu@FreeBSD.org
 COMMENT=	Another HTML-lint (all messages are written in Japanese)
+WWW=		http://openlab.ring.gr.jp/k16/htmllint/
 
 LICENSE=	AnotherHTMLlint
 LICENSE_NAME=	Another HTML-lint License

@@ -1,6 +1,6 @@
 PORTNAME=	oidn
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.4.1
+DISTVERSION=	2.0.1
 PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://freebsd.org/:weights # bogus URL to make the framework happy, the fetch uses Git URL below
@@ -8,6 +8,7 @@ DISTFILES=	${PORTNAME}-weights-${WEIGHTS_GIT_HASH}${EXTRACT_SUFX}:weights
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Intel(R) Open Image Denoise library
+WWW=		https://www.openimagedenoise.org/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
@@ -20,28 +21,35 @@ FETCH_DEPENDS=	git:devel/git \
 BUILD_DEPENDS=	ispc>=1.14.1:devel/ispc
 LIB_DEPENDS=	libtbb.so:devel/onetbb
 
-USES=		cmake:noninja compiler:c++11-lang python:build
+USES=		cmake:noninja compiler:c++14-lang python:build
 USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	OpenImageDenoise
-GH_TUPLE=	OpenImageDenoise:mkl-dnn:eb3e967:m/mkl-dnn
+GH_TUPLE=	OpenImageDenoise:mkl-dnn:9bea36e:m/external/mkl-dnn \
+		ROCmSoftwarePlatform:composable_kernel:e85178b:composable_kernel/external/composable_kernel \
+		NVIDIA:cutlass:66d9cdd:cutlass/external/cutlass
 
 CMAKE_ARGS=	-DTBB_ROOT:STRING=${LOCALBASE} -DTBB_INCLUDE_DIR:STRING=${LOCALBASE}/include -DPYTHON_EXECUTABLE:STRING=${PYTHON_CMD}
 
 PLIST_SUB=	VER="${PORTVERSION}"
 
-OPTIONS_DEFINE=		APPS DOCS
-OPTIONS_DEFAULT=	APPS
-OPTIONS_SUB=		yes
+OPTIONS_DEFINE=			APPS DOCS OPENIMAGEIO
+OPTIONS_DEFAULT=		APPS OPENIMAGEIO
+OPTIONS_SUB=			yes
 
-APPS_DESC=		Build example and test apps
-APPS_CMAKE_BOOL=	OIDN_APPS
+APPS_DESC=			Build example and test apps
+APPS_CMAKE_BOOL=		OIDN_APPS
 
-DOCSDIR=	share/doc/${GH_ACCOUNT}
+DOCSDIR=			share/doc/${GH_ACCOUNT}
+
+OPENIMAGEIO_DESC=		Build with OpenImageIO for image formats support
+OPENIMAGEIO_CMAKE_BOOL=		OIDN_APPS_OPENIMAGEIO
+OPENIMAGEIO_LIB_DEPENDS=	libOpenImageIO.so:graphics/openimageio
+OPENIMAGEIO_IMPLIES=		APPS # OpenImageIO is only used by apps and examples
 
 WEIGHTS_GIT_URL=	https://github.com/OpenImageDenoise/oidn-weights.git
-WEIGHTS_GIT_HASH=	a34b7641349c5a79e46a617d61709c35df5d6c28
+WEIGHTS_GIT_HASH=	4322c25e25a05584f65da1a4be5cef40a4b2e90b
 
 pre-fetch:
 	@if [ "${FORCE_FETCH_ALL}" = "true" ] || ! [ -f "${DISTDIR}/${DIST_SUBDIR}/${PORTNAME}-weights-${WEIGHTS_GIT_HASH}${EXTRACT_SUFX}" ]; then \

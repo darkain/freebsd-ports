@@ -6,8 +6,9 @@ MASTER_SITES=	LOCAL/kuriyama \
 		http://www.nowrap.de/download/
 DISTNAME=	flasm16src
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Command line assembler/disassembler of flash actionscript bytecode
+WWW=		http://flasm.sourceforge.net/
 
 USES=		bison dos2unix gmake gperf zip
 NO_WRKSUBDIR=	yes

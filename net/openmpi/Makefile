@@ -1,17 +1,15 @@
 PORTNAME=	openmpi
-PORTVERSION=	4.1.1
+PORTVERSION=	4.1.5
+PORTREVISION=	1
 CATEGORIES=	net parallel
 MASTER_SITES=	http://www.open-mpi.org/software/ompi/v${PORTVERSION:R}/downloads/
 
-MAINTAINER=	danilo@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	High Performance Message Passing Library
+WWW=		https://www.open-mpi.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
-
-BROKEN_armv6=		fails to package: pkg-static: mca_patcher_overwrite.la: No such file or directory
-BROKEN_armv7=		fails to package: pkg-static: mca_patcher_overwrite.la: No such file or directory
-BROKEN_sparc64=		fails to compile on sparc64
 
 LIB_DEPENDS=	libhwloc.so.15:devel/hwloc2 \
 		libltdl.so:devel/libltdl \
@@ -39,6 +37,7 @@ CONFIGURE_ARGS+=	--prefix=${PREFIX}/${MPIDIR} \
 			--program-prefix= \
 			--with-hwloc=external \
 			--with-libltdl \
+			--without-ofi \
 			--enable-mpi-fortran=usempi \
 			--enable-mpi-cxx \
 			--enable-cxx-exceptions \
@@ -58,12 +57,12 @@ SHEBANG_FILES=	ompi/mca/common/monitoring/profile2mat.pl \
 OPTIONS_DEFINE=			AVX DEBUG IPV6 SLURM TORQUE
 OPTIONS_DEFAULT=		SLURM
 OPTIONS_EXCLUDE_aarch64=	AVX
-OPTIONS_EXCLUDE_armv6=		AVX
-OPTIONS_EXCLUDE_armv7=		AVX
+OPTIONS_EXCLUDE_armv6=		AVX SLURM
+OPTIONS_EXCLUDE_armv7=		AVX SLURM
 OPTIONS_EXCLUDE_i386=		SLURM
-OPTIONS_EXCLUDE_mips=		AVX
+OPTIONS_EXCLUDE_mips=		AVX SLURM
 OPTIONS_EXCLUDE_mips64=		AVX
-OPTIONS_EXCLUDE_powerpc=	AVX
+OPTIONS_EXCLUDE_powerpc=	AVX SLURM
 OPTIONS_EXCLUDE_powerpc64=	AVX
 OPTIONS_EXCLUDE_powerpc64le=	AVX
 OPTIONS_EXCLUDE_riscv64=	AVX
@@ -108,6 +107,12 @@ SLURM_PLIST_FILES=	${MPIDIR}/lib/openmpi/mca_ess_slurm.la \
 
 .if ${FORTRAN_DEFAULT} == gfortran && ${GCC_DEFAULT} >= 10
 FCFLAGS+=	-fallow-argument-mismatch
+.endif
+
+.if ${ARCH} != aarch64 && ${ARCH} != amd64 && ${ARCH} != i386 && !${ARCH:Mpowerpc*}
+PLIST_SUB+=	NO_MCA_PATCHER_OVERWRITE="@comment "
+.else
+PLIST_SUB+=	NO_MCA_PATCHER_OVERWRITE=""
 .endif
 
 post-patch:

@@ -1,59 +1,68 @@
 PORTNAME=	gamescope
-DISTVERSION=	3.8.4
-CATEGORIES=	x11-wm
+DISTVERSION=	3.12.3
+CATEGORIES=	x11-wm wayland
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
-PATCHFILES+=	8fae1ff56a62.patch:-p1 # https://github.com/Plagman/gamescope/pull/119
-PATCHFILES+=	f36133f27fbc.patch:-p1 # https://github.com/Plagman/gamescope/pull/119
-PATCHFILES+=	01ac6a8e2699.patch:-p1 # https://github.com/Plagman/gamescope/pull/119
-PATCHFILES+=	43f743fcfbd0.patch:-p1 # https://github.com/Plagman/gamescope/pull/119
-PATCHFILES+=	9ebb1c16d3ad.patch:-p1 # https://github.com/Plagman/gamescope/pull/119
-PATCHFILES+=	d59836199ebe.patch:-p1 # https://github.com/Plagman/gamescope/issues/120
-PATCHFILES+=	7ad78c179417.patch:-p1 # libliftoff 0.1.0
+PATCHFILES+=	a618ea074660.patch:-p1 # https://github.com/ValveSoftware/gamescope/issues/120
 
 MAINTAINER=	jbeich@FreeBSD.org
-COMMENT=	Micro-compositor from SteamOS
+COMMENT=	SteamOS session compositing window manager
+WWW=		https://github.com/ValveSoftware/gamescope
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	glslangValidator:graphics/glslang \
-		evdev-proto>0:devel/evdev-proto \
+BUILD_DEPENDS=	evdev-proto>0:devel/evdev-proto \
+		glslangValidator:graphics/glslang \
 		vulkan-headers>0:graphics/vulkan-headers \
 		wayland-protocols>=1.17:graphics/wayland-protocols \
-		wlroots>=0.13.0<0.14.0:x11-toolkits/wlroots
+		glm>0:math/glm \
+		hwdata>0:misc/hwdata \
+		wlroots>=0.16.0<0.17.0:x11-toolkits/wlroots
 LIB_DEPENDS=	libepoll-shim.so:devel/libepoll-shim \
 		libdrm.so:graphics/libdrm \
 		libliftoff.so:graphics/libliftoff \
 		libvulkan.so:graphics/vulkan-loader \
 		libwayland-server.so:graphics/wayland \
+		libdisplay-info.so:sysutils/libdisplay-info \
 		libwlroots.so:x11-toolkits/wlroots \
 		libxkbcommon.so:x11/libxkbcommon
+RUN_DEPENDS=	hwdata>0:misc/hwdata
 
 USES=		compiler:c++11-lib meson pkgconfig sdl xorg
 USE_GITHUB=	yes
 USE_SDL=	sdl2
-USE_XORG=	x11 xcomposite xdamage xext xfixes xrender xres xtst xxf86vm
-GH_ACCOUNT=	Plagman
-CPPFLAGS+=	-D_WITH_DPRINTF # XXX Remove after FreeBSD 11 EOL
-PLIST_FILES=	bin/${PORTNAME}
+USE_XORG=	x11 xcb xcomposite xdamage xext xfixes xmu xrender xres xtst xxf86vm
+GH_ACCOUNT=	ValveSoftware
+GH_TUPLE=	nothings:stb:5736b15:stb/subprojects/stb \
+		Joshua-Ashton:vkroots:2675710:vkroots/subprojects/vkroots
+MESON_ARGS=	--force-fallback-for= # allow system wlroots + libliftoff
+MESON_ARGS+=	-Denable_openvr_support=false # https://github.com/ValveSoftware/openvr/pull/564
+MESON_ARCH_FAMILY=	${ARCH:S/amd/x86_/:S/i3/x/:C/v[67]//:S/powerpc64le/ppc64/:S/powerpc64/ppc64/:S/powerpc/ppc/}
+PLIST_FILES=	bin/${PORTNAME} \
+		lib/libVkLayer_FROG_${PORTNAME}_wsi.so \
+		share/vulkan/implicit_layer.d/VkLayer_FROG_${PORTNAME}_wsi.${MESON_ARCH_FAMILY}.json
 
-# Bundle wlroots due to breaking changes:
-# https://github.com/swaywm/wlroots/commit/9ecfa4343a6d
-# https://github.com/swaywm/wlroots/commit/a109a80dca50
-BUILD_DEPENDS:=	${BUILD_DEPENDS:N*wlroots*} \
-		xwayland-devel>0:x11-servers/xwayland-devel
-LIB_DEPENDS:=	${LIB_DEPENDS:N*wlroots*} \
-		libudev.so:devel/libudev-devd \
-		libseat.so:sysutils/seatd \
-		libinput.so:x11/libinput \
-		libxcb-errors.so:x11/xcb-util-errors \
-		libxcb-render-util.so:x11/xcb-util-renderutil \
-		libxcb-icccm.so:x11/xcb-util-wm
-RUN_DEPENDS+=	xwayland-devel>0:x11-servers/xwayland-devel
-USE_XORG+=	pixman xcb
-USE_GL+=	gbm egl
-GH_TUPLE+=	swaywm:wlroots:0.13.0:wlroots/subprojects/wlroots
-PLIST_FILES+=	"@comment libdata/pkgconfig/wlroots.pc"
+OPTIONS_DEFINE=	PIPEWIRE
+OPTIONS_DEFAULT=PIPEWIRE
+
+PIPEWIRE_DESC=		Screen capture via PipeWire
+PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
+PIPEWIRE_MESON_ENABLED=	pipewire
+
+post-extract:
+# Merge patch_directory for subprojects without meson.build
+	@(cd ${WRKSRC}/subprojects/packagefiles && ${COPYTREE_SHARE} . ..)
+
+post-patch:
+# gamescope_color_microbench isn't installed, so make its dependency optional
+	@${REINPLACE_CMD} '/dependency.*benchmark/s/)/, required: false, disabler: true&/' \
+		${WRKSRC}/src/meson.build
+
+.ifdef GH_TUPLE
+post-configure:
+	@${REINPLACE_CMD} 's/meson install/& \
+		--skip-subprojects/' ${BUILD_WRKSRC}/build.ninja
+.endif
 
 .include <bsd.port.mk>

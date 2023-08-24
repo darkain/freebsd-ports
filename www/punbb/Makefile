@@ -1,5 +1,3 @@
-# Created by: Gea-Suan Lin <gslin@gslin.org>
-
 PORTNAME=	punbb
 PORTVERSION=	1.4.6
 CATEGORIES=	www
@@ -13,6 +11,7 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Fast and lightweight PHP-powered discussion board
+WWW=		http://www.punbb.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -22,7 +21,8 @@ BUILD_DEPENDS+=	${UNZIP_CMD}:archivers/unzip
 SUB_FILES=	pkg-message
 
 NO_BUILD=	yes
-USES=		php tar:bzip2
+USES=		cpe php tar:bzip2
+CPE_VENDOR=	gnu
 
 OPTIONS_DEFINE=		LANGUAGE_PACK EXTRAS
 OPTIONS_DEFAULT=	LANGUAGE_PACK EXTRAS

@@ -1,9 +1,11 @@
 PORTNAME=	dune-foamgrid
-DISTVERSION=	g20200106
+DISTVERSION=	2.8.0
+PORTREVISION=	1
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	DUNE framework: one- and two-dimensional simplex grids
+WWW=		https://www.dune-project.org/
 
 LICENSE=	GPLv2+
 
@@ -18,7 +20,7 @@ USE_GITLAB=	yes
 
 GL_SITE=	https://gitlab.dune-project.org
 GL_ACCOUNT=	extensions
-GL_COMMIT=	d49187be4940227c945ced02f8457ccc9d47536a
+GL_TAGNAME=	c33bcf407a7061e7f5997b895d89207fb9a8097f
 
 NO_ARCH=	yes
 

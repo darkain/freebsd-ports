@@ -1,17 +1,11 @@
---- gpu/command_buffer/service/webgpu_decoder_impl.cc.orig	2021-05-12 22:05:54 UTC
+--- gpu/command_buffer/service/webgpu_decoder_impl.cc.orig	2023-08-17 07:33:31 UTC
 +++ gpu/command_buffer/service/webgpu_decoder_impl.cc
-@@ -813,12 +813,12 @@ error::Error WebGPUDecoderImpl::HandleRequestAdapter(
-       static_cast<DawnRequestAdapterSerial>(c.request_adapter_serial);
+@@ -1235,7 +1235,7 @@ void WebGPUDecoderImpl::RequestAdapterImpl(
  
-   if (gr_context_type_ != GrContextType::kVulkan) {
--#if defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
-     SendAdapterProperties(request_adapter_serial, -1, nullptr,
-                           "WebGPU on Linux requires command-line flag "
-                           "--enable-features=Vulkan,UseSkiaRenderer");
-     return error::kNoError;
--#endif  // defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#endif  // defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
-   }
- 
-   int32_t requested_adapter_index = GetPreferredAdapterIndex(power_preference);
+   if (gr_context_type_ != GrContextType::kVulkan &&
+       use_webgpu_adapter_ != WebGPUAdapterName::kOpenGLES) {
+-#if BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+     callback(WGPURequestAdapterStatus_Unavailable, nullptr,
+              "WebGPU on Linux requires command-line flag "
+              "--enable-features=Vulkan",

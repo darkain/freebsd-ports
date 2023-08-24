@@ -1,7 +1,5 @@
-# Created by: Mark Felder <feld@FreeBSD.org>
-
 PORTNAME?=	percona
-DISTVERSION=	5.7.31-34
+DISTVERSION=	5.7.42-46
 PORTREVISION?=	0
 CATEGORIES=	databases
 MASTER_SITES=	http://www.percona.com/downloads/Percona-Server-5.7/Percona-Server-${DISTVERSION}/source/tarball/:percona \
@@ -13,11 +11,18 @@ DISTFILES=	percona-server-${DISTVERSION}${EXTRACT_SUFX}:percona \
 
 MAINTAINER=	fluffy@FreeBSD.org
 COMMENT?=	Multithreaded SQL database (server)
+WWW?=		https://www.percona.com/software/percona-server
 
 LICENSE?=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+DEPRECATED=	Upstream EOL reaches on 2023-10-01
+EXPIRATION_DATE=	2023-10-01
+IGNORE_SSL=	openssl30 openssl31
+IGNORE_SSL_REASON=	Upstream only supports upto OpenSSL 1.1.1 branch
+
 CPE_VENDOR=	percona
+CPE_PRODUCT=	percona_server
 
 LIB_DEPENDS=	libevent.so:devel/libevent \
 		liblz4.so:archivers/liblz4 \
@@ -43,7 +48,7 @@ CMAKE_ARGS+=	-DINSTALL_LAYOUT=FREEBSD \
 		-DINSTALL_INCLUDEDIR="include/mysql" \
 		-DINSTALL_INFODIR="${INFO_PATH}" \
 		-DINSTALL_LIBDIR="lib/mysql" \
-		-DINSTALL_MANDIR="man" \
+		-DINSTALL_MANDIR="share/man" \
 		-DINSTALL_MYSQLDATADIR="/var/db/mysql" \
 		-DINSTALL_SECURE_FILE_PRIVDIR="${MY_SECDIR}" \
 		-DINSTALL_MYSQLSHAREDIR="share/mysql" \
@@ -85,6 +90,7 @@ USES+=		libedit
 # For building plugins (percona-pam-for-mysql, etc)
 # Currently do nothing special
 USES+=		libedit
+LIB_DEPENDS+=	libcurl.so:ftp/curl
 .else
 LIB_DEPENDS+=	libcurl.so:ftp/curl
 
@@ -105,10 +111,10 @@ TOKUDB_EXTRA_PATCHES=${PATCHDIR}/extrapatch-tokudb
 
 USES+=mysql:57p
 
-CONFLICTS_INSTALL=	mysql*-server-* \
-			mysqlwsrep* \
-			mariadb*-server-* \
-			percona5[0-68-9]-server-*
+CONFLICTS_INSTALL=	mysql*-server \
+			mysqlwsrep*-server \
+			mariadb*-server \
+			percona*-server
 
 USE_RC_SUBR=	mysql-server
 
@@ -139,12 +145,6 @@ CMAKE_ARGS+=	-DWITH_AUTHENTICATION_LDAP=0
 #MY_TESTDIR=	""
 #.endif
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200057
-SUB_LIST+=	LEGACY_LIMITS="@comment " MODERN_LIMITS=""
-.else
-SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
-.endif
-
 post-install:
 	${MKDIR} ${STAGEDIR}/var/db/mysql
 	${MKDIR} ${STAGEDIR}${ETCDIR}/keyring
@@ -157,6 +157,8 @@ post-patch:
 	# issue 220865: MySQL developers forgot that FreeBSD != Linux
 	@${REINPLACE_CMD} -e 's|%%FREEBSD_LOCAL_LIB%%|${LOCALBASE}/lib|g' \
 	${WRKSRC}/configure.cmake
+	@${REINPLACE_CMD} -e 's|__clang__|__undefined__|g' \
+	    ${WRKDIR}/boost_1_59_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp
 
 .include <bsd.port.pre.mk>
 

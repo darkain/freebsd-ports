@@ -1,5 +1,3 @@
-# Created by: Rusmir Dusko <nemysis@FreeBSD.org>
-
 PORTNAME=	pacmanarena
 PORTVERSION=	0.15
 PORTREVISION=	4
@@ -12,6 +10,7 @@ DISTFILES=	${DISTNAME:S/na/n-a/}.tar.bz2 \
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Pacman clone in full 3D with a few surprises
+WWW=		http://pacmanarena.sourceforge.net/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -26,7 +25,6 @@ LDFLAGS+=	-lm
 PORTDOCS=	README
 OPTIONS_DEFINE=	DOCS
 
-INSTALLS_ICONS=	yes
 ICON_SIZES=	32x32 48x48 64x64 72x72 96x96
 
 DESKTOP_ENTRIES="Pacman Arena" "" "${PORTNAME}" \

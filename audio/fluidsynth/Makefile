@@ -1,17 +1,17 @@
-# Created by: Juha Nygard <juha.nygard1@netikka.fi>
-
 PORTNAME=	fluidsynth
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.1.7
+DISTVERSION=	2.3.3
+PORTREVISION=	1
 CATEGORIES=	audio
 
 MAINTAINER=	multimedia@FreeBSD.org
 COMMENT=	Real-time software synthesizer based on the SoundFont 2 specifications
+WWW=		https://www.fluidsynth.org/
 
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		cmake gnome pkgconfig
+USES=		cmake cpe gnome pkgconfig
 USE_GITHUB=	yes
 GH_ACCOUNT=	FluidSynth
 USE_GNOME=	glib20
@@ -21,8 +21,8 @@ USE_LDCONFIG=	yes
 CMAKE_OFF=	enable-libinstpatch enable-midishare
 LDFLAGS+=	-lpthread
 
-OPTIONS_DEFINE=		ALSA DBUS JACK LADSPA LASH PORTAUDIO PULSEAUDIO \
-			READLINE SDL SNDFILE SNDIO
+OPTIONS_DEFINE=		ALSA DBUS JACK LADSPA LASH PIPEWIRE PORTAUDIO \
+			PULSEAUDIO READLINE SDL SNDFILE SNDIO
 OPTIONS_DEFAULT=	JACK READLINE
 
 JACK_LIB_DEPENDS=	libjack.so:audio/jack
@@ -41,6 +41,9 @@ LADSPA_CMAKE_BOOL=	enable-ladspa
 
 LASH_LIB_DEPENDS=	liblash.so:audio/lash
 LASH_CMAKE_BOOL=	enable-lash
+
+PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
+PIPEWIRE_CMAKE_BOOL=	enable-pipewire
 
 PORTAUDIO_LIB_DEPENDS=	libportaudio.so:audio/portaudio
 PORTAUDIO_CMAKE_BOOL=	enable-portaudio

@@ -1,25 +1,32 @@
 PORTNAME=	pandas
-PORTVERSION=	1.2.5
+PORTVERSION=	2.0.3
 PORTEPOCH=	1
 CATEGORIES=	math devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	python@FreeBSD.org
 COMMENT=	Flexible, high-performance data analysis in Python
+WWW=		https://pandas.pydata.org/
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cython>=0.29.21<3:lang/cython@${PY_FLAVOR} \
-		${PYNUMPY}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cython>=0.29.21<3:lang/cython@${PY_FLAVOR} \
-		${PYNUMPY} \
-		${PYTHON_PKGNAMEPREFIX}dateutil>=2.7.3:devel/py-dateutil@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytz>=2017.3,1:devel/py-pytz@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cython>=0.29.33<3:lang/cython@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}numpy>=1.23.2,1:math/py-numpy@${PY_FLAVOR} \
+		${PY_SETUPTOOLS} \
+		${PYTHON_PKGNAMEPREFIX}versioneer>=0:devel/py-versioneer@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}wheel>=0:devel/py-wheel@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cython>=0.29.33<3:lang/cython@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}numpy>=1.23.2,1:math/py-numpy@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}dateutil>=2.8.2:devel/py-dateutil@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pytz>=2020.1,1:devel/py-pytz@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}sqlite3>=0:databases/py-sqlite3@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}tzdata>=2022.1:devel/py-tzdata@${PY_FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}arrow>=0:devel/py-arrow@${PY_FLAVOR}
 
-USES=		python:3.7+
-USE_PYTHON=	autoplist cython distutils
+USES=		cpe python
+CPE_VENDOR=	numfocus
+USE_PYTHON=	autoplist cython pep517
 
 OPTIONS_DEFINE=		MPL SCIPY
 OPTIONS_GROUP=		ACCEL STORAGE HTML EXCEL

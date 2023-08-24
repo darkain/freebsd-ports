@@ -1,5 +1,3 @@
-# Created by: ijliao
-
 PORTNAME=	sig2dot
 PORTVERSION=	0.35
 CATEGORIES=	security
@@ -9,8 +7,9 @@ EXTRACT_SUFX=	.pl
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	GPG/PGP Keyring Graph Generator
+WWW=		http://www.chaosreigns.com/code/sig2dot/
 
-CONFLICTS_INSTALL=signing-party-[0-9]*
+CONFLICTS_INSTALL=signing-party
 
 PLIST_FILES=	bin/sig2dot
 EXTRACT_CMD=	${CP}

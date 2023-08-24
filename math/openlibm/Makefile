@@ -1,13 +1,11 @@
-# Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
-
 PORTNAME=	openlibm
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.6.0
-PORTREVISION=	2
+DISTVERSION=	0.8.0
 CATEGORIES=	math
 
 MAINTAINER=	iblis@hs.ntnu.edu.tw
 COMMENT=	High quality system independent, portable, open source libm
+WWW=		http://julialang.org/openlibm/
 
 LICENSE=	MIT ISCL BSD2CLAUSE
 LICENSE_COMB=	multi
@@ -22,8 +20,6 @@ BROKEN_riscv64=	fails to compile: No rule to make target riscv64/Make.files
 USES=		gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	JuliaMath
-GH_PROJECT=	openlibm
-
 USE_LDCONFIG=	yes
 
 .include <bsd.port.options.mk>

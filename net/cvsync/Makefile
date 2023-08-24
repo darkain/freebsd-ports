@@ -7,6 +7,7 @@ DISTNAME=	${PORTNAME}-0.24.19
 
 MAINTAINER=	hrs@FreeBSD.org
 COMMENT=	Portable CVS repository synchronization utility
+WWW=		https://www.cvsync.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/doc/COPYRIGHT
@@ -18,8 +19,7 @@ PORTDOCS=	ChangeLog FAQ TODO
 PORTEXAMPLES=	cvsync.conf cvsyncd-FreeBSD.conf \
 		cvsyncd-NetBSD.conf cvsyncd-OpenBSD.conf
 
-MAKE_ENV+=	DESTDIR="${STAGEDIR}" \
-		PTHREAD_LIBS="-lpthread" \
+MAKE_ENV=	PTHREAD_LIBS="-lpthread" \
 		INSTALL= \
 		INSTALL_BIN_OPTS="${INSTALL_PROGRAM}" \
 		INSTALL_MAN_OPTS="${INSTALL_MAN}"

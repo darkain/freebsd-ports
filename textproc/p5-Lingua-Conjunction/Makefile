@@ -1,13 +1,12 @@
-# Created by: Seamus Venasse <svenasse@polaris.ca>
-
 PORTNAME=	Lingua-Conjunction
-PORTVERSION=	2.4
+PORTVERSION=	2.5
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Convert Perl lists into linguistic conjunctions
+WWW=		https://metacpan.org/release/Lingua-Conjunction
 
 LICENSE=	ART20
 LICENSE_FILE=	${WRKSRC}/LICENSE

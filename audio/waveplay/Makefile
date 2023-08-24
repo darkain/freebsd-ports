@@ -1,5 +1,3 @@
-# Created by: Yoshihide SONODA <ysonoda@dontaku.csce.kyushu-u.ac.jp>
-
 PORTNAME=	waveplay
 PORTVERSION=	2001.09.24
 PORTREVISION=	1
@@ -9,6 +7,10 @@ DISTNAME=	waveplay-20010924
 
 MAINTAINER=	yshd@na.rim.or.jp
 COMMENT=	Simple wav file player
+
+BROKEN=		Unfetchable
+DEPRECATED=	Abandoned upstream
+EXPIRATION_DATE=2023-09-30
 
 ONLY_FOR_ARCHS=	i386 amd64 armv7 powerpc powerpc64 powerpc64le
 PLIST_FILES=	bin/waveplay \

@@ -1,16 +1,18 @@
 PORTNAME=	gef
-DISTVERSION=	2021.07
+DISTVERSION=	2022.01
+PORTREVISION=	1
 CATEGORIES=	security python
 
 MAINTAINER=	0mp@FreeBSD.org
 COMMENT=	GDB Enhanced Features for exploit devs & reversers
+WWW=		https://gef.rtfd.io
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	gdb>7.7:devel/gdb
 
-USES=		python:run,3.6+
+USES=		python:run
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	hugsy
@@ -33,6 +35,9 @@ OPTIONALDEPS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}capstone>0:devel/py-capstone@${
 				${PYTHON_PKGNAMEPREFIX}unicorn>0:emulators/py-unicorn@${PY_FLAVOR}
 
 _UTILITY_NAME=	gef.py
+
+post-patch:
+	${REINPLACE_CMD} 's|%%PYTHON%%|${PYTHON_CMD:T}|g' ${WRKSRC}/${_UTILITY_NAME}
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}

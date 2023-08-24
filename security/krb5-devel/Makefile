@@ -1,29 +1,25 @@
-# Created by: nectar@FreeBSD.org
-
 PORTNAME=		krb5
-PORTVERSION=		1.19.${MIT_COMMIT_DATE}
+PORTVERSION=		1.22.${MIT_COMMIT_DATE}
 CATEGORIES=		security
 .if !defined(MASTERDIR)
 PKGNAMESUFFIX=		-devel
 .endif
-HASH=			fc98f520c
-MIT_COMMIT_DATE=	2021.07.12
+HASH=			f4dcb7e44
+MIT_COMMIT_DATE=	2023.08.07
 
 PATCH_SITES=		http://web.mit.edu/kerberos/advisories/
 PATCH_DIST_STRIP=	-p2
 
 MAINTAINER=		cy@FreeBSD.org
 COMMENT=		MIT implementation of RFC 4120 network authentication service
-
-BROKEN_FreeBSD_11=	OpenSSL 1.0.2 is not supported
+WWW=			https://web.mit.edu/kerberos/
 
 LICENSE=		MIT
 
 USE_GITHUB=		yes
 GH_TAGNAME=		${HASH}
 
-CONFLICTS=		heimdal-[0-9]* srp-[0-9]* krb5-11[345]-[0-9]* \
-			krb5-1.[0-9]*
+CONFLICTS=		heimdal krb5 krb5-1*
 
 KERBEROSV_URL=		http://web.mit.edu/kerberos/
 USE_PERL5=		build
@@ -44,22 +40,25 @@ CPE_PRODUCT=		kerberos
 OPTIONS_DEFINE=		EXAMPLES NLS DNS_FOR_REALM LDAP LMDB
 OPTIONS_DEFAULT=	KRB5_PDF KRB5_HTML READLINE
 OPTIONS_RADIO=		CMD_LINE_EDITING
-OPTIONS_RADIO_CMD_LINE_EDITING=	READLINE LIBEDIT
+OPTIONS_RADIO_CMD_LINE_EDITING=	READLINE LIBEDIT LIBEDIT_BASE
 CMD_LINE_EDITING_DESC=	Command line editing for kadmin and ktutil
 DNS_FOR_REALM_DESC=	Enable DNS lookups for Kerberos realm names
 DNS_FOR_REALM_CONFIGURE_ENABLE=	dns-for-realm
 LDAP=			Enable LDAP support
-LDAP_USE=		OPENLDAP=yes
+LDAP_USES=		ldap
 LDAP_CONFIGURE_WITH=	ldap
 LMDB_DESC=		OpenLDAP Lightning Memory-Mapped Database support
 LMDB_CONFIGURE_WITH=	lmdb
 LMDB_LIB_DEPENDS=	liblmdb.so:databases/lmdb
 LMDB_IMPLIES=		LDAP
 NLS_USES=		gettext
+NLS_CONFIGURE_OFF=	--disable-nls
 READLINE_USES=		readline
 READLINE_CONFIGURE_WITH=readline
 LIBEDIT_USES=		libedit
 LIBEDIT_CONFIGURE_WITH=	libedit
+LIBEDIT_BASE_CONFIGURE_WITH=	libedit
+LIBEDIT_BASE_DESC=	Use libedit in FreeBSD base
 
 .if defined(KRB5_HOME)
 PREFIX=			${KRB5_HOME}

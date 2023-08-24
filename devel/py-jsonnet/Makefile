@@ -1,11 +1,12 @@
 PORTNAME=	jsonnet
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.17.0
+DISTVERSION=	0.18.0
 CATEGORIES=	devel python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	timp87@gmail.com
 COMMENT=	Python bindings for Jsonnet - The data templating language
+WWW=		https://github.com/google/jsonnet
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -15,7 +16,7 @@ LIB_DEPENDS=	libjsonnet.so:devel/jsonnet
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}yaml>0:devel/py-yaml@${PY_FLAVOR}
 
-USES=		compiler:c++11-lang python:3.6+ localbase
+USES=		compiler:c++11-lang python localbase
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	google

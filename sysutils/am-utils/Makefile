@@ -1,8 +1,6 @@
-# Created by: Jon Wilson <jon@phuq.co.uk>
-
 PORTNAME=	am-utils
 PORTVERSION=	6.2
-PORTREVISION=	8
+PORTREVISION=	11
 PORTEPOCH=	1
 CATEGORIES=	sysutils net
 MASTER_SITES=	ftp://ftp.am-utils.org/pub/am-utils/ \
@@ -11,9 +9,13 @@ MASTER_SITES=	ftp://ftp.am-utils.org/pub/am-utils/ \
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Berkeley Automounter Suite of Utilities
+WWW=		https://www.am-utils.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+DEPRECATED=		Upstream recommends using autofs
+EXPIRATION_DATE=	2026-01-31
 
 OPTIONS_DEFINE=	OPENLDAP DOCS
 OPTIONS_DEFAULT=OPENLDAP
@@ -35,8 +37,7 @@ INSTALL_TARGET=	install-strip
 INFO=		am-utils
 PORTDOCS=	AUTHORS BUGS FAQ NEWS README.attrcache
 
-OPENLDAP_USES=			localbase:ldflags
-OPENLDAP_USE=			OPENLDAP=yes
+OPENLDAP_USES=			ldap localbase:ldflags
 OPENLDAP_CONFIGURE_WITH=	ldap
 OPENLDAP_PORTDOCS=		README.ldap ldap-id.txt ldap.schema
 

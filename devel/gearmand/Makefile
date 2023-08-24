@@ -1,13 +1,12 @@
-# Created by: Gea-Suan Lin <gslin@gslin.org>
-
 PORTNAME=	gearmand
 PORTVERSION=	1.0.6
-PORTREVISION=	22
+PORTREVISION=	24
 CATEGORIES=	devel
 MASTER_SITES=	http://launchpad.net/gearmand/1.0/${PORTVERSION}/+download/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Gearman C Server and Library
+WWW=		http://www.gearman.org/
 
 BROKEN_FreeBSD_13=	error: use of undeclared identifier 'abi'
 
@@ -21,7 +20,7 @@ CONFLICTS=	p5-Gearman-Server-1.* gearmand-1.1.*
 USERS=		gearmand
 GROUPS=		gearmand
 
-USES=		compiler:c++11-lang pathfix gmake perl5 python:build,3.6+ libtool
+USES=		compiler:c++11-lang pathfix gmake perl5 python:build libtool
 USE_PERL5=	build
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes

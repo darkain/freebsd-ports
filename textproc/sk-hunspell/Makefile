@@ -9,6 +9,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Slovak hunspell dictionaries
+WWW=		https://www.sk-spell.sk.cx/
 
 LICENSE=	GPLv2 LGPL21 MPL11
 LICENSE_COMB=	dual
@@ -20,8 +21,8 @@ USES=		zip
 NO_ARCH=	yes
 NO_BUILD=	yes
 
-PLIST_FILES=	%%DATADIR%%/sk_SK.aff \
-		%%DATADIR%%/sk_SK.dic
+PLIST_FILES=	${DATADIR}/sk_SK.aff \
+		${DATADIR}/sk_SK.dic
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

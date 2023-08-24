@@ -9,11 +9,12 @@ DISTFILES=	${QMAIL_DIST} ${SPAMCONTROL_DIST}:spamcontrol
 EXTRACT_ONLY=	${QMAIL_DIST}
 
 COMMENT=	Qmail MTA with SpamControl patches
+WWW=		http://www.fehcom.de/qmail/spamcontrol.html
 
 BROKEN_FreeBSD_12=	incomplete definition of type 'struct X509_name_st'
 BROKEN_FreeBSD_13=	incomplete definition of type 'struct X509_name_st'
 BROKEN_FreeBSD_14=	incomplete definition of type 'struct X509_name_st'
-CONFLICTS=	*qmail-[0-9]* qmail-ldap-[0-9]* *qmail-mysql-[0-9]* *qmail-tls-[0-9]*
+CONFLICTS=	*qmail qmail-ldap *qmail-mysql *qmail-tls
 
 EXTRA_PATCHES+=	${MASTERDIR}/files/patch-install.c \
 		${MASTERDIR}/files/patch-Makefile \

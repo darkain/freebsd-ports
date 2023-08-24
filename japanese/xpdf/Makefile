@@ -1,5 +1,3 @@
-# Created by: MITA Yoshio <mita@FreeBSD.org>
-
 PORTNAME=	xpdf
 PORTVERSION=	4.02
 CATEGORIES=	japanese
@@ -17,6 +15,10 @@ RUN_DEPENDS=	xpdf:graphics/xpdf \
 		${ADOBECMAPDIR}/ai0/CMap/Identity-H:print/adobe-cmaps \
 		${FONTSDIR}/Ryumin-Light:japanese/font-std \
 		${FONTSDIR}/GothicBBB-Medium:japanese/font-std
+
+USES=		cpe
+
+CPE_VENDOR=	xpdfreader
 
 NO_BUILD=	yes
 SUB_FILES=	dot.xpdfrc

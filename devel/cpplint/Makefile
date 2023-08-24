@@ -1,11 +1,10 @@
-# Created by: thierry@pompo.net
-
 PORTNAME=	cpplint
-PORTVERSION=	1.5.5
+PORTVERSION=	1.6.1
 CATEGORIES=	devel
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Static code checker for C++
+WWW=		https://github.com/cpplint/cpplint
 
 LICENSE=	BSD3CLAUSE
 
@@ -18,7 +17,7 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${PY_FLAVOR}	\
 
 USE_GITHUB=	yes
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils noflavors
 
 NO_ARCH=	yes

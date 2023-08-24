@@ -1,23 +1,23 @@
-# Created by: Alex Dupre <ale@FreeBSD.org>
-
 PORTNAME=	re
-DISTVERSION=	v196.04
+PORTVERSION=	198.00
+DISTVERSIONPREFIX=	v
 PORTREVISION=	3
 CATEGORIES=	net
-MASTER_SITES=	LOCAL/ale
 PKGNAMEPREFIX=	realtek-
 PKGNAMESUFFIX=	-kmod
-DISTNAME=	rtl_bsd_drv_${DISTVERSION}
 
 MAINTAINER=	ale@FreeBSD.org
 COMMENT=	Kernel driver for Realtek PCIe Ethernet Controllers
+WWW=		https://github.com/alexdupre/rtl_bsd_drv
 
 LICENSE=	BSD4CLAUSE
 
-ONLY_FOR_ARCHS=		amd64 i386
-ONLY_FOR_ARCHS_REASON=	uses X86-specific code
-
 USES=		kmod tar:tgz uidfix
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	alexdupre
+GH_PROJECT=	rtl_bsd_drv
+GH_TAGNAME=	d3a7a3d
 
 PLIST_FILES=	${KMODDIR}/if_re.ko
 

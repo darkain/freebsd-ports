@@ -1,14 +1,13 @@
-# Created by: Lars Engels <lars.engels@0x20.net>
-
 PORTNAME=	mrxvt-devel
 PORTVERSION=	0.5.4
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	x11
 MASTER_SITES=	SF/materm/mrxvt%20source/${PORTVERSION}
 DISTNAME=	mrxvt-${PORTVERSION}
 
-MAINTAINER=	lme@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Development version of mrxvt
+WWW=		http://materm.sourceforge.net/
 
 LICENSE=	GPLv2
 

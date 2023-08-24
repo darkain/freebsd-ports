@@ -1,20 +1,27 @@
 PORTNAME=	jellyfish
-PORTVERSION=	0.8.2
-PORTREVISION=	1
+PORTVERSION=	0.11.2
+PORTREVISION=	3
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Library for doing approximate and phonetic matching of strings
+WWW=		https://github.com/jamesturk/jellyfish
 
-LICENSE=	BSD2CLAUSE
+LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python:3.6+
-USE_PYTHON=	autoplist concurrent distutils
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}maturin>=0.14<2:devel/py-maturin@${PY_FLAVOR}
+
+USES=		cargo python
+USE_PYTHON=	autoplist concurrent pep517
+
+CARGO_BUILD=	no
+CARGO_INSTALL=	no
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/jellyfish/cjellyfish*.so
+	${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR} -name '*.so' -exec ${STRIP_CMD} {} +
 
 .include <bsd.port.mk>

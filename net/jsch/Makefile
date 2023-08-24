@@ -1,5 +1,3 @@
-# Created by: Mario Sergio Fujikawa Ferreira <lioux@FreeBSD.org>
-
 PORTNAME=	jsch
 PORTVERSION=	0.1.55
 CATEGORIES=	net java security
@@ -7,10 +5,12 @@ MASTER_SITES=	SF
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Pure Java implementation of SSH2
+WWW=		http://www.jcraft.com/jsch
 
 LICENSE=	BSD3CLAUSE
 
-USES=		zip
+USES=		cpe zip
+CPE_VENDOR=	jcraft
 USE_JAVA=	yes
 USE_ANT=	yes
 

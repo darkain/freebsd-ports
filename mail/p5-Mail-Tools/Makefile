@@ -1,5 +1,3 @@
-# Created by: James FitzGibbon <jfitz@FreeBSD.org>
-
 PORTNAME=	Mail-Tools
 PORTVERSION=	2.21
 CATEGORIES=	mail perl5
@@ -7,8 +5,9 @@ MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 DISTNAME=	MailTools-${PORTVERSION}
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl5 modules for dealing with Internet e-mail messages
+WWW=		https://metacpan.org/release/MailTools
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

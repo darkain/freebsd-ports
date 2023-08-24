@@ -1,16 +1,16 @@
-# Created by: Jean-Marc Zucconi <jmz@FreeBSD.org> and David O'Brien <obrien@FreeBSD.org>
-
 PORTNAME=	psutils
 PORTVERSION=	1.17
 PORTREVISION=	5
 CATEGORIES=	print
 MASTER_SITES=	ftp://ftp.dcs.ed.ac.uk/pub/ajcd/ \
 		ftp://ftp.knackered.org/pub/psutils/ \
-		TEX_CTAN/support/psutils
+		TEX/obsolete/support/psutils \
+		https://ftp.osuosl.org/pub/blfs/conglomeration/psutils/
 DISTNAME=	psutils-p17
 
 MAINTAINER=	hrs@FreeBSD.org
 COMMENT=	Utilities for manipulating PostScript documents
+WWW=		http://gershwin.ens.fr/vdaniel/Doc-Locale/Outils-Gnu-Linux/PsUtils/
 
 LIB_DEPENDS=	libpaper.so:print/libpaper
 

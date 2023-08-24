@@ -1,14 +1,12 @@
-# Created by: Joe Marcus Clarke <marcus@FreeBSD.org>
-
 PORTNAME=	fontconfig
-DISTVERSION=	2.13.93
-PORTREVISION?=	1
+DISTVERSION=	2.14.2
 PORTEPOCH=	1
 CATEGORIES=	x11-fonts
 MASTER_SITES=	https://www.freedesktop.org/software/fontconfig/release/
 
 MAINTAINER=	desktop@FreeBSD.org
 COMMENT=	XML-based font configuration API for X Windows
+WWW=		https://www.freedesktop.org/wiki/Software/fontconfig/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,7 +14,8 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libexpat.so:textproc/expat2
 
-USES=		cpe gperf meson pkgconfig python:3.6+,build shebangfix tar:xz
+USES=		cpe gperf meson pkgconfig python:build shebangfix tar:xz \
+		trigger
 CPE_VENDOR=	fontconfig_project
 USE_LDCONFIG=	yes
 
@@ -27,17 +26,20 @@ SHEBANG_FILES=	conf.d/link_confs.py \
 
 TEST_TARGET=	test
 
-# Custom configuration variables
-FCDEFAULTFONTS=	${PREFIX}/share/fonts
-FCADDFONTS=	${LOCALBASE}/lib/X11/fonts
-
-# To avoid circular depdency docs (including manpages) needs to be disabled as
-# they depend on textproc/docbook-utils which requires fontconfig
-MESON_ARGS=	-Ddefault_library=both -Ddoc=disabled
+# To avoid circular dependency rebuild of docs (including manpages) needs to be
+# disabled as they depend on textproc/docbook-utils which requires fontconfig
+MESON_ARGS=	-Ddefault_library=both -Ddoc=disabled -Dcache-build=disabled \
+		-Ddefault-fonts-dirs=${PREFIX}/share/fonts \
+		-Dadditional-fonts-dirs=${LOCALBASE}/lib/X11/fonts \
+		-Dlocalstatedir=/var \
+		-Dcache-dir=/var/db/fontconfig \
+		-Dtemplate-dir=${LOCALBASE}/etc/fonts/conf.avail \
+		-Dxml-dir=${LOCALBASE}/etc/fonts
 
 PLIST_SUB=	PREFERRED_HINTING=${PREFERRED_HINTING}
+PORTDOCS=	fontconfig-user.html fontconfig-user.pdf fontconfig-user.txt
 
-OPTIONS_DEFINE=	NLS BITMAPS TEST
+OPTIONS_DEFINE=	DOCS NLS BITMAPS TEST
 OPTIONS_DEFAULT=BITMAPS HINTING_SLIGHT
 OPTIONS_SUB=	yes
 
@@ -46,6 +48,7 @@ OPTIONS_SINGLE=	HINTING
 OPTIONS_SINGLE_HINTING+=	HINTING_${opt}
 HINTING_${opt}_DESC=	${opt:tl}
 HINTING_${opt}_VARS=	PREFERRED_HINTING=${opt:tl}
+HINTING_${opt}_MESON_ON=	-Ddefault-hinting=${opt:tl}
 .endfor
 
 BITMAPS_DESC=	Enable bitmap fonts by default
@@ -56,17 +59,16 @@ NLS_MESON_ENABLED=	nls
 
 TEST_MESON_ENABLED=	tests
 
-post-patch:
-	@${REINPLACE_CMD} -e 's|%%FCDEFAULTFONTS%%|${FCDEFAULTFONTS}|g' \
-	    ${PATCH_WRKSRC}/meson.build
-	@${REINPLACE_CMD} -e 's|%%FCADDFONTS%%|${FCADDFONTS}|g' \
-	    ${PATCH_WRKSRC}/meson.build
-	@${REINPLACE_CMD} -e 's|%%FCPREFERREDHINTING%%|${PREFERRED_HINTING}|g' \
-	    ${PATCH_WRKSRC}/conf.d/meson.build
-
 post-install:
+	${INSTALL_MAN} ${WRKSRC}/fc-*/*.1 ${STAGEDIR}${PREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/doc/*.3 ${STAGEDIR}${PREFIX}/man/man3
+	${INSTALL_MAN} ${WRKSRC}/doc/*.5 ${STAGEDIR}${PREFIX}/man/man5
 	${MV} ${STAGEDIR}${PREFIX}/etc/fonts/fonts.conf ${STAGEDIR}${PREFIX}/etc/fonts/fonts.conf.sample
 	@${MKDIR} ${STAGEDIR}/var/db/fontconfig
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/doc/|} ${STAGEDIR}${DOCSDIR}
 
 post-install-BITMAPS-off:
 	${RLN} ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail/70-no-bitmaps.conf ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/70-no-bitmaps.conf

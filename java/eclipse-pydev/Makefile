@@ -1,14 +1,13 @@
-# Created by: Nicola Vitale <nivit@FreeBSD.org>
-
 PORTNAME=	pydev
-PORTVERSION=	8.2.0
+PORTVERSION=	10.2.1
 CATEGORIES=	java devel python
-MASTER_SITES= https://github.com/fabioz/Pydev/releases/download/${PORTNAME}_8_2_0/
+MASTER_SITES=	https://github.com/fabioz/Pydev/releases/download/${PORTNAME}_10_2_1/
 PKGNAMEPREFIX=	eclipse-
 DISTNAME=	PyDev.${PORTVERSION}
 
 MAINTAINER=	mizhka@FreeBSD.org
 COMMENT=	Eclipse plugin for Python and Jython development
+WWW=		https://www.pydev.org/
 
 LICENSE=	EPL
 
@@ -16,16 +15,19 @@ RUN_DEPENDS=	${LOCALBASE}/bin/eclipse:java/eclipse
 
 USES=		python zip
 
-JYTHON_DESC=	Use Jython as Python interpreter
-OPTIONS_DEFINE=	JYTHON
-
 USE_JAVA=	YES
+JAVA_VERSION=	8+
 JAVA_OS=	native
 JAVA_RUN=	YES
-JAVA_VERSION=	1.8+
 
 NO_BUILD=	YES
 NO_WRKSUBDIR=	YES
+
+PLIST_SUB+=     PYDEV_VER=10.2.1.202307021217
+
+OPTIONS_DEFINE=	JYTHON
+
+JYTHON_DESC=	Use Jython as Python interpreter
 
 .include <bsd.port.options.mk>
 

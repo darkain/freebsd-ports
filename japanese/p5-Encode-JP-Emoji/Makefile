@@ -4,8 +4,9 @@ PORTREVISION=	1
 CATEGORIES=	japanese perl5
 MASTER_SITES=	CPAN
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for Emoji encodings and cross-mapping tables
+WWW=		https://metacpan.org/release/Encode-JP-Emoji
 
 USES=		perl5
 USE_PERL5=	configure

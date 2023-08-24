@@ -1,20 +1,20 @@
-# Created by: Maxim Sobolev <sobomax@FreeBSD.org>
-
 PORTNAME=	scintilla
 DISTVERSION=	4.4.5
+PORTREVISION=	1
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	SF/scintilla/SciTE/${PORTVERSION}
 DISTNAME=	scite${PORTVERSION:S/.//g}
 
 MAINTAINER=	cyberbotx@cyberbotx.com
 COMMENT=	Full-featured free source code editing component for GTK+
+WWW=		https://www.scintilla.org/
 
 LICENSE=	SCINTILLA
 LICENSE_NAME=	License for Scintilla and SciTE
 LICENSE_FILE=	${WRKSRC}/../License.txt
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-USES=		compiler:c++17-lang gmake gnome iconv pkgconfig tar:tgz
+USES=		compiler:c++17-lang cpe gmake gnome iconv pkgconfig tar:tgz
 
 PATCH_WRKSRC=	${WRKDIR}/${PORTNAME}
 WRKSRC=		${WRKDIR}/${PORTNAME}/gtk

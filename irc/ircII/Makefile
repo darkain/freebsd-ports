@@ -1,5 +1,3 @@
-# Created by: torstenb
-
 PORTNAME=	ircii
 PORTVERSION=	20210314
 CATEGORIES=	irc
@@ -7,13 +5,16 @@ MASTER_SITES=	http://ircii.warped.com/
 
 MAINTAINER=	andrew@tao11.riddles.org.uk
 COMMENT=	Small and high extensible IRC client
+WWW=		http://www.eterna.com.au/ircii/
 
 LICENSE=	BSD3CLAUSE
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS= --with-warnings
+CONFIGURE_ARGS=	--with-warnings
 DATADIR=	${PREFIX}/share/irc
-USES=		iconv ncurses tar:bzip2
+USES=		cpe iconv ncurses tar:bzip2
+
+CPE_VENDOR=	eterna
 
 OPTIONS_DEFINE=	EMACS_KEYS HELP IRCBUG OPENSSL SCRIPTS
 OPTIONS_DEFAULT=EMACS_KEYS HELP OPENSSL SCRIPTS

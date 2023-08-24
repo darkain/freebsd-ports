@@ -1,5 +1,3 @@
-# Created by: jmz
-
 PORTNAME=	zoo
 PORTVERSION=	2.10.1
 PORTREVISION=	4
@@ -10,6 +8,10 @@ DISTNAME=	zoo-2.10pl1
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Manipulate archives of files in compressed form
+
+USES=		cpe
+
+CPE_VENDOR=	zoo_project
 
 NO_WRKSUBDIR=	yes
 ALL_TARGET=	bsdansi

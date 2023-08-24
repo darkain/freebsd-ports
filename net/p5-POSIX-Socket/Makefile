@@ -5,8 +5,9 @@ CATEGORIES=	net perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for POSIX socket low-level interface
+WWW=		https://metacpan.org/release/POSIX-Socket
 
 USES=	perl5
 USE_PERL5=	configure

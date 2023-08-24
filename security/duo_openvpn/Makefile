@@ -1,12 +1,10 @@
-# Created by: Ryan Steinmetz <zi@FreeBSD.org>
-
 PORTNAME=	duo_openvpn
-PORTVERSION=	2.4
-PORTREVISION=	2
-CATEGORIES=	security
+PORTVERSION=	2.5
+CATEGORIES=	security net-vpn
 
 MAINTAINER=	zi@FreeBSD.org
 COMMENT=	Duo two-factor authentication for OpenVPN
+WWW=		https://github.com/duosecurity/duo_openvpn
 
 LICENSE=	GPLv2
 
@@ -34,7 +32,7 @@ PERL_RUN_DEPENDS=	p5-JSON-XS>0:converters/p5-JSON-XS \
 			p5-libwww>0:www/p5-libwww \
 			p5-LWP-Protocol-https>0:www/p5-LWP-Protocol-https \
 			p5-Digest-HMAC>0:security/p5-Digest-HMAC
-PYTHON_USES=		python:3.7+,run
+PYTHON_USES=		python:run
 
 .include <bsd.port.options.mk>
 

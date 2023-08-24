@@ -6,6 +6,7 @@ DISTNAME=	# OptimFROG_FreeBSD_${ARCH}_${DISTVERSION:S/.//}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT?=	Best-ratio lossless audio codec
+WWW=		http://www.losslessaudio.org/
 
 LICENSE=	OptimFROG
 LICENSE_NAME=	OptimFROG - License
@@ -15,7 +16,7 @@ LICENSE_PERMS=	dist-mirror pkg-mirror auto-accept
 
 RUN_DEPENDS+=	${LOCALBASE}/lib/compat/libstdc++.so.6:misc/compat9x
 
-CONFLICTS_INSTALL?=	optimfrog-sse2-[0-9]*
+CONFLICTS_INSTALL?=	optimfrog-sse2
 
 ONLY_FOR_ARCHS?=	amd64 i386
 

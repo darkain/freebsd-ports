@@ -11,14 +11,15 @@ EXTRACT_AFTER_ARGS?=	"${DISTNAME}/source/${PORTNAME}-core/*" \
 
 .if ${PKGNAMESUFFIX} == "-core"
 LIB_DEPENDS+=		libfreetype.so:print/freetype2 \
-			libpng.so:graphics/png \
-			libminizip.so:archivers/minizip
+			libpng.so:graphics/png
+USES+=			minizip
 .else
 PLIST=			${WRKDIR}/pkg-plist
 .endif
 
 .if ${PKGNAMESUFFIX} == "-video-rice"
 LIB_DEPENDS+=		libpng.so:graphics/png
+USE_CXXSTD=	c++14
 .endif
 
 .if ${PKGNAMESUFFIX} == "-video-glide64mk"

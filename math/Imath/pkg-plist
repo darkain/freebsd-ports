@@ -39,7 +39,7 @@ lib/cmake/Imath/ImathTargets-%%CMAKE_BUILD_TYPE%%.cmake
 lib/cmake/Imath/ImathTargets.cmake
 lib/libImath-%%MAJORVER%%.so
 lib/libImath-%%MAJORVER%%.so.%%VER%%
-lib/libImath-%%MAJORVER%%.so.%%VER%%.0.%%PLVER%%
+lib/libImath-%%MAJORVER%%.so.%%VER%%.%%MINVER%%.%%PLVER%%
 lib/libImath.so
 libdata/pkgconfig/Imath.pc
 %%PYTHON%%include/Imath/PyImath.h
@@ -64,7 +64,6 @@ libdata/pkgconfig/Imath.pc
 %%PYTHON%%include/Imath/PyImathFrustum.h
 %%PYTHON%%include/Imath/PyImathFun.h
 %%PYTHON%%include/Imath/PyImathLine.h
-%%PYTHON%%include/Imath/PyImathM44Array.h
 %%PYTHON%%include/Imath/PyImathMathExc.h
 %%PYTHON%%include/Imath/PyImathMatrix.h
 %%PYTHON%%include/Imath/PyImathOperators.h
@@ -85,10 +84,9 @@ libdata/pkgconfig/Imath.pc
 %%PYTHON%%include/Imath/PyImathVec4ArrayImpl.h
 %%PYTHON%%include/Imath/PyImathVec4Impl.h
 %%PYTHON%%include/Imath/PyImathVecOperators.h
-%%PYTHON%%lib/cmake/Imath/ImathConfig-%%CMAKE_BUILD_TYPE%%.cmake
 %%PYTHON%%lib/libPyImath_Python%%PYVER%%-%%MAJORVER%%.so
 %%PYTHON%%lib/libPyImath_Python%%PYVER%%-%%MAJORVER%%.so.%%VER%%
-%%PYTHON%%lib/libPyImath_Python%%PYVER%%-%%MAJORVER%%.so.%%VER%%.0.%%PLVER%%
+%%PYTHON%%lib/libPyImath_Python%%PYVER%%-%%MAJORVER%%.so.%%VER%%.%%MINVER%%.%%PLVER%%
 %%PYTHON%%%%PYTHON_SITELIBDIR%%/imath.so
 %%PYTHON%%%%PYTHON_SITELIBDIR%%/imathnumpy.so
 %%PYTHON%%libdata/pkgconfig/PyImath.pc

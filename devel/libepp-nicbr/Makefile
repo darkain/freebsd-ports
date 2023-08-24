@@ -1,13 +1,11 @@
-# Created by: Jean Milanez Melo <jmelo@FreeBSD.org>
-
 PORTNAME=	libepp-nicbr
-PORTVERSION=	1.15
-PORTREVISION=	2
+PORTVERSION=	1.18
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.registro.br/pub/libepp-nicbr/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Partial Extensible Provisioning Protocol to .br domains
+WWW=		https://registro.br/epp/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING

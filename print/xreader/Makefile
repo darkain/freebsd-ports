@@ -1,17 +1,16 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	xreader
-PORTVERSION=	3.0.2
-PORTREVISION=	1
+PORTVERSION=	3.2.2
+PORTREVISION=	17
 CATEGORIES=	print gnome
 DIST_SUBDIR=	gnome
 
-MAINTAINER=	danfe@FreeBSD.org
+MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Multi-format document reader
+WWW=		https://github.com/linuxmint/xreader
 
 LICENSE=	GPLv2+
 
-PORTSCOUT=	limit:^[0-9.]+$$	# ignore master.mint* tags
+PORTSCOUT=	limit:^[0-9.]+$$	# ignore non-numeric tags
 
 BUILD_DEPENDS=	intltool-merge:textproc/intltool \
 		itstool:textproc/itstool
@@ -24,10 +23,8 @@ USE_LDCONFIG=	yes
 USE_GNOME=	cairo gdkpixbuf2 gtk30 libxml2
 USE_XORG=	ice sm x11
 GLIB_SCHEMAS=	org.x.reader.gschema.xml
-INSTALLS_ICONS=	yes
 
 MATHJAX_DIR=	${LOCALBASE}/www/MathJax
-MESON_ARGS=	-Dtests=false
 
 OPTIONS_DEFINE=	DBUS DJVU DVI EPUB HELP KEYRING PDF PS T1LIB TIFF XPS
 OPTIONS_DEFAULT=	DBUS DJVU HELP KEYRING PDF TIFF XPS
@@ -47,7 +44,8 @@ DJVU_LIB_DEPENDS=	libdjvulibre.so:graphics/djvulibre
 DJVU_MESON_ON=		-Ddjvu=true
 
 DVI_LIB_DEPENDS=	libspectre.so:print/libspectre
-DVI_USE=		tex=kpathsea
+DVI_USES=		tex
+DVI_USE=		TEX=kpathsea
 DVI_MESON_ON=		-Ddvi=true
 
 EPUB_BUILD_DEPENDS=	${MATHJAX_DIR}/MathJax.js:www/mathjax

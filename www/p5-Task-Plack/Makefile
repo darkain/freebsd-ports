@@ -1,12 +1,12 @@
 PORTNAME=	Task-Plack
-PORTVERSION=	0.25
-PORTREVISION=	2
+PORTVERSION=	0.28
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl module bundle for Plack
+WWW=		https://metacpan.org/release/Task-Plack
 
 USES=		perl5
 USE_PERL5=	configure
@@ -104,5 +104,7 @@ DEP+=	p5-CGI-Application-PSGI>=1.00:www/p5-CGI-Application-PSGI
 
 BUILD_DEPENDS=	${DEP}
 RUN_DEPENDS=	${DEP}
+
+USE_PERL5=	modbuildtiny
 
 .include <bsd.port.mk>

@@ -1,17 +1,21 @@
-# Created by: Adam Weinberger
-
 PORTNAME=	cmus
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.9.1
+DISTVERSION=	2.10.0
+PORTREVISION=	6
 CATEGORIES=	audio
 
-MAINTAINER=	ports@FreeBSD.org
+PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
+PATCHFILES+=	7d3116962bd8.patch:-p1 # https://github.com/cmus/cmus/pull/1221
+PATCHFILES+=	07ce2dc7082a.patch:-p1 # https://github.com/cmus/cmus/pull/1254
+
+MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	Console-based music player with really cool features
+WWW=		https://cmus.github.io/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		compiler:c11 gmake iconv ncurses pkgconfig
+USES=		compiler:c11 cpe gmake iconv ncurses pkgconfig
 USE_GITHUB=	yes
 
 HAS_CONFIGURE=	yes
@@ -38,8 +42,12 @@ _CMUS_CONFIGURE_OPTS=	AAC ALSA AO ARTS CDDB CDIO COREAUDIO CUE DISCID	\
 CONFIGURE_ARGS+=	CONFIG_${opt}=n
 .endfor
 
-OPTIONS_DEFINE=		EXAMPLES
-OPTIONS_DEFAULT=	AAC FFMPEG FLAC MODPLUG MP4 OPUS OSS SNDIO VORBIS WAV
+# AAC, FLAC, MP4, OPUS, VORBIS and WAV handled by FFMPEG
+# MPRIS (BASU) error:	https://github.com/cmus/cmus/issues/1124
+#			https://github.com/cmus/cmus/issues/609
+
+OPTIONS_DEFINE=		BASU EXAMPLES
+OPTIONS_DEFAULT=	BASU FFMPEG MODPLUG OSS SNDIO
 OPTIONS_SUB=	yes
 
 OPTIONS_GROUP=	OUT IN
@@ -48,6 +56,7 @@ OPTIONS_GROUP_IN=	AAC CDDB CDIO CUE DISCID FFMPEG FLAC MAD MIKMOD	\
 			MODPLUG MP4 MUSEPACK OPUS SAMPLERATE TREMOR	\
 			VORBIS WAV WAVPACK
 
+BASU_DESC=	MPRIS protocol support via basu
 DISCID_DESC=	libdiscid CDDA identification support
 IN_DESC=	Input plugins
 OUT_DESC=	Output plugins
@@ -57,6 +66,9 @@ AAC_LIB_DEPENDS=	libfaad.so:audio/faad
 
 AO_CONFIGURE_ON=	CONFIG_AO=y
 AO_LIB_DEPENDS=	libao.so:audio/libao
+
+BASU_CONFIGURE_ON=	CONFIG_MPRIS=y
+BASU_LIB_DEPENDS=	libbasu.so:devel/basu
 
 CDDB_CONFIGURE_ON=	CONFIG_CDDB=y
 CDDB_LIB_DEPENDS=	libcddb.so:audio/libcddb

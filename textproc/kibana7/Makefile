@@ -1,7 +1,5 @@
-# Created by: Tom Judge <tj@FreeBSD.org>
-
 PORTNAME=	kibana
-PORTVERSION=	7.13.2
+PORTVERSION=	7.17.11
 DISTVERSIONSUFFIX=	-darwin-x86_64
 CATEGORIES=	textproc www
 MASTER_SITES=	https://artifacts.elastic.co/downloads/kibana/ \
@@ -11,16 +9,17 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	elastic@FreeBSD.org
 COMMENT=	Browser based analytics and search interface to ElasticSearch
+WWW=		https://www.elastic.co/products/kibana
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	node14>=14.17.0:www/node14 \
-		npm-node14>0:www/npm-node14
+BUILD_DEPENDS=	npm-node16>=9.7.2:www/npm-node16
 LIB_DEPENDS=	libre2.so:devel/re2 \
 		libuv.so:devel/libuv
-RUN_DEPENDS=	node14>=14.17.0:www/node14
+RUN_DEPENDS=	${LOCALBASE}/bin/node:www/node16
 
-USES=		compiler:c++14-lang python:build
+USES=		compiler:c++14-lang cpe nodejs:16,build,run python:build
+CPE_VENDOR=	elastic
 
 USE_GITHUB=	nodefault
 GH_TUPLE=	nodejs:nan:v${_NODE_NAN_VER}:node_nan \
@@ -28,9 +27,9 @@ GH_TUPLE=	nodejs:nan:v${_NODE_NAN_VER}:node_nan \
 
 USE_RC_SUBR=	${PORTNAME}
 
-CONFLICTS=	kibana6
-
 WWWDIR=		${PREFIX}/www/${PORTNAME}${PKGNAMESUFFIX}
+
+PORTSCOUT=	limit:^7
 
 SUB_FILES=	pkg-deinstall
 SUB_LIST+=	PKGNAMESUFFIX=${PKGNAMESUFFIX} \
@@ -38,9 +37,9 @@ SUB_LIST+=	PKGNAMESUFFIX=${PKGNAMESUFFIX} \
 
 #######################################################################
 # Set node-nan version here
-_NODE_NAN_VER=	2.14.2
+_NODE_NAN_VER=	2.17.0
 # Set node-re version here
-_NODE_RE2_VER=	1.16.0
+_NODE_RE2_VER=	1.19.1
 #######################################################################
 
 _NODECMD=	${LOCALBASE}/bin/node --version
@@ -50,6 +49,9 @@ _RE2DIR=	${WRKDIR}/node-re2-${_NODE_RE2_VER}
 
 # Extra patch files must be updated whenever node-re2 changes
 _RE2PATCHES=	${PATCHDIR}/extra-node-re2-binding-gyp.patch
+
+post-extract:
+	${RM} -rf ${WRKSRC}/node
 
 post-patch:
 	${FIND} -s ${WRKSRC}/node_modules -type d -empty -delete
@@ -72,14 +74,15 @@ do-configure:
 		"! ( -name \.* -or -path *\/test\/* -or -name test )")
 	(cd ${_RE2DIR} && \
 		${SETENV} HOME=${WRKDIR} \
-		${LOCALBASE}/lib/node_modules/npm/bin/node-gyp-bin/node-gyp configure \
+		${LOCALBASE}/lib/node_modules/npm/node_modules/.bin/node-gyp configure \
 		--python=${PYTHON_CMD} \
+		--nodedir=${LOCALBASE} \
 		--devdir=${_DEVDIR})
 
 do-build:
 	(cd ${_RE2DIR} && \
 		${SETENV} HOME=${WRKDIR} \
-		${LOCALBASE}/lib/node_modules/npm/bin/node-gyp-bin/node-gyp build \
+		${LOCALBASE}/lib/node_modules/npm/node_modules/.bin/node-gyp build \
 		--devdir=${_DEVDIR})
 
 do-install:
@@ -90,6 +93,8 @@ do-install:
 		${COPYTREE_SHARE} . ${STAGEDIR}${WWWDIR} && \
 		${COPYTREE_BIN} bin ${STAGEDIR}${WWWDIR})
 	${INSTALL} -lrs ${STAGEDIR}${ETCDIR} ${STAGEDIR}${WWWDIR}/config
+	${MKDIR} ${STAGEDIR}${WWWDIR}/node/bin
+	${LN} -s ${LOCALBASE}/bin/node ${STAGEDIR}${WWWDIR}/node/bin/node
 	${RM} ${STAGEDIR}${WWWDIR}/node_modules/re2/build/Release/re2.node
 	${INSTALL_LIB} ${_RE2DIR}/build/Release/re2.node \
 		${STAGEDIR}${WWWDIR}/node_modules/re2/build/Release/re2.node

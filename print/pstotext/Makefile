@@ -1,5 +1,3 @@
-# Created by: Oliver Breuninger <ob@seicom.NET>
-
 PORTNAME=	pstotext
 PORTVERSION=	1.9
 PORTREVISION=	6
@@ -11,13 +9,14 @@ MASTER_SITES=	http://ftp.gwdg.de/pub/ghostscript/contrib/ \
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	PostScript to Text converter
+WWW=		https://pages.cs.wisc.edu/~ghost/doc/pstotext.htm
 
 LICENSE=	EULA
 LICENSE_NAME=	End User License Agreement
 LICENSE_FILE=	${WRKSRC}/pstotext.txt
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-USES=		ghostscript:run
+USES=		cpe ghostscript:run
 
 SUB_LIST=	LICENSE=${LICENSE} \
 		LICENSE_DIR=${_LICENSE_DIR}

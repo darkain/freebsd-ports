@@ -1,5 +1,3 @@
-# Created by: Tim Bishop <tim@bishnet.net>
-
 PORTNAME=	statgrab
 PORTVERSION=	0.7.1
 CATEGORIES=	devel python
@@ -11,12 +9,13 @@ DISTNAME=	py${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	tdb@FreeBSD.org
 COMMENT=	Set of Python bindings for libstatgrab
+WWW=		https://libstatgrab.org/pystatgrab/
 
 LICENSE=	LGPL21
 
 LIB_DEPENDS=	libstatgrab.so:devel/libstatgrab
 
-USES=		pkgconfig python:3.6+
+USES=		pkgconfig python
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

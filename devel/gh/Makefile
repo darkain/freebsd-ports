@@ -1,10 +1,11 @@
 PORTNAME=	gh
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.12.1
+DISTVERSION=	2.33.0
 CATEGORIES=	devel
 
 MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	GitHub's official command line tool
+WWW=		https://cli.github.com
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -16,27 +17,24 @@ USES=		go:modules
 _BUILD_VERSION=	${DISTVERSION}
 _BUILD_DATE=	$$(date +%Y-%m-%d)
 
-GO_MODULE=	github.com/cli/cli
+GO_MODULE=	github.com/cli/cli/v2
 GO_TARGET=	./cmd/${PORTNAME}
 GO_BUILDFLAGS=	-ldflags "\
 		-s -w \
 		-X ${GO_MODULE}/internal/build.Version=${_BUILD_VERSION} \
 		-X ${GO_MODULE}/internal/build.Date=${_BUILD_DATE}"
 
-_DOCS=		README.md docs/gh-vs-hub.md docs/releasing.md \
-		docs/command-line-syntax.md docs/source.md
+_DOCS=		README.md docs/[!README]*.md
 PORTDOCS=	${_DOCS:T}
 
 OPTIONS_DEFINE=		COMPLETIONS DOCS MANPAGES
 OPTIONS_DEFAULT=	COMPLETIONS MANPAGES
 OPTIONS_SUB=		yes
 
-COMPLETIONS_DESC=	Build and install shell completions
-
-do-build-COMPLETIONS-on:
-.for SHELL in bash fish zsh
-	${GO_WRKDIR_BIN}/${PORTNAME} completion -s ${SHELL} > ${WRKSRC}/${SHELL}
-.endfor
+COMPLETIONS_DESC=		Build and install bash, fish and zsh shell completions
+COMPLETIONS_PLIST_FILES=	share/bash-completion/completions/${PORTNAME} \
+				share/fish/vendor_completions.d/${PORTNAME}.fish \
+				share/zsh/site-functions/_${PORTNAME}
 
 do-build-MANPAGES-on:
 	(cd ${WRKSRC} && \
@@ -44,16 +42,10 @@ do-build-MANPAGES-on:
 		./cmd/gen-docs --man-page --doc-path docs/man 2>/dev/null)
 
 post-install-COMPLETIONS-on:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d \
-		${STAGEDIR}${PREFIX}/share/fish/vendor_completions.d \
-		${STAGEDIR}${PREFIX}/share/zsh/site-functions
-
-	${INSTALL_DATA} ${WRKSRC}/bash \
-		${STAGEDIR}${PREFIX}/etc/bash_completion.d/${PORTNAME}
-	${INSTALL_DATA} ${WRKSRC}/fish \
-		${STAGEDIR}${PREFIX}/share/fish/vendor_completions.d/${PORTNAME}.fish
-	${INSTALL_DATA} ${WRKSRC}/zsh \
-		${STAGEDIR}${PREFIX}/share/zsh/site-functions/_${PORTNAME}
+.for _shell in bash fish zsh
+	${GO_WRKDIR_BIN}/${PORTNAME} completion -s ${_shell} \
+		>${STAGEDIR}${PREFIX}/${COMPLETIONS_PLIST_FILES:M*${_shell}*}
+.endfor
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

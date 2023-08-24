@@ -1,9 +1,11 @@
 PORTNAME=	amgcl
-DISTVERSION=	1.4.0
+DISTVERSION=	1.4.3
+PORTREVISION=	2
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C++ header-only library for solving large sparse linear systems
+WWW=		https://github.com/ddemidov/amgcl
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
@@ -12,7 +14,6 @@ BUILD_DEPENDS=	boost-libs>0:devel/boost-libs
 RUN_DEPENDS=	${PREFIX}/include/boost/property_tree/ptree.hpp:devel/boost-libs
 
 USES=		cmake
-
 USE_GITHUB=	yes
 GH_ACCOUNT=	ddemidov
 

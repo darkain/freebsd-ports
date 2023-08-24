@@ -1,17 +1,18 @@
-# Created by: Luca Pizzamiglio <luca.pizzamiglio@trivago.com>
-
 PORTNAME=	xdebug
-DISTVERSION=	3.0.4
+DISTVERSION=	3.2.2
 CATEGORIES=	devel pear
 
 MAINTAINER=	pizzamig@FreeBSD.org
 COMMENT=	Xdebug extension for PHP
+WWW=		https://www.xdebug.org/
 
 LICENSE=	PHP30
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-CONFIGURE_ARGS=	--enable-xdebug
 USES=		php:pecl,zend tar:tgz
+IGNORE_WITH_PHP=	83
+
+CONFIGURE_ARGS=	--enable-xdebug
 
 SUB_FILES=	pkg-message
 

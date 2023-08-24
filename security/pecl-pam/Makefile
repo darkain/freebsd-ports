@@ -1,17 +1,17 @@
-# Created by: wen@FreeBSD.org
-
 PORTNAME=	pam
-PORTVERSION=	1.0.3
-PORTREVISION=	2
+PORTVERSION=	2.2.4
 CATEGORIES=	security pear
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	PECL classes for PAM integration
+WWW=		https://pecl.php.net/package/PAM
 
 LICENSE=	PHP202
 
-USES=		dos2unix php:pecl
+USES=		php:pecl
 
-IGNORE_WITH_PHP=80
+post-patch:
+# https://github.com/linux-pam/linux-pam/blob/master/libpam/include/security/_pam_macros.h
+	@${CP} ${FILESDIR}/_pam_macros.h ${WRKSRC}/_pam_macros.h
 
 .include <bsd.port.mk>

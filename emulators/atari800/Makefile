@@ -1,5 +1,3 @@
-# Created by: Joel Sutton <jsutton@webnet.com.au>
-
 PORTNAME=	atari800
 PORTVERSION=	3.1.0
 PORTREVISION=	2
@@ -13,6 +11,7 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	freebsd-ports@dan.me.uk
 COMMENT=	Atari 8-bit computer emulator
+WWW=		http://atari800.sourceforge.net/
 
 LICENSE=	GPLv2 ROM
 LICENSE_COMB=	multi
@@ -25,7 +24,7 @@ LIB_DEPENDS=	libpng.so:graphics/png
 
 WRKSRC=		${WRKDIR}/${DISTNAME}/src
 
-USES=		gmake
+USES=		cpe gmake
 GNU_CONFIGURE=	yes
 NO_OPTIONS_SORT=yes
 

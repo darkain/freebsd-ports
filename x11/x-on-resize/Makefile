@@ -9,13 +9,14 @@ PATCHFILES=	7caa6ceec64ebb313444eabea7d892d8fee99dd9.patch:-p1 \
 
 MAINTAINER=	0mp@FreeBSD.org
 COMMENT=	Daemon for hotplug and screen reconfigure events of X displays
+WWW=		https://gitlab.com/0mp/x-on-resize
 
 LICENSE=	GPLv2
 
 USES=		autoreconf pkgconfig xorg
 USE_GITLAB=	yes
 GL_ACCOUNT=	0mp
-GL_COMMIT=	f59c9247e682b95f4091def7575490466f131131
+GL_TAGNAME=	f59c9247e682b95f4091def7575490466f131131
 
 USE_XORG=	x11 xorg-macros xrandr
 

@@ -1,24 +1,29 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	clifm
-PORTVERSION=	1.1
+PORTVERSION=	1.13
 DISTVERSIONPREFIX=	v
 CATEGORIES=	misc
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Non-curses, KISS file manager for the terminal
+WWW=		https://github.com/leo-arch/clifm/wiki
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2+
 
-USES=		desktop-file-utils gettext-runtime gmake localbase readline
+RUN_DEPENDS=	gfind:misc/findutils guniq:sysutils/coreutils
+
+USES=		desktop-file-utils gettext-runtime python:run \
+		readline shebangfix
 USE_GITHUB=	yes
 GH_ACCOUNT=	leo-arch
+GH_PROJECT=	${PORTNAME}-colors:cfmc
+GH_TAGNAME=	175bc94:cfmc
 ALL_TARGET=	build
-MAKE_ENV=	INSTALLPREFIX=${STAGEDIR}${PREFIX}/bin \
-		DESKTOPPREFIX=${STAGEDIR}${PREFIX}/share
+MAKE_ENV=	LIBS_FreeBSD="-I${LOCALBASE}/include -L${LOCALBASE}/lib \
+		-lreadline -lintl -lmagic"
+SHEBANG_FILES=	misc/tools/deroff.py misc/tools/manpages_comp_gen.py
 
-post-patch:
-	@${REINPLACE_CMD} -e '/^CFLAGS/s,=.*-march=native,+=,' \
-		${WRKSRC}/src/Makefile
+post-install:
+	${INSTALL_DATA} ${WRKSRC_cfmc}/colors/*.clifm \
+		${STAGEDIR}${DATADIR}/colors
 
 .include <bsd.port.mk>

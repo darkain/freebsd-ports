@@ -1,5 +1,3 @@
-# Created by: cy@FreeBSD.org
-
 PORTNAME=		krb5-appl
 PORTVERSION=		1.0.3
 PORTREVISION=		4
@@ -12,11 +10,14 @@ PATCH_SITES=		http://web.mit.edu/kerberos/advisories/
 
 MAINTAINER=		cy@FreeBSD.org
 COMMENT=		MIT implementation of RFC 4120 network authentication clients
+WWW=			https://web.mit.edu/kerberos/
+
+DEPRECATED=		Desupported by upstream, uses old ciphers
+EXPIRATION_DATE=	2023-10-01
 
 BUILD_DEPENDS=		krb5-config:security/krb5
 
-CONFLICTS=		krb4-[0-9]* krb5-1.[0-7].* heimdal-[0-9]* srp-[0-9]* \
-			bsdftpd-ssl-*
+CONFLICTS=		heimdal srp bsdftpd-ssl
 
 KERBEROSV_URL=		http://web.mit.edu/kerberos/
 USES=			autoreconf gmake ncurses perl5 gssapi:mit ssl

@@ -1,5 +1,3 @@
-# Created by: alepulver
-
 PORTNAME?=	ioquake3
 PORTVERSION?=	${IOQUAKE3VER}
 PORTREVISION?=	17
@@ -10,11 +8,12 @@ EXTRACT_SUFX?=	.zip
 
 MAINTAINER?=	ports@FreeBSD.org
 COMMENT?=	Cleaned-up and enhanced version of Quake 3
+WWW?=		https://ioquake3.org/
 
 LICENSE?=	GPLv2
 LICENSE_FILE?=	${WRKSRC}/COPYING.txt
 
-USES=		pkgconfig gmake
+USES=		cpe pkgconfig gmake
 
 # Port configuration flags:
 #	CLIENT SERVER TOOLS DLRENDERER GAMELIBS OPUS OPENGL2

@@ -1,10 +1,12 @@
 PORTNAME=	wyrmsun
-PORTVERSION=	4.1.4
+PORTVERSION=	5.3.6
 DISTVERSIONPREFIX=	v
+PORTREVISION=	1
 CATEGORIES=	games
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Strategy game based on history, mythology and fiction
+WWW=		https://andrettin.github.io/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/license.txt
@@ -17,11 +19,14 @@ GH_PROJECT=	Wyrmsun
 
 USES=		cmake gnome
 INSTALL_TARGET=	install
-INSTALLS_ICONS=	yes
 NO_ARCH=	yes
+NO_BUILD=	yes
+CMAKE_ARGS=	-DBIN_DIR=bin
 
 PORTDATA=	*
 PORTDOCS=	*
+
+PORTSCOUT=	limit:^[0-9]\..*
 
 OPTIONS_DEFINE=	DOCS
 

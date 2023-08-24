@@ -1,9 +1,10 @@
 PORTNAME=	bsdadminscripts2
-PORTVERSION=	0.4.1
+PORTVERSION=	0.4.2
 CATEGORIES=	ports-mgmt
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	BSD Administration Scripts 2
+WWW=		https://github.com/lonkamikaze/bsda2
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENSE.md

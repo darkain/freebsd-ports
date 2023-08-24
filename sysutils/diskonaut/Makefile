@@ -1,10 +1,11 @@
 PORTNAME=	diskonaut
 PORTVERSION=	0.11.0
-PORTREVISION=	7
+PORTREVISION=	27
 CATEGORIES=	sysutils
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Terminal disk space navigator
+WWW=		https://github.com/imsnif/diskonaut
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

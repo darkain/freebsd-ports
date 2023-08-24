@@ -1,5 +1,3 @@
-# Created by: pandzilla
-
 PORTNAME=	nikto
 PORTVERSION=	2.1.6
 PORTEPOCH=	1
@@ -7,10 +5,12 @@ CATEGORIES=	security www
 
 MAINTAINER=	mbeis@xs4all.nl
 COMMENT=	Web and CGI vulnerability scanner with SSL support
+WWW=		https://cirt.net/nikto2
 
 LICENSE=	GPLv2
 
-USES=		perl5 shebangfix
+USES=		cpe perl5 shebangfix
+CPE_VENDOR=	cirt.net
 USE_PERL5=	run
 
 GH_ACCOUNT=	sullo

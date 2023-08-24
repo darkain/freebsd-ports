@@ -1,5 +1,3 @@
-# Created by: Sergey Skvortsov <skv@FreeBSD.org>
-
 PORTNAME=	DBD-mysql
 PORTVERSION=	4.050
 PORTREVISION=	1
@@ -10,6 +8,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	MySQL driver for the Perl5 Database Interface (DBI)
+WWW=		https://metacpan.org/release/DBD-mysql
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
@@ -26,7 +25,7 @@ USE_PERL5=	configure
 CONFIGURE_ARGS=		${_CONFIGURE_ARGS_${CHOSEN_COMPILER_TYPE}}
 _CONFIGURE_ARGS_gcc=	--libs="-L${PREFIX}/lib/gcc${GCC_DEFAULT} `mysql_config --libs | ${SED} 's/-pthread //'`"
 
-CONFLICTS_INSTALL=	p5-DBD-mysql[45][0-9]-[0-9]*
+CONFLICTS_INSTALL=	p5-DBD-mysql[45][0-9]
 
 OPTIONS_DEFINE=		SSL
 OPTIONS_DEFAULT=	SSL

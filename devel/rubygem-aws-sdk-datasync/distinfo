@@ -1,3 +1,3 @@
-TIMESTAMP = 1622213962
-SHA256 (rubygem/aws-sdk-datasync-1.32.0.gem) = 610c44f313b74c4e3317d9cfa4b68da8466fbb4308dc8de4ba7af89a3e254ecc
-SIZE (rubygem/aws-sdk-datasync-1.32.0.gem) = 54784
+TIMESTAMP = 1692211867
+SHA256 (rubygem/aws-sdk-datasync-1.64.0.gem) = 0ba3c90c5b5bcf9bd126f5931e6ddaf0bf45ae05e43b3c0501f1e330c3fc668c
+SIZE (rubygem/aws-sdk-datasync-1.64.0.gem) = 86528

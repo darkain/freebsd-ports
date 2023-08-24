@@ -1,5 +1,3 @@
-# Created by: petef@FreeBSD.org
-
 PORTNAME=	qtools
 PORTVERSION=	0.56
 PORTREVISION=	3
@@ -8,12 +6,17 @@ MASTER_SITES=	http://www.superscript.com/qtools/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Tools to use in .qmail files
+WWW=		http://www.superscript.com/qtools/intro.html
 
 # Converted from LEGAL_TEXT
 LICENSE=	djb
 LICENSE_NAME=	djb
 LICENSE_TEXT=	No license -- see http://cr.yp.to/softwarelaw.html
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+DEPRECATED=	Upstream last activity in 2003
+EXPIRATION_DATE=	2023-09-30
+BROKEN=	Unfetchable for more than 2 months
 
 RUN_DEPENDS=	${EZMLM_DIR}/bin/ezmlm-weed:mail/ezmlm
 

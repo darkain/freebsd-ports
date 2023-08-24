@@ -1,11 +1,12 @@
 PORTNAME=	photocollage
 DISTVERSION=	1.4.5
 CATEGORIES=	graphics python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Graphical tool to make photo collage posters
+WWW=		https://github.com/adrienverge/PhotoCollage
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,7 +15,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cairo>0:graphics/py-cairo@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}six>:devel/py-six@${PY_FLAVOR} \
 		${PY_PILLOW}
 
-USES=		gettext-tools python:3.6+
+USES=		gettext-tools python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes

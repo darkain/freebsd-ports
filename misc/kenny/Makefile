@@ -1,5 +1,3 @@
-# Created by: Alan E <alane@FreeBSD.org>
-
 PORTNAME=	kenny
 PORTVERSION=	1.7
 PORTREVISION=	1
@@ -14,7 +12,7 @@ COMMENT=	Translate text both to and from KennySpeak
 
 LICENSE=	ART10
 
-CONFLICTS=	filters-*
+CONFLICTS=	filters
 
 USES=		perl5 shebangfix
 USE_PERL5=	extract build run

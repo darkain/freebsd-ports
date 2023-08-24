@@ -1,7 +1,5 @@
-# Created by: sten@blinkenlights.nl
-
 PORTNAME=	recursor
-DISTVERSION=	4.5.4
+DISTVERSION=	4.9.0
 CATEGORIES=	dns
 MASTER_SITES=	http://downloads.powerdns.com/releases/
 PKGNAMEPREFIX=	powerdns-
@@ -9,6 +7,7 @@ DISTNAME=	pdns-${PORTNAME}-${DISTVERSION}
 
 MAINTAINER=	tremere@cainites.net
 COMMENT=	Advanced DNS recursor
+WWW=		https://www.PowerDNS.com/recursor.html
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -30,6 +29,7 @@ USE_RC_SUBR=	pdns-recursor
 
 GNU_CONFIGURE=	YES
 CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc/pdns \
+		--with-libsodium=no \
 		--without-net-snmp \
 		--without-systemd
 
@@ -41,36 +41,21 @@ GROUPS=		pdns
 OPTIONS_DEFINE=		DNSTAP
 OPTIONS_DEFAULT=	LUA
 OPTIONS_SINGLE=		EXTLUA
-OPTIONS_SINGLE_EXTLUA=	LUA LUAJIT LUAJITOR
+OPTIONS_SINGLE_EXTLUA=	LUA LUAJIT
 
 DNSTAP_DESC=	dnstap support (see dnstap.info)
-LUAJITOR_DESC=	Use lang/luajit-openresty
-LUAJIT_DESC=	Use lang/luajit
+LUAJIT_DESC=	Use luajit
 LUA_DESC=	Use lang/lua
 
 DNSTAP_LIB_DEPENDS=		libfstrm.so:devel/fstrm
 DNSTAP_CONFIGURE_ENABLE=	dnstap
 
-LUAJITOR_LIB_DEPENDS=	libluajit-5.1.so.2:lang/luajit-openresty
-LUAJITOR_CONFIGURE_ON=	--with-lua=luajit
-
-LUAJIT_LIB_DEPENDS=	libluajit-5.1.so.2:lang/luajit
+LUAJIT_USES=		luajit
 LUAJIT_CONFIGURE_ON=	--with-lua=luajit
 
 LUA_USES=	lua
 
-.include <bsd.port.pre.mk>
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200085 && ${SSL_DEFAULT} != openssl
-CONFIGURE_ARGS+=	--with-libdecaf \
-			--with-libsodium
-LIB_DEPENDS+=		libdecaf.so:security/libdecaf \
-			libsodium.so:security/libsodium
-.else
-CONFIGURE_ARGS+=	--with-libsodium=no
-.endif
-
 post-install:
 	@${MKDIR} ${STAGEDIR}/var/run/pdns-recursor
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

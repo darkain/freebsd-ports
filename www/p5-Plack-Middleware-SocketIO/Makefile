@@ -5,8 +5,9 @@ CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for Socket.IO Plack middleware
+WWW=		https://metacpan.org/release/Plack-Middleware-SocketIO
 
 LICENSE=	ART20
 

@@ -1,5 +1,3 @@
-# Created by: Roman Shterenzon <roman@xpert.com>
-
 PORTNAME=	pdnsd
 PORTVERSION=	1.2.9a
 CATEGORIES=	dns
@@ -9,12 +7,13 @@ DISTNAME=	${PORTNAME}-${PORTVERSION}-par
 
 MAINTAINER=	ashish@FreeBSD.org
 COMMENT=	Caching (permanently, writes to disk on exit) DNS proxy-server
+WWW=		http://members.home.nl/p.a.rombouts/pdnsd/
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 GNU_CONFIGURE=	yes
-USES=		gmake
+USES=		cpe gmake
 USE_RC_SUBR=	pdnsd
 CONFIGURE_ARGS=	--with-cachedir=${PDNSDB} \
 		--disable-src-addr-disc

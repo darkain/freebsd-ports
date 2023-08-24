@@ -211,7 +211,7 @@ stripped() {
 	# files with spaces are kept intact.
 	# Using readelf -h ... /ELF Header:/ will match on all ELF files.
 	find ${STAGEDIR} -type f ! -name '*.a' ! -name '*.o' \
-	    -exec sh -c 'readelf -S -- /dev/null "$@" || :' -- {} + 2>/dev/null | awk '
+	    -exec sh -c 'readelf -S -- /dev/null "$0" "$@" || :' -- {} + 2>/dev/null | awk '
 	    /File:/ {sub(/File: /, "", $0); file=$0}
 	    /[[:space:]]\.debug_info[[:space:]]*PROGBITS/ {print file}' |
 	    while read -r f; do
@@ -412,7 +412,6 @@ proxydeps_suggest_uses() {
 	elif [ ${pkg} = "graphics/libart_lgpl" ]; then warn "you need USE_GNOME+=libartlgpl2"
 	elif [ ${pkg} = "devel/libIDL" ]; then warn "you need USE_GNOME+=libidl"
 	elif [ ${pkg} = "x11-fm/nautilus" ]; then warn "you need USE_GNOME+=nautilus3"
-	elif [ ${pkg} = "devel/ORBit2" ]; then warn "you need USE_GNOME+=orbit2"
 	elif [ ${pkg} = "graphics/librsvg2-rust" ]; then warn "you need USE_GNOME+=librsvg2"
 	# mate
 	# grep LIB_DEPENDS= Mk/Uses/mate.mk |sed -e 's|\(.*\)_LIB_DEPENDS.*:\(.*\)\/\(.*\)|elif [ ${pkg} = "\2/\3" ]; then warn "you need USE_MATE+=\1"|'
@@ -434,7 +433,6 @@ proxydeps_suggest_uses() {
 	elif [ ${pkg} = "net/akonadi-notes" ]; then warn "you need to use USE_KDE+=akonadinotes"
 	elif [ ${pkg} = "net/akonadi-calendar" ]; then warn "you need to use USE_KDE+=akonadicalendar"
 	elif [ ${pkg} = "net/akonadi-search" ]; then warn "you need to use USE_KDE+=akonadisearch"
-	elif [ ${pkg} = "net/kalarmcal" ]; then warn "you need to use USE_KDE+=alarmcalendar"
 	elif [ ${pkg} = "net/calendarsupport" ]; then warn "you need to use USE_KDE+=calendarsupport"
 	elif [ ${pkg} = "net/kcalcore" ]; then warn "you need to use USE_KDE+=calendarcore"
 	elif [ ${pkg} = "net/kcalutils" ]; then warn "you need to use USE_KDE+=calendarutils"
@@ -534,12 +532,16 @@ proxydeps_suggest_uses() {
 	# gl-related
 	elif expr ${lib_file} : "${LOCALBASE}/lib/libGL.so.*$" > /dev/null; then
 		warn "you need USE_GL+=gl"
+	elif expr ${lib_file} : "${LOCALBASE}/lib/libGLX.so.*$" > /dev/null; then
+		warn "you need USE_GL+=gl"
 	elif expr ${lib_file} : "${LOCALBASE}/lib/libgbm.so.*$" > /dev/null; then
 		warn "you need USE_GL+=gbm"
 	elif expr ${lib_file} : "${LOCALBASE}/lib/libGLESv2.so.*$" > /dev/null; then
 		warn "you need USE_GL+=glesv2"
 	elif expr ${lib_file} : "${LOCALBASE}/lib/libEGL.so.*$" > /dev/null; then
 		warn "you need USE_GL+=egl"
+	elif expr ${lib_file} : "${LOCALBASE}/lib/libOpenGL.so.*$" > /dev/null; then
+		warn "you need USE_GL+=opengl"
 	elif [ ${pkg} = 'graphics/glew' ]; then
 		warn "you need USE_GL+=glew"
 	elif [ ${pkg} = 'graphics/libGLU' ]; then
@@ -593,6 +595,15 @@ proxydeps_suggest_uses() {
 	# lua
 	elif expr ${pkg} : "^lang/lua" > /dev/null; then
 		warn "you need USES+=lua"
+	# magick
+	elif [ ${pkg} = "graphics/ImageMagick6" ] ; then
+		warn "you need USES=magick:6"
+	elif [ ${pkg} = "graphics/ImageMagick6-nox11" ] ; then
+		warn "you need USES=magick:6,nox11"
+	elif [ ${pkg} = "graphics/ImageMagick7" ] ; then
+		warn "you need USES=magick:7"
+	elif [ ${pkg} = "graphics/ImageMagick7-nox11" ] ; then
+		warn "you need USES=magick:7,nox11"
 	# motif
 	elif [ ${pkg} = "x11-toolkits/lesstif" -o ${pkg} = "x11-toolkits/open-motif" ]; then
 		warn "you need USES+=motif"
@@ -659,9 +670,13 @@ proxydeps() {
 
 				# Check that the .so we need has a SONAME
 				if [ "${dep_file_pkg}" != "${PKGORIGIN}" ]; then
-					if ! readelf -d "${dep_file}" | grep -q SONAME; then
+					# When grep -q finds a match it will close the pipe immediately.
+					# This may cause the test to fail when pipefail is turned on.
+					set +o pipefail
+					if ! readelf -d "${dep_file}" | grep SONAME > /dev/null; then
 						err "${file} is linked to ${dep_file} which does not have a SONAME.  ${dep_file_pkg} needs to be fixed."
 					fi
+					set -o pipefail
 				fi
 
 				# If we don't already depend on it, and we don't provide it
@@ -709,7 +724,7 @@ sonames() {
 		[ -z "${f}" ] && continue
 		# Ignore symlinks
 		[ -f "${f}" -a ! -L "${f}" ] || continue
-		if ! readelf -d ${f} | grep -q SONAME; then
+		if ! readelf -d ${f} | grep SONAME > /dev/null; then
 			warn "${f} doesn't have a SONAME."
 			warn "pkg(8) will not register it as being provided by the port."
 			warn "If another port depend on it, pkg will not be able to know where it comes from."
@@ -842,7 +857,7 @@ gemdeps()
 				EOF
 			fi
 		done <<-EOF
-		$(grep -a 'add_runtime_dependency' ${STAGEDIR}${PREFIX}/lib/ruby/gems/*/specifications/${PORTNAME}-*.gemspec \
+		$(grep -a 's.add_runtime_dependency' ${STAGEDIR}${PREFIX}/lib/ruby/gems/*/specifications/${PORTNAME}-*.gemspec \
 			| sed 's|.*<\(.*\)>.*\[\(.*\)\])|\1 \2|' \
 			| sort -u)
 		EOF
@@ -963,14 +978,14 @@ depends_blacklist()
 			lang/gcc)
 				instead="USE_GCC"
 				;;
-			lang/julia)
-				instead="a dependency on lang/julia\${JULIA_DEFAULT:S/.//}"
+			lang/go)
+				instead="USES=go"
+				;;
+			lang/mono)
+				instead="USES=mono"
 				;;
 			devel/llvm)
-				instead="a dependency on devel/llvm\${LLVM_DEFAULT}"
-				;;
-			www/py-django)
-				instead="one of the www/py-djangoXYZ port"
+				instead="USES=llvm"
 				;;
 		esac
 

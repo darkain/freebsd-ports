@@ -1,23 +1,21 @@
-# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
-
 PORTNAME=	openssl
-PORTVERSION=	1.0.2d
-PORTREVISION=	2
+PORTVERSION=	1.0.2u
+PORTREVISION=	1
 CATEGORIES=	devel security
-MASTER_SITES=	http://www.openssl.org/source/ \
-		ftp://ftp.cert.dfn.de/pub/tools/net/openssl/source/
+MASTER_SITES=	https://www.openssl.org/source/old/${PORTVERSION:C/[a-z]*$//}/ \
+		http://artfiles.org/openssl.org/source/old/${PORTVERSION:C/[a-z]*$//}/
 PKGNAMEPREFIX=	mingw32-
-DIST_SUBDIR=	${DISTNAME}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	The OpenSSL library cross-compiled for MinGW32
+WWW=		http://sctp.fh-muenster.de/dtls-patches.html
 
 BUILD_DEPENDS=	makedepend:devel/makedepend \
 		${PKGNAMEPREFIX}gcc:devel/${PKGNAMEPREFIX}gcc \
 		${LOCALBASE}/mingw32/include/stdlib.h:devel/${PKGNAMEPREFIX}bin-msvcrt \
 		${LOCALBASE}/mingw32/lib/libz.a:devel/mingw32-zlib
 
-USES=		perl5 shebangfix
+USES=		cpe perl5 shebangfix
 SHEBANG_FILES=	apps/tsget
 USE_PERL5=	build
 MAKE_JOBS_UNSAFE=	yes

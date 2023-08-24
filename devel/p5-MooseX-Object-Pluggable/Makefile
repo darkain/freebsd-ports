@@ -1,5 +1,3 @@
-# Created by: Ashish SHUKLA <wahjava@gmail.com>
-
 PORTNAME=	MooseX-Object-Pluggable
 PORTVERSION=	0.0014
 PORTREVISION=	1
@@ -9,6 +7,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	ashish@FreeBSD.org
 COMMENT=	Make your classes pluggable
+WWW=		https://metacpan.org/release/MooseX-Object-Pluggable
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
@@ -24,5 +23,7 @@ TEST_DEPENDS=	p5-Test-Fatal>=0:devel/p5-Test-Fatal
 
 USES=		perl5
 USE_PERL5=	modbuildtiny
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

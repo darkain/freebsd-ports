@@ -1,3 +1,5 @@
-TIMESTAMP = 1619200022
-SHA256 (SweetHome3D-6.5.2-src.zip) = e3323f078e49c72e575e2e771f1586a7c18475b42ea32982abb27756b7a81dc8
-SIZE (SweetHome3D-6.5.2-src.zip) = 27550405
+TIMESTAMP = 1677865269
+SHA256 (SweetHome3D-7.1-src.zip) = 04b7453410ec918971cf69aeb5d0a8d1284369ffe544f8d49e8b81d2bd39b2a2
+SIZE (SweetHome3D-7.1-src.zip) = 45819131
+SHA256 (puybaret-libYafaRay-ef20db1_GH0.tar.gz) = cbb9266cdc102395763abe02918097504d0f7c057883c0d9cb6aaf0af6a83d6f
+SIZE (puybaret-libYafaRay-ef20db1_GH0.tar.gz) = 1137154

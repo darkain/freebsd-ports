@@ -1,24 +1,24 @@
-# Created by: Matt Lancereau <matt@rimasec.net>
-
 PORTNAME=	xfce4-clipman-plugin
-PORTVERSION=	1.6.2
+PORTVERSION=	1.6.4
 CATEGORIES=	x11 xfce
 MASTER_SITES=	XFCE/panel-plugins
 DIST_SUBDIR=	xfce4
 
 MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	Clipboard manager for the Xfce panel
+WWW=		https://goodies.xfce.org/projects/panel-plugins/xfce4-clipman-plugin
 
 LICENSE=	GPLv2
 
+LIB_DEPENDS=	libharfbuzz.so:print/harfbuzz
+
 USES=		compiler:c11 gettext-tools gmake gnome libtool pkgconfig \
 		tar:bzip2 xfce xorg
-USE_GNOME=	cairo glib20 gtk30 intltool
+USE_GNOME=	cairo gdkpixbuf2 glib20 gtk30 intltool
 USE_XFCE=	panel
 USE_XORG=	ice sm x11 xorgproto xtst
 
 GNU_CONFIGURE=	yes
-INSTALLS_ICONS=	yes
 INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=		NLS QRCODE

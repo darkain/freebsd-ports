@@ -1,10 +1,11 @@
 PORTNAME=	frugally-deep
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.15.7-p0
+DISTVERSION=	0.15.21-p0
 CATEGORIES=	misc # deep-learning
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C++ header-only library to use Keras models in C++ with ease
+WWW=		https://github.com/Dobiasd/frugally-deep
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -16,7 +17,7 @@ RUN_DEPENDS=	${HPP_DEPENDS}
 TEST_DEPENDS=	doctest>0:devel/doctest \
 		${PYTHON_PKGNAMEPREFIX}keras>0:math/py-keras@${PY_FLAVOR}
 
-USES=		cmake compiler:c++14-lang eigen:3,build,run python:3.6+,test
+USES=		cmake compiler:c++14-lang eigen:3,build,run python:test
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Dobiasd

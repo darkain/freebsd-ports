@@ -1,12 +1,13 @@
 PORTNAME=	perl
 DISTVERSION=	${PERL_VERSION}
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	lang devel perl5
 MASTER_SITES=	CPAN/../../src/5.0
 DIST_SUBDIR=	perl
 
 MAINTAINER=	mat@FreeBSD.org
 COMMENT=	Practical Extraction and Report Language
+WWW=		https://www.perl.org/
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
@@ -17,7 +18,7 @@ LICENSE_FILE_GPLv1+ =	${WRKSRC}/Copying
 #DEPRECATED=	Support ends three years after .0 release. Please upgrade to a more recent version of Perl
 #EXPIRATION_DATE=2023-06-20
 
-USES=		cpe tar:xz
+USES=		compiler cpe tar:xz
 
 # Give a hint of where libperl.so can be found.
 USE_LDCONFIG=	${PREFIX}/${_ARCH_LIB}/CORE
@@ -52,7 +53,8 @@ CONFIGURE_ARGS=		-Darchlib=${PREFIX}/${_ARCH_LIB} \
 			-sde \
 			-Ui_iconv \
 			-Ui_malloc \
-			-Uinstallusrbinperl
+			-Uinstallusrbinperl \
+			-Accflags='-DUSE_THREAD_SAFE_LOCALE'
 # Keep the following two in sync.
 # lddlflags is used for all .so linking
 # shrpldflags is used for libperl.so, so remove all the extra bits inherited from lddlflags.
@@ -172,10 +174,6 @@ _PERL5_DEFAULT_FILE=	/tmp/PERL5_DEFAULT
 .include <bsd.port.options.mk>
 .sinclude "${_PERL5_DEFAULT_FILE}"
 
-.if ${OSVERSION} >= 1200004
-CONFIGURE_ARGS+=	-Accflags='-DUSE_THREAD_SAFE_LOCALE'
-.endif
-
 # if this port is default due PERL5_DEFAULT
 # change PKGNAME to reflect this
 .if ${PERL_VER} == ${PERL5_DEFAULT}
@@ -195,6 +193,12 @@ BINSUFFIX=		${PERL_VERSION}
 PLIST_SUB+=		BINSUFFIX=${PERL_VERSION} \
 			DEFAULT="@comment "
 CONFIGURE_ARGS+=	-Dversiononly
+.endif
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == powerpc && ${COMPILER_VERSION} == 150
+CFLAGS+=	-O1
 .endif
 
 .if !defined(IAMDEFAULTPERL)
@@ -287,4 +291,4 @@ post-install:
 		done
 	${INSTALL_DATA} ${WRKDIR}/perl-man.conf ${STAGEDIR}${PREFIX}/etc/man.d/perl${PKGNAMESUFFIX}.conf
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

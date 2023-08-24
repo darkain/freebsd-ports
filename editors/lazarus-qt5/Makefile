@@ -1,8 +1,10 @@
+PORTREVISION=	1
+
 PKGNAMESUFFIX?=  -qt5
 
 COMMENT=	Portable Delphi-like IDE for the FreePascal compiler (QT5)
 
-CONFLICTS=	${PORTNAME}-gtk2-*
+CONFLICTS=	${PORTNAME}-gtk2
 
 LIB_DEPENDS=	libQt5Pas.so:x11-toolkits/qt5pas
 

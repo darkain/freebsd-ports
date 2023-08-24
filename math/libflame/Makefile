@@ -1,11 +1,10 @@
-# Created by: bf@FreeBSD.org
-
 PORTNAME=	libflame
 DISTVERSION=	5.2.0
 CATEGORIES=	math
 
 MAINTAINER=	jmd@FreeBSD.org
 COMMENT=	FLAME dense linear algebra library
+WWW=		https://github.com/flame/libflame
 
 LICENSE=	BSD3CLAUSE
 
@@ -15,12 +14,11 @@ ONLY_FOR_ARCHS_REASON=	make system does not support other architectures yet
 BUILD_DEPENDS=	bash:shells/bash
 
 GNU_CONFIGURE=	yes
-USES=		compiler:c11 gmake python:3.7
+USES=		compiler:c11 gmake python:3.8
 USE_CSTD=	c99
-USE_LDCONFIG=	yes
-
 USE_GITHUB=	yes
 GH_ACCOUNT=	flame
+USE_LDCONFIG=	yes
 
 OPTIONS_RADIO=	PARALLELIZATION
 OPTIONS_RADIO_PARALLELIZATION=	NONE THREADS OPENMP
@@ -61,10 +59,6 @@ CONFIGURE_ARGS+=	--enable-multithreading=openmp
 CONFIGURE_ARGS+=	--enable-multithreading=pthreads
 .elif ${PORT_OPTIONS:MNONE}
 CONFIGURE_ARGS+=	--enable-multithreading=no
-.endif
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200060
-IGNORE=			requires a newer linker such as lld
 .endif
 
 .if !(defined(USE_GCC) || !empty(CC:M*gcc4*))

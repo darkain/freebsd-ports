@@ -1,5 +1,3 @@
-# Created by: Adam Weinberger <adamw@FreeBSD.org>
-
 PORTNAME=	talkfilters
 PORTVERSION=	2.3.8
 PORTREVISION=	2
@@ -9,10 +7,11 @@ MASTER_SITES=	http://www.hyperrealm.com/talkfilters/ \
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	Set of filters to convert English text to various stereotyped dialects
+WWW=		https://www.hyperrealm.com/talkfilters/talkfilters.html
 
 LICENSE=	GPLv2
 
-CONFLICTS=	jive* chef* filters-*
+CONFLICTS=	chef filters
 
 USES=		libtool pathfix
 GNU_CONFIGURE=	yes

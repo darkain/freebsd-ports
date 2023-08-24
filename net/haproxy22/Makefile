@@ -1,18 +1,17 @@
-# Created by: Hugo Saro <hugo@barafranca.com>
-
 PORTNAME=	haproxy
-DISTVERSION=	2.2.15
+DISTVERSION=	2.2.30
 CATEGORIES=	net www
 PKGNAMESUFFIX=	22
 MASTER_SITES=	http://www.haproxy.org/download/2.2/src/
 
 MAINTAINER=	demon@FreeBSD.org
 COMMENT=	Reliable, high performance TCP/HTTP load balancer
+WWW=		https://www.haproxy.org
 
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	multi
 
-CONFLICTS_INSTALL=	haproxy-devel-[0-9]* haproxy17-[0-9]* haproxy18-[0-9]* haproxy19-[0-9]* haproxy20-[0-9]* haproxy21-[0-9]*
+CONFLICTS_INSTALL=	haproxy-devel haproxy17 haproxy18 haproxy20
 
 USES=		compiler:c++11-lang cpe gmake
 USE_RC_SUBR=	haproxy
@@ -28,7 +27,7 @@ DPCRE_DESC=		Link dynamically
 SPCRE_DESC=		Link statically
 DEVICEATLAS_DESC=	DeviceAtlas Device Detection support
 PROMEX_DESC=		Enable Prometheus exporter
-OPTIONS_DEFAULT=	SPCRE OPENSSL
+OPTIONS_DEFAULT=	SPCRE OPENSSL PROMEX
 
 DPCRE_LIB_DEPENDS=	libpcre.so:devel/pcre
 DPCRE_MAKE_ARGS=	USE_PCRE=1 USE_PCRE_JIT=1

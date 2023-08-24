@@ -1,43 +1,49 @@
 PORTNAME=	vault
-PORTVERSION=	1.7.3
+PORTVERSION=	1.14.0
+PORTREVISION=	2
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
+MASTER_SITES=	https://raw.githubusercontent.com/hashicorp/vault/${DISTVERSIONFULL}/
+DISTFILES=	go.mod \
+		api/go.mod \
+		api/auth/approle/go.mod \
+		api/auth/kubernetes/go.mod \
+		api/auth/userpass/go.mod \
+		sdk/go.mod
 
-MAINTAINER=	swills@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Tool for securely accessing secrets
+WWW=		https://vaultproject.io/
 
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go:modules
-
+USES=		cpe go:modules
+CPE_VENDOR=	hashicorp
 USE_GITHUB=	yes
-GH_TUPLE=	hashicorp:${PORTNAME}:${VAULTTAG}:DEFAULT \
-		swills:vaultui:${VAULTUITAG}:vaultui
-
-GO_PKGNAME=	github.com/${GH_ACCOUNT}/${PORTNAME}
-COMMIT_ID=	5d517c864c8f10385bf65627891bc7ef55f5e827
-GO_BUILDFLAGS=	-tags=ui \
-		-ldflags="\
-		-X github.com/hashicorp/vault/sdk/version.Version=${PORTVERSION} \
-		-X github.com/hashicorp/vault/sdk/version.VersionPrerelease= \
-		-X github.com/hashicorp/vault/sdk/version.VersionMetadata= \
-		-X github.com/hashicorp/vault/sdk/version.GitCommit='${COMMIT_ID}'"
-
-VAULTTAG=	${DISTVERSIONPREFIX}${PORTVERSION}
-VAULTUITAG=	${DISTVERSIONPREFIX}${PORTVERSION}
-
+GH_ACCOUNT=	hashicorp
 USE_RC_SUBR=	vault
+
+GO_MODULE=	github.com/hashicorp/vault
+GO_BUILDFLAGS=	-ldflags="-s \
+		-X github.com/hashicorp/vault/version.GitCommit=${GITID} \
+		-X github.com/hashicorp/vault/version.BuildDate=${SOURCE_DATE_EPOCH:U${SOURCE_DATE_EPOCH_CMD:sh}} \
+		" -tags "vault ui"
+
+SUB_FILES=	pkg-message
 
 USERS=		vault
 GROUPS=		vault
 
 PLIST_FILES=	bin/${PORTNAME}
-SUB_FILES=	pkg-message
 
-PORTSCOUT=	limit:^(v?)[0-9]+\.[0-9]+\.[0-9]+$
+GITID=	13a649f860186dffe3f3a4459814d87191efc321
 
-post-patch:
-	@${CP} ${WRKDIR}/vaultui-${PORTVERSION}/http/bindata_assetfs.go ${WRKDIR}/vault-${PORTVERSION}/http/bindata_assetfs.go
+.include <bsd.port.pre.mk>
 
-.include <bsd.port.mk>
+# Bring DISTINFO_FILE into scope so we can get the timestamp.
+SOURCE_DATE_EPOCH_CMD=	date -ur \
+			$$(${GREP} -m1 TIMESTAMP ${DISTINFO_FILE} | ${SED} -e 's/[^0-9]//g') \
+			'+%Y-%m-%dT%H:%M:%SZ'
+
+.include <bsd.port.post.mk>

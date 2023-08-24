@@ -1,13 +1,12 @@
-# Created by: Lars Engels <lme@FreeBSD.org>
-
 PORTNAME=	aribas
 PORTVERSION=	1.64
 CATEGORIES=	math
 MASTER_SITES=	ftp://ftp.mathematik.uni-muenchen.de/pub/forster/aribas/UNIX_LINUX/ \
 		http://bsd-geek.de/FreeBSD/distfiles/
 
-MAINTAINER=	lme@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Interpreter for big integer/multi-precision floating point arithmetic
+WWW=		http://www.mathematik.uni-muenchen.de/~forster/sw/adownload.html
 
 BUILD_WRKSRC=	${WRKSRC}/src
 

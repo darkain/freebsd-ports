@@ -1,11 +1,10 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
-PORTNAME=	openbve
-PORTVERSION=	1.8.1.0
+PORTNAME=	${GH_PROJECT:tl}
+PORTVERSION=	1.9.1.2
 CATEGORIES=	games
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Realistic 3D train/railway simulator
+WWW=		https://openbve-project.net/
 
 LICENSE=	PD
 
@@ -16,12 +15,13 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	leezer3
 GH_PROJECT=	OpenBVE
 
-USES=		gmake mono:nuget openal:soft
+USES=		gmake mono:nuget openal:soft sdl
+USE_SDL=	sdl2
 MAKEFILE=	makefile
 ALL_TARGET=	all-release
 
 NUGET_DEPENDS=	CS-Script.lib=3.30.3 \
-		DotNetZip=1.13.8 \
+		DotNetZip=1.16.0 \
 		LibUsbDotNet=2.2.29 \
 		Mono.Cecil=0.11.3 \
 		NAudio.Vorbis=1.2.0 \
@@ -29,18 +29,19 @@ NUGET_DEPENDS=	CS-Script.lib=3.30.3 \
 		NLayer.NAudioSupport=1.0.0 \
 		NLayer=1.12.0 \
 		NVorbis=0.10.1 \
-		OpenTK.GLControl=3.1.0 \
-		OpenTK=3.3.1 \
+		OpenTK-OpenBVE=1.0.2 \
+		OpenTK.GLControl-OpenBVE=1.0.1 \
 		Prism.Core=7.2.0.1422 \
 		ReactiveProperty.Core=7.1.0 \
 		ReactiveProperty=7.1.0 \
-		SharpCompress=0.25.1 \
+		SharpCompress=0.32.2 \
 		System.Buffers=4.5.1 \
 		System.ComponentModel.Annotations=4.7.0 \
-		System.Memory=4.5.4 \
+		System.Memory=4.5.5 \
 		System.Numerics.Vectors=4.5.0 \
 		System.Reactive=4.4.1 \
-		System.Runtime.CompilerServices.Unsafe=4.7.1 \
+		System.Runtime.CompilerServices.Unsafe=6.0.0 \
+		System.Text.Encoding.CodePages=6.0.0 \
 		System.Threading.Tasks.Extensions=4.5.4 \
 		System.ValueTuple=4.5.0 \
 		Ude.NetStandard=1.2.0
@@ -52,8 +53,8 @@ OPTIONS_DEFINE=	DOCS
 
 .include <bsd.port.pre.mk>
 
-.if defined(MONO_DEFAULT) && ${MONO_DEFAULT} > 5.10
-BROKEN=		fails to build with Mono version ${MONO_DEFAULT}: The imported project "/usr/local/lib/mono/msbuild/15.0/bin/Roslyn/Microsoft.CSharp.Core.targets" was not found
+.if defined(MONO_DEFAULT) && ${MONO_DEFAULT} > 6
+BROKEN=		fails to build with Mono version ${MONO_DEFAULT}: error MSB4184: The expression ""Program.cs".GetPathsOfAllDirectoriesAbove()" cannot be evaluated. Method 'System.String.GetPathsOfAllDirectoriesAbove' not found.
 .endif
 
 post-patch:
@@ -75,8 +76,6 @@ do-install:
 		${STAGEDIR}${PREFIX}/share/applications
 	${INSTALL_DATA} ${WRKSRC}/debian/openbve.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps
-	@${REINPLACE_CMD} -e 's,linux,${OPSYS:tl},' \
-		${STAGEDIR}${DATADIR}/OpenTK.dll.config
 
 do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

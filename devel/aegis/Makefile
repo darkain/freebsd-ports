@@ -1,21 +1,20 @@
-# Created by: alepulver
-
 PORTNAME=	aegis
 PORTVERSION=	4.25
 DISTVERSIONSUFFIX=	.D510
-PORTREVISION=	12
+PORTREVISION=	14
 CATEGORIES=	devel
 MASTER_SITES=	SF
 
 MAINTAINER=	aryeh.friedman@gmail.com
 COMMENT=	Transaction-based software configuration management system
+WWW=		http://aegis.sourceforge.net/
 
 LICENSE=	GPLv3
 
 LIB_DEPENDS=	libcurl.so:ftp/curl
 RUN_DEPENDS=	tkdiff:textproc/tkdiff
 
-USES=		gettext ghostscript gnome groff perl5 tk bison
+USES=		cpe gettext ghostscript gnome groff perl5 tk bison
 USE_GNOME=	libxml2
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	"-I${LOCALBASE}/include"

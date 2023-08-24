@@ -1,5 +1,3 @@
-# Created by: Alexey Dokuchaev <danfe@regency.nsu.ru>
-
 PORTNAME=	xmill
 DISTVERSION=	0.8
 CATEGORIES=	archivers
@@ -7,17 +5,20 @@ MASTER_SITES=	SF
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Efficient compressor for XML
-
-WRKSRC=		${WRKDIR}/${PORTNAME}
+WWW=		https://sourceforge.net/projects/xmill/
 
 USES=		dos2unix zip
 DOS2UNIX_FILES=	${MAKEFILE} XMill/*.cpp
+USE_CXXSTD=	c++14
+
 MAKEFILE=	makefile
 
-PORTDOCS=	*
-PORTEXAMPLES=	*
+WRKSRC=		${WRKDIR}/${PORTNAME}
+
 PLIST_FILES=	bin/xcmill bin/xdemill bin/xmilltest bin/xmillexample \
 		bin/xmillinspect bin/ppmzip
+PORTDOCS=	*
+PORTEXAMPLES=	*
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 

@@ -1,5 +1,3 @@
-# Created by: h2
-
 PORTNAME=	seqan
 DISTVERSION=	2.4.0
 CATEGORIES=	biology
@@ -8,6 +6,7 @@ DISTNAME=	${PORTNAME}-library-${PORTVERSION}
 
 MAINTAINER=	h2+fbsdports@fsfe.org
 COMMENT=	C++ sequence analysis template library
+WWW=		https://www.seqan.de/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/share/doc/seqan/LICENSE
@@ -16,7 +15,7 @@ USES=		tar:xz
 NO_BUILD=	yes
 NO_ARCH=	yes
 
-CONFLICTS=	seqan1-[0-9]*
+CONFLICTS=	seqan1
 
 OPTIONS_DEFINE=	DOCS
 

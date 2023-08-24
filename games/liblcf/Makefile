@@ -1,10 +1,11 @@
 PORTNAME=	liblcf
-PORTVERSION=	0.6.2
-PORTREVISION=	2
+PORTVERSION=	0.8
 CATEGORIES=	games
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Library to handle RPG Maker 2000/2003 and EasyRPG projects
+WWW=		https://easyrpg.org/ \
+		https://github.com/EasyRPG/liblcf
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -17,9 +18,7 @@ GH_ACCOUNT=	EasyRPG
 
 USES=		cmake compiler:c++14-lang pkgconfig shared-mime-info
 USE_LDCONFIG=	yes
-CMAKE_ARGS=	-DCMAKE_INSTALL_LIBDIR=lib \
-		-DCMAKE_INSTALL_INCLUDEDIR=include \
-		-DDISABLE_UPDATE_MIMEDB=OFF
+CMAKE_OFF=	LIBLCF_UPDATE_MIMEDB
 
 PORTDOCS=	AUTHORS.md README.md
 

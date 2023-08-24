@@ -1,12 +1,11 @@
-# Created by: Kevin Lo <kevlo@FreeBSD.org>
-
 PORTNAME=	libjwt
-PORTVERSION=	1.13.1
-DISTVERSIONPREFIX=	v
+PORTVERSION=	1.15.3
+MASTER_SITES=	https://github.com/benmcollins/libjwt/releases/download/v${PORTVERSION}/
 CATEGORIES=	www
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	JSON Web Token implementation in C
+WWW=		https://github.com/benmcollins/libjwt
 
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -24,8 +23,5 @@ INSTALL_TARGET=	install-strip
 TEST_ARGS=	CFLAGS+=-I${LOCALBASE}/include LIBS+="-L${LOCALBASE}/lib -lcheck"
 TEST_TARGET=	check
 USE_LDCONFIG=	yes
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	benmcollins
 
 .include <bsd.port.mk>

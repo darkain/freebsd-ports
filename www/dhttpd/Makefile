@@ -1,5 +1,3 @@
-# Created by: Gea-Suan Lin <gslin@ccca.nctu.edu.tw>
-
 PORTNAME=	dhttpd
 PORTVERSION=	1.02a
 PORTREVISION=	1
@@ -7,10 +5,15 @@ CATEGORIES=	www
 MASTER_SITES=	http://bsd-geek.de/FreeBSD/distfiles/
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	lme@FreeBSD.org
-COMMENT=	Minimal secure webserver. Fast and efficient, no cgi-bin support
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Minimal secure web server. Fast and efficient, no cgi-bin support
 
 LICENSE=	GPLv2
+
+DEPRECATED=	Abandonware, last release in 15+ years ago. Consider using www/darkhttpd, www/obhttpd or www/miniserve
+EXPIRATION_DATE=2023-09-30
+
+USES=		cpe
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-1.02-4
 BUILD_WRKSRC=	${WRKSRC}/src

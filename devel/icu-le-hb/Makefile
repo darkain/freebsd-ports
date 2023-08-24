@@ -1,11 +1,11 @@
 PORTNAME=	icu-le-hb
-DISTVERSION=	1.0.3-3
-DISTVERSIONSUFFIX=	-gb8a3163
-PORTREVISION=	17
+PORTVERSION=	1.2.3
+PORTREVISION=	2
 CATEGORIES=	devel print
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	ICU Layout Engine API on top of HarfBuzz shaping library
+WWW=		https://www.freedesktop.org/wiki/Software/HarfBuzz/
 
 LICENSE=	ICU
 LICENSE_NAME=	ICU license

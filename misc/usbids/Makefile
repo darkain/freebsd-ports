@@ -1,11 +1,10 @@
-# Created by: Michael Johnson <ahze@FreeBSD.org>
-
 PORTNAME=	usbids
-PORTVERSION=	20210616
+PORTVERSION=	20230116
 CATEGORIES=	misc
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Database of all known IDs used in USB devices
+WWW=		http://www.linux-usb.org/
 
 LICENSE=	BSD3CLAUSE GPLv2+
 LICENSE_COMB=	dual
@@ -15,8 +14,8 @@ NO_BUILD=	yes
 
 PORTDATA=	usb.ids
 
-GH_TAGNAME=	25a3fc1
 USE_GITHUB=	yes
+GH_TAGNAME=	7963233
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

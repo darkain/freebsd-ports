@@ -1,10 +1,12 @@
 PORTNAME=	gula-plugins
 DISTVERSION=	g20200606
+PORTREVISION=	1
 CATEGORIES=	audio
 PKGNAMESUFFIX=	-lv2
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Collection of guitar effect LV2 plugins
+WWW=		https://github.com/steveb/gula-plugins
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -16,7 +18,6 @@ USES=		gmake localbase pkgconfig
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	steveb
-GH_PROJECT=	gula-plugins
 GH_TAGNAME=	67578fa01a6b1a4d883ab0fe8ceaa4afe4e3af06
 
 CXXFLAGS+=	-fPIC

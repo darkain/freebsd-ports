@@ -1,5 +1,3 @@
-# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
-
 PORTNAME=	idnkit
 PORTVERSION=	1.0
 PORTREVISION=	7
@@ -9,11 +7,14 @@ DISTNAME=	${PORTNAME}-${PORTVERSION}-src
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Library to handle internationalized domain names
+WWW=		https://www.nic.ad.jp/ja/idn/idnkit/download/
 
 LICENSE=	JPNIC
 LICENSE_NAME=	Japan Network Information Center license
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+BROKEN_FreeBSD_14=	fails to configure: can't build runidn, since parameter type list of getnameinfo() is unknown to configure
 
 USES=		iconv libtool
 GNU_CONFIGURE=	yes

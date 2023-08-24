@@ -1,15 +1,16 @@
 PORTNAME=	mamba
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.2
+DISTVERSION=	2.5
 CATEGORIES=	audio
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Virtual MIDI keyboard
+WWW=		https://github.com/brummer10/Mamba
 
 LICENSE=	BSD0CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	xxd:editors/vim-console
+BUILD_DEPENDS=	xxd:editors/vim
 LIB_DEPENDS=	libasound.so:audio/alsa-lib \
 		libfluidsynth.so:audio/fluidsynth \
 		libjack.so:audio/jack \
@@ -23,7 +24,7 @@ USE_XORG=	x11
 USE_GITHUB=	yes
 GH_ACCOUNT=	brummer10
 GH_PROJECT=	Mamba
-GH_TUPLE=	brummer10:libxputty:5c69824:libxputty/libxputty
+GH_TUPLE=	brummer10:libxputty:62ec1cf:libxputty/libxputty
 
 PLIST_FILES=	bin/mamba \
 		share/applications/Mamba.desktop \

@@ -1,10 +1,11 @@
 PORTNAME=	pmenu
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.3.0
+DISTVERSION=	2.5.0
 CATEGORIES=	x11
 
 MAINTAINER=	0mp@FreeBSD.org
 COMMENT=	Pie menu for X
+WWW=		https://github.com/phillbush/pmenu
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -17,8 +18,13 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	phillbush
 USE_XORG=	x11 xext xft xinerama xrender
 
-MAKE_ARGS=	FREETYPEINC="${LOCALBASE}/include/freetype2" \
-		PREFIX="${PREFIX}"
+MAKE_ARGS=	CC="${CC}" \
+		FREETYPEINC="${LOCALBASE}/include/freetype2" \
+		LOCALINC="${LOCALBASE}/include" \
+		LOCALLIB="${LOCALBASE}/lib" \
+		PREFIX="${PREFIX}" \
+		X11INC="${LOCALBASE}/include/xorg" \
+		X11LIB="${LOCALBASE}/lib/xorg"
 
 PLIST_FILES=	bin/${PORTNAME} \
 		share/man/man1/${PORTNAME}.1.gz

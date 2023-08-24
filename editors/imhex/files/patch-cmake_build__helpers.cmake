@@ -1,20 +1,18 @@
---- cmake/build_helpers.cmake.orig	2021-05-18 19:25:59 UTC
+--- cmake/build_helpers.cmake.orig	2023-06-24 10:07:39 UTC
 +++ cmake/build_helpers.cmake
-@@ -49,6 +49,8 @@ macro(findLibraries)
-         message(FATAL_ERROR "No valid version of Python 3 was found.")
-     endif()
+@@ -392,13 +392,13 @@ function(downloadImHexPatternsFiles dest)
  
-+    find_package(CURL REQUIRED)
-+
-     string(REPLACE "." ";" PYTHON_VERSION_MAJOR_MINOR ${Python_VERSION})
+     else ()
+         # Maybe patterns are cloned to a subdirectory
+-        set(imhex_patterns_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ImHex-Patterns")
++        set(imhex_patterns_SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/imhex_patterns_src")
+     endif ()
  
-     list(LENGTH PYTHON_VERSION_MAJOR_MINOR PYTHON_VERSION_COMPONENT_COUNT)
-@@ -162,7 +164,7 @@ macro(createPackage)
-     foreach (plugin IN LISTS PLUGINS)
-         add_subdirectory("plugins/${plugin}")
-         set_target_properties(${plugin} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
--        install(TARGETS ${plugin} RUNTIME DESTINATION ${PLUGINS_INSTALL_LOCATION})
-+        install(TARGETS ${plugin} LIBRARY DESTINATION ${PLUGINS_INSTALL_LOCATION})
-         add_dependencies(imhex ${plugin})
-     endforeach()
+     if (EXISTS ${imhex_patterns_SOURCE_DIR})
+         set(PATTERNS_FOLDERS_TO_INSTALL constants encodings includes patterns magic)
+         foreach (FOLDER ${PATTERNS_FOLDERS_TO_INSTALL})
+-            install(DIRECTORY "${imhex_patterns_SOURCE_DIR}/${FOLDER}" DESTINATION ${dest} PATTERN "**/_schema.json" EXCLUDE)
++            install(DIRECTORY "${imhex_patterns_SOURCE_DIR}/${FOLDER}" DESTINATION "share/imhex/" PATTERN "**/_schema.json" EXCLUDE)
+         endforeach ()
+     endif ()
  

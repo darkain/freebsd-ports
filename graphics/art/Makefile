@@ -1,5 +1,6 @@
 PORTNAME=	art
-DISTVERSION=	1.9.3
+DISTVERSION=	1.20.1
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	https://bitbucket.org/agriggio/art/downloads/
 PKGNAMESUFFIX=	-raw-image-editor
@@ -7,22 +8,26 @@ DISTNAME=	${PORTNAME:tu}-${DISTVERSION}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Raw image processing program
+WWW=		https://bitbucket.org/agriggio/art/wiki/Home
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
+BROKEN_armv7=	compilation fails: use of overloaded operator '[]' is ambiguous, see https://bitbucket.org/agriggio/art/issues/256/build-fails-on-32-bit-architectures-use-of
 BROKEN_i386=	ld: error: undefined symbol: __atomic_load
 
 EXTRACT_DEPENDS=	gtar:archivers/gtar # bsdtar(1) complains about hard links to itself
 BUILD_DEPENDS=	${LOCALBASE}/include/fftw3.h:math/fftw3
 LIB_DEPENDS=	libcanberra.so:audio/libcanberra \
 		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
+		libraw_r.so:graphics/libraw \
 		libexiv2.so:graphics/exiv2 \
 		libexpat.so:textproc/expat2 \
 		libfftw3f.so:math/fftw3-float \
 		libharfbuzz.so:print/harfbuzz \
 		liblensfun.so:graphics/lensfun \
 		liblcms2.so:graphics/lcms2 \
+		libmimalloc.so:devel/mimalloc \
 		libpng.so:graphics/png \
 		libtiff.so:graphics/tiff
 
@@ -32,20 +37,23 @@ USE_XORG=	x11
 
 EXTRACT_CMD=	gtar
 
-INSTALLS_ICONS=	yes
+LDFLAGS+=	-lpthread # otherwise build breaks on some systems: error: undefined symbol: pthread_create
 
-.include <bsd.port.pre.mk>
+OPTIONS_DEFINE=		LTO
+OPTIONS_DEFAULT=	LTO
 
-# breaks with llvm-8
-.if ${CHOSEN_COMPILER_TYPE} == clang
-LLVM_VERSION=	10
-BUILD_DEPENDS+=	clang${LLVM_VERSION}:devel/llvm${LLVM_VERSION}
-CC=		clang${LLVM_VERSION}
-CXX=		clang++${LLVM_VERSION}
-CPP=		clang-cpp${LLVM_VERSION}
+LTO_CMAKE_BOOL=		WITH_LTO
+
+.if exists(/usr/include/omp.h)
+OPTIONS_DEFINE+=	OPENMP
+OPTIONS_DEFAULT+=	OPENMP
+
+OPENMP_CMAKE_BOOL=	OPTION_OMP
+.else
+CMAKE_OFF=	OPTION_OMP
 .endif
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/ART
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

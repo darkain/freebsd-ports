@@ -1,14 +1,15 @@
 PORTNAME=	firebird
-PORTVERSION=	4.0.0
+PORTVERSION=	4.0.2
 PORTREVISION=	1
 CATEGORIES?=	databases
 MASTER_SITES=	https://github.com/FirebirdSQL/${PORTNAME}/releases/download/v${PORTVERSION}/
 PKGNAMESUFFIX?=	${PORTVERSION:R:S/.//}-server
-DISTNAME=	${PORTNAME:S/f/F/}-${PORTVERSION}.2496-0
+DISTNAME=	${PORTNAME:S/f/F/}-${PORTVERSION}.2816-0
 DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	acm@FreeBSD.org
 COMMENT?=	Firebird-4 relational database (server)
+WWW=		https://www.firebirdsql.org/
 
 LICENSE=	IDPL IPL
 LICENSE_COMB=	multi
@@ -23,12 +24,13 @@ LIB_DEPENDS=	libicuuc.so:devel/icu \
 		libtommath.so:math/libtommath \
 		libtomcrypt.so:security/libtomcrypt
 
-CONFLICTS_INSTALL=	firebird25-* firebird30-*
+CONFLICTS_INSTALL=	firebird25 firebird30
 
 USES=		cpe gmake pkgconfig localbase:ldflags libedit tar:xz
 USE_CXXSTD=	c++11
 GNU_CONFIGURE=	yes
 MAKE_JOBS_UNSAFE=	yes
+CPE_VENDOR=	firebirdsql
 
 CONFIGURE_ARGS=	--prefix=${LOCALSTATEDIR} \
 		--exec-prefix=${PREFIX} \
@@ -62,7 +64,7 @@ LD=	${CC}
 # Don't strip binary files
 STRIP=
 
-ONLY_FOR_ARCHS=	i386 amd64
+ONLY_FOR_ARCHS=	i386 amd64 powerpc64le
 # sparc64 fails due to lack of valid AtomicCounter implementation in
 # src/common/classes/fb_atomic.h; presumably other tier-2s would as well
 

@@ -1,19 +1,18 @@
-# Created by: Philippe Audeoud <jadawin@tuxaco.net>
-
 PORTNAME=	zenphoto
-PORTVERSION=	1.5.9
+PORTVERSION=	1.6
 DISTVERSIONPREFIX=	v
 CATEGORIES=	www
 PKGNAMESUFFIX=	${PHP_PKGNAMESUFFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Simpler web photo gallery
+WWW=		https://www.zenphoto.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		cpe php:flavors,web
-USE_PHP=	gd gettext hash json mbstring mysqli pcre session
+USE_PHP=	gd gettext mbstring mysqli session
 
 NO_ARCH=	yes
 NO_BUILD=	yes
@@ -23,7 +22,7 @@ SUB_FILES=	pkg-deinstall pkg-message
 USE_GITHUB=	yes
 
 post-patch:
-	@${RM} -fr ${WRKSRC}/.github/
+	@${RM} -r ${WRKSRC}/.github/
 	@${MKDIR} ${WRKSRC}/cache/
 	@${FIND} ${WRKSRC} -name '.git*' -delete
 	@${RM} ${WRKSRC}/zp-core/Zenphoto.package

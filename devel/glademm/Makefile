@@ -1,5 +1,3 @@
-# Created by: Alexander Nedotsukov <bland@FreeBSD.org>
-
 PORTNAME=	glademm
 PORTVERSION=	2.6.0
 PORTREVISION=	3
@@ -9,14 +7,15 @@ DISTNAME=	${PORTNAME:S/2$//}-${PORTVERSION}
 
 MAINTAINER=	bland@FreeBSD.org
 COMMENT=	C++ code generator backend for glade and glade2
+WWW=		http://home.wtal.de/petig/Gtk/
 
 USES=		gmake gnome pathfix pkgconfig
+USE_CXXSTD=	c++14
 USE_GNOME=	gnomeprefix
+
 GNU_CONFIGURE=	yes
 
 PLIST_FILES=	bin/glade-- bin/glademm-embed
-
-.include <bsd.port.pre.mk>
 
 post-patch:
 	@${RM} ${WRKSRC}/src/getopt.*
@@ -25,4 +24,4 @@ post-patch:
 		-Ee '/^@AMDEP(.)+getopt/d' \
 			${WRKSRC}/src/Makefile.in
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

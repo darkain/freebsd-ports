@@ -5,11 +5,13 @@ CATEGORIES=	databases
 
 MAINTAINER=	jharris@widomaker.com
 COMMENT=	Encrypted SQLite database
+WWW=		http://www.sqlcipher.net
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		libedit libtool pathfix ssl tcl:86,build
+USES=		cpe libedit libtool pathfix ssl tcl:86,build
+CPE_VENDOR=	zetetic
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 

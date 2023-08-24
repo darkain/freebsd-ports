@@ -1,5 +1,3 @@
-# Created by: ijliao
-
 PORTNAME=	cvsps
 PORTVERSION=	2.1
 PORTREVISION=	2
@@ -8,11 +6,12 @@ MASTER_SITES=	SF/${PORTNAME}/
 
 MAINTAINER=	garga@FreeBSD.org
 COMMENT=	Create patchset information from CVS
+WWW=		http://cvsps.sourceforge.net/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-CONFLICTS=	cvsps-devel-[0-9]*
+CONFLICTS=	cvsps-devel
 
 PLIST_FILES=	bin/${PORTNAME} \
 		man/man1/${PORTNAME}.1.gz

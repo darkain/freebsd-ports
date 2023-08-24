@@ -1,7 +1,6 @@
-# Created by: Alexander Hausner <alex@hugo.bmg.gv.at>
-
 PORTNAME=	ifdepd
 PORTVERSION=	20110412
+PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	http://alex.bmg.gv.at/programs/
 

@@ -1,17 +1,20 @@
-# Created by: ijliao
-
 PORTNAME=	matplotlib
 DISTVERSION=	2.2.4
-PORTREVISION=	2
+PORTREVISION=	6
 CATEGORIES=	math python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 PKGNAMESUFFIX=	2
 
 MAINTAINER=	mainland@apeiron.net
 COMMENT=	Plotting library uses a syntax familiar to MATLAB users (legacy)
+WWW=		https://matplotlib.org/
 
 LICENSE=	PSFL
+
+BROKEN_FreeBSD_14=	fails to compile: ISO C++17 does not allow 'register' storage class specifier
+DEPRECATED=	Upstream support ended in 2020 and do not support python3 versions existing on the tree
+EXPIRATION_DATE=	2023-09-30
 
 BUILD_DEPENDS=	${PYNUMPY}
 LIB_DEPENDS=	libfreetype.so:print/freetype2 \
@@ -26,7 +29,7 @@ RUN_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}tornado>0:www/py-tornado@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}kiwisolver>=1.0.0:math/py-kiwisolver@${PY_FLAVOR}
 
-USES=		compiler:c++11-lib gettext gnome pkgconfig python:3.6+ shebangfix uniquefiles:dirs
+USES=		compiler:c++11-lib gettext gnome pkgconfig python shebangfix uniquefiles:dirs
 USE_PYTHON=	autoplist distutils
 
 CFLAGS+=	-I${LOCALBASE}/include
@@ -38,7 +41,7 @@ OPTIONS_SUB=		yes
 
 QT5AGGBACKEND_DESC=	Qt5Agg backend support
 QT5AGGBACKEND_USES=	display pyqt:5
-QT5AGGBACKEND_USE=	PYQT=sip,widgets
+QT5AGGBACKEND_USE=	PYQT=pyqt5,sip
 QT5AGGBACKEND_VARS=	QT5AGG_BACKEND=True
 QT5AGGBACKEND_VARS_OFF=	QT5AGG_BACKEND=False
 TKAGGBACKEND_DESC=	TKAgg backend support

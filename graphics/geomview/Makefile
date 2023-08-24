@@ -1,5 +1,3 @@
-# Created by: fenner
-
 PORTNAME=	geomview
 PORTVERSION=	1.9.5
 PORTREVISION=	4
@@ -8,13 +6,14 @@ MASTER_SITES=	SF
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Interactive viewer for 3- and 4-D geometric objects
+WWW=		http://www.geomview.org/
 
 LICENSE=	LGPL21+ # COPYING mentions LGPL21, source files LGPL20
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 RUN_DEPENDS=	xdg-open:devel/xdg-utils
 
-USES=		gl libtool makeinfo motif tar:bzip2
+USES=		cpe gl libtool makeinfo motif tar:bzip2
 USE_GL=		glu
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-htmlbrowser=xdg-open --with-pdfviewer=xdg-open \

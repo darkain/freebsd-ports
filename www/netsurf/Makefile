@@ -1,14 +1,13 @@
-# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
-
 PORTNAME=	netsurf
 PORTVERSION=	3.10
-PORTREVISION=	1
+PORTREVISION=	8
 CATEGORIES=	www
 MASTER_SITES=	http://download.netsurf-browser.org/netsurf/releases/source/
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
 
 MAINTAINER=	nc@FreeBSD.org
 COMMENT=	Lightweight web browser
+WWW=		https://www.netsurf-browser.org/
 
 LICENSE=	GPLv2 MIT
 LICENSE_COMB=	multi
@@ -16,7 +15,7 @@ LICENSE_COMB=	multi
 BUILD_DEPENDS=	duk:lang/duktape \
 		nsgenbind:devel/nsgenbind \
 		p5-HTML-Parser>=3.72:www/p5-HTML-Parser \
-		xxd:editors/vim-console
+		xxd:editors/vim
 LIB_DEPENDS=	libcss.so:textproc/libcss \
 		libcurl.so:ftp/curl \
 		libdom.so:www/libdom \
@@ -34,8 +33,9 @@ LIB_DEPENDS=	libcss.so:textproc/libcss \
 RUN_DEPENDS=	${LOCALBASE}/share/certs/ca-root-nss.crt:security/ca_root_nss \
 		duk:lang/duktape
 
-USES=		bison desktop-file-utils gmake gnome iconv:translit jpeg \
+USES=		bison cpe desktop-file-utils gmake gnome iconv:translit jpeg \
 		localbase pkgconfig shebangfix ssl
+CPE_VENDOR=	${PORTNAME}-browser
 USE_GNOME=	cairo glib20 gtk30 librsvg2
 
 SHEBANG_FILES=	utils/split-messages.pl
@@ -49,6 +49,9 @@ MAKE_ARGS=	CC="${CC}" \
 		Q="" \
 		TARGET="gtk3" \
 		WARNFLAGS=""
+.if defined(WITH_DEBUG)
+MAKE_ARGS+=	STRIP="true"
+.endif
 MAKE_ENV+=	COMPONENT_TYPE="lib-shared" \
 		FLEX="${LOCALBASE}/bin/flex"
 

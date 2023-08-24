@@ -1,11 +1,12 @@
 PORTNAME=	opencpn
 PORTVERSION=	5.2.4
-PORTREVISION=	3
+PORTREVISION=	5
 DISTVERSIONPREFIX=	v
 CATEGORIES=	astro geography
 
 MAINTAINER=	ml@netfence.it
 COMMENT=	Concise ChartPlotter/Navigator
+WWW=		https://opencpn.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING.gplv2
@@ -26,7 +27,6 @@ GH_ACCOUNT=	${GH_PROJECT}
 GH_PROJECT=	OpenCPN
 USE_GL=		gl glu
 USE_GNOME=	cairo gdkpixbuf2 gtk30 pango
-INSTALLS_ICONS=	yes
 USE_LDCONFIG=	${PREFIX}/lib/opencpn
 USE_WX=		3.0+
 WX_CONF_ARGS=	absolute
@@ -45,8 +45,11 @@ DOCS_CMAKE_OFF=	-DOCPN_BUNDLE_DOCS:STRING="OFF"
 
 .include <bsd.port.options.mk>
 
-.if ${ARCH:Mpowerpc*}
-CMAKE_ARGS+=	-DHAVE_MSSE=OFF -DHAVE_MSSE2=OFF -DHAVE_MSSE3=OFF -DHAVE_MAVX2=OFF -DHAVE_MFPU_NEON=OFF
+.if ${ARCH} != amd64 && ${ARCH} != i386
+CMAKE_ARGS+=	-DHAVE_MSSE=OFF -DHAVE_MSSE2=OFF -DHAVE_MSSE3=OFF -DHAVE_MAVX2=OFF
+.endif
+.if ${ARCH:Marmv*} || ${ARCH:Mpowerpc*}
+CMAKE_ARGS+=	-DHAVE_MFPU_NEON=OFF
 .endif
 
 .include <bsd.port.pre.mk>

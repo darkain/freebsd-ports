@@ -6,6 +6,7 @@ MASTER_SITES=	SF/vfront/vfront/vfront-${DISTVERSION}
 
 MAINTAINER=	crees@FreeBSD.org
 COMMENT=	Simple frontend for database data entry
+WWW=		http://www.vfront.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/license
@@ -14,7 +15,7 @@ NO_BUILD=	yes
 NO_ARCH=	yes
 PLIST=		${WRKDIR}/pkg-plist
 
-USES=		php
+USES=		cpe php
 
 OPTIONS_MULTI=	DATABASE
 OPTIONS_MULTI_DATABASE=	MYSQL PGSQL

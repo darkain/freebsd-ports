@@ -1,18 +1,17 @@
-# Created by: Christer Edwards <christer.edwards@gmail.com>
-
 PORTNAME=	bastille
-PORTVERSION=	0.8.20210115
+PORTVERSION=	0.9.20220714
 CATEGORIES=	sysutils
 
 MAINTAINER=	christer.edwards@gmail.com
 COMMENT=	Jail automation framework
+WWW=		https://bastillebsd.org
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	bastillebsd
-GH_TAGNAME=	113beb5
+GH_TAGNAME=	da377f4
 
 NO_BUILD=	yes
 NO_ARCH=	yes

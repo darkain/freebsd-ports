@@ -1,5 +1,3 @@
-# Created by: Pietro Cerutti <gahr@FreeBSD.org>
-
 PORTNAME=	ogdf
 PORTVERSION=	2020.02
 CATEGORIES=	math
@@ -8,13 +6,14 @@ DISTNAME=	${PORTNAME}.v${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	C++ class library for the automatic layout of diagrams
+WWW=		https://ogdf.uos.de/
 
 LICENSE=		GPLv2 GPLv3
 LICENSE_COMB=		dual
 LICENSE_FILE_GPLv2=	${WRKSRC}/LICENSE_GPL_v2.txt
 LICENSE_FILE_GPLv3=	${WRKSRC}/LICENSE_GPL_v3.txt
 
-CONFLICTS_INSTALL=	CoinMP-[0-9]*
+CONFLICTS_INSTALL=	CoinMP
 
 USES=		cmake compiler:c++11-lang zip
 USE_LDCONFIG=	yes

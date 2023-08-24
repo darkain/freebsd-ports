@@ -1,5 +1,6 @@
 PORTNAME=	fpc
-PORTVERSION=	3.2.0
+PORTVERSION=	3.2.2
+PORTREVISION=	2
 DISTVERSIONSUFFIX=.source
 CATEGORIES=	lang
 MASTER_SITES=	ftp://ftp.freepascal.org/pub/fpc/dist/${PORTVERSION}/source/ \
@@ -9,11 +10,12 @@ MASTER_SITES=	ftp://ftp.freepascal.org/pub/fpc/dist/${PORTVERSION}/source/ \
 		ftp://ftp.no.freepascal.org/pub/fpc/dist/${PORTVERSION}/source/ \
 		ftp://ftp.us.freepascal.org/pub/fpc/dist/${PORTVERSION}/source/ \
 		SF/freepascal/Source/${PORTVERSION}
-PKGNAMESUFFIX=  -source
+PKGNAMESUFFIX=	-source
 DIST_SUBDIR=	freepascal
 
 MAINTAINER=	acm@FreeBSD.org
-COMMENT=	Free Pascal compiler with Turbo and Delphi (source)
+COMMENT=	Free Pascal compiler with Turbo and Delphi compatibility (source)
+WWW=		https://www.freepascal.org/
 
 ONLY_FOR_ARCHS=	amd64 i386
 NO_BUILD=	yes

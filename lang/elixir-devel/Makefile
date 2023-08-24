@@ -1,57 +1,50 @@
 PORTNAME=	elixir
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.12.1
+DISTVERSION=	1.15.4
 CATEGORIES=	lang
-MASTER_SITES+=	https://github.com/elixir-lang/elixir/releases/download/${DISTVERSIONPREFIX}${PORTVERSION}/:doc
+MASTER_SITES+=	https://github.com/elixir-lang/elixir/releases/download/${DISTVERSIONPREFIX}${DISTVERSION}/:doc
+PKGNAMESUFFIX=	-devel
 DISTFILES=	Docs.zip:doc
 DIST_SUBDIR=	elixir/${PORTVERSION}
-PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	erlang@FreeBSD.org
 COMMENT=	Functional, meta-programming aware language built on top of Erlang VM
+WWW=		https://elixir-lang.org/
 
 LICENSE=	APACHE20
 
 BUILD_DEPENDS=	erlang-runtime${ERLANG_VER}>0:lang/erlang-runtime${ERLANG_VER}
-RUN_DEPENDS=	erlang-runtime${ERLANG_VER}>0:lang/erlang-runtime${ERLANG_VER}
 
 USES=		gmake
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	elixir-lang
 
-CONFLICTS=	elixir
+USE_LOCALE=	en_US.UTF-8
+ALL_TARGET=	# empty
 
-USE_LOCALE=		en_US.UTF-8
-ALL_TARGET=		# empty
-REINPLACE_ARGS=		-i ""
-NO_ARCH=		yes
+CONFLICTS=	elixir # bin/elixir bin/elixirc bin/iex
+
+REINPLACE_ARGS=	-i ""
+NO_ARCH=	yes
+MAKE_ENV+=	MAN_PREFIX=${PREFIX}/man \
+		PATH="${LOCALBASE}/lib/erlang${ERLANG_VER}/bin:${PATH}"
+
+OPTIONS_DEFINE=		DOCS
 OPTIONS_SUB=		yes
-MAKE_ENV+=		MAN_PREFIX=${PREFIX}/man \
-			PATH="${LOCALBASE}/lib/erlang${ERLANG_VER}/bin:${PATH}"
-OPTIONS_DEFINE=		DOCS SRC
-OPTIONS_DEFAULT=	DOCS SRC
 
-SRC_DESC=	Install source code
-
-ERLANG_VER=	24
+ERLANG_VER?=	25
 
 .include <bsd.port.options.mk>
 
 post-extract:
-	@${FIND} ${WRKDIR}/doc -name .build -delete
-
-post-patch:
-#	hard-wire elixir to the OTP version is was compiled with
-	@${REINPLACE_CMD} -e \
-		's|^ERTS_BIN=.*$$|ERTS_BIN=${PREFIX}/lib/erlang${ERLANG_VER}/bin/|' \
-		${WRKSRC}/bin/elixir
+	${FIND} ${WRKDIR}/doc -name .build -delete -or -name .ex_doc -delete
 
 post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKDIR}/doc/ && ${COPYTREE_SHARE} \* ${STAGEDIR}${DOCSDIR}
 
-post-install-SRC-on:
+post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/elixir/lib
 	cd ${WRKSRC}/lib/ && for lib in *; do \
 		${MKDIR} ${STAGEDIR}${PREFIX}/lib/elixir/lib/$${lib}/lib; \

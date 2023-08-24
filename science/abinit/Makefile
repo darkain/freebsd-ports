@@ -1,11 +1,10 @@
-# Created by: NAKATA Maho <maho@FreeBSD.org>
-
 PORTNAME=	abinit
-DISTVERSION=	9.4.2
+DISTVERSION=	9.10.3
 CATEGORIES=	science
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Full-featured atomic-scale first-principles simulation software
+WWW=		https://www.abinit.org
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -18,7 +17,7 @@ BUILD_DEPENDS=	gm4:devel/m4	\
 		${PYTHON_PKGNAMEPREFIX}pandas>0:math/py-pandas@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}graphviz>0:graphics/py-graphviz@${PY_FLAVOR}
 LIB_DEPENDS=	libelpa.so:math/elpa		\
-		libsz.so:science/szip		\
+		libsz.so:science/libaec		\
 		libelpa.so:math/elpa		\
 		libxc.so:science/libxc		\
 		libfftw3.so:math/fftw3		\
@@ -33,13 +32,16 @@ TEST_DEPENDS=	${PYNUMPY}	\
 		libyaml>0:textproc/libyaml
 
 USES=		autoreconf:build blaslapack:netlib fortran gmake gnome localbase:ldflags	\
-		python:3.7+ shebangfix
+		python shebangfix
 USE_GITHUB=	yes
 USE_GNOME=	libxml2
-SHEBANG_FILES=	config/scripts/* doc/tutorial/paral_gspw_assets/abinit.sub.*
+SHEBANG_FILES=	config/scripts/* doc/tutorial/paral_bandpw_assets/abinit.sub.*
 SHEBANG_GLOB=	*.py
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	CC_LDFLAGS="${LDFLAGS}" CXX_LDFLAGS="${LDFLAGS}" FC_LDFLAGS="${LDFLAGS}"	\
+		H5CC="${LOCALBASE}/bin/h5cc" \
+		HDF5_CFLAGS="-I${LOCALBASE}/include" \
+		HDF5_LDFLAGS="-L${LOCALBASE}/lib -lhdf5" \
 		LINALG_FCFLAGS="-I${LOCALBASE}/include/elpa-2019.05.002/modules"	\
 		LINALG_LIBS="${BLASLIB}  ${LAPACKLIB} -lelpa"	\
 		NETCDF_FORTRAN_FCFLAGS=-I${LOCALBASE}/include	\
@@ -48,7 +50,7 @@ CONFIGURE_ENV=	CC_LDFLAGS="${LDFLAGS}" CXX_LDFLAGS="${LDFLAGS}" FC_LDFLAGS="${LD
 CONFIGURE_ARGS=	--with-fft --with-libxc --with-libxml2 --with-netcdf	\
 		--with-netcdf-fortran --with-wannier90 --with-xmlf90
 FCFLAGS+=	-ffree-line-length-none
-TEST_TARGET=	tests_abirules tests_buildsys
+TEST_TARGET=	tests_abirules tests_buildsys # Many tests print RuntimeError, https://github.com/abinit/abinit/issues/64
 TEST_WRKSRC=	${WRKSRC}/abichecks
 PORTDOCS=	*
 

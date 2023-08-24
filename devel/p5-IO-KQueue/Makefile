@@ -4,8 +4,9 @@ CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl interface to the BSD kqueue system call
+WWW=		https://metacpan.org/release/IO-KQueue
 
 LICENSE=	ART10 GPLv2
 LICENSE_COMB=	dual

@@ -1,20 +1,19 @@
-# Created by: Emanuel Haupt <ehaupt@FreeBSD.org>
-
 PORTNAME=	facedetect
 PORTVERSION=	0.1
 DISTVERSIONPREFIX=	v
-PORTREVISION=	6
+PORTREVISION=	8
 CATEGORIES=	graphics
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	Simple face detector for batch processing
+WWW=		https://www.thregr.org/~wavexx/software/facedetect/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING.txt
 
 RUN_DEPENDS=	opencv>0:graphics/opencv
 
-USES=		python:3.6+,run shebangfix
+USES=		python:run shebangfix
 USE_GITHUB=	yes
 GH_ACCOUNT=	wavexx
 

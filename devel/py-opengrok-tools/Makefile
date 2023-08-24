@@ -5,6 +5,7 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OpenGrok tools for synchronization and mirroring
+WWW=		https://oracle.github.io/opengrok/
 
 LICENSE=	CDDL
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
@@ -18,7 +19,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}jsonschema>=2.6.0:devel/py-jsonschema@${PY_F
 		${PYTHON_PKGNAMEPREFIX}filelock>0:sysutils/py-filelock@${PY_FLAVOR}
 
 # According to the vendor, Python3 is required
-USES=		python:3.5+
+USES=		python
 USE_PYTHON=	autoplist distutils noflavors
 NO_ARCH=	yes
 

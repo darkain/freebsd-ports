@@ -1,17 +1,17 @@
-# Created by: TAKATSU Tomonari <tota@FreeBSD.org>
-
 PORTNAME=	gdata
-PORTVERSION=	2.18.0
-PORTREVISION=	4
+PORTVERSION=	2.19.0
 CATEGORIES=	devel
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 
 MAINTAINER=	tota@FreeBSD.org
 COMMENT=	Various R programming tools for data manipulation
+WWW=		https://cran.r-project.org/web/packages/gdata/
 
 LICENSE=	GPLv2
 
-RUN_DEPENDS=	R-cran-gtools>0:devel/R-cran-gtools
+CRAN_DEPENDS=	R-cran-gtools>0:devel/R-cran-gtools
+BUILD_DEPENDS=	${CRAN_DEPENDS}
+RUN_DEPENDS=	${CRAN_DEPENDS}
 
 USES=		cran:auto-plist perl5 shebangfix
 USE_PERL5=	run

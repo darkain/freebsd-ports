@@ -1,5 +1,3 @@
-# Created by: Max Khon <fjoe@FreeBSD.org>
-
 PORTNAME=	asciiquarium
 PORTVERSION=	1.1
 PORTREVISION=	1
@@ -7,8 +5,9 @@ CATEGORIES=	games
 MASTER_SITES=	http://www.robobunny.com/projects/asciiquarium/
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 
-MAINTAINER=	fjoe@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Aquarium/sea animation in ASCII art
+WWW=		https://www.robobunny.com/projects/asciiquarium/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/gpl.txt

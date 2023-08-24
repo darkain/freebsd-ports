@@ -1,5 +1,3 @@
-# Created by: Kelly Yancey <kbyanc@FreeBSD.org>
-
 PORTNAME=	cclient
 PORTVERSION=	2007f
 PORTREVISION=	5
@@ -14,6 +12,7 @@ DISTNAME=	imap-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	C-client mail access routines by Mark Crispin
+WWW=		http://www.washington.edu/imap/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
@@ -32,6 +31,10 @@ USE_LDCONFIG=	yes
 SSL_USES=		ssl
 
 .include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
+.endif
 
 .if ${PORT_OPTIONS:MSSL}
 PKGMESSAGE=	pkg-message-ssl

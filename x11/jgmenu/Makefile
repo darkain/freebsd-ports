@@ -1,21 +1,22 @@
 PORTNAME=	jgmenu
 DISTVERSIONPREFIX=	v
-DISTVERSION=	4.3.0
+DISTVERSION=	4.4.1
 CATEGORIES=	x11
 
 MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	Simple X11 menu
+WWW=		https://jgmenu.github.io/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-LIB_DEPENDS=	libpng.so:graphics/png
+LIB_DEPENDS=	libharfbuzz.so:print/harfbuzz \
+		libpng.so:graphics/png
 
-USES=		compiler:c11 gmake gnome pkgconfig python:3.4+ shebangfix xorg
+USES=		compiler:c11 gmake gnome pkgconfig python shebangfix xorg
 USE_GITHUB=	yes
 GH_ACCOUNT=	johanmalm
 USE_GNOME=	cairo gdkpixbuf2 glib20 librsvg2 libxml2 pango
-INSTALLS_ICONS=	yes
 USE_XORG=	x11 xrandr
 
 SHEBANG_FILES=		contrib/gtktheme/*.py contrib/pmenu/*.py src/*.py
@@ -55,6 +56,8 @@ post-install:
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_DATA} ${_DOCS} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && \
+		${INSTALL_DATA} ${_DOCS} \
+		${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

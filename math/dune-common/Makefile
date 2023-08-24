@@ -1,28 +1,30 @@
 PORTNAME=	dune-common
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.7.1
-PORTREVISION=	3
+DISTVERSION=	2.8.0
+PORTREVISION=	9
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	DUNE framework: Build system, infrastructure and foundation classes
+WWW=		https://www.dune-project.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-BUILD_DEPENDS=	openmpi>0:net/openmpi \
-		vc>0:devel/vc
+BUILD_DEPENDS=	metis>0:math/metis \
+		openmpi>0:net/openmpi \
+		vc>0:devel/vc # Metis isn't used, see https://gitlab.dune-project.org/core/dune-common/-/issues/306
 LIB_DEPENDS=	libopenblas.so:math/openblas \
 		libtbb.so:devel/onetbb
 
 USES=		cmake compiler:c++17-lang fortran pkgconfig python shebangfix
-SHEBANG_FILES=	bin/dune-ctest cmake/scripts/extract_cmake_data.py
+SHEBANG_FILES=	bin/dune-ctest bin/setup-dunepy.py bin/dunepackaging.py bin/rmgenerated.py  cmake/scripts/extract_cmake_data.py
 USE_GITLAB=	yes
 USE_LDCONFIG=	yes
 
 GL_SITE=	https://gitlab.dune-project.org
 GL_ACCOUNT=	core
-GL_COMMIT=	aa689abba532f40db8f5663fa379ea77211c1953
+GL_TAGNAME=	df65b1282ea89ad40d2cb6565983f7e633ccce31
 
 CMAKE_ON=	BUILD_SHARED_LIBS
 CMAKE_ARGS=	-DTBB_INCLUDE_DIR=${LOCALBASE}/include -DTBB_LIBRARIES=${LOCALBASE}/lib/libtbb.so
@@ -41,8 +43,5 @@ PORTDOCS=	*
 
 post-install:
 	@${RM} ${STAGEDIR}${PREFIX}/share/dune/cmake/scripts/run-in-dune-env.sh.in # https://gitlab.dune-project.org/core/dune-common/-/issues/229
-
-post-stage-DOCS-on: # https://gitlab.dune-project.org/core/dune-common/issues/191
-	@${RMDIR} ${STAGEDIR}${DOCSDIR}/comm
 
 .include <bsd.port.mk>

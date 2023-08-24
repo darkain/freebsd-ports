@@ -1,15 +1,14 @@
-# Created by: Martin Matuska <mm@FreeBSD.org>
-
 PORTNAME=	thread
-PORTVERSION=	2.8.6
+PORTVERSION=	2.8.8
 PORTREVISION=	0
 CATEGORIES=	devel
-MASTER_SITES=	SF/tcl/Tcl/8.6.11/
+MASTER_SITES=	SF/tcl/Tcl/8.6.13/
 PKGNAMEPREFIX=	tcl
 DISTNAME=	${PORTNAME}${PORTVERSION}
 
 MAINTAINER=	tcltk@FreeBSD.org
 COMMENT=	Scripting level thread extension for Tcl
+WWW=		https://wiki.tcl.tk/2770
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/license.terms

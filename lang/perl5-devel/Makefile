@@ -1,10 +1,10 @@
 PORTNAME=	perl
 # XXX Remove second line, uncomment first
-#DISTVERSION=	${PERL_VERSION}	# TODO: set EXPIRATION_DATE when .0 is released
+#DISTVERSION=	${PERL_VERSION}	# TODO: set EXPIRATION_DATE when .0 is released and remove .r from version.mk
 DISTVERSIONPREFIX=	v
 DISTVERSION=	${GH_TAGNAME:C/^v//:C/-g[0-9a-f]*$//}
 DISTVERSIONSUFFIX=	${GH_TAGNAME:C/.*-g/-g/}
-PORTREVISION=	0
+PORTREVISION=	3
 CATEGORIES=	lang devel perl5
 # XXX Leave only CPAN.
 MASTER_SITES=	LOCAL/mat/perl \
@@ -14,6 +14,7 @@ DIST_SUBDIR=	perl
 
 MAINTAINER=	mat@FreeBSD.org
 COMMENT=	Practical Extraction and Report Language
+WWW=		https://www.perl.org/
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
@@ -31,7 +32,7 @@ USES=		cpe
 USE_GITHUB=	yes
 GH_ACCOUNT=	Perl
 GH_PROJECT=	perl5
-GH_TAGNAME=	v5.35.1-99-g6cc408b0b0
+GH_TAGNAME=	v5.39.0-62-gdab8baec2c
 
 # Give a hint of where libperl.so can be found.
 USE_LDCONFIG=	${PREFIX}/${_ARCH_LIB}/CORE
@@ -196,10 +197,6 @@ _PERL5_DEFAULT_FILE=	/tmp/PERL5_DEFAULT
 # Get the default version, and possibly, overwrite it.
 .include <bsd.port.options.mk>
 .sinclude "${_PERL5_DEFAULT_FILE}"
-
-.if ${OSVERSION} >= 1200004
-CONFIGURE_ARGS+=	-Accflags='-DUSE_THREAD_SAFE_LOCALE'
-.endif
 
 # if this port is default due PERL5_DEFAULT
 # change PKGNAME to reflect this

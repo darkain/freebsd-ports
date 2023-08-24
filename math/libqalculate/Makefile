@@ -1,13 +1,11 @@
-# Created by: Sergey Akifyev <asa@agava.com>
-
 PORTNAME=	libqalculate
-PORTVERSION=	3.17.0
-PORTREVISION=	1
+PORTVERSION=	4.8.0
 CATEGORIES=	math
 MASTER_SITES=	https://github.com/Qalculate/${PORTNAME}/releases/download/v${PORTVERSION}/
 
 MAINTAINER=	jhale@FreeBSD.org
 COMMENT=	Multi-purpose desktop calculator (backend library)
+WWW=		https://qalculate.github.io/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING

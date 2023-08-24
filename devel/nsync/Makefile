@@ -1,9 +1,10 @@
 PORTNAME=	nsync
-DISTVERSION=	1.21.0
+DISTVERSION=	1.24.0
 CATEGORIES=	devel
 
 MAINTAINER=	amzo1337@gmail.com
 COMMENT=	C library that exports various synchronization primitives like mutexes
+WWW=		https://github.com/google/nsync
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

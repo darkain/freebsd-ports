@@ -6,8 +6,12 @@ DISTNAME=	bugzilla-${PORTVERSION}-ru-20140422
 
 MAINTAINER=	bz-ports@FreeBSD.org
 COMMENT=	Russian localization for Bugzilla
+WWW=		https://sourceforge.net/projects/bugzilla-ru/
 
 RUN_DEPENDS=	bugzilla44>=${PORTVERSION}:devel/bugzilla44
+
+USES=		cpe
+CPE_VENDOR=	mozilla
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}.ru
 

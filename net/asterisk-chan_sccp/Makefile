@@ -1,24 +1,23 @@
-# Created by: Diederik de Groot
-
 PORTNAME=	chan_sccp
 DISTVERSIONPREFIX=	v
 DISTVERSION=	4.3.3
-PORTREVISION=	0
+PORTREVISION=	2
 CATEGORIES=	net
 PKGNAMEPREFIX=	asterisk-
 
 MAINTAINER=	ddegroot@talon.nl
 COMMENT=	Replacement for the SCCP channel driver in Asterisk
+WWW=		https://sourceforge.net/projects/chan-sccp-b/
 
 LICENSE=	GPLv1
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-FLAVORS=	asterisk18 asterisk16 asterisk13
+FLAVORS=	asterisk18 asterisk16
 FLAVOR?=	${FLAVORS:[1]}
 
 LIB_DEPENDS=	libltdl.so:devel/libltdl
 
-USES=		autoreconf compiler:c11 gettext-tools iconv libtool \
+USES=		autoreconf:2.69 compiler:c11 gettext-tools iconv libtool \
 		localbase ssl
 
 USE_GITHUB=	yes
@@ -40,11 +39,6 @@ PLIST_FILES=	etc/asterisk/sccp.conf.annotated \
 		lib/asterisk/modules/chan_sccp.so \
 		share/asterisk/documentation/thirdparty/chan_sccp-en_US.xml
 
-asterisk13_PKGNAMEPREFIX=	asterisk13-
-asterisk13_CONFLICTS_INSTALL=	asterisk16-chan_sccp asterisk18-chan_sccp
-asterisk13_BUILD_DEPENDS=	asterisk:net/asterisk13
-asterisk13_RUN_DEPENDS=		asterisk:net/asterisk13
-
 asterisk16_PKGNAMEPREFIX=	asterisk16-
 asterisk16_CONFLICTS_INSTALL=	asterisk13-chan_sccp asterisk18-chan_sccp
 asterisk16_BUILD_DEPENDS=	asterisk:net/asterisk16
@@ -63,9 +57,7 @@ VIDEO_DESC=			Enable Video Support
 CONFERENCE_CONFIGURE_ENABLE=	conference
 VIDEO_CONFIGURE_ENABLE=		video
 
-.if ${FLAVOR} == asterisk13
-CONFIGURE_ARGS+=		--with-asterisk-version=13
-.elif ${FLAVOR} == asterisk16
+.if ${FLAVOR} == asterisk16
 CONFIGURE_ARGS+=		--with-asterisk-version=16
 .elif ${FLAVOR} == asterisk18
 CONFIGURE_ARGS+=		--with-asterisk-version=18

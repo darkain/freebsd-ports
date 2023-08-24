@@ -1,13 +1,13 @@
-# Created by: TAKAHASHI Kaoru <kaoru@kaisei.org>
-
 PORTNAME=	FormValidator-Lite
-PORTVERSION=	0.40
+PORTVERSION=	0.41
+PORTREVISION=	1
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Lightleight form validation library
+WWW=		https://metacpan.org/release/FormValidator-Lite
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

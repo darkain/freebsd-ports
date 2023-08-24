@@ -1,5 +1,3 @@
-# Created by: Bartek Rutkowski <robak@FreeBSD.org>
-
 PORTNAME=	b2
 DISTVERSIONPREFIX=	v
 DISTVERSION=	1.3.8
@@ -8,6 +6,7 @@ CATEGORIES=	devel
 
 MAINTAINER=	robak@FreeBSD.org
 COMMENT=	Command Line Interface for Backblaze's B2 storage service
+WWW=		https://www.backblaze.com/b2/docs/quick_command_line.html
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -19,8 +18,10 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}arrow>=0.8.0:devel/py-arrow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tqdm>=4.5.0:misc/py-tqdm@${PY_FLAVOR}
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist concurrent optsuffix
+
+CONFLICTS_INSTALL=	boost_build
 
 NO_ARCH=	yes
 

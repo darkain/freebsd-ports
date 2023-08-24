@@ -1,19 +1,22 @@
 PORTNAME=	openjdk
 DISTVERSIONPREFIX=	jdk-
 DISTVERSION=	${JDK_MAJOR_VERSION}.${JDK_MINOR_VERSION}.${JDK_PATCH_VERSION}+${JDK_BUILD_NUMBER}-${BSD_JDK_VERSION}
+PORTREVISION=	1
 CATEGORIES=	java devel
 PKGNAMESUFFIX?=	${JDK_MAJOR_VERSION}
 
+PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
+
 MAINTAINER=	java@FreeBSD.org
 COMMENT?=	Java Development Kit ${JDK_MAJOR_VERSION}
+WWW=		https://openjdk.java.net/
 
 LICENSE=	GPLv2
 
-ONLY_FOR_ARCHS=	amd64 i386 powerpc64 powerpc64le
+ONLY_FOR_ARCHS=	aarch64 amd64 armv6 armv7 i386 powerpc64 powerpc64le
 
 BUILD_DEPENDS=	zip:archivers/zip \
 		autoconf>0:devel/autoconf \
-		${LOCALBASE}/include/cups/cups.h:print/cups \
 		bash:shells/bash \
 		gsed:textproc/gsed
 LIB_DEPENDS=	libasound.so:audio/alsa-lib \
@@ -25,12 +28,14 @@ LIB_DEPENDS=	libasound.so:audio/alsa-lib \
 RUN_DEPENDS=	javavm:java/javavmwrapper \
 		xorg-fonts-truetype>0:x11-fonts/xorg-fonts-truetype
 
-USES=		compiler:features gmake iconv jpeg pkgconfig xorg
+USES=		compiler:features cpe gmake iconv jpeg pkgconfig xorg
 USE_XORG=	x11 xext xi xrandr xrender xt xtst
+
+CPE_VENDOR=	oracle
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	battleblow
-GH_PROJECT=	openjdk-jdk11u
+GH_PROJECT=	jdk11u
 
 NO_CCACHE=	yes
 
@@ -58,11 +63,20 @@ NOPRECIOUSMAKEVARS=	yes
 
 JDK_MAJOR_VERSION=	11
 JDK_MINOR_VERSION=	0
-JDK_PATCH_VERSION=	11
-JDK_BUILD_NUMBER=	9
+JDK_PATCH_VERSION=	20
+JDK_BUILD_NUMBER=	8
 BSD_JDK_VERSION=	1
 
 JDK_BUG_URL=	https://bugs.freebsd.org/bugzilla/enter_bug.cgi?product=Ports%20%26%20Packages&component=Individual%20Port(s)&short_desc=java/${PORTNAME}${JDK_MAJOR_VERSION}%3A%20
+
+OPTIONS_DEFINE=		CUPS
+OPTIONS_DEFAULT=	CUPS
+
+CUPS_CONFIGURE_ON=	--with-cups=${LOCALBASE}
+CUPS_CONFIGURE_OFF=	--with-cups-include=${WRKDIR}/cups-${CUPS_INC_VER}
+CUPS_BUILD_DEPENDS=	${LOCALBASE}/include/cups/cups.h:print/cups
+CUPS_INC_VER=		2.4.2
+CUPS_DISTFILES_OFF=	OpenPrinting-cups-v${CUPS_INC_VER}_GH0.tar.gz:cups
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	CC=${CC} \
@@ -75,7 +89,6 @@ CONFIGURE_ARGS=	--with-boot-jdk=${BOOTSTRAPJDKDIR} \
 		--disable-hotspot-gtest \
 		--with-jvm-features=shenandoahgc \
 		--with-alsa=${LOCALBASE} \
-		--with-cups=${LOCALBASE} \
 		--with-fontconfig=${LOCALBASE} \
 		--with-freetype=system \
 		--with-freetype-include=${LOCALBASE}/include/freetype2 \
@@ -89,7 +102,6 @@ CONFIGURE_ARGS=	--with-boot-jdk=${BOOTSTRAPJDKDIR} \
 		--with-lcms=system \
 		--x-includes=${LOCALBASE}/include \
 		--x-libraries=${LOCALBASE}/lib \
-		--with-cacerts-file=${FILESDIR}/cacerts \
 		--with-version-string=${JDK_MAJOR_VERSION}.${JDK_MINOR_VERSION}.${JDK_PATCH_VERSION}+${JDK_BUILD_NUMBER}-${BSD_JDK_VERSION} \
 		--with-native-debug-symbols=none \
 		--with-debug-level=release \
@@ -109,9 +121,8 @@ JDK_BUILD_TYPE=		release
 
 .include <bsd.port.pre.mk>
 
-# Support aarch64, armv6 and armv7 on FreeBSD 12 and up
-.if ${OSVERSION} >= 1200500
-ONLY_FOR_ARCHS+=aarch64 armv6 armv7
+.if !${PORT_OPTIONS:MCUPS}
+MASTER_SITES+=	https://codeload.github.com/OpenPrinting/cups/tar.gz/v${CUPS_INC_VER}?dummy=/:cups
 .endif
 
 BOOTSTRAP_JDKS=	${LOCALBASE}/openjdk11 \
@@ -142,6 +153,12 @@ CONFIGURE_ARGS+=	--with-extra-ldflags="-Wl,-rpath=${LOCALBASE}/lib/gcc${GCC_DEFA
 			--with-extra-cxxflags="-Wl,-rpath=${LOCALBASE}/lib/gcc${GCC_DEFAULT}"
 .else
 MAKE_ENV+=	USE_CLANG=true
+.if ${COMPILER_VERSION} >= 130
+LLVM_VER=	12
+BUILD_DEPENDS+=	clang${LLVM_VER}:devel/llvm${LLVM_VER}
+CC=		${LOCALBASE}/bin/clang${LLVM_VER}
+CXX=		${LOCALBASE}/bin/clang++${LLVM_VER}
+.endif
 .endif
 
 .if ${ARCH} == aarch64 || ${ARCH:Marmv*} || ${ARCH:Mpowerpc64*}

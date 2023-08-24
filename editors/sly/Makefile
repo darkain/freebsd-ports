@@ -1,17 +1,19 @@
 PORTNAME=	sly
-DISTVERSION=	1.0.43
+DISTVERSION=	1.0.43-20230523
 PORTREVISION=	1
 CATEGORIES=	editors elisp
 PKGNAMESUFFIX=	${EMACS_PKGNAMESUFFIX}
 
 MAINTAINER=	olce.freebsd.ports@certner.fr
 COMMENT=	Sylvester the Cat's Common Lisp IDE for Emacs
+WWW=		https://github.com/joaotavora/sly
 
 LICENSE=	PD
 
 USES=		emacs gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	joaotavora
+GH_TAGNAME=	e6bc13d9f55e3763e6daea527cb88a776c479d8e
 
 NO_ARCH=	yes
 
@@ -35,7 +37,8 @@ GENERATED_DOCS_FILES=	sly.html
 DOCS_BUILD_DEPENDS=	texinfo>=5.2:print/texinfo
 
 DOCS_PDF_IMPLIES=	DOCS
-DOCS_PDF_USE=	tex=latex:build tex=pdftex:build tex=dvipsk:build
+DOCS_PDF_USES=	tex
+DOCS_PDF_USE=	TEX=latex:build,pdftex:build,dvipsk:build
 
 .include <bsd.port.options.mk>
 

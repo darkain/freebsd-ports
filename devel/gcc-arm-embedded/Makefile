@@ -1,18 +1,18 @@
 PORTNAME=	gcc-arm-embedded
-PORTVERSION=	10.2.20201211
-PORTREVISION=	1
+PORTVERSION=	10.3.20210921
+PORTREVISION=	0
 CATEGORIES=	devel
-MASTER_SITES=	https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/10-2020q4/
+MASTER_SITES=	https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/${FULL_VERSION}/
 DISTNAME=	${ORIGINAL_PACKAGE_NAME}-src
 
 MAINTAINER=	lev@FreeBSD.org
 COMMENT=	Complete gcc-based toolcahin for embedded ARM development
+WWW=		https://launchpad.net/gcc-arm-embedded
 
 LICENSE=	GPLv2 LGPL20 LGPL21 GPLv3 LGPL3
 LICENSE_COMB=	multi
 
-BROKEN_aarch64=		fails to build
-NOT_FOR_ARCHS=		arm armeb armv6 armv7 \
+NOT_FOR_ARCHS=		arm armv6 armv7 \
 			mips mips64 mips64el mipsel mipsn32
 NOT_FOR_ARCHS_REASON=	Very slow to build on emulator
 
@@ -33,6 +33,7 @@ PURE_LIB_DEPENDS_OFF=	libexpat.so:textproc/expat2 \
 			libmpc.so:math/mpc \
 			libisl.so:devel/isl
 
+PDF_USES=		tex
 PDF_USE=		TEX=base:build,tex:build,dvipsk:build
 PDF_BUILD_DEPENDS=	texi2dvi:print/texinfo
 PYGDB_USES=		python
@@ -47,8 +48,8 @@ GNU_CONFIGURE=	yes
 PATCH_WRKSRC=	${WRKDIR}/${ORIGINAL_PACKAGE_NAME}
 BUILD_WRKSRC=	${WRKDIR}
 
-GCC_VERSION=		10.2.1
-FULL_VERSION=		10-2020-q4-major
+GCC_VERSION=		10.3.1
+FULL_VERSION=		10.3-2021.10
 TARGET=			arm-none-eabi
 ORIGINAL_PACKAGE_NAME=	gcc-${TARGET}-${FULL_VERSION}
 
@@ -99,6 +100,10 @@ VAR_TO_SUBMAKE_NOEXPAND=	CONFIGURE_ENV MAKE_ENV
 #.if ${PORT_OPTIONS:MPURE}
 #IGNORE=	PURE option is not valid anymore, no libraries are bundled
 #.endif
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+USE_GCC=	yes
+.endif
 
 post-extract:
 .if ${PORT_OPTIONS:MPURE}

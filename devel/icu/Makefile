@@ -1,7 +1,5 @@
-# Created by: dwm
-
 PORTNAME=	icu
-DISTVERSION=	69_1
+DISTVERSION=	73_2
 PORTREVISION?=	0 # keep for icu-lx
 PORTEPOCH?=	1
 CATEGORIES?=	devel
@@ -11,11 +9,14 @@ DISTNAME=	icu4c-${DISTVERSION}-src
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT?=	International Components for Unicode (from IBM)
+WWW=		https://icu.unicode.org/
 
 LICENSE=	ICU
 LICENSE_NAME=	ICU license
 LICENSE_FILE=	${WRKSRC}/../LICENSE
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+USES+=		compiler:c++11-lib cpe gmake pathfix python:build tar:tgz
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS?=--disable-layoutex
@@ -26,7 +27,8 @@ CONFIGURE_ARGS+=--with-data-packaging=archive \
 CPPFLAGS+=	-DICU_NO_USER_DATA_OVERRIDE
 MAKE_ARGS=	VERBOSE=1
 TEST_TARGET=	check
-USES+=		compiler:c++11-lib gmake pathfix python:build tar:tgz
+CPE_VENDOR=	${PORTNAME}-project
+CPE_PRODUCT=	international_components_for_unicode
 USE_LDCONFIG=	yes
 WRKSRC=		${WRKDIR}/icu/source
 
@@ -37,6 +39,7 @@ PLIST_SUB+=	ICUMAJOR=${ICUMAJOR} ICUVER=${PORTVERSION:C/r.?/1/}
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/g* \
 		${STAGEDIR}${PREFIX}/bin/*conv \
+		${STAGEDIR}${PREFIX}/bin/icuexportdata \
 		${STAGEDIR}${PREFIX}/bin/icuinfo \
 		${STAGEDIR}${PREFIX}/bin/derb \
 		${STAGEDIR}${PREFIX}/bin/pkgdata

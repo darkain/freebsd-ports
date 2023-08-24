@@ -1,5 +1,3 @@
-# Created by: Andrew Turner <andrew+ports@fubar.geek.nz>
-
 PORTNAME=	gettext
 DISTVERSION=	1.6
 CATEGORIES=	devel
@@ -7,6 +5,7 @@ PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}
 
 MAINTAINER=	portmaster@BSDforge.com
 COMMENT=	Lua 5+ bindings for Gettext
+WWW=		https://gitlab.com/ports1/lua-gettext
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -15,7 +14,7 @@ USES=		gettext lua:51,module
 USE_GITLAB=	yes
 GL_ACCOUNT=	ports1
 GL_PROJECT=	lua-gettext
-GL_COMMIT=	abd88932fc6e69b8955921bd0682b11db3102eca
+GL_TAGNAME=	abd88932fc6e69b8955921bd0682b11db3102eca
 
 MAKEFILE=	${FILESDIR}/Makefile
 DOCS=	README README.md CHANGELOG

@@ -1,10 +1,12 @@
 PORTNAME=	ossim
 DISTVERSIONPREFIX=	OrchidIsland-
 DISTVERSION=	2.11.1
+PORTREVISION=	3
 CATEGORIES=	graphics geography
 
 MAINTAINER=	lbartoletti@FreeBSD.org
 COMMENT=	Powerful suite of geospatial libraries and applications
+WWW=		https://github.com/ossimlabs/ossim
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt

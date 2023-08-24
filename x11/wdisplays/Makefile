@@ -1,9 +1,10 @@
 PORTNAME=	wdisplays
-DISTVERSION=	1.1
-CATEGORIES=	x11
+DISTVERSION=	1.1.1
+CATEGORIES=	x11 wayland
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	GUI display configurator for wlroots compositors
+WWW=		https://github.com/artizirk/wdisplays
 
 LICENSE=	CC-BY-SA-4.0 CC0-1.0 GPLv3+ MIT
 LICENSE_COMB=	multi
@@ -22,6 +23,6 @@ USE_GNOME=	cairo gtk30
 GH_ACCOUNT=	artizirk
 PLIST_FILES=	bin/${PORTNAME} \
 		share/applications/network.cycles.${PORTNAME}.desktop \
-		share/icons/hicolor/scalable/apps/${PORTNAME}.svg
+		share/icons/hicolor/scalable/apps/network.cycles.${PORTNAME}.svg
 
 .include <bsd.port.mk>

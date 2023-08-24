@@ -1,6 +1,6 @@
---- sys/unix/Makefile.utl.orig	2021-03-22 22:28:14 UTC
+--- sys/unix/Makefile.utl.orig	2023-05-16 21:33:58 UTC
 +++ sys/unix/Makefile.utl
-@@ -93,18 +93,25 @@ NHSROOT=..
+@@ -103,18 +103,25 @@ NHSROOT=..
  # flags for debugging:
  # CFLAGS = -g -I../include
  

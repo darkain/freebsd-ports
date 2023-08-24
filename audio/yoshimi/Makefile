@@ -1,9 +1,11 @@
 PORTNAME=	yoshimi
-DISTVERSION=	2.0.2
+DISTVERSION=	2.3.0.3
 CATEGORIES=	audio
+MASTER_SITES=	SF/${PORTNAME}/${DISTVERSION:R:R}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Sophisticated software synthesizer
+WWW=		https://yoshimi.github.io/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -17,20 +19,17 @@ LIB_DEPENDS=	libargp.so:devel/argp-standalone \
 		libjack.so:audio/jack \
 		libmxml.so:textproc/mxml
 
-USES=		cmake compiler:c++11-lang gnome ncurses pkgconfig readline
+USES=		cmake compiler:c++14-lang gnome ncurses pkgconfig readline tar:bz2
 USE_GNOME=	cairo
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	Yoshimi
 
 CMAKE_SOURCE_PATH=	${WRKSRC}/src
 LDFLAGS+=		-Wl,--as-needed
-
-INSTALLS_ICONS=	yes
 
 PORTDATA=	*
 PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS
+
+# ALSA can also be enabled, but its build fails, see https://github.com/Yoshimi/yoshimi/issues/175
 
 .include <bsd.port.mk>

@@ -7,6 +7,7 @@ DISTNAME=	pachi_source
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Platform game similar to Manic Miner
+WWW=		http://dragontech.sourceforge.net/
 
 USE_SDL=	mixer sdl
 USES=		gmake sdl tar:tgz
@@ -20,8 +21,8 @@ WRKSRC=		${WRKDIR}/Pachi
 SCOREDIR=	/var/games/${PORTNAME}
 SCOREFILE=	${SCOREDIR}/scores.dat
 
-SUB_FILES=      pkg-deinstall pkg-install
-SUB_LIST=       SCOREDIR="${SCOREDIR}" SCOREFILE="${SCOREFILE}"
+SUB_FILES=	pkg-deinstall pkg-install
+SUB_LIST=	SCOREDIR="${SCOREDIR}" SCOREFILE="${SCOREFILE}"
 
 PORTDATA=	*
 

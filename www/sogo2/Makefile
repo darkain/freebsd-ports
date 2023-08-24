@@ -1,13 +1,13 @@
-# Created by: Euan Thoms <euan@potensol.com>
-
 PORTNAME=		sogo2
-PORTVERSION=		2.4.1
+PORTVERSION=		2.4.3
+PORTREVISION=		1
 CATEGORIES=		www gnustep
 MASTER_SITES=		http://www.sogo.nu/files/downloads/SOGo/Sources/
 DISTNAME=		SOGo-${PORTVERSION}
 
 MAINTAINER=		acm@FreeBSD.org
 COMMENT=		Groupware server with a focus on scalability and open standards
+WWW?=			https://sogo.nu/
 
 LICENSE=		GPLv2
 
@@ -32,7 +32,7 @@ USES=			gnustep ssl objc
 USE_GNUSTEP=		base build
 USE_LDCONFIG=		${GNUSTEP_LOCAL_LIBRARIES}/sogo
 
-CONFLICTS?=		sogo[2-4]-activesync-[0-9]* sogo[3-4]-[0-9]*
+CONFLICTS?=		sogo[2-4]-activesync sogo[3-4]
 
 USE_RC_SUBR=		sogod
 

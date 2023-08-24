@@ -1,9 +1,10 @@
 PORTNAME=	berry
-DISTVERSION=	0.1.8
+DISTVERSION=	0.1.9
 CATEGORIES=	x11-wm
 
 MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	Byte-sized, Xlib-based window manager
+WWW=		https://berrywm.org/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

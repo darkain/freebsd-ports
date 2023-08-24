@@ -1,11 +1,13 @@
 PORTNAME=	python-arango
 DISTVERSION=	7.2.0
+PORTREVISION=	2
 CATEGORIES=	databases python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Python driver for ArangoDB
+WWW=		https://github.com/joowani/python-arango
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -20,7 +22,7 @@ BUILD_DEPENDS=	${PY_DEPENDS} \
 		${PYTHON_PKGNAMEPREFIX}pip>0:devel/py-pip@${PY_FLAVOR}
 RUN_DEPENDS=	${PY_DEPENDS}
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	distutils autoplist
 NO_ARCH=	yes
 

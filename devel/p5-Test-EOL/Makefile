@@ -1,5 +1,3 @@
-# Created by: milki@rescomp.berkeley.edu
-
 PORTNAME=	Test-EOL
 PORTVERSION=	1.5
 PORTREVISION=	1
@@ -8,8 +6,9 @@ MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:BOBTFISH
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	culot@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Check the correct line endings in your project
+WWW=		https://metacpan.org/release/Test-EOL
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

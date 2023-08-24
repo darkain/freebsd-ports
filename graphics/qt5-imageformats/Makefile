@@ -1,5 +1,6 @@
 PORTNAME=	imageformats
-DISTVERSION=	${QT5_VERSION}
+PORTVERSION=	${QT5_VERSION}${QT5_KDE_PATCH}
+PORTREVISION=	2
 CATEGORIES=	graphics
 PKGNAMEPREFIX=	qt5-
 
@@ -12,6 +13,8 @@ LIB_DEPENDS=	libjasper.so:graphics/jasper \
 		libwebp.so:graphics/webp
 
 USES=		compiler:c++11-lang localbase qmake qt-dist:5,imageformats
-USE_QT=		core gui buildtools_build
+USE_QT=		core gui buildtools:build
+
+CXXFLAGS+=	-Dregister=
 
 .include <bsd.port.mk>

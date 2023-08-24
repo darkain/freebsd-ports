@@ -1,12 +1,14 @@
-# Created by: Richard Gallamore <ultima@FreeBSD.org>
-
 PORTNAME=	guacamole-server
-DISTVERSION=	1.3.0
-PORTREVISION=	1
+DISTVERSION=	1.5.3
 CATEGORIES=	net
+MASTER_SITES=	APACHE/guacamole/${DISTVERSION}/source/
+
+PATCH_SITES=	https://github.com/apache/${PORTNAME}/commit/
+PATCHFILES=	5cf408ebbba9544fb5dfb297d98d5a1e1751a56d.patch:-p1
 
 MAINTAINER=	ultima@FreeBSD.org
 COMMENT=	HTML5 Clientless Remote Desktop
+WWW=		https://guacamole.incubator.apache.org
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -19,9 +21,6 @@ CONFLICTS_BUILD=pulseaudio-*+jack_* ffmpeg-*+jack_*
 USES=		autoreconf compiler:c11 gnome jpeg libtool localbase pkgconfig \
 		shebangfix
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	apache
-
 USE_GNOME=	cairo
 USE_LDCONFIG=	yes
 USE_RC_SUBR=	guacd
@@ -30,6 +29,7 @@ SHEBANG_FILES=	${WRKSRC}/src/protocols/rdp/keymaps/generate.pl
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-guacd-conf=${ETCDIR}/guacd.conf
 INSTALL_TARGET=	install-strip
+CFLAGS+=	-Wno-error=newline-eof
 
 GUACAMOLE_HOME?=	${PREFIX}/guacamole
 USERS=		guacamole
@@ -66,7 +66,8 @@ GUACENC_CFLAGS=		-Wno-error=deprecated
 GUACLOG_CONFIGURE_ENABLE=	guaclog
 KUBERNETES_CONFIGURE_ENABLE=	kubernetes
 KUBERNETES_CONFIGURE_WITH=	pango terminal
-KUBERNETES_LIB_DEPENDS=		libwebsockets.so:net/libwebsockets
+KUBERNETES_LIB_DEPENDS=		libwebsockets.so:net/libwebsockets \
+				libharfbuzz.so:print/harfbuzz
 KUBERNETES_USE=			GNOME=pango
 NLS_USES=		gettext-runtime
 PULSEAUDIO_CONFIGURE_WITH=	pulse
@@ -87,6 +88,13 @@ VORBIS_LIB_DEPENDS=	libvorbis.so:audio/libvorbis \
 WEBP_CONFIGURE_WITH=	webp
 WEBP_LIB_DEPENDS=	libwebp.so:graphics/webp
 
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=       -Wno-error=strict-prototypes \
+			   -Wno-error=unused-but-set-variable
+.endif
+
 post-patch:
 	@${REINPLACE_CMD} 's/-Werror//' ${WRKSRC}/src/libguac/Makefile.am \
 		${WRKSRC}/src/protocols/vnc/Makefile.am
@@ -98,4 +106,4 @@ post-install:
 	@${MKDIR} ${STAGEDIR}${ETCDIR} ${STAGEDIR}${GUACAMOLE_HOME}
 	${INSTALL_DATA} ${FILESDIR}/guacd.conf.sample ${STAGEDIR}${ETCDIR}
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

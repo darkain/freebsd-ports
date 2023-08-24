@@ -1,12 +1,13 @@
 PORTNAME=	aprsc
-PORTVERSION=	2.1.8
-DISTVERSIONSUFFIX=	.gf8824e8
+PORTVERSION=	2.1.10
+DISTVERSIONSUFFIX=	.gd72a17c
 CATEGORIES=	net hamradio
 MASTER_SITES=	http://he.fi/aprsc/down/ \
 		LOCAL/db
 
 MAINTAINER=	toyokun@gmail.com
 COMMENT=	Plain APRS-IS server
+WWW=		http://he.fi/aprsc
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

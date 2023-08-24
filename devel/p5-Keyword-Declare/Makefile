@@ -1,7 +1,5 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	Keyword-Declare
-PORTVERSION=	0.001017
+PORTVERSION=	0.001018
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:DCONWAY
@@ -9,6 +7,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Declare new Perl keywords...via a keyword...named keyword
+WWW=		https://metacpan.org/release/Keyword-Declare
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

@@ -1,14 +1,13 @@
-# Created by: cartola@openit.com.br
-
 PORTNAME=	enblend
 PORTVERSION=	4.2
-PORTREVISION=	17
+PORTREVISION=	22
 CATEGORIES=	graphics
 MASTER_SITES=	SF/enblend/enblend-enfuse/enblend-enfuse-${PORTVERSION}
 DISTNAME=	enblend-enfuse-${PORTVERSION}
 
-MAINTAINER=	grog@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Tool for image blending with multiresolution splines
+WWW=		http://enblend.sourceforge.net/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -23,7 +22,7 @@ LIB_DEPENDS=	liblcms2.so:graphics/lcms2 \
 		libpng.so:graphics/png
 
 USES=		compiler:features gmake jpeg localbase pkgconfig
-
+USE_CXXSTD=	c++14
 GNU_CONFIGURE=	yes
 
 PLIST_FILES=	bin/enblend bin/enfuse man/man1/enblend.1.gz man/man1/enfuse.1.gz

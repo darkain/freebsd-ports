@@ -1,5 +1,3 @@
-# Created by: Piotr Kubaj <pkubaj@anongoth.pl>
-
 PORTNAME=	glx-utils
 PORTVERSION=	8.3.0
 DISTVERSIONSUFFIX=	-10.el7
@@ -8,6 +6,7 @@ CATEGORIES=	graphics linux
 
 MAINTAINER=	emulation@FreeBSD.org
 COMMENT=	Mesa GLX utilities (Linux CentOS ${LINUX_DIST_VER})
+WWW=		https://www.centos.org/
 
 USES=		linux:c7
 USE_LDCONFIG=	yes
@@ -16,6 +15,6 @@ USE_LINUX_RPM=	yes
 
 SRC_DISTFILES=	mesa-demos-${DISTVERSIONFULL}${SRC_SUFX}:SOURCE
 
-CONFLICTS=	linux-c6-${PORTNAME}-[0-9]*
+CONFLICTS=	linux-c6-${PORTNAME}
 
 .include <bsd.port.mk>

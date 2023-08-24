@@ -1,11 +1,17 @@
---- chrome/app/chrome_command_ids.h.orig	2021-04-14 18:40:49 UTC
+--- chrome/app/chrome_command_ids.h.orig	2023-08-17 07:33:31 UTC
 +++ chrome/app/chrome_command_ids.h
-@@ -65,7 +65,7 @@
- #define IDC_NAME_WINDOW                 34049
+@@ -69,12 +69,12 @@
+ #define IDC_TOGGLE_MULTITASK_MENU       34050
+ #endif
+ 
+-#if BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD)
+ #define IDC_USE_SYSTEM_TITLE_BAR        34051
+ #endif
  
  // TODO(crbug.com/1052397): Revisit the macro expression once build flag switch of lacros-chrome is complete.
--#if defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)
-+#if defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || defined(OS_BSD)
- #define IDC_USE_SYSTEM_TITLE_BAR        34051
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || BUILDFLAG(IS_BSD)
  #define IDC_RESTORE_WINDOW              34052
  #endif
+ 

@@ -1,5 +1,3 @@
-# Created by: Klayton Monroe <klm@uidzero.org>
-
 PORTNAME=		ftimes
 PORTVERSION=		3.11.0
 PORTREVISION=	2
@@ -8,6 +6,7 @@ MASTER_SITES=		SF
 
 MAINTAINER=		klm@uidzero.org
 COMMENT=		System baselining and evidence collection tool
+WWW=		http://ftimes.sourceforge.net/FTimes/
 
 LICENSE=		BSD3CLAUSE APACHE20 MIT
 LICENSE_COMB=		multi
@@ -19,7 +18,7 @@ BROKEN_riscv64=		fails to build: riscv64 is not currently supported
 GNU_CONFIGURE=		yes
 USES=			perl5 shebangfix tar:tgz
 USE_PERL5=		run build
-SHEBANG_FILES= \
+SHEBANG_FILES=		\
 			${WRKSRC}/tools/dig/ftimes-crv2dbi.pl \
 			${WRKSRC}/tools/dig/ftimes-crv2raw.pl \
 			${WRKSRC}/tools/dig/ftimes-dig2ctx.pl \

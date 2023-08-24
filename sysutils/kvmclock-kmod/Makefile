@@ -1,14 +1,15 @@
 PORTNAME=	kvmclock
-DISTVERSION=	0.0.0-a2
+DISTVERSION=	0.0.0-a5
 CATEGORIES=	sysutils
 PKGNAMESUFFIX=	-kmod
 
 MAINTAINER=	dch@FreeBSD.org
 COMMENT=	Paravirtualized Linux KVM clock support
+WWW=		https://reviews.freebsd.org/D29733
 
 LICENSE=	BSD2CLAUSE
 
-BROKEN_FreeBSD_11=	fails to build: pvclock.c:248:30: error: too many arguments
+IGNORE_FreeBSD_14=	included in base system
 ONLY_FOR_ARCHS=	amd64 i386
 ONLY_FOR_ARCHS_REASON=	not yet tested for non-x86
 

@@ -1,28 +1,26 @@
-# Created by: Gustau Perez i Querol <gustau.perez@gmail.com>
-
 PORTNAME=	geoclue
 DISTVERSION=	2.5.7
 CATEGORIES=	net devel gnome
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	D-Bus service that provides location information
+WWW=		https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home
 
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	multi
 
-BUILD_DEPENDS=	valac:lang/vala
 LIB_DEPENDS=	libjson-glib-1.0.so:devel/json-glib \
 		libsoup-2.4.so:devel/libsoup \
 		libnotify.so:devel/libnotify
 
-USES=		gettext gnome meson pkgconfig tar:xz
+USES=		gettext gnome meson pkgconfig tar:xz vala:build
 
 USE_GNOME=	glib20 introspection:build
 USE_LDCONFIG=	yes
 
 USE_GITLAB=	yes
 GL_SITE=	https://gitlab.freedesktop.org
-GL_COMMIT=	3bb60dd600a8b247fd6049e7e5b1c73c2c5fc0e8
+GL_TAGNAME=	3bb60dd600a8b247fd6049e7e5b1c73c2c5fc0e8
 
 MESON_ARGS=	-D3g-source=false \
 		-Dcdma-source=false \

@@ -1,14 +1,13 @@
-# Created by: gahr
-
 PORTNAME=	itcl4
-PORTVERSION=	4.2.1
+PORTVERSION=	4.2.2
 PORTREVISION=	0
 CATEGORIES=	lang
-MASTER_SITES=	SF/tcl/Tcl/8.6.11
+MASTER_SITES=	SF/tcl/Tcl/8.6.12
 DISTNAME=	itcl${PORTVERSION}
 
 MAINTAINER=	tcltk@FreeBSD.org
 COMMENT=	Object-oriented extension to Tcl [incr Tcl]
+WWW=		https://core.tcl.tk/itcl
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/license.terms

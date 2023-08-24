@@ -1,13 +1,13 @@
-# Created by: Jean-Yves Lefort <jylefort@FreeBSD.org>
-
 PORTNAME=	lmms
 DISTVERSIONPREFIX=	v
 DISTVERSION=	1.2.2
+PORTREVISION=	8
 PORTEPOCH=	2
 CATEGORIES=	audio
 
 MAINTAINER=	rodrigo@FreeBSD.org
 COMMENT=	All-in-one sequencer, drum machine, sampler, and more
+WWW=		https://lmms.io/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
@@ -38,31 +38,35 @@ GH_ACCOUNT=	LMMS
 GH_TUPLE=	mjansson:rpmalloc:1.4.0:rpmalloc/src/3rdparty/rpmalloc/rpmalloc \
 		lukas-w:qt5-x11embed:ec77d4ba40bebc0c53a016adb646b6fa65dd5faf:qt5x11embed/src/3rdparty/qt5-x11embed
 USE_LDCONFIG=	yes
-USE_QT=		core gui widgets x11extras xml buildtools_build linguisttools_build qmake_build
+USE_QT=		core gui widgets x11extras xml buildtools:build linguisttools:build qmake:build
 USE_XORG=	xcursor xext xfixes xft xinerama xrender
 
+CMAKE_ON=	WANT_QT5
 CMAKE_OFF=	WANT_ALSA WANT_CALF WANT_CAPS WANT_CMT WANT_SWH WANT_STK \
 		WANT_TAP WANT_VST
-CMAKE_ON=	WANT_QT5
 
 OPTIONS_DEFINE=		OSS JACK PULSEAUDIO PORTAUDIO SDL SNDIO
 OPTIONS_DEFAULT=	OSS
 
-JACK_CMAKE_BOOL=	WANT_JACK
 JACK_LIB_DEPENDS=	libjack.so:audio/jack
-
-PULSEAUDIO_CMAKE_BOOL=	WANT_PULSEAUDIO
-PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
-
-PORTAUDIO_CMAKE_BOOL=	WANT_PORTAUDIO
+JACK_CMAKE_BOOL=	WANT_JACK
 PORTAUDIO_LIB_DEPENDS=	libportaudio.so:audio/portaudio
-
-SDL_CMAKE_OFF=		WANT_SDL
+PORTAUDIO_CMAKE_BOOL=	WANT_PORTAUDIO
+PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
+PULSEAUDIO_CMAKE_BOOL=	WANT_PULSEAUDIO
 SDL_USES=		sdl
 SDL_USE=		SDL=sdl
-
-SNDIO_CMAKE_BOOL=	WANT_SNDIO
+SDL_CMAKE_OFF=		WANT_SDL
 SNDIO_LIB_DEPENDS=	libsndio.so:audio/sndio
+SNDIO_CMAKE_BOOL=	WANT_SNDIO
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == amd64 || ${ARCH} == i386
+PLIST_SUB=	LINUXSAMPLER=""
+.else
+PLIST_SUB=	LINUXSAMPLER="@comment "
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} 's|/usr|${LOCALBASE}|g' ${WRKSRC}/src/core/ConfigManager.cpp
@@ -70,7 +74,6 @@ post-patch:
 		${WRKSRC}/src/core/LadspaManager.cpp
 	@${REINPLACE_CMD} -e 's/lib64/lib/' \
 		${WRKSRC}/cmake/modules/DetectMachine.cmake
-	@${REINPLACE_CMD} 's,share/man/,man/,g' ${WRKSRC}/src/CMakeLists.txt
 
 post-patch-OSS-off:
 	@${REINPLACE_CMD} \

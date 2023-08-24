@@ -1,11 +1,13 @@
 PORTNAME=	imv
 DISTVERSIONPREFIX=	v
-DISTVERSION=	4.2.0
-PORTREVISION=	2
+DISTVERSION=	4.3.1
+PORTREVISION=	4
 CATEGORIES=	graphics
+MASTER_SITES=	https://git.sr.ht/~exec64/${PORTNAME}/archive/${DISTVERSIONFULL}${EXTRACT_SUFX}?dummy=/
 
 MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	Simple image viewer
+WWW=		https://sr.ht/~exec64/imv/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,42 +16,36 @@ BUILD_DEPENDS=	a2x:textproc/asciidoc
 LIB_DEPENDS=	libicuuc.so:devel/icu \
 		libinih.so:devel/inih \
 		libxkbcommon.so:x11/libxkbcommon
+RUN_DEPENDS=	bash:shells/bash
 
-USES=		compiler:c11 desktop-file-utils gettext-runtime gl gnome \
-		meson pkgconfig
-USE_GITHUB=	yes
-GH_ACCOUNT=	eXeC64
+USES=		compiler:c11 desktop-file-utils gettext-runtime gl gnome meson \
+		pkgconfig shebangfix
 USE_GL=		egl
 USE_GNOME=	cairo glib20 pango
+SHEBANG_FILES=	contrib/imv-folder
 
-PLIST_FILES=	bin/imv \
-		bin/imv-msg \
-		etc/imv_config \
-		man/man1/imv-msg.1.gz \
-		man/man1/imv.1.gz \
-		man/man5/imv.5.gz \
-		share/applications/imv.desktop
+CONFLICTS_INSTALL=	renameutils
 
 OPTIONS_DEFINE=		FREEIMAGE HEIF JPEG NSGIF PNG SVG TEST TIFF
-OPTIONS_DEFAULT=	FREEIMAGE HEIF JPEG NSGIF PNG SVG TIFF ALL
+OPTIONS_DEFAULT=	ALL FREEIMAGE HEIF JPEG NSGIF PNG SVG TIFF
 OPTIONS_SINGLE=		WIN
-OPTIONS_SINGLE_WIN=	WAYLAND X11 ALL
+OPTIONS_SINGLE_WIN=	ALL WAYLAND X11
 OPTIONS_SUB=		yes
 
+ALL_DESC=	Both Wayland and X11 support
 FREEIMAGE_DESC=	FreeImage backend (support for many image formats)
-HEIF_DESC=	HEIF backend
 NSGIF_DESC=	NetSurf GIF backend (support for animated GIF)
 WIN_DESC=	Windowing system
 
+ALL_CATEGORIES=		wayland
 ALL_LIB_DEPENDS+=	libwayland-client.so:graphics/wayland
-ALL_USES=	xorg
-ALL_USE=	gl=glu xorg=x11,xcb
-ALL_MESON_ON=	-Dwindows=all
-ALL_PLIST_FILES=	bin/imv-wayland \
-			bin/imv-x11
+ALL_USES=		xorg
+ALL_USE=		GL=glu \
+			XORG=x11,xcb
+ALL_MESON_ON=		-Dwindows=all
 
-FREEIMAGE_LIB_DEPENDS=	libfreeimage.so:graphics/freeimage
-FREEIMAGE_MESON_ENABLED=freeimage
+FREEIMAGE_LIB_DEPENDS=		libfreeimage.so:graphics/freeimage
+FREEIMAGE_MESON_ENABLED=	freeimage
 
 HEIF_LIB_DEPENDS=	libheif.so:graphics/libheif
 HEIF_MESON_ENABLED=	libheif
@@ -72,13 +68,17 @@ TEST_MESON_ENABLED=	test
 TIFF_LIB_DEPENDS=	libtiff.so:graphics/tiff
 TIFF_MESON_ENABLED=	libtiff
 
+WAYLAND_CATEGORIES=	wayland
 WAYLAND_LIB_DEPENDS=	libwayland-client.so:graphics/wayland \
 			libwayland-egl.so:graphics/wayland
 WAYLAND_MESON_ON=	-Dwindows=wayland
 
 X11_USES=	xorg
-X11_USE=	gl=glu \
-		xorg=x11,xcb
+X11_USE=	GL=glu \
+		XORG=x11,xcb
 X11_MESON_ON=	-Dwindows=x11
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|--sort=version|-V|g' ${WRKSRC}/contrib/imv-folder
 
 .include <bsd.port.mk>

@@ -1,17 +1,15 @@
-# Created by: jmz
-
 PORTNAME?=	lapack
-PORTVERSION=	3.10.0
+PORTVERSION=	3.11.0
 .if !(defined(BLAS_SLAVEPORT) || defined(CBLAS_SLAVEPORT) || defined(XLAPACK_SLAVEPORT) || defined(LAPACKE_SLAVEPORT))
 PORTREVISION=	1
 .else
-PORTREVISION?=	0	# Never remove this line, keep PORTREVISION?=0 in case.
+PORTREVISION?=	1	# Never remove this line, keep PORTREVISION?=0 in case.
 .endif
 CATEGORIES=	math
 MASTER_SITES=	https://github.com/Reference-LAPACK/lapack/archive/refs/tags/:src	\
 		http://www.netlib.org/lapack/:man	\
 		LOCAL/thierry/lapack-${PORTVERSION}/:man
-DISTFILES=	v${PORTVERSION}${EXTRACT_SUFX}:src
+DISTFILES=	v${PORTVERSION:R}${EXTRACT_SUFX}:src
 .if make(makesum) || !(defined(BLAS_SLAVEPORT) || defined(XLAPACK_SLAVEPORT))
 DISTFILES+=	manpages.tgz:man
 .endif
@@ -19,14 +17,17 @@ DIST_SUBDIR=	lapack-${PORTVERSION}
 
 MAINTAINER?=	fortran@FreeBSD.org
 COMMENT?=	Linear Algebra PACKage
+WWW?=		https://www.netlib.org/lapack/
 
-LICENSE=	BSD3CLAUSE
+LICENSE?=	BSD3CLAUSE
 
-USES=		cmake:testing fortran
-WRKSRC=		${WRKDIR}/lapack-${PORTVERSION}
+USES=		cmake:testing cpe fortran
+WRKSRC=		${WRKDIR}/lapack-${PORTVERSION:R}
 # The actual math/scilab needs deprecated functions - to be removed later
 CMAKE_ON=	BUILD_SHARED_LIBS BUILD_DEPRECATED
 USE_LDCONFIG=	yes
+CPE_VENDOR=	lapack_project
+CPE_PRODUCT=	lapack
 
 SVERSION=	${PORTVERSION:R:R}
 PLIST_SUB=	SVERSION="${SVERSION}" VER=${PORTVERSION}
@@ -50,7 +51,7 @@ LIBS=			cblas
 PLIST_SUB+=		BLAS="@comment " CBLAS="" LAPACK="@comment " XLAPACK="@comment " LAPACKE="@comment "
 .elif defined(LAPACKE_SLAVEPORT)
 USES+=			blaslapack
-CMAKE_ON+=		USE_OPTIMIZED_BLAS USE_OPTIMIZED_LAPACK LAPACKE
+CMAKE_ON+=		USE_OPTIMIZED_LAPACK LAPACKE
 CMAKE_ARGS+=		-DBLAS_LIBRARIES="${LOCALBASE}/lib/libblas.so"		\
 			-DLAPACK_LIBRARIES="${LOCALBASE}/lib/liblapack.so"
 BUILD_WRKSRC=		${CONFIGURE_WRKSRC}/LAPACKE
@@ -62,7 +63,7 @@ LIB_DEPENDS+=		libblas.so:math/blas		\
 			liblapack.so:math/lapack	\
 			libxblas.so:math/xblas
 FFLAGS+=		-fallow-argument-mismatch
-CMAKE_ON+=		USE_OPTIMIZED_BLAS USE_XBLAS  BUILD_TESTING
+CMAKE_ON+=		USE_XBLAS  BUILD_TESTING
 CMAKE_ARGS+=		-DBLAS_LIBRARIES="${LOCALBASE}/lib/libblas.so"
 PLIST_SUB+=		BLAS="@comment " CBLAS="@comment " LAPACK="@comment " XLAPACK="" LAPACKE="@comment "
 .else
@@ -71,7 +72,7 @@ PLIST_SUB+=		BLAS="@comment " CBLAS="@comment " LAPACK="@comment " XLAPACK="" LA
 # BUILD_TESTING to get tmglib.
 LIB_DEPENDS+=		libblas.so:math/blas
 . if defined(MAINTAINER_MODE)
-USES+=			python:3.6+,build,test
+USES+=			python:build,test
 . endif
 CMAKE_ON+=		USE_OPTIMIZED_BLAS BUILD_TESTING
 CMAKE_ARGS+=		-DBLAS_LIBRARIES="${LOCALBASE}/lib/libblas.so"
@@ -81,7 +82,7 @@ PLIST_SUB+=		BLAS="@comment " CBLAS="@comment " LAPACK="" XLAPACK="@comment " LA
 
 .include <bsd.port.pre.mk>
 
-pre-configure:
+post-patch:
 	${SED} -Ee '\
 		s@^(FORTRAN|LOADER)([[:blank:]]*=)(.*)@\1\2 $${FC}@; \
 		s@^(OPTS[[:blank:]]*=)(.*)@\1 $${FFLAGS} $${EXTRAFLAGS}@; \
@@ -94,6 +95,8 @@ pre-configure:
 		s@^(LDFLAGS[[:blank:]]*=)(.*)@@; \
 		\@(BLAS|LAPACKE|RAN)LIB[[:blank:]]*=@d;' \
 			${WRKSRC}/make.inc.example > ${WRKSRC}/make.inc
+
+pre-configure:
 	${REINPLACE_CMD} -e 's@\./lapack_testing\.py@${S} &@' \
 		${WRKSRC}/Makefile
 	${FIND} ${WRKSRC} -name Makefile | ${XARGS}	\

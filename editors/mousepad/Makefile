@@ -1,14 +1,12 @@
-# Created by: Oliver Lehmann <oliver@FreeBSD.org>
-
 PORTNAME=	mousepad
-PORTVERSION=	0.5.5
-PORTREVISION=	1
+PORTVERSION=	0.6.1
 CATEGORIES=	editors xfce
 MASTER_SITES=	XFCE/apps
 DIST_SUBDIR=	xfce4
 
 MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	Simple text editor for the Xfce Desktop
+WWW=		https://git.xfce.org/apps/mousepad/about/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -21,7 +19,6 @@ USE_GNOME=	cairo dconf gdkpixbuf2 glib20 gtk30 gtksourceview3 intltool
 USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
-INSTALLS_ICONS=	yes
 INSTALL_TARGET=	install-strip
 
 GLIB_SCHEMAS=	org.xfce.mousepad.gschema.xml

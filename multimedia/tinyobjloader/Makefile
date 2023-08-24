@@ -1,16 +1,18 @@
 PORTNAME=	tinyobjloader
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.0.0rc8-3
-DISTVERSIONSUFFIX=	-g7ba4b65
+DISTVERSION=	2.0.0rc9-5
+DISTVERSIONSUFFIX=	-ga1e8bad
 CATEGORIES=	multimedia
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C++ single file wavefront obj loader
+WWW=		https://github.com/tinyobjloader/tinyobjloader
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		cmake
+USES=		cmake cpe
+CPE_VENDOR=	${PORTNAME}_project
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 

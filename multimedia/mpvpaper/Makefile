@@ -1,10 +1,11 @@
 PORTNAME=	mpvpaper
-DISTVERSION=	1.1
-PORTREVISION=	1
-CATEGORIES=	multimedia
+DISTVERSION=	1.3
+PORTREVISION=	3
+CATEGORIES=	multimedia wayland
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Video wallpaper for wlroots compositors
+WWW=		https://github.com/GhostNaN/mpvpaper
 
 LICENSE=	GPLv3
 
@@ -17,9 +18,16 @@ USE_GITHUB=	yes
 USE_GL=		egl
 GH_ACCOUNT=	GhostNaN
 PLIST_FILES=	bin/${PORTNAME} \
-		bin/${PORTNAME}-holder
+		bin/${PORTNAME}-holder \
+		share/man/man1/${PORTNAME}.1.gz
 
 post-patch:
-	@${REINPLACE_CMD} 's/pidof/pgrep/' ${WRKSRC}/src/main.c
+	@${REINPLACE_CMD} -e 's/pidof/pgrep/' \
+		${WRKSRC}/src/holder.c \
+		${WRKSRC}/src/main.c
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.man \
+		${STAGEDIR}${PREFIX}/share/man/man1/${PORTNAME}.1
 
 .include <bsd.port.mk>

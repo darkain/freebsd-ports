@@ -1,11 +1,12 @@
 PORTNAME=	treepy.el
 DISTVERSION=	0.1.2
-PORTREVISION=	1
+PORTREVISION=	9
 CATEGORIES=	devel elisp
 PKGNAMESUFFIX=	${EMACS_PKGNAMESUFFIX}
 
-MAINTAINER=	yasu@utahime.org
+MAINTAINER=	yasu@FreeBSD.org
 COMMENT=	Generic tree traversing tools for Emacs Lisp
+WWW=		https://github.com/volrath/treepy.el
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/LICENSE

@@ -1,7 +1,5 @@
-# Created by: John von Essen
-
 PORTNAME=	privoxy
-PORTVERSION=	3.0.32
+PORTVERSION=	3.0.34
 CATEGORIES=	www
 MASTER_SITES=	https://www.privoxy.org/sf-download-mirror/Sources/${PORTVERSION}%20(stable)/ \
 		SF/ijbswa/Sources/${PORTVERSION}%20%28stable%29
@@ -9,6 +7,7 @@ DISTNAME=	privoxy-${PORTVERSION}-stable-src
 
 MAINTAINER=	fk@fabiankeil.de
 COMMENT=	Web proxy with advanced filtering capabilities
+WWW=		https://www.privoxy.org/
 
 LIB_DEPENDS=	libpcre.so:devel/pcre
 
@@ -28,7 +27,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 
 # privoxy-devel is the development release available at the Privoxy website.
 # It's not (yet) part of the FreeBSD ports collection.
-CONFLICTS=	privoxy-devel-[0-9]*
+CONFLICTS=	privoxy-devel
 
 SUB_FILES=	pkg-message
 

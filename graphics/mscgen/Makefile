@@ -1,8 +1,6 @@
-# Created by: Romain Tartiere <romain@FreeBSD.org>
-
 PORTNAME=	mscgen
 PORTVERSION=	0.20
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.mcternan.me.uk/mscgen/software/ \
 		http://romain.blogreen.org/distfiles/
@@ -10,6 +8,7 @@ DISTNAME=	${PORTNAME}-src-${PORTVERSION}
 
 MAINTAINER=	romain@FreeBSD.org
 COMMENT=	Message Sequence Chart Renderer
+WWW=		https://www.mcternan.me.uk/mscgen/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING

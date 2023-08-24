@@ -1,6 +1,6 @@
 PORTNAME=		ldb
 PORTVERSION=		1.5.6
-PORTREVISION=		1
+PORTREVISION=		2
 PORTEPOCH=		0
 CATEGORIES=		databases
 MASTER_SITES=		SAMBA
@@ -8,6 +8,7 @@ PKGNAMESUFFIX?=		15
 
 MAINTAINER=		timur@FreeBSD.org
 COMMENT=		LDAP-like embedded database
+WWW=		https://ldb.samba.org/
 
 LICENSE=		GPLv3+
 
@@ -23,19 +24,18 @@ LDB_DEPENDS=		talloc>=2.2.0:devel/talloc \
 			cmocka>=1.1.3:sysutils/cmocka \
 			popt>=0:devel/popt
 
-CONFLICTS_INSTALL=	ldb-1.1.* ldb1[2-46]-1.*
+CONFLICTS_INSTALL=	ldb[0-9][0-9] samba4[0-9][0-9] # include/ldb.h lib/python3.8/site-packages/_ldb_text.py
 
 #FLAVORS=		default nopython
 #nopython_PKGNAMESUFFIX=	-nopython
 #nopython_CONFLICTS=	ldb
 #default_CONFLICTS=	ldb-nopython
 
-USES=			compiler gettext-runtime pkgconfig waf
+USES=			compiler gettext-runtime ldap pkgconfig waf
 USE_LDCONFIG=		yes
 WAF_CMD=		${BUILD_WRKSRC}/buildtools/bin/waf
 CONFIGURE_LOG=		${BUILD_WRKSRC}/bin/config.log
 
-USE_OPENLDAP=		yes
 PKGCONFIGDIR?=		${PREFIX}/libdata/pkgconfig
 PLIST_SUB+=		PKGCONFIGDIR=${PKGCONFIGDIR:S;${PREFIX}/;;}
 
@@ -97,7 +97,7 @@ PLIST_FILES=		include/ldb_version.h \
 USES+=			python:build,test
 CONFIGURE_ARGS+=	--disable-python
 .else
-USES+=			gettext-runtime python:3.6+
+USES+=			gettext-runtime python
 
 PLIST_FILES+=		include/pyldb.h \
 			lib/libpyldb-util${PYTHON_EXT_SUFFIX}.so \

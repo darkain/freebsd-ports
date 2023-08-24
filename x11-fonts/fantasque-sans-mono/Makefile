@@ -6,6 +6,7 @@ DIST_SUBDIR=	${DISTNAME}
 
 MAINTAINER=	rakuco@FreeBSD.org
 COMMENT=	Programming font, designed with functionality in mind
+WWW=		https://fontlibrary.org/en/font/fantasque-sans-mono
 
 LICENSE=	OFL11
 
@@ -17,7 +18,7 @@ USES=		fonts
 OPTIONS_DEFINE=	DOCS
 
 OPTIONS_SINGLE=	VARIANT
-OPTIONS_SINGLE_VARIANT= NORMAL NOLOOPK LLINE LLINENOLOOPK
+OPTIONS_SINGLE_VARIANT=	NORMAL NOLOOPK LLINE LLINENOLOOPK
 
 NORMAL_DESC=	Standard
 NOLOOPK_DESC=	Nondescript K

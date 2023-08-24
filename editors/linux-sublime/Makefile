@@ -1,5 +1,3 @@
-# Created by: Johannes Meixner <johannes@perceivon.net>
-
 PORTNAME=	sublime
 PORTVERSION=	2.0.2
 PORTREVISION=	6
@@ -10,8 +8,8 @@ PKGNAMEPREFIX=	linux-
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Sophisticated text editor for code, markup and prose
+WWW=		https://www.sublimetext.com
 
-INSTALLS_ICONS=	yes
 USES=		desktop-file-utils gnome linux tar:bzip2
 USE_LINUX=	xorglibs gtk2
 WRKSRC=		${WRKDIR}/"Sublime Text 2"
@@ -19,7 +17,7 @@ WRKSRC=		${WRKDIR}/"Sublime Text 2"
 NO_BUILD=
 SUB_FILES=	sublime
 
-CONFLICTS_INSTALL=	linux-sublime3-[0-9]*
+CONFLICTS_INSTALL=	linux-sublime3
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}

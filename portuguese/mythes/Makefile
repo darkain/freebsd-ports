@@ -8,6 +8,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Portuguese thesaurus
+WWW=		http://openthesaurus.caixamagica.pt/
 
 LICENSE=	GPLv2
 
@@ -16,10 +17,10 @@ NO_ARCH=	yes
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
 
-PLIST_FILES=	%%DATADIR%%/th_pt_BR_v2.dat \
-		%%DATADIR%%/th_pt_BR_v2.idx \
-		%%DATADIR%%/th_pt_PT_v2.dat \
-		%%DATADIR%%/th_pt_PT_v2.idx
+PLIST_FILES=	${DATADIR}/th_pt_BR_v2.dat \
+		${DATADIR}/th_pt_BR_v2.idx \
+		${DATADIR}/th_pt_PT_v2.dat \
+		${DATADIR}/th_pt_PT_v2.idx
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

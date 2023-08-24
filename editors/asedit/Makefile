@@ -1,12 +1,10 @@
-# Created by: Andreas Kohout <shanee@augusta.de>
-
 PORTNAME=	asedit
 PORTVERSION=	1.3.2
 PORTREVISION=	5
 CATEGORIES=	editors
 MASTER_SITES=	XCONTRIB/editors
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Text editor for X/Motif
 
 USES=		imake:notall motif tar:Z xorg
@@ -21,9 +19,15 @@ PLIST_FILES=	bin/asedit \
 		lib/X11/asedit_em.hlp \
 		man/man1/asedit.1.gz
 
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=int-conversion
+.endif
+
 post-patch:
 	@${REINPLACE_CMD} -e \
 		'/^XMLIB/s|-lPW|| ; \
 		 /^DEFINES/s|-O ||' ${WRKSRC}/Imakefile
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

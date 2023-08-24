@@ -1,14 +1,13 @@
 PORTNAME=	orange3
 DISTVERSION=	3.29.1
+PORTREVISION=	4
 CATEGORIES=	misc python
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Component-based data mining software
+WWW=		https://orange.biolab.si/
 
 LICENSE=	GPLv3
-
-DEPRECATED=	Uses EOL Python 2.7 via www/py-qt5-webengine
-EXPIRATION_DATE=2021-06-23
 
 BUILD_DEPENDS=	${PYNUMPY}
 RUN_DEPENDS=	${PYNUMPY} \
@@ -40,15 +39,23 @@ RUN_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}XlsxWriter>0:textproc/py-xlsxwriter@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}yaml>0:devel/py-yaml@${PY_FLAVOR}
 
-USES=		python:3.7+ pyqt:5
+USES=		python pyqt:5
 USE_PYTHON=	distutils cython autoplist noflavors
-USE_PYQT=	core_run gui_run printsupport_run widgets_run webengine_run
+USE_PYQT=	pyqt5:run webengine:run
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	biolab
 
 CFLAGS+=	-DQSORT_R_STYLE_BSD=yes
 LDFLAGS+=	-Xlinker -strip-all # strip, stage-qa doesn't catch that it isn't stripped
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == aarch64 || ${ARCH} == amd64 || ${ARCH} == i386
+USE_PYQT+=	webengine:run
+.else
+USE_PYQT+=	webkit:run
+.endif
 
 xpost-install:
 	@${REINPLACE_CMD} -e 's|^"${PREFIX}/|| ; s|"$$||' ${_PYTHONPKGLIST} # https://github.com/biolab/orange3/issues/3060

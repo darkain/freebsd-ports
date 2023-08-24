@@ -1,11 +1,12 @@
 PORTNAME=	jackett
-PORTVERSION=	0.17.946
+PORTVERSION=	0.21.674
 CATEGORIES=	net-p2p
 MASTER_SITES=	https://github.com/Jackett/Jackett/releases/download/
 DISTNAME=	v${PORTVERSION}/Jackett.Binaries.Mono
 
-MAINTAINER=	michiel@vanbaak.eu
+MAINTAINER=	tremere@cainites.net
 COMMENT=	Torznab proxy implementation of the Newznab API
+WWW=		https://github.com/Jackett/Jackett
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -13,7 +14,6 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 LIB_DEPENDS=	libcurl.so:ftp/curl
 
 USES=		mono
-
 USE_RC_SUBR=	jackett
 
 NO_ARCH=	yes
@@ -24,7 +24,8 @@ USERS=		jackett
 GROUPS=		jackett
 
 post-patch:
-	@${RM} ${WRKSRC}/install_service_macos ${WRKSRC}/install_service_systemd.sh
+	@${RM} ${WRKSRC}/install_service_macos ${WRKSRC}/install_service_systemd.sh \
+		${WRKSRC}/install_service_systemd_mono.sh ${WRKSRC}/Upstart.config
 
 do-install:
 	cd ${WRKSRC} && ${COPYTREE_SHARE} . ${STAGEDIR}/${DATADIR}

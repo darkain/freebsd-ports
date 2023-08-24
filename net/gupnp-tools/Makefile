@@ -1,26 +1,26 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	gupnp-tools
-PORTVERSION=	0.10.1
+PORTVERSION=	0.12.1
 CATEGORIES=	net
 MASTER_SITES=	GNOME
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Set of utilities and demos to work with UPnP
+WWW=		https://wiki.gnome.org/Projects/GUPnP \
+		https://gitlab.gnome.org/GNOME/gupnp-tools
 
 LICENSE=	LGPL20
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	glib>=2.24:devel/glib20 \
-		gssdp>=1.2.0:net/gssdp \
+BUILD_DEPENDS=	glib>=2.68:devel/glib20 \
+		gssdp>=1.6.2:net/gssdp \
 		gtk3>=3.10:x11-toolkits/gtk30 \
-		gupnp>=1.2.0:net/gupnp \
-		libsoup>=2.42:devel/libsoup
-LIB_DEPENDS=	libgssdp-1.2.so:net/gssdp \
-		libgupnp-1.2.so:net/gupnp \
-		libsoup-2.4.so:devel/libsoup
+		gupnp>=1.6.0:net/gupnp \
+		libsoup3>=3.0:devel/libsoup3
+LIB_DEPENDS=	libgssdp-1.6.so:net/gssdp \
+		libgupnp-1.6.so:net/gupnp \
+		libsoup-3.0.so:devel/libsoup3
 
-USES=		gnome meson pkgconfig tar:xz
+USES=		gettext-tools gnome meson pkgconfig tar:xz
 USE_GNOME=	glib20 gtk30 libxml2
 
 USE_LDCONFIG=	yes

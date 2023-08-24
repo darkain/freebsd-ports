@@ -1,5 +1,3 @@
-# Created by: alexp
-
 PORTNAME=	rinetd
 PORTVERSION=	0.62
 PORTREVISION=	4
@@ -17,7 +15,7 @@ OPTIONS_DEFINE=	DOCS
 
 WRKSRC=		${WRKDIR}/rinetd-${PORTVERSION}
 
-USES=		dos2unix
+USES=		cpe dos2unix
 
 PORTDOCS=	index.html
 PLIST_FILES=	sbin/rinetd \

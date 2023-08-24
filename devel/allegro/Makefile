@@ -1,13 +1,12 @@
-# Created by: Jimmy Olgeni <olgeni@FreeBSD.org>
-
 PORTNAME=	allegro
 DISTVERSION=	4.4.3.1
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/liballeg/allegro5/releases/download/${DISTVERSION}/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Cross-platform library for games and multimedia programming
+WWW=		https://liballeg.org/
 
 LICENSE=	GIFTWARE
 LICENSE_NAME=	Giftware

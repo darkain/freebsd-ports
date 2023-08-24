@@ -1,10 +1,11 @@
 PORTNAME=	freeminer
 PORTVERSION=	0.4.10.4
-PORTREVISION=	10
+PORTREVISION=	12
 CATEGORIES=	games
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Open source sandbox game inspired by Minecraft
+WWW=		https://freeminer.org/
 
 LICENSE=	LGPL21+ GPLv3+ # source mentions GPLv3+, LICENSE.txt LGPL21+
 LICENSE_COMB=	multi
@@ -61,13 +62,9 @@ LEVELDB_LIB_DEPENDS=	libleveldb.so:databases/leveldb
 FREETYPE_CMAKE_ON=	-DENABLE_FREETYPE=1
 FREETYPE_CMAKE_OFF=	-DENABLE_FREETYPE=0
 FREETYPE_LIB_DEPENDS=	libfreetype.so:print/freetype2
-LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit
+LUAJIT_USES=		luajit
 
 .include <bsd.port.options.mk>
-
-.if ${ARCH:Mpowerpc64*}
-LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit-openresty
-.endif
 
 .if ${PORT_OPTIONS:MCLIENT} && ${PORT_OPTIONS:MSOUND}
 USES+=		openal

@@ -1,5 +1,3 @@
-# Created by: Matías Pizarro <matias@pizarro.net>
-
 PORTNAME=	bcompare
 DISTVERSION=	4.3.7
 DISTVERSIONSUFFIX=	.25118
@@ -10,6 +8,7 @@ EXTRACT_SUFX=	.rpm
 
 MAINTAINER=	matias@pizarro.net
 COMMENT=	Compare, sync, and merge files and folders (X11)
+WWW=		https://www.scootersoftware.com/
 
 LICENSE=	SCOOTERSOFTWARE
 LICENSE_NAME=	Scooter Software License
@@ -17,10 +16,9 @@ LICENSE_FILE=	${FILESDIR}/LICENSE.txt
 LICENSE_PERMS=	dist-mirror no-dist-sell pkg-mirror no-pkg-sell auto-accept
 
 ONLY_FOR_ARCHS=	amd64 i386
-ONLY_FOR_ARCHS_REASON=	Upstream only supports amd64 and i386
+ONLY_FOR_ARCHS_REASON=	upstream only supports amd64 and i386
 
 USES=		desktop-file-utils gnome linux shared-mime-info shebangfix
-INSTALLS_ICONS=	yes
 USE_LINUX=	base:run devtools:build qt-x11:run xorglibs:run
 
 NO_BUILD=	yes

@@ -1,5 +1,5 @@
 PORTNAME=	poudriere
-DISTVERSION=	3.3.99.20210714
+DISTVERSION=	3.3.99.20220831
 PORTREVISION=	0
 CATEGORIES=	ports-mgmt
 MASTER_SITES=	LOCAL/bdrewery/${PORTNAME}/ \
@@ -9,14 +9,15 @@ PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	bdrewery@FreeBSD.org
 COMMENT=	Port build and test system
+WWW=		https://github.com/freebsd/poudriere/wiki
 
 LICENSE=	BSD2CLAUSE
 
-CONFLICTS_INSTALL=	poudriere-[0-9]*
+CONFLICTS_INSTALL=	poudriere
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	freebsd
-GH_TAGNAME=	3.3.0-744-g0bf7bd31e
+GH_TAGNAME=	3.3.0-1135-g137c376a8
 
 GNU_CONFIGURE=	yes
 ETCDIR=		${PREFIX}/etc/poudriere.d

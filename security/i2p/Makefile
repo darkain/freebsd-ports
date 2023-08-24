@@ -1,5 +1,3 @@
-# Created by: Mario Sergio Fujikawa Ferreira <lioux@FreeBSD.org>
-
 PORTNAME=	i2p
 DISTVERSION=	0.9.48
 CATEGORIES=	security java net-p2p
@@ -8,6 +6,7 @@ DISTNAME=	i2psource_${PORTVERSION}
 
 MAINTAINER=	m.muenz@gmail.com
 COMMENT=	Anonymizing network
+WWW=		https://geti2p.net/
 
 LICENSE=	EULA
 LICENSE_NAME=	End User License Agreement
@@ -21,7 +20,8 @@ ONLY_FOR_ARCHS_REASON=	i2p libwrapper.so library binary only available for i386 
 BUILD_DEPENDS=	${LOCALBASE}/lib/libgmp.a:math/gmp
 LIB_DEPENDS=	libiconv.so:converters/libiconv
 
-USES=		gettext tar:bz2
+USES=		cpe gettext tar:bz2
+CPE_VENDOR=	geti2p
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION}
 

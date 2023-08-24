@@ -1,21 +1,21 @@
-# Created by: Bruce A. Mah <bmah@FreeBSD.org>
-
 PORTNAME=	iperf
-DISTVERSION=	3.10.1
-PORTREVISION=	1
+DISTVERSION=	3.14
 CATEGORIES=	benchmarks
 MASTER_SITES=	https://downloads.es.net/pub/iperf/
 PKGNAMESUFFIX=	3
 
 MAINTAINER=	bmah@FreeBSD.org
 COMMENT=	Improved tool to measure TCP and UDP bandwidth
+WWW=		https://software.es.net/iperf/
 
 LICENSE=	BSD3CLAUSE MIT
 LICENSE_COMB=	multi
 
-USES=		libtool ssl
+USES=		cpe libtool ssl
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
+
+CPE_VENDOR=	iperf_project
 
 PORTDOCS=	README.md RELNOTES.md
 

@@ -1,5 +1,3 @@
-# Created by: Antoine Brodin <antoine@FreeBSD.org>
-
 PORTNAME=	pytsk
 PORTVERSION=	20210419
 CATEGORIES=	sysutils security devel python
@@ -10,11 +8,12 @@ DISTNAME=	${PORTNAME}3-${PORTVERSION}
 
 MAINTAINER=	antoine@FreeBSD.org
 COMMENT=	Python bindings for the Sleuthkit
+WWW=		https://github.com/py4n6/pytsk
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
 
 DO_MAKE_TEST=	${SETENV} ${TEST_ENV} ${PYTHON_CMD} run_tests.py

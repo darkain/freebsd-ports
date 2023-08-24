@@ -9,6 +9,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	hrs@FreeBSD.org
 COMMENT=	Free implementation of the Border Gateway Protocol, Version 4
+WWW=		https://www.openbgpd.org/
 
 LICENSE=	ISCL
 LICENSE_FILE=	${FILESDIR}/COPYING
@@ -16,7 +17,7 @@ LICENSE_FILE=	${FILESDIR}/COPYING
 USES=		tar:tgz uidfix
 USE_RC_SUBR=	${PORTNAME}
 
-CONFLICTS=	zebra-[0-9]* quagga-[0-9]*
+CONFLICTS=	zebra quagga
 
 NO_WRKSUBDIR=	yes
 PLIST_FILES=	sbin/bgpctl sbin/bgpd man/man5/bgpd.conf.5.gz \

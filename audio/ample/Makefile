@@ -1,5 +1,3 @@
-# Created by: patrick
-
 PORTNAME=	ample
 PORTVERSION=	0.5.7
 CATEGORIES=	audio
@@ -7,6 +5,10 @@ MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-devel/${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Allows you to listen to your own MP3's away from home
+WWW=		http://ample.sourceforge.net/
+
+DEPRECATED=	Abandonware, last release over 19 years ago
+EXPIRATION_DATE=2023-09-30
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--localstatedir="${PREFIX}/var"

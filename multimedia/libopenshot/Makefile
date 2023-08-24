@@ -1,57 +1,69 @@
 PORTNAME=	libopenshot
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.2.5-726
-DISTVERSIONSUFFIX=	-gd9ea98eb
+DISTVERSION=	0.3.2
+PORTREVISION=	1
 CATEGORIES=	multimedia
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	tatsuki_makino@hotmail.com
 COMMENT=	OpenShot Video Library
+WWW=		https://www.openshot.org/
 
-LICENSE=	LGPL3+
-LICENSE_FILE=	${WRKSRC}/COPYING
+LICENSE=	BSD3CLAUSE LGPL3+
+LICENSE_COMB=	multi
+LICENSE_FILE_BSD3CLAUSE=	${WRKSRC}/LICENSES/BSD-3-Clause.txt
+LICENSE_FILE_LGPL3+ =	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	swig:devel/swig \
 		${LOCALBASE}/include/zmq.hpp:net/cppzmq
-LIB_DEPENDS=	libopenshot-audio.so:audio/libopenshot-audio \
+LIB_DEPENDS=	libavformat.so:multimedia/ffmpeg \
+		libbabl-0.1.so:x11/babl \
 		libjsoncpp.so:devel/jsoncpp \
-		libavformat.so:multimedia/ffmpeg \
+		libopenshot-audio.so:audio/libopenshot-audio \
 		libzmq.so:net/libzmq4
 
-USES=		cmake pkgconfig python:3.5+ qt:5
-USE_LDCONFIG=	yes
+USES=		cmake pkgconfig python:build qt:5
 USE_GITHUB=	yes
 GH_ACCOUNT=	OpenShot
+USE_LDCONFIG=	yes
 USE_PYTHON=	flavors
-USE_QT=		core gui network multimedia widgets qmake_build buildtools_build
+USE_QT=		core gui widgets buildtools:build qmake:build
+CMAKE_ON=	USE_SYSTEM_JSONCPP DISABLE_BUNDLED_JSONCPP\
+		USE_HW_ACCEL ENABLE_PYTHON\
+		CMAKE_DISABLE_FIND_PACKAGE_Catch2
+CMAKE_OFF=	ENABLE_PARALLEL_CTEST VERBOSE_TESTS ENABLE_COVERAGE\
+		APPIMAGE_BUILD BUILD_TESTING ENABLE_TESTS
 
-CMAKE_ON=	USE_SYSTEM_JSONCPP DISABLE_BUNDLED_JSONCPP USE_HW_ACCEL\
-		CMAKE_DISABLE_FIND_PACKAGE_Doxygen\
-		CMAKE_DISABLE_FIND_PACKAGE_Resvg\
-		CMAKE_DISABLE_FIND_PACKAGE_Ruby
-CMAKE_OFF=	ENABLE_COVERAGE\
-		ENABLE_DOCS\
-		ENABLE_TESTS
-OPTIONS_DEFINE=	IMAGEMAGICK OPENCV
-OPTIONS_DEFAULT=	IMAGEMAGICK
+OPTIONS_DEFINE=	DOCS IMAGEMAGICK OPENCV RESVG RUBY
+OPTIONS_DEFAULT=	IMAGEMAGICK OPENCV
 OPTIONS_SUB=	yes
-IMAGEMAGICK_LIB_DEPENDS=	libMagick++-${IMAGEMAGICK_DEFAULT}.so:graphics/ImageMagick${IMAGEMAGICK_DEFAULT}
+RESVG_DESC?=	SVG vector graphics support via resvg
+DOCS_BUILD_DEPENDS=	doxygen:devel/doxygen
+DOCS_CMAKE_BOOL=	ENABLE_LIB_DOCS
+DOCS_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_Doxygen
+DOCS_CMAKE_ON=	-DCMAKE_INSTALL_DOCDIR:PATH=${DOCSDIR_REL:Q}
+DOCS_PORTDOCS=	*
+IMAGEMAGICK_USES=	magick
+IMAGEMAGICK_CMAKE_BOOL=	ENABLE_MAGICK
 IMAGEMAGICK_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_ImageMagick
-#OPENCV_LIB_DEPENDS=	libopencv_core.so:graphics/opencv
-OPENCV_BUILD_DEPENDS=	opencv>=4.5.2:graphics/opencv
-OPENCV_LIB_DEPENDS=	libprotobuf.so:devel/protobuf
-OPENCV_RUN_DEPENDS=	opencv>=4.5.2:graphics/opencv
-OPENCV_CMAKE_ON=	-DOpenCV_DIR:STRING=${LOCALBASE:Q}/cmake/opencv4
+OPENCV_LIB_DEPENDS=	libopencv_core.so:graphics/opencv \
+			libprotobuf.so:devel/protobuf
 OPENCV_CMAKE_BOOL=	ENABLE_OPENCV
 OPENCV_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_OpenCV\
 			CMAKE_DISABLE_FIND_PACKAGE_Protobuf
+OPENCV_CMAKE_ON=	-DOpenCV_DIR:STRING=${LOCALBASE:Q}/cmake/opencv4
+RESVG_LIB_DEPENDS=	libresvg.so:graphics/resvg-capi
+RESVG_USE_OFF=	QT=svg
+RESVG_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_Resvg
+RESVG_CMAKE_ON=	-DRESVGDIR:STRING=${LOCALBASE:Q}
+RUBY_USES=	ruby:build
+RUBY_CMAKE_BOOL=	ENABLE_RUBY
+RUBY_CMAKE_BOOL_OFF=	CMAKE_DISABLE_FIND_PACKAGE_Ruby
 
-.include <bsd.port.options.mk>
-
-.if ${ARCH} == powerpc
+.if !exists(/usr/include/omp.h)
 USES+=		compiler:gcc-c++11-lib
 .else
-USES+=		compiler:c++11-lang
+USES+=		compiler:c++14-lang
 .endif
 
 .include <bsd.port.mk>

@@ -16,10 +16,10 @@ export PKG_DBDIR="${DATADIR}/pkgdb"
 pkg update -f -r FreeBSD
 pkg fetch -r FreeBSD -o "${DATADIR}" -yg "*-rust-bootstrap-${version}*"
 
-find "${DATADIR}/All" -name "*rust-bootstrap-${version}*.txz" \
+find "${DATADIR}/All" -name "*rust-bootstrap-${version}*.*" \
 	-execdir tar -xvf {} \;
 
-dir="public_distfiles/rust/${date}"
+dir="/home/rust/public_distfiles/${date}"
 cd "${DATADIR}/All/usr/local/rust-bootstrap"
 mkdir -p tmp
 for arch in $(ls); do
@@ -30,6 +30,6 @@ for arch in $(ls); do
 	fi
 done
 cd tmp
-tar -cf- . | ssh freefall.freebsd.org "mkdir -p \"${dir}\" && tar -C \"${dir}\" -xvf-"
+tar -cf- . | ssh freefall.freebsd.org "mkdir -m 775 -p \"${dir}\" && tar -C \"${dir}\" -xvf-"
 cd /
 rm -r "${DATADIR}"

@@ -1,19 +1,18 @@
-# Created by: Wen heping <wenheping@gmail.com>
-
 PORTNAME=	opencart
-PORTVERSION=	3.0.3.7
+PORTVERSION=	4.0.2.2
 CATEGORIES=	www misc
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Open source PHP-based online shopping cart system
+WWW=		https://www.opencart.com/
 
 LICENSE=	GPLv3
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	opencart
 
-USES=		php
-USE_PHP=	filter mysqli curl mbstring gd zlib mcrypt session zip hash openssl
+USES=		cpe php
+USE_PHP=	filter mysqli curl mbstring gd zlib mcrypt session zip
 WRKSRC_SUBDIR=	upload
 
 NO_BUILD=	yes

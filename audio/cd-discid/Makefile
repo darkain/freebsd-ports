@@ -1,13 +1,12 @@
-# Created by: Munish Chopra <mchopra@engmail.uwaterloo.ca>
-
 PORTNAME=	cd-discid
 PORTVERSION=	0.9
 CATEGORIES=	audio
 MASTER_SITES=	http://lly.org/~rcw/cd-discid/
 DISTNAME=	${PORTNAME}_${PORTVERSION}.orig
 
-MAINTAINER=	hcoyote@ghostar.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Backend utility to retrieve CDDB discid information
+WWW=		http://lly.org/~rcw/cd-discid/
 
 WRKSRC=		${WRKDIR}/${PKGNAME}
 

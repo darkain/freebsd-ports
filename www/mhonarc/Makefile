@@ -1,16 +1,15 @@
-# Created by: koshy@india.hp.com
-
 PORTNAME=	mhonarc
 PORTVERSION=	2.6.24
 CATEGORIES=	www mail
 
 MAINTAINER=	kerndtr@kerndt.com
 COMMENT=	WWW front end for mail archives
+WWW=		https://www.mhonarc.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:bzip2 perl5
+USES=		cpe tar:bzip2 perl5
 USE_GITHUB=	YES
 GH_ACCOUNT=	sympa-community
 GH_PROJECT=	MHonArc

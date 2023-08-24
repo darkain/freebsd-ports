@@ -1,17 +1,22 @@
 PORTNAME=	cbonsai
-DISTVERSION=	1.0.4
+DISTVERSIONPREFIX=	v
+DISTVERSION=	1.3.1
 CATEGORIES=	graphics
 
 MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	Bonsai tree generator, written in C using ncurses
+WWW=		https://gitlab.com/jallbrit/cbonsai
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BROKEN_FreeBSD_12=	ld: error: undefined symbol: win_wch
+BROKEN_FreeBSD_14=	ld: error: undefined symbol: del_panel
+
 USES=		compiler:c11 ncurses
 USE_GITLAB=	yes
 GL_ACCOUNT=	jallbrit
-GL_COMMIT=	bf12bd4a87e0435155e6be71b3d72b1a992e6f01
+GL_TAGNAME=	7a6f4b0b0e1ce463691885b32a81517d2839d150
 
 MAKE_ARGS=	LDLIBS="${LDFLAGS} -lncurses -lpanel"
 ALL_TARGET=	${PORTNAME}
@@ -22,10 +27,12 @@ PORTDOCS=	README.md
 OPTIONS_DEFINE=	DOCS
 
 do-install:
-		${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} \
+		${STAGEDIR}${PREFIX}/bin
 
 post-install-DOCS-on:
-		@${MKDIR} ${STAGEDIR}${DOCSDIR}
-		${INSTALL_DATA} ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/${PORTDOCS} \
+		${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

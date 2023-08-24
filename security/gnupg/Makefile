@@ -1,10 +1,15 @@
 PORTNAME=	gnupg
-PORTVERSION=	2.3.1
+DISTVERSION=	2.4.3
+PORTREVISION=	4
 CATEGORIES=	security
 MASTER_SITES=	GNUPG
 
-MAINTAINER=	adamw@FreeBSD.org
+PATCH_SITES=	https://github.com/gpg/${PORTNAME}/commit/
+PATCHFILES+=	9ae3cfcabec9252c22d67b7a15c36f0a8cf22f0f.patch:-p1 #Fix linking without LDAP
+
+MAINTAINER=	adridg@FreeBSD.org
 COMMENT=	Complete and free PGP implementation
+WWW=		https://www.gnupg.org/
 
 LICENSE=	GPLv3 LGPL3
 LICENSE_COMB=	multi
@@ -20,16 +25,14 @@ RUN_DEPENDS=	pinentry:security/pinentry
 
 USES=		compiler:c11 cpe gmake iconv makeinfo pkgconfig readline sqlite tar:bzip2
 
-CONFLICTS=	gnupg-2.0.* dirmngr-[0-9]*
+CONFLICTS=	dirmngr
 CPE_VENDOR=	gnupg
 
-CONFIGURE_ARGS=	--disable-ntbtls --enable-gpg-is-gpg2 --enable-symcryptrun
+CONFIGURE_ARGS=	--disable-ntbtls --enable-gpg-is-gpg2
 GNU_CONFIGURE=	yes
 INFO=		gnupg
 TEST_TARGET=	check
 TEST_ARGS=	TESTARGS=--parallel
-
-SUB_FILES=	pkg-message
 
 OPTIONS_DEFINE=	DOCS GNUTLS LARGE_RSA LDAP NLS SCDAEMON SUID_GPG WKS_SERVER
 OPTIONS_DEFAULT=GNUTLS SCDAEMON WKS_SERVER
@@ -48,7 +51,7 @@ LARGE_RSA_CONFIGURE_ENABLE=	large-secmem
 
 LDAP_CONFIGURE_WITH=	ldap=${LOCALBASE}
 LDAP_LIBS=		-L${LOCALBASE}/lib
-LDAP_USE=		OPENLDAP=yes
+LDAP_USES=		ldap
 
 NLS_CONFIGURE_ENABLE=	nls
 NLS_USES=		gettext
@@ -73,5 +76,9 @@ pre-build:
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/bin/gpgsplit ${STAGEDIR}${PREFIX}/bin/gpgsplit2
 	${MV} ${STAGEDIR}${DATADIR}/help*.txt ${STAGEDIR}${DOCSDIR}
+
+# Necessary because of --enable-gpg-is-gpg2
+pre-test:
+	${LN} -s gpg ${WRKSRC}/bin/gpg2
 
 .include <bsd.port.mk>

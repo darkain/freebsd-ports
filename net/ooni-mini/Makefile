@@ -1,21 +1,21 @@
 PORTNAME=		ooni-mini
 DISTVERSIONPREFIX=	v
 DISTVERSION=		0.23.0
+PORTREVISION=	13
 CATEGORIES=		net www benchmarks
 
 MAINTAINER=	egypcio@FreeBSD.org
 COMMENT=	Small command line client that tests OONI's functionality
+WWW=		https://ooni.org/about/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	ca_root_nss>=0:security/ca_root_nss
 
-USES=		cpe go:modules
+USES=		go:modules
 USE_GITHUB=	yes
 USE_GITLAB=	nodefault
-
-CPE_VENDOR=	torproject
 
 # # github.com/ooni/probe-engine/blob/master/readme_compiletimecheck.go#L6
 GO_BUILDFLAGS=	-tags=ooni,nomk,DISABLE_QUIC -ldflags '-s -w -extldflags "-static"'

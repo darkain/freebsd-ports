@@ -1,12 +1,12 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	google-apis-core
-PORTVERSION=	0.4.0
+PORTVERSION=	0.11.1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Common utility and base classes for legacy Google REST clients
+WWW=		https://github.com/googleapis/google-api-ruby-client/tree/main/google-apis-core \
+		https://github.com/googleapis/google-api-ruby-client
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
@@ -21,7 +21,6 @@ RUN_DEPENDS=	rubygem-addressable>=2.5.1<3:www/rubygem-addressable \
 		rubygem-webrick>=0:www/rubygem-webrick
 
 USES=		gem
-USE_RUBY=	yes
 
 NO_ARCH=	yes
 

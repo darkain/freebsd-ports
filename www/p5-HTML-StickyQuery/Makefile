@@ -1,5 +1,3 @@
-# Created by: Seamus Venasse <svenasse@polaris.ca>
-
 PORTNAME=	HTML-StickyQuery
 PORTVERSION=	0.13
 PORTREVISION=	1
@@ -9,6 +7,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Add sticky QUERY_STRING to a tag href attributes
+WWW=		https://metacpan.org/release/HTML-StickyQuery
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
@@ -19,5 +18,7 @@ RUN_DEPENDS=	p5-HTML-Parser>=0:www/p5-HTML-Parser \
 
 USES=		perl5
 USE_PERL5=	configure
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

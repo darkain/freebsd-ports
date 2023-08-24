@@ -1,28 +1,24 @@
-# Created by: trasz <trasz@pin.if.uz.zgora.pl>
-
 PORTNAME=	qjackctl
 DISTVERSIONPREFIX=	qjackctl_
-DISTVERSION=	0_9_4
+DISTVERSION=	0_9_11
+PORTREVISION=	1
 CATEGORIES=	audio
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Qt interface for JACK Audio Connection Kit
+WWW=		https://qjackctl.sourceforge.io/
 
 LICENSE=	GPLv2+
-LICENSE_FILE=	${WRKSRC}/COPYING
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libjack.so:audio/jack
 
-USES=		autoreconf compiler:c++11-lib gl gmake localbase pkgconfig qt:5
-GNU_CONFIGURE=	yes
-USE_QT=		core gui network widgets x11extras xml buildtools_build linguisttools_build qmake_build
+USES=		cmake compiler:c++17-lang desktop-file-utils gl localbase:ldflags pkgconfig qt:6
+USE_QT=		base svg tools:build
 USE_GL=		gl
-USE_CXXSTD=	c++11
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	rncbc
-
-BINARY_ALIAS=	qmake=${QMAKE}
 
 OPTIONS_DEFINE=		DBUS SYSTRAY XUNIQUE
 OPTIONS_DEFAULT=	DBUS SYSTRAY XUNIQUE
@@ -33,19 +29,20 @@ AIFACE_DESC=		Other audio interfaces
 SYSTRAY_DESC=		System tray icon support
 XUNIQUE_DESC=		X11 unique/single instance
 
-ALSA_CONFIGURE_ENABLE=	alsa_seq
+ALSA_CMAKE_BOOL=	CONFIG_ALSA_SEQ
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 
-DBUS_CONFIGURE_ENABLE=	dbus
-DBUS_USE=		QT=dbus
+DBUS_CMAKE_BOOL=	CONFIG_DBUS
 
-PORTAUDIO_CONFIGURE_ENABLE=	portaudio
+PORTAUDIO_CMAKE_BOOL=	CONFIG_PORTAUDIO
 PORTAUDIO_LIB_DEPENDS=	libportaudio.so:audio/portaudio
 
-SYSTRAY_CONFIGURE_ENABLE=	system-tray
+SYSTRAY_CMAKE_BOOL=	CONFIG_SYSTEM_TRAY
 
-XUNIQUE_CONFIGURE_ENABLE=	xunique
-XUNIQUE_USES=			xorg
-XUNIQUE_USE=			XORG=x11
+XUNIQUE_CMAKE_BOOL=	CONFIG_XUNIQUE
+XUNIQUE_USES=		xorg
+XUNIQUE_USE=		XORG=x11
+
+BINARY_ALIAS=	git=false
 
 .include <bsd.port.mk>

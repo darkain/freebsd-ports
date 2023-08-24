@@ -5,13 +5,15 @@ CATEGORIES=	archivers
 
 MAINTAINER=	tagattie@FreeBSD.org
 COMMENT=	Efficient compressor with very fast decompression
+WWW=		https://github.com/inikep/lizard
 
 LICENSE=	BSD2CLAUSE GPLv2
 LICENSE_COMB=	multi
 LICENSE_FILE_BSD2CLAUSE=	${WRKSRC}/lib/LICENSE
 LICENSE_FILE_GPLv2=	${WRKSRC}/programs/COPYING
 
-USES=		gmake
+USES=		cpe gmake
+CPE_VENDOR=	lizard_project
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	inikep

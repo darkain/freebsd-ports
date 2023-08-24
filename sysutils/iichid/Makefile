@@ -1,16 +1,14 @@
-# Created by: jrhett@netconsonance.com
-
 PORTNAME=	iichid
 DISTVERSION=	0.0.6
 CATEGORIES=	sysutils
 
 MAINTAINER=	wulf@FreeBSD.org
 COMMENT=	Generic FreeBSD HID layer for I2C and USB devices
+WWW=		https://github.com/wulf7/iichid
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-IGNORE_FreeBSD_11=	Requires FreeBSD 12.1 or later
 IGNORE_FreeBSD_13=	Is a part of base system
 IGNORE_FreeBSD_14=	Is a part of base system
 

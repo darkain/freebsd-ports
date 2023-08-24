@@ -1,17 +1,18 @@
-# Created by: Jean-Yves Lefort <jylefort@brutele.be>
-
 PORTNAME=	mixxx
 DISTVERSIONPREFIX=	release-
 DISTVERSION=	2.2.4
-PORTREVISION=	5
+PORTREVISION=	12
 CATEGORIES=	audio
-PKGNAMESUFFIX?=	22
+PKGNAMESUFFIX?=	23
 
 MAINTAINER=	acm@FreeBSD.org
 COMMENT=	DJ mixing application (previous version)
+WWW=		https://mixxx.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BROKEN=		does not build: scons: _defines() missing 2 required positional arguments:
 
 BUILD_DEPENDS=	lv2>=1.14.0:audio/lv2
 LIB_DEPENDS=	libchromaprint.so:audio/chromaprint \
@@ -23,7 +24,6 @@ LIB_DEPENDS=	libchromaprint.so:audio/chromaprint \
 		libmodplug.so:audio/libmodplug \
 		libportaudio.so:audio/portaudio \
 		libSoundTouch.so:audio/soundtouch \
-		libebur128.so:audio/libebur128 \
 		librubberband.so:audio/rubberband \
 		libsndfile.so:audio/libsndfile \
 		libvamp-sdk.so:audio/vamp-plugin-sdk \
@@ -33,19 +33,19 @@ LIB_DEPENDS=	libchromaprint.so:audio/chromaprint \
 		libprotobuf.so:devel/protobuf \
 		liblilv-0.so:audio/lilv
 
-USES=		compiler:c++11-lang gl iconv qt:5 pkgconfig scons xorg
+USES=		compiler:c++11-lang ebur128 gl iconv qt:5 pkgconfig scons xorg
 USE_XORG=	x11
 USE_GL=		gl glu
 USE_GITHUB=	yes
 GH_ACCOUNT=	mixxxdj
 USE_QT=		buildtools concurrent core dbus gui network opengl script scripttools \
-		sql sql-sqlite3 svg testlib xml xmlpatterns linguisttools_build \
-		qmake_build widgets
+		sql sql-sqlite3 svg testlib xml xmlpatterns linguisttools:build \
+		qmake:build widgets
 
-CONFLICTS=	mixxx-*
+CONFLICTS=	mixxx
 
 MAKE_ARGS=	qtdir="${PREFIX}" install_root="${PREFIX}" \
-		build=release optimize=off ${GUI} battery=0 vamp=1 modplug=1 mad=1
+		build=release optimize=portable ${GUI} battery=0 vamp=1 modplug=1 mad=1
 LATE_INSTALL_ARGS=	--install-sandbox=${STAGEDIR}
 
 GUI=		qt5=1

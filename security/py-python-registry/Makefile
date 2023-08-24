@@ -1,5 +1,3 @@
-# Created by: Antoine Brodin <antoine@FreeBSD.org>
-
 PORTNAME=	python-registry
 PORTVERSION=	1.4
 CATEGORIES=	security devel python
@@ -7,6 +5,7 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	antoine@FreeBSD.org
 COMMENT=	Read access to Windows Registry files
+WWW=		http://www.williballenthin.com/registry/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.TXT
@@ -18,7 +17,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	williballenthin
 
 NO_ARCH=	yes
-USES=		python:3.6+ shebangfix
+USES=		python shebangfix
 USE_PYTHON=	distutils autoplist concurrent
 SHEBANG_FILES=	samples/*.py
 python_OLD_CMD=	.*

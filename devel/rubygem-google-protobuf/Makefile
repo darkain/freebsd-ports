@@ -1,17 +1,17 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	google-protobuf
-PORTVERSION=	3.17.3
+PORTVERSION=	3.24.1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Ruby extension to Google Protocol Buffers
+WWW=		https://protobuf.dev/ \
+		https://github.com/protocolbuffers/protobuf \
+		https://github.com/protocolbuffers/protobuf/tree/main/ruby
 
 LICENSE=	BSD3CLAUSE
 
 USES=		gem shebangfix
-USE_RUBY=	yes
 
 SHEBANG_GLOB=	*.rb
 

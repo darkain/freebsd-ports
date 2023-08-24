@@ -1,67 +1,46 @@
---- content/browser/renderer_host/render_process_host_impl.cc.orig	2021-05-12 22:05:52 UTC
+--- content/browser/renderer_host/render_process_host_impl.cc.orig	2023-08-17 07:33:31 UTC
 +++ content/browser/renderer_host/render_process_host_impl.cc
-@@ -223,7 +223,7 @@
+@@ -220,7 +220,7 @@
  #include "third_party/blink/public/mojom/android_font_lookup/android_font_lookup.mojom.h"
  #endif
  
--#if defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
  #include <sys/resource.h>
- #include <sys/time.h>
  
-@@ -1243,7 +1243,7 @@ static constexpr size_t kUnknownPlatformProcessLimit =
+ #include "components/services/font/public/mojom/font_service.mojom.h"  // nogncheck
+@@ -1218,7 +1218,7 @@ static constexpr size_t kUnknownPlatformProcessLimit =
  // to indicate failure and std::numeric_limits<size_t>::max() to indicate
  // unlimited.
  size_t GetPlatformProcessLimit() {
--#if defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
    struct rlimit limit;
    if (getrlimit(RLIMIT_NPROC, &limit) != 0)
      return kUnknownPlatformProcessLimit;
-@@ -1254,7 +1254,7 @@ size_t GetPlatformProcessLimit() {
- #else
-   // TODO(https://crbug.com/104689): Implement on other platforms.
-   return kUnknownPlatformProcessLimit;
--#endif  // defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#endif  // defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
- }
- #endif  // !defined(OS_ANDROID) && !BUILDFLAG(IS_CHROMEOS_ASH)
- 
-@@ -1328,7 +1328,7 @@ class RenderProcessHostImpl::IOThreadHostImpl : public
+@@ -1351,7 +1351,7 @@ class RenderProcessHostImpl::IOThreadHostImpl : public
          return;
      }
  
--#if defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
      if (auto font_receiver = receiver.As<font_service::mojom::FontService>()) {
        ConnectToFontService(std::move(font_receiver));
        return;
-@@ -1748,7 +1748,7 @@ bool RenderProcessHostImpl::Init() {
-   renderer_prefix =
-       browser_command_line.GetSwitchValueNative(switches::kRendererCmdPrefix);
+@@ -1440,7 +1440,7 @@ class RenderProcessHostImpl::IOThreadHostImpl : public
+   std::unique_ptr<service_manager::BinderRegistry> binders_;
+   mojo::Receiver<mojom::ChildProcessHost> receiver_{this};
  
--#if defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
-   int flags = renderer_prefix.empty() ? ChildProcessHost::CHILD_ALLOW_SELF
-                                       : ChildProcessHost::CHILD_NORMAL;
- #elif defined(OS_MAC)
-@@ -3176,8 +3176,8 @@ void RenderProcessHostImpl::PropagateBrowserCommandLin
-     switches::kDisableInProcessStackTraces,
-     sandbox::policy::switches::kDisableSeccompFilterSandbox,
-     sandbox::policy::switches::kNoSandbox,
--#if defined(OS_LINUX) && !BUILDFLAG(IS_CHROMEOS_ASH) && \
--    !BUILDFLAG(IS_CHROMEOS_LACROS)
-+#if defined(OS_BSD) || (defined(OS_LINUX) && !BUILDFLAG(IS_CHROMEOS_ASH) && \
-+    !BUILDFLAG(IS_CHROMEOS_LACROS))
-     switches::kDisableDevShmUsage,
- #endif
- #if defined(OS_MAC)
-@@ -4806,6 +4806,8 @@ void RenderProcessHostImpl::OnProcessLaunched() {
-     // TODO(https://crbug.com/875933): Fix initial priority on Android to
-     // reflect |priority_.is_background()|.
-     DCHECK_EQ(blink::kLaunchingProcessIsBackgrounded, !priority_.visible);
-+#elif defined(OS_BSD)
-+    priority_.visible = true;
- #else
-     priority_.visible =
-         !child_process_launcher_->GetProcess().IsProcessBackgrounded();
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
+   mojo::Remote<media::mojom::VideoEncodeAcceleratorProviderFactory>
+       video_encode_accelerator_factory_remote_;
+ #endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
+@@ -3555,6 +3555,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLin
+     switches::kDisableSpeechAPI,
+     switches::kDisableThreadedCompositing,
+     switches::kDisableTouchDragDrop,
++    switches::kDisableUnveil,
+     switches::kDisableV8IdleTasks,
+     switches::kDisableVideoCaptureUseGpuMemoryBuffer,
+     switches::kDisableWebGLImageChromium,

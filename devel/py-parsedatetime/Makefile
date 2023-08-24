@@ -1,15 +1,16 @@
 PORTNAME=	parsedatetime
 PORTVERSION=	2.6
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	lwhsu@FreeBSD.org
 COMMENT=	Python module for parsing 'human readable' date/time expressions
+WWW=		https://github.com/bear/parsedatetime
 
 LICENSE=	APACHE20
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
 
 NO_ARCH=	yes

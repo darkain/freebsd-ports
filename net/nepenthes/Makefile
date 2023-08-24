@@ -1,13 +1,12 @@
-# Created by: ryo
-
 PORTNAME=	nepenthes
 PORTVERSION=	0.2.2
-PORTREVISION=	16
+PORTREVISION=	17
 CATEGORIES=	net
 MASTER_SITES=	SF/${PORTNAME}/Nepenthes%20development/${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Determine the malware activity on a network
+WWW=		http://nepenthes.carnivore.it/
 
 LIB_DEPENDS=	libpcre.so:devel/pcre \
 		libadns.so:dns/adns \
@@ -45,7 +44,14 @@ post-patch:
 		 s|-R/usr/local/lib||' ${WRKSRC}/configure
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${DATADIR}/signatures
+	@${MKDIR} ${STAGEDIR}${DATADIR}/signatures \
+		${STAGEDIR}/var/binaries \
+		${STAGEDIR}/var/hexdumps \
+		${STAGEDIR}/var/log/pcap \
+		${STAGEDIR}/var/spool/nepenthes/gotek \
+		${STAGEDIR}/var/spool/nepenthes/submitpostgres \
+		${STAGEDIR}/var/cache/nepenthes/pcap \
+		${STAGEDIR}/var/cache/nepenthes/signatures
 	(cd ${WRKSRC}/modules/shellcode-signatures && ${INSTALL_DATA} \
 		shellcode-signatures.sc ${STAGEDIR}${DATADIR}/signatures)
 

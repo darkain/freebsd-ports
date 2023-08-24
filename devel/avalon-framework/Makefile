@@ -1,15 +1,15 @@
-# Created by: Herve Quiroz <herve.quiroz@esil.univ-mrs.fr>
-
 PORTNAME=	avalon-framework
 PORTVERSION=	4.2.0
 PORTREVISION=	2
 CATEGORIES=	devel java
-MASTER_SITES=	APACHE/avalon/${PORTNAME}/binaries
+MASTER_SITES=	https://archive.apache.org/dist/avalon/${PORTNAME}/binaries/
 
 MAINTAINER=	makc@FreeBSD.org
 COMMENT=	Apache Avalon core framework for component programming
+WWW=		https://avalon.apache.org/closed.html
 
 USE_JAVA=	yes
+NO_ARCH=	yes
 NO_BUILD=	yes
 
 WRKSRC=		${WRKDIR}/${PORTNAME}

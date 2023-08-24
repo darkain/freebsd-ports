@@ -1,13 +1,13 @@
-# Created by: Jaap Boender <jaapb@kerguelen.org>
-
 PORTNAME=	react
 PORTVERSION=	1.2.1
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://erratique.ch/software/react/releases/
 PKGNAMEPREFIX=	ocaml-
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OCaml module for functional reactive programming
+WWW=		https://erratique.ch/software/react
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENSE.md

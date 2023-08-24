@@ -1,5 +1,3 @@
-# Created by: Juergen Lock <nox@jelal.kn-bremen.de>
-
 PORTNAME=	rpm2cpio
 PORTVERSION=	1.4
 PORTREVISION=	2
@@ -12,7 +10,7 @@ COMMENT=	Convert .rpm files to cpio format
 
 LICENSE=	BSD2CLAUSE
 
-CONFLICTS_INSTALL=	rpm4-*
+CONFLICTS_INSTALL=	rpm4
 
 NO_BUILD=	yes
 NO_ARCH=	yes

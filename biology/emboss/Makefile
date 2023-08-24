@@ -1,8 +1,6 @@
-# Created by: Johann Visagie <johann@egenetics.com>
-
 PORTNAME=	emboss
 PORTVERSION=	6.6.0
-PORTREVISION=	4
+PORTREVISION=	6
 CATEGORIES=	biology
 MASTER_SITES=	ftp://emboss.open-bio.org/pub/EMBOSS/
 DISTNAME=	${PORTNAME:tu}-${PORTVERSION}
@@ -10,6 +8,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Collection of open source tools for genetic sequence analysis
+WWW=		http://www.emboss.org/
 
 LICENSE=	GPLv2
 
@@ -18,15 +17,17 @@ BUILD_DEPENDS=	clustalw:biology/clustalw \
 LIB_DEPENDS=	libgd.so:graphics/gd \
 		libpng.so:graphics/png
 
-CONFLICTS=	qmail-ldap-[0-9]* digest-[0-9]*
+USES=		gmake libtool iconv mysql pgsql ssl
+IGNORE_WITH_MYSQL=	80
+USE_SUBMAKE=	yes
+
+CONFLICTS=	qmail-ldap digest
 
 PREFIX?=	${LOCALBASE}/emboss
 NO_MTREE=	yes
-USES=		gmake libtool iconv
-USE_SUBMAKE=	yes
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-SUB_FILES=	pkg-message
+SUB_FILES=	pkg-message emboss-shell
 SUB_LIST=	PREFIX=${PREFIX} DATADIR=${DATADIR}
 LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS+=${ICONV_CONFIGURE_ARG}
@@ -49,10 +50,16 @@ CONFIG_FILE=	${WRKSRC}/emboss/emboss.default.template
 post-patch:
 	@${REINPLACE_CMD} -e 's/-liconv/${ICONV_LIB}/' ${WRKSRC}/configure
 
+post-build:
+	${CC} -DEMBOSS_PREFIX="\"${PREFIX}\"" ${FILESDIR}/emboss.c -o ${WRKDIR}/emboss
+
 pre-install:
 	@ ${REINPLACE_CMD} -e 's#%%DATADIR%%#${PREFIX}/share/${PORTNAME:tu}#' ${CONFIG_FILE}
 
 post-install:
+	@${MKDIR} ${STAGEDIR}${LOCALBASE}/bin
+	${INSTALL_SCRIPT} ${WRKDIR}/emboss-shell ${STAGEDIR}${LOCALBASE}/bin
 	${INSTALL_DATA} ${CONFIG_FILE} ${STAGEDIR}${DATADIR}
+	${INSTALL_PROGRAM} ${WRKDIR}/emboss ${STAGEDIR}${LOCALBASE}/bin
 
 .include <bsd.port.mk>

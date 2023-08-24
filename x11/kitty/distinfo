@@ -1,3 +1,5 @@
-TIMESTAMP = 1624976707
-SHA256 (kovidgoyal-kitty-v0.21.2_GH0.tar.gz) = 7f313beb63d8be0a35137f063cc2f6e929a6aa016607060c2ff45fad18379e6b
-SIZE (kovidgoyal-kitty-v0.21.2_GH0.tar.gz) = 5691016
+TIMESTAMP = 1690441790
+SHA256 (go/x11_kitty/kitty-v0.29.2/v0.29.2.mod) = 824f1a4725be13881152b849609fb73128c19513c25ec3e8495a298e627c3c02
+SIZE (go/x11_kitty/kitty-v0.29.2/v0.29.2.mod) = 1063
+SHA256 (go/x11_kitty/kitty-v0.29.2/v0.29.2.zip) = fe377082db2a645e66ffe693465e967c17ba0f0b05d3ce4d4a78c6b430fb2ea4
+SIZE (go/x11_kitty/kitty-v0.29.2/v0.29.2.zip) = 8321800

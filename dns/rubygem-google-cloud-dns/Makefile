@@ -1,12 +1,12 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	google-cloud-dns
-PORTVERSION=	0.35.1
+PORTVERSION=	0.36.1
 CATEGORIES=	dns rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Official library for Google Cloud DNS
+WWW=		https://github.com/googleapis/google-cloud-ruby/tree/main/google-cloud-dns \
+		https://github.com/googleapis/google-cloud-ruby
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -17,7 +17,6 @@ RUN_DEPENDS=	rubygem-google-apis-dns_v1>=0.1<1:dns/rubygem-google-apis-dns_v1 \
 		rubygem-zonefile>=1.04<2:dns/rubygem-zonefile
 
 USES=		gem
-USE_RUBY=	yes
 
 NO_ARCH=	yes
 

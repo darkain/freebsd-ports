@@ -1,8 +1,6 @@
-# Created by: Ilya A. Arkhipov <rum1cro@yandex.ru>
-
 PORTNAME=	dialog4ports
 PORTVERSION=	0.1.6
-PORTREVISION?=	0
+PORTREVISION?=	1
 CATEGORIES=	ports-mgmt
 MASTER_SITES=	https://files.etoilebsd.net/dialog4ports/ \
 		http://mirror.shatow.net/freebsd/${PORTNAME}/ \
@@ -12,6 +10,7 @@ MASTER_SITES=	https://files.etoilebsd.net/dialog4ports/ \
 
 MAINTAINER=	rum1cro@yandex.ru
 COMMENT?=	Console Interface to configure ports
+WWW=		https://bitbucket.org/m1cro/d4p/
 
 LICENSE=	BSD2CLAUSE
 

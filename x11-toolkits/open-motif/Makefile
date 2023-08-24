@@ -1,6 +1,6 @@
 PORTNAME=	open-motif
 PORTVERSION=	2.3.8
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	x11-toolkits
 # MASTER_SITES=	SF/${PORTNAME}/Motif%202.3.4%20Source%20Code/
 MASTER_SITES=	SF/motif/Motif%20${PORTVERSION}%20Source%20Code/
@@ -8,12 +8,14 @@ DISTNAME=	motif-${PORTVERSION}
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Motif X11 Toolkit (industry standard GUI (IEEE 1295))
+WWW=		https://motif.ics.com/
 
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 MAKE_JOBS_UNSAFE=	yes
-CONFLICTS=	lesstif-[0-9]*
+CONFLICTS=	lesstif
+CONFLICTS_INSTALL=	open-motif-devel
 
 USES=		autoreconf gmake iconv jpeg libtool:keepla pkgconfig xorg
 USE_XORG=	x11 xaw xbitmaps xext xft xt xmu xrender sm ice

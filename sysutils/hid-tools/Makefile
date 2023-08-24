@@ -1,16 +1,12 @@
-# Created by: Vladimir Kondratyev <wulf@FreeBSD.org>
-
 PORTNAME=	hid-tools
-PORTVERSION=	0.2
+DISTVERSION=	0.3.1
 CATEGORIES=	sysutils python
-MASTER_SITES=	https://gitlab.freedesktop.org/libevdev/${PORTNAME}/-/archive/${DISTVERSION}/
 
 MAINTAINER=	wulf@FreeBSD.org
 COMMENT=	Python scripts to manipulate HID data
+WWW=		https://gitlab.freedesktop.org/libevdev/hid-tools
 
 LICENSE=	GPLv2
-
-IGNORE_FreeBSD_11=	Is missing a hidraw(4) driver
 
 RUN_DEPENDS_FreeBSD_12=	iichid>=0.0.6:sysutils/iichid
 RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}click>=0:devel/py-click@${PY_FLAVOR} \
@@ -19,7 +15,11 @@ RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}click>=0:devel/py-click@${PY_FLAVOR} \
 			${PYTHON_PKGNAMEPREFIX}yaml>=0:devel/py-yaml@${PY_FLAVOR} \
 			${RUN_DEPENDS_${OPSYS}_${OSREL:R}}
 
-USES=		python:3.6+ shebangfix tar:bz2
+USES=		python shebangfix
+USE_GITLAB=	yes
+GL_SITE=	https://gitlab.freedesktop.org/
+GL_ACCOUNT=	libevdev
+GL_TAGNAME=	0f71fd65d83b28b744a2fe0a6cc1e3139921c721
 USE_PYTHON=	autoplist distutils
 
 OPTIONS_DEFINE=		MANPAGES

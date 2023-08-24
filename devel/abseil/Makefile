@@ -1,11 +1,10 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	abseil
-PORTVERSION=	20210324.2
+PORTVERSION=	20220623.1
 CATEGORIES=	devel
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Abseil Common Libraries (C++)
+WWW=		https://abseil.io/
 
 LICENSE=	APACHE20
 

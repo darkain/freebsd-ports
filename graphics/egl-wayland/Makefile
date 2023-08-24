@@ -1,15 +1,17 @@
 PORTNAME=	egl-wayland
-DISTVERSION=	1.1.7
-PORTREVISION=	1
-CATEGORIES=	graphics
+DISTVERSION=	1.1.12
+CATEGORIES=	graphics wayland
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	EGLStream-based Wayland external platform
+WWW=		https://github.com/NVIDIA/egl-wayland
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	eglexternalplatform>=1.1:graphics/eglexternalplatform
+BUILD_DEPENDS=	eglexternalplatform>=1.1:graphics/eglexternalplatform \
+		${LOCALBASE}/include/libdrm/drm_fourcc.h:graphics/libdrm \
+		wayland-protocols>=1.8:graphics/wayland-protocols
 LIB_DEPENDS=	libwayland-server.so:graphics/wayland
 
 USES=		gl meson pkgconfig

@@ -1,5 +1,3 @@
-# Created by: Ashish SHUKLA <ashish@FreeBSD.org>
-
 PORTNAME=	libasr
 PORTVERSION=	201602131606
 PORTREVISION=	3
@@ -9,6 +7,7 @@ PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	fluffy@FreeBSD.org
 COMMENT=	Asynchronous DNS resolver library (development snapshot)
+WWW=		https://github.com/OpenSMTPD/libasr
 
 LICENSE=	ISCL BSD4CLAUSE BSD3CLAUSE BSD2CLAUSE
 LICENSE_COMB=	multi
@@ -16,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENCE
 
 USES=		cpe groff libtool
 
-CONFLICTS=	libasr-[0-9]*
+CONFLICTS=	libasr
 
 OPTIONS_DEFINE=	CA_BUNDLE
 OPTIONS_DEFAULT=	CA_BUNDLE

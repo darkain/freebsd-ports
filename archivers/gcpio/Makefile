@@ -1,12 +1,12 @@
 PORTNAME=	cpio
-PORTVERSION=	2.13
-PORTREVISION=	1
+DISTVERSION=	2.14
 CATEGORIES=	archivers
 MASTER_SITES=	GNU
 PKGNAMEPREFIX=	g
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	GNU cpio copies files to and from archives
+WWW=		https://www.gnu.org/software/cpio/
 
 LICENSE=	GPLv3
 

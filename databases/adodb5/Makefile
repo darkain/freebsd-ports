@@ -1,24 +1,23 @@
-# Created by: mm@FreeBSD.org
-
 PORTNAME=	adodb
-PORTVERSION=	5.21.0
+PORTVERSION=	5.22.6
 DISTVERSIONPREFIX=	v
 CATEGORIES=	databases www
 PKGNAMESUFFIX=	5${PHP_PKGNAMESUFFIX}
 
 MAINTAINER=	fluffy@FreeBSD.org
 COMMENT=	Database library for PHP
+WWW=		http://adodb.org/
 
 LICENSE=	BSD3CLAUSE LGPL21+
 LICENSE_COMB=	dual
 
-USES=		php:flavors
-USE_PHP=	pcre
+USES=		cpe php:flavors
+CPE_VENDOR=	${PORTNAME}_project
 
 USE_GITHUB=	yes
 GH_PROJECT=	ADOdb
 
-CONFLICTS=	adodb-4.*
+CONFLICTS_INSTALL=	adodb5-php[0-9][0-9] # share/adodb/adodb-active-record.inc.php
 
 NO_BUILD=	yes
 NO_ARCH=	yes

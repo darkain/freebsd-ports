@@ -1,17 +1,16 @@
-# Created by: TAKATSU Tomonari <tota@FreeBSD.org>
-
 PORTNAME=	lubridate
-PORTVERSION=	1.7.10
+PORTVERSION=	1.9.2
 CATEGORIES=	devel
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 
-MAINTAINER=	tota@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Make Dealing with Dates a Little Easier
+WWW=		https://cran.r-project.org/web/packages/lubridate/
 
 LICENSE=	GPLv2+
 
 CRAN_DEPENDS=	R-cran-generics>0:devel/R-cran-generics \
-		R-cran-Rcpp>=0.12.13:devel/R-cran-Rcpp
+		R-cran-timechange>=0.1.1:devel/R-cran-timechange
 BUILD_DEPENDS=	${CRAN_DEPENDS}
 RUN_DEPENDS=	${CRAN_DEPENDS}
 

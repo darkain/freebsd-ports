@@ -1,5 +1,3 @@
-# Created by: Gea-Suan Lin <gslin@gslin.org>
-
 PORTNAME=	byobu
 PORTVERSION=	5.133
 PORTREVISION=	2
@@ -9,6 +7,7 @@ DISTNAME=	${PORTNAME}_${PORTVERSION}.orig
 
 MAINTAINER=	cws@cybersecu.red
 COMMENT=	Profile and configuration utilities for GNU Screen and/or tmux
+WWW=		https://byobu.org
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 RUN_DEPENDS=	bash:shells/bash \
 		gsed:textproc/gsed
 
-USES=		autoreconf python shebangfix ncurses:port
+USES=		autoreconf cpe python shebangfix ncurses:port
 
 SHEBANG_FILES=	usr/lib/byobu/include/notify_osd \
 		usr/lib/byobu/include/config.py.in \

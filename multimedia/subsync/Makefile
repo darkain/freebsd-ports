@@ -1,9 +1,11 @@
 PORTNAME=	subsync
 DISTVERSION=	g20190702
+PORTREVISION=	1
 CATEGORIES=	multimedia python
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Synchronize your subtitles using machine learning
+WWW=		https://github.com/smacke/subsync
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -18,7 +20,7 @@ BUILD_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}tqdm>0:misc/py-tqdm@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}webrtcvad>0:audio/py-webrtcvad@${PY_FLAVOR}
 
-USES=		python:3.5+
+USES=		python
 USE_GITHUB=	yes
 GH_ACCOUNT=	smacke # tympanix account has another version of the same project requiring tensorflow
 GH_TAGNAME=	d9798a5

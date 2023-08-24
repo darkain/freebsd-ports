@@ -1,16 +1,15 @@
-# Created by: roland.jesse@gmx.net
-
 PORTNAME=	Coin
 PORTVERSION=	4.0.0
 DISTVERSIONPREFIX=	Coin-
-PORTREVISION=	2
+PORTREVISION=	4
 CATEGORIES=	graphics
 
-PATCH_SITES=	https://github.com/unrelentingtech/coin/commit/
+PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
 PATCHFILES+=	3053d28b74d.patch:-p1 # Unbreak non-X11
 
 MAINTAINER=	cmt@FreeBSD.org
 COMMENT=	C++ 3D graphics library based on the Open Inventor API
+WWW=		https://github.com/coin3d
 
 LICENSE=	BSD3CLAUSE
 

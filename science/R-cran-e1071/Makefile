@@ -1,12 +1,11 @@
-# Created by: TAKATSU Tomonari <tota@FreeBSD.org>
-
 PORTNAME=	e1071
-DISTVERSION=	1.7-7
+DISTVERSION=	1.7-13
 CATEGORIES=	science
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
-MAINTAINER=	tota@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Misc Functions of the Department of Statistics (e1071), TU Wien
+WWW=		https://cran.r-project.org/web/packages/e1071/
 
 LICENSE=	GPLv2+
 
@@ -14,6 +13,6 @@ CRAN_DEPENDS=	R-cran-proxy>0:math/R-cran-proxy
 BUILD_DEPENDS=	${CRAN_DEPENDS}
 RUN_DEPENDS=	${CRAN_DEPENDS}
 
-USES=	cran:auto-plist,compiles
+USES=		cran:auto-plist,compiles
 
 .include <bsd.port.mk>

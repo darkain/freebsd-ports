@@ -1,12 +1,13 @@
-# Created by: thierry@pompo.net
-
 PORTNAME=	skyfield
-PORTVERSION=	1.39
+PORTVERSION=	1.46
+PORTREVISION=	1
 CATEGORIES=	astro python
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Ephemerides computation
+WWW=		https://rhodesmill.org/skyfield/
 
 LICENSE=	MIT
 
@@ -34,21 +35,9 @@ RUN_DEPENDS=	${PYNUMPY}	\
 		${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${PY_FLAVOR}\
 		${PYTHON_PKGNAMEPREFIX}beautifulsoup>0:www/py-beautifulsoup@${PY_FLAVOR}
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	skyfielders
-GH_PROJECT=	python-skyfield
-
-USES=		python:3.7+ shebangfix
+USES=		python
 USE_PYTHON=	distutils
-SHEBANG_FILES=	test-code.sh test-docs.sh
 NO_ARCH=	yes
-
-OPTIONS_DEFINE=	EXAMPLES
-PORTEXAMPLES=	*
-
-post-install-EXAMPLES-on:
-	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
-	${CP} -R ${WRKSRC}/examples/ ${STAGEDIR}${EXAMPLESDIR}
 
 do-test: install
 	${CP} ${FILESDIR}/test-skyfield.py ${WRKSRC}

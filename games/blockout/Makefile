@@ -1,5 +1,3 @@
-# Created by: Stas Timokhin <stast@bsdportal.ru>
-
 PORTNAME=	blockout
 PORTVERSION=	2.5
 PORTREVISION=	5
@@ -10,10 +8,12 @@ DISTFILES=	bl25-src${EXTRACT_SUFX} bl25-linux-x86${EXTRACT_SUFX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	BlockOut II is an adaptation of the original Blockout DOS game
+WWW=		https://sourceforge.net/projects/blockout/
 
 LICENSE=	GPLv2+
 
 USES=		dos2unix gl gmake sdl
+USE_CXXSTD=	c++14
 USE_SDL=	mixer sdl
 DOS2UNIX_FILES=	ImageLib/src/gif/gif.h \
 		ImageLib/src/gif/gif.cpp BlockOut/*.cpp \

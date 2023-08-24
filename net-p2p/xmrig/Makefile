@@ -1,12 +1,11 @@
-# Created by: Emanuel Haupt <ehaupt@FreeBSD.org>
-
 PORTNAME=	xmrig
-PORTVERSION=	6.13.1
+PORTVERSION=	6.20.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net-p2p
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	High performance Monero (XMR) CPU miner
+WWW=		https://github.com/xmrig/xmrig
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE

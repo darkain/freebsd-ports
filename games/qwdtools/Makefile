@@ -1,5 +1,3 @@
-# Created by: Alexey Dokuchaev <danfe@regency.nsu.ru>
-
 PORTNAME=	qwdtools
 CATEGORIES=	games converters
 COMMENT=	Convert QuakeWorld demos from QWD format to MVD format
@@ -9,8 +7,8 @@ PKGMESSAGE=	/nonexistent
 BUILD_WRKSRC=	${WRKSRC}/tools/qwdtools/source
 GH_PROJECT=	mvdsv
 
-CFLAGS+=	-DQWE_VERSION=\\\"${PORTVERSION}\\\" \
-		-DPROJECT_NAME=SERVER_NAME -DPROJECT_URL=HOMEPAGE_URL
+CFLAGS+=	-DVERSION_NUMBER=\\\"${PORTVERSION}\\\" \
+		-DHOMEPAGE_URL=SERVER_HOME_URL
 
 MASTERDIR=	${.CURDIR}/../mvdsv
 

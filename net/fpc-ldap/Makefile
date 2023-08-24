@@ -1,5 +1,4 @@
-# Created by: Christopher Key <cjk32@cam.ac.uk>
-
+PORTREVISION=	4
 CATEGORIES=	net lang
 PKGNAMESUFFIX=	-ldap
 
@@ -15,6 +14,6 @@ OPTIONS_DEFINE=	OPENLDAP
 OPENLDAP_DESC=	Install OpenLDAP libraries
 OPTIONS_DEFAULT=	OPENLDAP
 
-OPENLDAP_USE=	OPENLDAP=yes
+OPENLDAP_USES=	ldap
 
 .include "${MASTERDIR}/Makefile"

@@ -1,10 +1,12 @@
 PORTNAME=	swappy
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.3.1
-CATEGORIES=	graphics
+DISTVERSION=	1.5.1
+PORTREVISION=	1
+CATEGORIES=	graphics wayland
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Snapshot editing for Wayland (a la Snappy on macOS)
+WWW=		https://github.com/jtheoof/swappy
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -18,11 +20,10 @@ PLIST_FILES=	bin/${PORTNAME} \
 		share/icons/hicolor/scalable/apps/${PORTNAME}.svg \
 		share/locale/de/LC_MESSAGES/${PORTNAME}.mo \
 		share/locale/en/LC_MESSAGES/${PORTNAME}.mo \
+		share/locale/fr/LC_MESSAGES/${PORTNAME}.mo \
 		share/locale/pt_BR/LC_MESSAGES/${PORTNAME}.mo \
 		share/locale/tr/LC_MESSAGES/${PORTNAME}.mo \
 		${NULL}
-
-INSTALLS_ICONS=	yes
 
 OPTIONS_DEFINE=	CLIPBOARD ICONSFONT MANPAGES
 OPTIONS_DEFAULT=CLIPBOARD ICONSFONT MANPAGES

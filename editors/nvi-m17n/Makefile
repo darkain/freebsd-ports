@@ -1,5 +1,3 @@
-# Created by: Jun-ichiro itojun Itoh <itojun@itojun.org>
-
 PORTNAME=	nvi
 PORTVERSION=	1.79.20040608
 PORTREVISION=	5
@@ -57,6 +55,10 @@ EUC_TW_DESC=		Set euc-tw        as default multibyte encoding
 CANNA_DESC=		Enable canna support
 
 .include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
+.endif
 
 .if ${PORT_OPTIONS:MEUC_JP}
 CONFIGURE_ARGS+=	--enable-multibyte=euc-jp

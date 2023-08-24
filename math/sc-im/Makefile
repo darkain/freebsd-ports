@@ -1,10 +1,11 @@
 PORTNAME=		sc-im
 DISTVERSIONPREFIX=	v
-DISTVERSION=		0.8.1
+DISTVERSION=		0.8.3
 CATEGORIES=		math
 
 MAINTAINER=	bapt@FreeBSD.org
 COMMENT=	Ncurses spreadsheet program for terminal
+WWW=		https://github.com/andmarti1424/sc-im
 
 LICENSE=	BSD4CLAUSE
 
@@ -23,8 +24,8 @@ LIBS+=		-lxlsreader -lxlsxwriter
 MAKE_ENV+=	LDLIBS="${LIBS}"
 MAKE_ARGS+=	CC="${CC}" prefix="${PREFIX}" MANDIR="${MANPREFIX}/man/man1"
 
-.include <bsd.port.pre.mk>
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sc-im
+	${RM} ${STAGEDIR}${PREFIX}/bin/scopen
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

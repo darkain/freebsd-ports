@@ -1,20 +1,21 @@
 PORTNAME=	dpdk
-DISTVERSION=	19.11.7
+DISTVERSION=	19.11.12
 CATEGORIES=	net
 MASTER_SITES=	http://fast.dpdk.org/rel/
 
 MAINTAINER=	bruce.richardson@intel.com
 COMMENT=	DPDK: Software libraries for packet processing
+WWW=		https://dpdk.org/
 
 LICENSE=	BSD3CLAUSE
 
 ONLY_FOR_ARCHS=	amd64
-ONLY_FOR_ARCHS_REASON=	Only works on 64-bit x86 hardware
+ONLY_FOR_ARCHS_REASON=	only works on 64-bit x86 hardware
 
 LIB_DEPENDS=	libjansson.so:devel/jansson
 BUILD_DEPENDS=	objdump:devel/binutils
 
-USES=		meson kmod pkgconfig:both shebangfix tar:xz python:3.5+
+USES=		meson kmod pkgconfig:both shebangfix tar:xz python
 WRKSRC=	${WRKDIR}/${PORTNAME}-stable-${PORTVERSION}
 MESON_ARGS=	-Dmachine=default -Ddefault_library=shared -Denable_kmods=true
 USE_LDCONFIG=	yes

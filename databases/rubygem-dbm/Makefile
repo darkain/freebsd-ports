@@ -3,13 +3,13 @@ PORTVERSION=	1.1.0
 CATEGORIES=	databases rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	yasu@utahime.org
+MAINTAINER=	yasu@FreeBSD.org
 COMMENT=	Wrapper for the UNIX-style Database Manager Library
+WWW=		https://github.com/ruby/dbm
 
 LICENSE=	BSD2CLAUSE
 
 USES=		gem
-USE_RUBY=	yes
 
 OPTIONS_SINGLE=			BACKEND
 OPTIONS_SINGLE_BACKEND=		BDB GDBM LIBC QDBM

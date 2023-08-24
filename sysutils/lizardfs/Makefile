@@ -1,19 +1,15 @@
-# Created by: John Hixson <jhixson@FreeBSD.org>
-
 PORTNAME=	lizardfs
 PORTVERSION=	3.12.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	15
+PORTREVISION=	19
 CATEGORIES=	sysutils
 
 MAINTAINER=	jhixson@FreeBSD.org
 COMMENT=	Open Source Distributed Filesystem
+WWW=		https://lizardfs.org/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
-
-BROKEN_FreeBSD_13=	fails to build
-BROKEN_i386=	fails to build
 
 BUILD_DEPENDS=	a2x:textproc/asciidoc \
 		spdlog>=1.4.2:devel/spdlog
@@ -26,8 +22,6 @@ USE_RC_SUBR=	mfscgiserv \
 	mfsmaster \
 	mfsmetalogger \
 	mfspingserv
-
-GH_ACCOUNT=	lizardfs
 
 USERS=	mfs
 GROUPS=	mfs

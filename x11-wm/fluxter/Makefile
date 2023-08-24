@@ -1,5 +1,3 @@
-# Created by: Adam Weinberger
-
 PORTNAME=	fluxter
 PORTVERSION=	0.2.0
 PORTREVISION=	3
@@ -8,12 +6,14 @@ MASTER_SITES=	http://www.hydrus.org.uk/downloads/
 
 MAINTAINER=	jgh@FreeBSD.org
 COMMENT=	Desktop pager for the Fluxbox Slit
+WWW=		https://www.hydrus.org.uk/
 
 LICENSE=	GPLv2
 
 USES=		gmake xorg
-
+USE_CXXSTD=	c++14
 USE_XORG=	x11 ice xorgproto xt xaw xext sm
+
 GNU_CONFIGURE=	yes
 
 PLIST_FILES=	bin/fluxter \

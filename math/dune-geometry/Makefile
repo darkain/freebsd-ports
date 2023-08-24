@@ -1,11 +1,12 @@
 PORTNAME=	dune-geometry
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.7.1
-PORTREVISION=	3
+DISTVERSION=	2.8.0
+PORTREVISION=	8
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	DUNE framework: Geometry transformations, reference elements, etc
+WWW=		https://www.dune-project.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
@@ -22,7 +23,7 @@ USE_LDCONFIG=	yes
 
 GL_SITE=	https://gitlab.dune-project.org
 GL_ACCOUNT=	core
-GL_COMMIT=	9d56be3e286bc761dd5d453332a8d793eff00cbe
+GL_TAGNAME=	e7bfb66e48496aa28e47974c33ea9a4579bf723b
 
 CMAKE_ON=	BUILD_SHARED_LIBS
 CMAKE_ARGS=	-DTBB_INCLUDE_DIR=${LOCALBASE}/include -DTBB_LIBRARIES=${LOCALBASE}/lib/libtbb.so

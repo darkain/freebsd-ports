@@ -1,11 +1,12 @@
 PORTNAME=	urbackup-client
-DISTVERSION=	2.4.11.0
+DISTVERSION=	2.5.20.0
 PORTREVISION=	2
 CATEGORIES=	archivers
 MASTER_SITES=	https://hndl.urbackup.org/Client/${DISTVERSION:R}/
 
-MAINTAINER=	nc@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Client component of the UrBackup backup system
+WWW=		https://www.urbackup.org
 
 LICENSE=	AGPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -14,6 +15,7 @@ LIB_DEPENDS=	libcryptopp.so:security/cryptopp
 
 USES=		autoreconf compiler:c++11-lang dos2unix gettext libtool \
 		localbase pkgconfig sqlite:3
+USE_CXXSTD=	c++14
 USE_RC_SUBR=	urbackup_client
 
 USERS=		urbackup
@@ -22,7 +24,6 @@ GROUPS=		urbackup
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-clientupdate \
 		--without-embedded-sqlite3
-CXXFLAGS+=	`pkgconf --cflags-only-other libcryptopp`
 
 SUB_FILES=	pkg-message urbackupclient.conf.sample-daemon
 

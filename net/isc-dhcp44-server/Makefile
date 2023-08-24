@@ -1,7 +1,5 @@
-# Created by: Ryan Steinmetz <zi@FreeBSD.org>
-
 PORTNAME=	dhcp
-ISCVERSION=	4.4.2-P1
+ISCVERSION=	4.4.3-P1
 PORTVERSION=	${ISCVERSION:S/-P/P/:S/b/.b/:S/a/.a/:S/rc/.rc/}
 PORTREVISION=	${DHCP_PORTREVISION}
 CATEGORIES=	net
@@ -13,12 +11,15 @@ DISTNAME=	${PORTNAME}-${ISCVERSION}
 
 MAINTAINER=	zi@FreeBSD.org
 COMMENT?=	ISC Dynamic Host Configuration Protocol server
+WWW=		https://www.isc.org/dhcp/
 
 LICENSE=	MPL20
 
-USES=		gmake
+USES=		cpe gmake
 
-PORTREVISION_SERVER=	1
+CPE_VENDOR=	isc
+
+PORTREVISION_SERVER=	0
 PORTREVISION_CLIENT=	0
 PORTREVISION_RELAY=	0
 
@@ -43,10 +44,10 @@ BINLEASES_DESC=		Enable support for binary insertion of leases
 CONFLICTS=	isc-dhcp3?-client-[0-9]* isc-dhcp4[123]-client-[0-9]*
 DHCP_PORTREVISION=	${PORTREVISION_CLIENT}
 .elif ${SUBSYS} == relay
-CONFLICTS=	isc-dhcp3?-relay-[0-9]* isc-dhcp4[123]-relay-[0-9]*
+CONFLICTS=	isc-dhcp3?-relay isc-dhcp4[123]-relay
 DHCP_PORTREVISION=	${PORTREVISION_RELAY}
 .else
-CONFLICTS=	isc-dhcp3?-server-[0-9]* isc-dhcp4[123]-server-[0-9]*
+CONFLICTS=	isc-dhcp3?-server isc-dhcp4[123]-server
 DHCP_PORTREVISION=	${PORTREVISION_SERVER}
 .endif
 MAKE_JOBS_UNSAFE=	yes
@@ -89,8 +90,7 @@ PKGMESSAGE_SUB=	PREFIX="${PREFIX}" MAN1PREFIX="${MAN1PREFIX}" \
 BINLEASES_CONFIGURE_ENABLE=	binary-leases
 PARANOIA_CONFIGURE_ENABLE=	paranoia early-chroot
 LDAP_CONFIGURE_WITH=		ldap ldapcrypto
-LDAP_USE=			OPENLDAP
-LDAP_USES=			shebangfix
+LDAP_USES=			ldap shebangfix
 LDAP_SSL_USES=			ssl
 LDAP_SSL_VARS=			LIBS+=-lssl
 LDAP_IMPLIES=			IPV6

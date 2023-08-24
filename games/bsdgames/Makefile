@@ -1,8 +1,7 @@
-# Created by: Mark Murray <markm@FreeBSD.org>
-
 PORTNAME=	bsdgames
 PORTVERSION=	0.75
 DISTVERSIONPREFIX=	v
+PORTREVISION=	1
 PORTEPOCH=	2
 CATEGORIES=	games
 
@@ -21,7 +20,7 @@ MAKE_ENV=	WITHOUT_WERROR=yes
 
 CFLAGS+=	-fcommon
 
-CONFLICTS=	hangman-[0-9]*
+CONFLICTS=	hangman
 
 INFO=		wump
 INFO_PATH=	share/games

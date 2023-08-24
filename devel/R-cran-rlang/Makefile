@@ -1,12 +1,11 @@
-# Created by: TAKATSU Tomonari <tota@FreeBSD.org>
-
 PORTNAME=	rlang
-PORTVERSION=	0.4.11
+PORTVERSION=	1.1.1
 CATEGORIES=	devel
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 
-MAINTAINER=	tota@FreeBSD.org
+MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Functions for Base Types and Core R and 'Tidyverse' Features
+WWW=		https://cran.r-project.org/web/packages/rlang/
 
 LICENSE=	MIT
 

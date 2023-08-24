@@ -1,11 +1,10 @@
-# Created by: Boris Samorodov <bsam@FreeBSD.org>
-
 PORTNAME=	goldendict
-DISTVERSION=	1.5.0-g20210115
+PORTVERSION=	1.5.0
 CATEGORIES=	textproc
 
-MAINTAINER=	bsam@FreeBSD.org
+MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Feature-rich dictionary lookup program
+WWW=		http://goldendict.org/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
@@ -20,12 +19,10 @@ LIB_DEPENDS=	libhunspell-1.7.so:textproc/hunspell \
 USES=		compiler:c++11-lang gnome iconv:wchar_t pkgconfig \
 		qmake qt:5 xorg
 USE_GITHUB=	yes
-GH_TAGNAME=	73ec1b5
 USE_XORG=	x11 xtst
-USE_QT=		buildtools_build linguisttools_build core gui help \
+USE_QT=		buildtools:build linguisttools:build core gui help \
 		network printsupport sql svg webkit widgets \
 		x11extras xml
-INSTALLS_ICONS=	yes
 QMAKE_ARGS=	${PORTNAME}.pro CONFIG+="zim_support"
 
 OPTIONS_DEFINE=	EPWING FFMPEG MULTIMEDIA OPENCC
@@ -48,8 +45,10 @@ OPENCC_LIB_DEPENDS=	libopencc.so:chinese/opencc
 OPENCC_QMAKE_ON=	CONFIG+="chinese_conversion_support"
 
 post-patch:
-	@${REINPLACE_CMD} -e '/^VERSION = /s,git,&${GH_TAGNAME},' \
+	@${REINPLACE_CMD} -e '/^VERSION = /s,git,&-8c5b26a,' \
 		${WRKSRC}/goldendict.pro
+	@${REINPLACE_CMD} -e '/^#include <stdio\.h>/ { x; \
+		s/^/#include <locale.h>/; G; }' ${WRKSRC}/main.cc
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}/locale

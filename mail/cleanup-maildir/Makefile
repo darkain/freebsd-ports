@@ -1,5 +1,3 @@
-# Created by: Emanuel Haupt <ehaupt@FreeBSD.org>
-
 PORTNAME=	cleanup-maildir
 PORTVERSION=	0.3.1
 DISTVERSIONPREFIX=	v
@@ -15,7 +13,7 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pygraph>=0.2.1:graphics/py-pygraph@${PY_FLAVOR}
 
-USES=		python:3.6+ shebangfix
+USES=		python shebangfix
 USE_GITHUB=	yes
 GH_ACCOUNT=	ehaupt
 SHEBANG_FILES=	cleanup-maildir.py

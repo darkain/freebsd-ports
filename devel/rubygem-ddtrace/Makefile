@@ -1,36 +1,24 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	ddtrace
-PORTVERSION=	0.51.1
+PORTVERSION=	1.13.1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Tracking client of Datadog for Ruby
+WWW=		https://github.com/DataDog/dd-trace-rb
 
 LICENSE=	APACHE20 BSD3CLAUSE
 LICENSE_COMB=	dual
 LICENSE_FILE_APACHE20=	${WRKSRC}/LICENSE.Apache
 LICENSE_FILE_BSD3CLAUSE=${WRKSRC}/LICENSE.BSD3
 
-RUN_DEPENDS=	rubygem-ffi>=1.0<2:devel/rubygem-ffi \
+RUN_DEPENDS=	rubygem-debase-ruby_core_source>=3.2.1<3.2.1_99:devel/rubygem-debase-ruby_core_source \
+		rubygem-libdatadog>=3.0.0.1.0<3.0.0.2:devel/rubygem-libdatadog \
+		rubygem-libddwaf>=1.9.0.0.0<1.9.0.1:devel/rubygem-libddwaf \
 		rubygem-msgpack>=0:devel/rubygem-msgpack
 
-USES=		gem shebangfix
-USE_RUBY=	yes
-
-NO_ARCH=	yes
+USES=		gem
 
 PLIST_FILES=	bin/ddtracerb
-
-SHEBANG_FILES=	integration/apps/rack/script/build-images \
-		integration/apps/rack/script/ci \
-		integration/apps/rails-five/script/build-images \
-		integration/apps/rails-five/script/ci \
-		integration/apps/ruby/script/build-images \
-		integration/apps/ruby/script/ci \
-		integration/images/include/http-health-check \
-		integration/images/wrk/scripts/entrypoint.sh \
-		integration/script/build-images
 
 .include <bsd.port.mk>

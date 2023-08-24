@@ -1,5 +1,3 @@
-# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
-
 PORTNAME=	Email-Valid-Loose
 PORTVERSION=	0.05
 PORTREVISION=	1
@@ -7,8 +5,9 @@ CATEGORIES=	mail perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Variation of Email::Valid which allows dot before at mark
+WWW=		https://metacpan.org/release/Email-Valid-Loose
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
 RUN_DEPENDS=	p5-Email-Valid>=0:mail/p5-Email-Valid

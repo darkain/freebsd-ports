@@ -1,10 +1,11 @@
 PORTNAME=	mandelbulber
-PORTVERSION=	2.25
+PORTVERSION=	2.30
 PORTREVISION=	1
 CATEGORIES=	graphics
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	3D Mandelbrot fractal renderer
+WWW=		https://mandelbulber.com/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -12,7 +13,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 LIB_DEPENDS=	libgsl.so:math/gsl \
 		libpng.so:graphics/png \
 		libtiff.so:graphics/tiff \
-		liblzo2.so:archivers/lzo2
+		liblzo2.so:archivers/lzo2 \
+		libOpenEXR.so:graphics/openexr
 BUILD_DEPENDS=	${LOCALBASE}/include/stb/stb_image.h:devel/stb
 
 USE_GITHUB=	yes
@@ -21,9 +23,8 @@ GH_PROJECT=	${PORTNAME}2
 
 USES=		cmake compiler:c++11-lang gnome jpeg localbase:ldflags \
 		pkgconfig qt:5
-USE_QT=		core widgets network gui multimedia testlib \
-		qmake_build buildtools_build uitools_build
-INSTALLS_ICONS=	yes
+USE_QT=		core widgets network gui multimedia testlib concurrent \
+		qmake:build buildtools:build uitools:build
 
 CMAKE_SOURCE_PATH=	${WRKSRC}/mandelbulber2/cmake
 

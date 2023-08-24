@@ -1,7 +1,5 @@
-# Created by: Stephen Hurd <shurd@FreeBSD.org>
-
 PORTNAME=	cqrlog
-PORTVERSION=	2.4.0
+PORTVERSION=	2.5.2
 PORTREVISION=	4
 DISTVERSIONPREFIX=	v
 CATEGORIES=	comms hamradio
@@ -9,6 +7,7 @@ PKGNAMESUFFIX=	${LAZARUS_PKGNAMESUFFIX}
 
 MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Amateur Radio logging application
+WWW=		https://www.cqrlog.com/
 
 LICENSE=	GPLv2
 
@@ -37,7 +36,6 @@ MAKE_ENV+=	LAZBUILD_CMD="${LAZBUILD_CMD}" \
 
 NO_LAZBUILD=	yes
 LAZBUILD_ARGS=	-d --pcp=.
-INSTALLS_ICONS=	yes
 DOS2UNIX_WRKSRC=${WRKSRC}/src/synapse/
 
 gtk2_CONFLICTS_INSTALL=	${PORTNAME}-qt5
@@ -58,15 +56,12 @@ post-patch:
 		${WRKSRC}/src/dUtils.pas \
 		${WRKSRC}/src/fLoTWExport.pas ${WRKSRC}/src/fLoTWExport.lfm \
 		${WRKSRC}/src/fPreferences.pas ${WRKSRC}/src/fRotControl.pas \
-		${WRKSRC}/src/fTRXControl.pas ${WRKSRC}/src/fGrayline.pas \
-		${WRKSRC}/src/fPreferences.lfm ${WRKSRC}/src/fPreferences.pas
+		${WRKSRC}/src/fTRXControl.pas ${WRKSRC}/src/fPreferences.lfm
 	${REINPLACE_CMD} -e s!%%DATADIR%%!${DATADIR}!g \
 		${WRKSRC}/src/dData.pas ${WRKSRC}/src/fGrayline.pas
-	${REINPLACE_CMD} -e s!Linux!FreeBSD!g \
-		${WRKSRC}/src/fMain.lfm ${WRKSRC}/src/fNewQSO.lfm \
-		${WRKSRC}/src/dUtils.pas
-	${REINPLACE_CMD} -e s!%%OPENSSLLIB%%!${OPENSSLLIB}!g \
-		${WRKSRC}/src/synapse/ssl_openssl_lib.pas
-	${RM} -r ${WRKSRC}/src/mysql
+
+post-build:
+	@${RM} ${WRKSRC}/help/cwd.html.*
+	@${RM} ${WRKSRC}/help/h1.html.*
 
 .include <bsd.port.mk>

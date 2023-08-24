@@ -1,19 +1,17 @@
-# Created by: Sylvio Cesar <sylvio@FreeBSD.org>
-
 PORTNAME=	jailkit
-PORTVERSION=	2.21
+PORTVERSION=	2.23
 CATEGORIES=	shells
 MASTER_SITES=	http://olivier.sessink.nl/jailkit/ \
 		http://www.sfr-fresh.com/unix/privat/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Utilities to limit user accounts to specific files and/or commands
+WWW=		https://olivier.sessink.nl/jailkit/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
 USES=		python
-
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	PYTHONINTERPRETER=${PYTHON_CMD}
 PORTDOCS=	COPYRIGHT README.txt

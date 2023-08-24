@@ -1,18 +1,21 @@
 PORTNAME=	ifcopenshell
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.6.0
-PORTREVISION=	3
+PORTREVISION=	9
 CATEGORIES=	cad
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Open source IFC library and geometry engine
+WWW=		http://ifcopenshell.org
 
 LICENSE=	LGPL3+
 LICENSE_FILE=	${WRKSRC}/COPYING.LESSER
 
 BUILD_DEPENDS=	nlohmann-json>0:devel/nlohmann-json
 LIB_DEPENDS=	libboost_system.so:devel/boost-libs \
-		libTKernel.so:cad/opencascade
+		libTKernel.so:cad/opencascade740
+
+BROKEN=		error: no viable overloaded '='
 
 USES=		cmake compiler:c++11-lang eigen:3 gnome
 USE_GNOME=	libxml2
@@ -26,7 +29,7 @@ OPTIONS_DEFAULT=	PYTHON
 OPTIONS_SUB=		yes
 
 PYTHON_CMAKE_BOOL=	BUILD_IFCPYTHON
-PYTHON_USES=		python:3.6+
+PYTHON_USES=		python
 PYTHON_BUILD_DEPENDS=	swig>=3.0.0:devel/swig
 
 CMAKE_SOURCE_PATH=	${WRKSRC}/cmake

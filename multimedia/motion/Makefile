@@ -1,34 +1,39 @@
-# Created by: Angel Carpintero <ack@telefonica.net>
-
 # PORTNAME block
 PORTNAME=	motion
 PORTVERSION=	4.3.2
-PORTREVISION=	1
+PORTREVISION=	7
 DISTVERSIONPREFIX=	release-
 CATEGORIES=	multimedia
 
 # Maintainer block
 MAINTAINER=	ports@blievers.net
 COMMENT=	Motion detection application
+WWW=		https://motion-project.github.io/
 
 # License block
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/doc/COPYING
+
+BROKEN=	fails to compile: undefined symbol: WebP*
 
 # Dependencies
 LIB_DEPENDS=	libwebp.so:graphics/webp \
 		libmicrohttpd.so:www/libmicrohttpd
 
 # USES block
-USES=		autoreconf gmake jpeg localbase pkgconfig gettext
+USES=		autoreconf cpe gmake jpeg localbase pkgconfig gettext
+CPE_VENDOR=	${PORTNAME}_project
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Motion-Project
 USE_RC_SUBR=	${PORTNAME}
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--without-linuxthreads \
-		--without-jpeg-mmx
+
+CFLAGS+=	-I${LOCALBASE}/ffmpeg4/include
+LDFLAGS+=	-L${LOCALBASE}/ffmpeg4/lib
+CONFIGURE_ENV+=	PKG_CONFIG_PATH="${LOCALBASE}/ffmpeg4/libdata/pkgconfig"
+MAKE_ENV+=	PKG_CONFIG_PATH="${LOCALBASE}/ffmpeg4/libdata/pkgconfig"
 
 # Standard bsd.port.mk variables
 SUB_FILES=	pkg-message
@@ -57,13 +62,13 @@ VIDEO_DESC=		Video capture driver (Netcam support only if none selected)
 WEBCAMD_DESC=		Webcams using webcamd
 
 BKTR_CONFIGURE_WITH=	bktr
-FFMPEG_LIB_DEPENDS=	libavformat.so:multimedia/ffmpeg
-FFMPEG_CONFIGURE_ON=	--with-ffmpeg=${LOCALBASE}
+
+FFMPEG_LIB_DEPENDS=	libavformat.so.58:multimedia/ffmpeg4
+FFMPEG_CONFIGURE_ON=	--with-ffmpeg=${LOCALBASE}/ffmpeg4
 FFMPEG_CONFIGURE_OFF=	--without-ffmpeg
 
 MYSQL_USES=		mysql
-MYSQL_CONFIGURE_ON=	--with-mysql-lib=${LOCALBASE}/lib/mysql \
-			--with-mysql-include=${LOCALBASE}/include/mysql
+MYSQL_CONFIGURE_ON=	--with-mysql=${LOCALBASE}/include/mysql
 MYSQL_CONFIGURE_OFF=	--without-mysql
 
 PGSQL_USES=		pgsql
@@ -83,10 +88,6 @@ WEBCAMD_BUILD_DEPENDS=	v4l_compat>=1.0.20060801:multimedia/v4l_compat
 WEBCAMD_CONFIGURE_WITH=	pwcbsd
 
 .include <bsd.port.pre.mk>
-
-.if ${JPEG_PORT} == "graphics/jpeg-turbo"
-CONFIGURE_ARGS+=	--with-jpeg-turbo=${LOCALBASE}
-.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e \

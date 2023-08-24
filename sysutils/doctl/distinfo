@@ -1,3 +1,3 @@
-TIMESTAMP = 1626014071
-SHA256 (digitalocean-doctl-v1.62.0_GH0.tar.gz) = 72202bba8c833457c64325fa71db50bd952f6c2507bd176a65702e0d60c4c339
-SIZE (digitalocean-doctl-v1.62.0_GH0.tar.gz) = 5206028
+TIMESTAMP = 1692658088
+SHA256 (doctl-1.98.0-source.tar.gz) = 950139767c6626ecc95149ab6dfef75caa67d82931ca7ca453f8469b470ef145
+SIZE (doctl-1.98.0-source.tar.gz) = 7567477

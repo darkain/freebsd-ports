@@ -1,32 +1,29 @@
-# Created by: Dave Cottlehuber <dch@FreeBSD.org>
-
 PORTNAME=	h2o
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.3.0-beta2.20210611
+DISTVERSION=	2.3.0-dev.20230427
 CATEGORIES=	www
 PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	dch@FreeBSD.org
 COMMENT=	Optimized HTTP/2 server including support for TLS 1.3 and HTTP/1.x
+WWW=		https://github.com/h2o/h2o
 
 LICENSE=	MIT BSD2CLAUSE
 LICENSE_COMB=	multi
 
 BROKEN_armv6=		fails to compile: asm_arm.inc:139:36: '.syntax divided' arm assembly not supported
 BROKEN_armv7=		fails to compile: asm_arm.inc:139:36: '.syntax divided' arm assembly not supported
-BROKEN_FreeBSD_11_powerpc64=	fails to link on powerpc64 elfv1: unrecognized option '-Wl,-rpath=/usr/local/lib/gcc6'
 BROKEN_FreeBSD_12_powerpc64=	fails to link on powerpc64 elfv1: unrecognized option '-Wl,-rpath=/usr/local/lib/gcc6'
 
+BUILD_DEPENDS=	rubygem-rake>=0:devel/rubygem-rake
 LIB_DEPENDS=	libuv.so:devel/libuv
 
 USES=		cmake:noninja compiler:c11 cpe perl5 shebangfix ssl pkgconfig
-CPE_VENDOR=	h2o_project
+CPE_VENDOR=	dena
 USE_GITHUB=	yes
-USE_PERL5=	run
 USE_LDCONFIG=	yes
-GH_TAGNAME=	96bf0ef
-
-CONFLICTS=	h2o-2*
+GH_TAGNAME=	f010336
+CONFLICTS=	h2o
 
 SHEBANG_FILES=	share/h2o/start_server
 
@@ -53,12 +50,12 @@ OPTIONS_DEFAULT=	MRUBY
 OPTIONS_SUB=		yes
 MRUBY_DESC=		Build with embedded mruby handler support
 
-CMAKE_ARGS+=		-DBUILD_SHARED_LIBS=ON -DWITH_BUNDLED_SSL=OFF
+CMAKE_ARGS+=		-DBUILD_SHARED_LIBS=OFF -DWITH_BUNDLED_SSL=OFF
 
 MRUBY_CMAKE_BOOL=	WITH_MRUBY
-MRUBY_USES=		bison
-MRUBY_USE=		ruby=yes
-MRUBY_VARS=		RUBY_NO_RUN_DEPENDS=yes
+MRUBY_USES=		bison ruby:build
+
+.include <bsd.port.options.mk>
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|exec perl|exec ${LOCALBASE}/bin/perl|' \

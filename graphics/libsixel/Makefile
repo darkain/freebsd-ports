@@ -6,10 +6,12 @@ MASTER_SITES=	https://github.com/saitoha/libsixel/releases/download/v${PORTVERSI
 
 MAINTAINER=	sue@iwmt.org
 COMMENT=	Encoder/decoder library for DEC SIXEL graphics
+WWW=		https://github.com/saitoha/libsixel
 
 LICENSE=	MIT
 
-USES=		libtool pkgconfig
+USES=		cpe libtool pkgconfig
+CPE_VENDOR=	${PORTNAME}_project
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig

@@ -1,10 +1,11 @@
 PORTNAME=	homebank
-PORTVERSION=	5.5.1
+PORTVERSION=	5.6.6
 CATEGORIES=	finance
-MASTER_SITES=	http://homebank.free.fr/public/
+MASTER_SITES=	http://homebank.free.fr/public/sources/
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Free, easy, personal accounting for everyone
+WWW=		http://homebank.free.fr/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -17,7 +18,6 @@ USES=		desktop-file-utils gettext gmake gnome localbase pkgconfig \
 		shared-mime-info
 USE_CSTD=	c99
 USE_GNOME=	cairo gtk30 intltool
-INSTALLS_ICONS=	yes
 
 PORTDOCS=	AUTHORS ChangeLog NEWS README
 

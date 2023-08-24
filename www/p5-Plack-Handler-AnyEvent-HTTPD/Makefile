@@ -5,8 +5,9 @@ CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for Plack handler to run PSGI apps on AnyEvent::HTTPD
+WWW=		https://metacpan.org/release/Plack-Handler-AnyEvent-HTTPD
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
 RUN_DEPENDS=	\

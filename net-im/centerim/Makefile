@@ -1,5 +1,3 @@
-# Created by: Frank Altpeter <frank@altpeter.de>
-
 PORTNAME=	centerim
 PORTVERSION=	4.22.10
 PORTREVISION=	6
@@ -9,6 +7,7 @@ MASTER_SITES=	http://www.centerim.org/download/releases/ \
 
 MAINTAINER=	frank@altpeter.de
 COMMENT=	Text mode menu- and window-driven IM interface
+WWW=		https://www.centerim.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -17,13 +16,13 @@ LIB_DEPENDS=	libassuan.so:security/libassuan \
 		libcurl.so:ftp/curl \
 		libgpg-error.so:security/libgpg-error
 
-USES=		iconv gmake ncurses pkgconfig python shebangfix ssl
+USES=		cpe iconv gmake ncurses pkgconfig python shebangfix ssl
 USE_CXXSTD=	gnu++98
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 CXXFLAGS+=	-I${LOCALBASE}/include
 CONFIGURE_ARGS=	--with-ssl --with-openssl --disable-yahoo --disable-msn
-CONFLICTS=	centericq-[0-9]* centerim-devel-[0-9]*
+CONFLICTS=	centericq centerim-devel
 
 SHEBANG_FILES=	misc/CenterIMLog2HTML.py misc/cimformathistory misc/cimextracthistory.pl
 SHEBANG_LANG=	gawk

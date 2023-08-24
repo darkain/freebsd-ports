@@ -1,5 +1,3 @@
-# Created by: Piotr Kubaj <pkubaj@anongoth.pl>
-
 PORTNAME=	pulseaudio
 PORTVERSION=	10.0
 DISTVERSIONSUFFIX=	-6.el7_9
@@ -9,15 +7,16 @@ PKGNAMESUFFIX=	-utils
 
 MAINTAINER=	emulation@FreeBSD.org
 COMMENT=	Utils for PulseAudio clients (Linux CentOS ${LINUX_DIST_VER})
+WWW=		https://pulseaudio.org/
 
-USES=		linux:c7
+USES=		cpe linux:c7
 USE_LDCONFIG=	yes
 USE_LINUX=	xorglibs pulseaudio-libs
 USE_LINUX_RPM=	nolib
 
 BIN_DISTNAMES=	${PORTNAME}${PKGNAMESUFFIX}-${DISTVERSIONFULL}
 
-CONFLICTS=	linux-c6-${PORTNAME}${PKGNAMESUFFIX}-[0-9]*
+CONFLICTS=	linux-c6-${PORTNAME}${PKGNAMESUFFIX}
 DESCR=		${.CURDIR}/../${PORTNAME}/pkg-descr
 
 .include <bsd.port.mk>

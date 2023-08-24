@@ -1,26 +1,38 @@
-# Created by: Rusty Nejdl
-
 PORTNAME=	apsw
-PORTVERSION=	3.35.4
-DISTVERSIONSUFFIX=	-r1
+PORTVERSION=	3.42.0.1
 CATEGORIES=	databases python
-MASTER_SITES=	https://github.com/rogerbinns/apsw/releases/download/${PORTVERSION}${DISTVERSIONSUFFIX}/
+MASTER_SITES=	PYPI \
+		https://sqlite.org/2023/:sqlite
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTFILES=	apsw-${PORTVERSION}${EXTRACT_SUFX} \
+		sqlite-autoconf-${APSW_SQLITE_VER}.tar.gz:sqlite
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Another Python SQLite Wrapper
+WWW=		https://rogerbinns.github.io/apsw/ \
+		https://github.com/rogerbinns/apsw
 
 LICENSE=	ZLIB
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	sqlite3>=${PORTVERSION:R},1:databases/sqlite3
+USES=		localbase python
+USE_PYTHON=	autoplist concurrent distutils unittest
 
-USES=		localbase python:3.6+ sqlite:3 zip
-USE_PYTHON=	autoplist concurrent distutils
+TEST_ENV=	PYTHONPATH=${STAGEDIR}${PYTHON_SITELIBDIR}
+
+APSW_SQLITE_VER=${PORTVERSION:R:C|\.([0-9])[[:>:]]|0\1|g:C|\.||g}00
+
+OPTIONS_DEFINE=	EXTENSION
+OPTIONS_DEFAULT=EXTENSION
+EXTENSION_DESC=	Allow loadable extensions
+
+EXTENSION_VARS=		PYDISTUTILS_BUILDARGS+=--enable=load_extension
+EXTENSION_VARS_OFF=	PYDISTUTILS_BUILDARGS+=--omit=load_extension
+
+post-patch:
+	@${MV} ${WRKDIR}/sqlite-autoconf-${APSW_SQLITE_VER} ${WRKSRC}/sqlite3
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/apsw*.so
-
-do-test:
-	cd ${WRKSRC}/ && ${PYTHON_CMD} setup.py test
+	${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR} -name '*.so' -exec ${STRIP_CMD} {} +
 
 .include <bsd.port.mk>

@@ -1,5 +1,3 @@
-# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
-
 PORTNAME=	xsel
 PORTVERSION=	1.2.0
 PORTREVISION=	1
@@ -9,6 +7,7 @@ PKGNAMESUFFIX=	-conrad
 
 MAINTAINER=	code@apotheon.net
 COMMENT=	Access X selection from command line
+WWW=		https://www.vergenet.net/~conrad/software/xsel/
 
 LICENSE=	xsel-conrad
 LICENSE_GROUPS=	COPYFREE
@@ -16,7 +15,7 @@ LICENSE_NAME=	xsel-conrad license
 LICENSE_FILE=	${WRKSRC}/COPYING
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-CONFLICTS_INSTALL=	xsel-[0-9]*
+CONFLICTS_INSTALL=	xsel
 
 USES=		autoreconf localbase xorg
 USE_XORG=	x11 xt

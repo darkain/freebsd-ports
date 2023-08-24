@@ -1,17 +1,19 @@
-# Created by: Jacob Atzen <jatzen@gmail.com>
-
 PORTNAME=	passenger
-PORTVERSION=	6.0.8
+PORTVERSION=	6.0.18
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	osa@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Modules for running Ruby on Rails and Rack applications
+WWW=		https://www.phusionpassenger.com/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	rake:devel/rubygem-rake
+LIB_DEPENDS+=	libuv.so:devel/libuv \
+		libcurl.so:ftp/curl \
+		libapr-1.so:devel/apr1
 
 CPE_VENDOR=	phusion
 CPE_PRODUCT=	passenger
@@ -31,17 +33,13 @@ OPTIONS_EXCLUDE=DOCS
 SYMLINK_DESC=	Create passenger symlink
 
 .if ${FLAVOR} == apache
-USES+=		apache:2.2+
+USES+=		apache
 .endif
 
-USE_RUBY=	yes
 RAKE_BIN=	${LOCALBASE}/bin/rake
 USES+=		compiler:c++11-lang cpe gem libtool python:env shebangfix ssl
+USE_CXXSTD=	c++14
 SHEBANG_FILES=	src/cxx_supportlib/vendor-copy/libuv/gyp_uv.py
-
-LIB_DEPENDS+=	libuv.so:devel/libuv \
-		libcurl.so:ftp/curl \
-		libapr-1.so:devel/apr1
 
 BUILD_DEPENDS+=	rubygem-rack>=0:www/rubygem-rack
 RUN_DEPENDS:=	${BUILD_DEPENDS} \
@@ -79,14 +77,13 @@ pre-patch-DEBUG-off:
 
 post-build:
 .if ${FLAVOR} == apache
-	(CC=${CC} CXX=${CXX} ${WRKSRC}/bin/passenger-install-apache2-module --auto)
+	(CC=${CC} CXX=${CXX} EXTRA_CXXFLAGS="${CXXFLAGS}" ${WRKSRC}/bin/passenger-install-apache2-module --auto)
 .endif
 
 .if ${FLAVOR} == nginx
-	(cd ${WRKSRC} && CC=${CC} CXX=${CXX} ${RAKE_BIN} nginx)
+	(cd ${WRKSRC} && CC=${CC} CXX=${CXX} EXTRA_CXXFLAGS="${CXXFLAGS}" ${RAKE_BIN} nginx)
 .endif
-	${FIND} ${WRKSRC} -name '*.o' -delete
-	${FIND} ${WRKSRC} -name '*.bak' -delete
+	${FIND} ${WRKSRC} -name '*.o' -o -name '*.bak' -o -name '*.orig' | ${XARGS} ${RM}
 
 post-install:
 	( cd ${WRKSRC} && \
@@ -101,6 +98,8 @@ post-install:
 	${LN} -sf ../../${GEM_LIB_DIR}/buildout/apache2/mod_passenger.so ${STAGEDIR}${PREFIX}/${APACHEMODDIR}/mod_passenger.so
 	@${ECHO} "${APACHEMODDIR}/mod_passenger.so" >> ${TMPPLIST}
 .endif
+	@${RM} ${STAGEDIR}${PREFIX}/bin/passenger-install-apache2-module \
+		${STAGEDIR}${PREFIX}/bin/passenger-install-nginx-module
 	@${RM} ${STAGEDIR}${PREFIX}/${GEM_LIB_DIR}/bin/passenger-install-apache2-module \
 		${STAGEDIR}${PREFIX}/${GEM_LIB_DIR}/bin/passenger-install-nginx-module
 

@@ -1,14 +1,13 @@
-# Created by: Dave Cottlehuber <dch@FreeBSD.org>
-
 PORTNAME=	graphite-api
 PORTVERSION=	1.1.3
 PORTREVISION=	2
 CATEGORIES=	www python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	dch@FreeBSD.org
 COMMENT=	Graphite-web, without the interface - just the rendering HTTP API
+WWW=		https://github.com/brutasse/graphite-api
 
 LICENSE=	APACHE20
 
@@ -24,7 +23,7 @@ RUN_DEPENDS=	\
 		${PYTHON_PKGNAMEPREFIX}gunicorn>=19.4.1:www/py-gunicorn@${PY_FLAVOR} \
 		xorg-fonts-truetype>=0:x11-fonts/xorg-fonts-truetype
 
-USES=		python:3.5+
+USES=		python
 USE_PYTHON=	distutils py3kplist
 
 NO_ARCH=	yes

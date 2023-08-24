@@ -1,21 +1,26 @@
-# Created by: gahr
-
 PORTNAME=	libosmesa
 PORTVERSION=	${MESAVERSION}
-PORTREVISION=	1
 CATEGORIES=	graphics
 
 COMMENT=	Off-Screen Mesa implementation of the OpenGL API
+WWW=		https://www.mesa3d.org/
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/docs/license.rst
+
+LIB_DEPENDS+=	libLLVM-${LLVM_DEFAULT}.so:devel/llvm${LLVM_DEFAULT} \
+		libglapi.so:graphics/mesa-libs
 
 USES=		xorg
 USE_XORG=	xorgproto
+USE_LDCONFIG=	yes
 
 .include <bsd.port.options.mk>
 .include "${.CURDIR:H:H}/graphics/mesa-dri/Makefile.common"
 
 # Disable some options
 MESON_ARGS+=	-Ddri-drivers="" \
-		-Dgallium-drivers=swrast \
+		-Dgallium-drivers="swrast" \
 		-Dvulkan-drivers="" \
 		-Dplatforms="" \
 		-Dgallium-vdpau=disabled \
@@ -23,10 +28,10 @@ MESON_ARGS+=	-Ddri-drivers="" \
 		-Dgallium-va=disabled \
 		-Dgallium-opencl=disabled \
 		-Dgallium-xa=disabled \
-		-Dgallium-xvmc=disabled \
 		-Dgallium-nine=false \
 		-Dgles1=disabled \
 		-Dgles2=disabled \
+		-Dmicrosoft-clc=disabled \
 		-Dopengl=true \
 		-Dglx=disabled \
 		-Degl=disabled \
@@ -35,11 +40,7 @@ MESON_ARGS+=	-Ddri-drivers="" \
 		-Dzstd=disabled
 LDFLAGS_i386=		-Wl,-znotext
 
-.if ${ARCH} == sparc64
-MESON_ARGS+=	-Dosmesa=classic
-.else
-MESON_ARGS+=	-Dosmesa=gallium
-.endif
+MESON_ARGS+=	-Dosmesa=true
 
 .include "${MASTERDIR}/Makefile.targets"
 

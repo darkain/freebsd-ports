@@ -1,4 +1,4 @@
---- lib/CL/devices/cpuinfo.c.orig	2020-12-16 13:02:13 UTC
+--- lib/CL/devices/cpuinfo.c.orig	2022-06-10 10:09:05 UTC
 +++ lib/CL/devices/cpuinfo.c
 @@ -34,6 +34,12 @@
  #include "config.h"
@@ -13,7 +13,7 @@
  static const char* cpuinfo = "/proc/cpuinfo";
  #define MAX_CPUINFO_SIZE 64*1024
  //#define DEBUG_POCL_CPUINFO
-@@ -41,9 +47,6 @@ static const char* cpuinfo = "/proc/cpuinfo";
+@@ -41,9 +47,6 @@ static const char* cpufreq_file="/sys/devices/system/c
  //Linux' cpufrec interface
  static const char* cpufreq_file="/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
  
@@ -130,25 +130,27 @@
    /* If the vendor_id field is still empty, we should get the PCI ID associated
     * with the CPU vendor (if there is one), to be ready for the (currently
     * provisional) OpenCL 3.0 specification that has finally clarified the
-@@ -415,10 +494,20 @@ pocl_cpuinfo_get_cpu_name_and_vendor(cl_device_id devi
+@@ -415,13 +494,23 @@ pocl_cpuinfo_get_cpu_name_and_vendor(cl_device_id devi
     */
    if (!device->vendor_id)
      {
 -      f = fopen (pci_bus_root_vendor_file, "r");
--      num_read = fscanf (f, "%x", &device->vendor_id);
-+#if 	defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__)
-+			/*
-+			 * Future work: try to extract vendor ID from PCI root bus from MIB
-+			*/
++#if		defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__)
++		/*
++		*	Future work: try to extract vendor ID from PCI root bus from MIB
++		*/
 +#elif	defined(__linux__)
 +      FILE *f = fopen (pci_bus_root_vendor_file, "r");
-+      int num_read = fscanf (f, "%x", &device->vendor_id);
-       fclose (f);
-       /* no error checking, if it failed we just won't have the info */
+       if (f)
+         {
+           /* no error checking, if it failed we just won't have the info */
+           num_read = fscanf (f, "%x", &device->vendor_id);
+           fclose (f);
+         }
 +#else
-+			/*
-+			 *	Other aliens ...
-+			*/
++		/*
++		*		Other aliens ...
++		*/
 +#endif
      }
  }

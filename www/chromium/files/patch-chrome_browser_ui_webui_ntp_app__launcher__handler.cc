@@ -1,11 +1,11 @@
---- chrome/browser/ui/webui/ntp/app_launcher_handler.cc.orig	2021-05-12 22:05:46 UTC
+--- chrome/browser/ui/webui/ntp/app_launcher_handler.cc.orig	2023-07-16 15:47:57 UTC
 +++ chrome/browser/ui/webui/ntp/app_launcher_handler.cc
-@@ -1396,7 +1396,7 @@ void AppLauncherHandler::InstallOsHooks(const web_app:
-   options.os_hooks[web_app::OsHookType::kRunOnOsLogin] = false;
-   options.os_hooks[web_app::OsHookType::kUninstallationViaOsSettings] = true;
- #if defined(OS_WIN) || defined(OS_MAC) || \
--    (defined(OS_LINUX) && !BUILDFLAG(IS_CHROMEOS_LACROS))
-+    (defined(OS_LINUX) && !BUILDFLAG(IS_CHROMEOS_LACROS)) || defined(OS_BSD)
-   options.os_hooks[web_app::OsHookType::kUrlHandlers] = true;
- #else
-   options.os_hooks[web_app::OsHookType::kUrlHandlers] = false;
+@@ -321,7 +321,7 @@ base::Value::Dict AppLauncherHandler::CreateExtensionI
+   bool is_deprecated_app = false;
+   auto* context = extension_service_->GetBrowserContext();
+ #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || \
+-    BUILDFLAG(IS_FUCHSIA)
++    BUILDFLAG(IS_FUCHSIA) || BUILDFLAG(IS_BSD)
+   is_deprecated_app =
+       extensions::IsExtensionUnsupportedDeprecatedApp(context, extension->id());
+ #endif

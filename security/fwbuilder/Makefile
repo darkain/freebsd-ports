@@ -1,15 +1,17 @@
-# Created by: Roman Shterenzon <roman@xpert.com>
-
 PORTNAME=	fwbuilder
 PORTVERSION=	5.3.7
 PORTREVISION=	2
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
-MAINTAINER=	cy@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Firewall Builder GUI and policy compilers
+WWW=		https://github.com/fwbuilder/fwbuilder
 
-BROKEN_FreeBSD_11_powerpc64=	fails to configure on powerpc64 elfv1: libz library not found
+DEPRECATED=	Abandonware since Jan 2021
+EXPIRATION_DATE=	2023-09-30
+
+BROKEN_FreeBSD_14=	Fails to build under LLVM16 with C++17 standard
 BROKEN_FreeBSD_12_powerpc64=	fails to configure on powerpc64 elfv1: libz library not found
 
 LIB_DEPENDS=	libxslt.so:textproc/libxslt \
@@ -21,17 +23,17 @@ OPTIONS_DEFINE=	DOCS
 CONFLICTS=	fwbuilder-[234].* fwbuilder-devel-[234].* \
 		libfwbuilder-[234].* libfwbuilder-devel-[234].*
 .else
-CONFLICTS=	fwbuilder-[234].* fwbuilder-devel-* \
-		libfwbuilder-[234].* libfwbuilder-devel-*
+CONFLICTS=	fwbuilder-[234].* fwbuilder-devel \
+		libfwbuilder-[234].* libfwbuilder-devel
 .endif
 
 USES=		autoreconf:build gmake libtool qmake:no_configure qt:5 ssl
-USE_GITHUB=     yes
+USE_GITHUB=	yes
 PLIST_SUB=	PORTVERSION=${PORTVERSION}
 USE_QT=		buildtools gui \
-		linguist_build \
+		linguist:build \
 		printsupport \
-		qmake_build \
+		qmake:build \
 		svg \
 		xml
 

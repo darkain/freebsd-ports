@@ -1,11 +1,12 @@
 PORTNAME=	mpich
-PORTVERSION=	3.4.2
+PORTVERSION=	3.4.3
 PORTREVISION=	2
 CATEGORIES=	net parallel
 MASTER_SITES=	https://www.mpich.org/static/downloads/${DISTVERSION}/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Portable implementation of MPI-1, MPI-2 and MPI-3
+WWW=		https://www.mpich.org/
 
 LICENSE=	MPICH
 LICENSE_NAME=	MPICH
@@ -21,7 +22,7 @@ LIB_DEPENDS=	libhwloc.so:devel/hwloc2	\
 		libepoll-shim.so:devel/libepoll-shim
 RUN_DEPENDS=	bash:shells/bash
 
-CONFLICTS=	lam-7.* mpd-[0-9]* mpiexec-0.* mpich2-[0-9]*
+CONFLICTS=	mpd mpich2
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 USES=		compiler:c11 libtool perl5 pkgconfig
@@ -55,9 +56,7 @@ DHYDRA_DESC=	Make hydra the default process manager
 
 L0_DESC=		oneAPI Level Zero support
 L0_LIB_DEPENDS=		libze_loader.so:devel/level-zero
-L0_CPPFLAGS=		-DZE_IPC_MEMORY_FLAG_TBD=ZE_IPC_MEMORY_FLAG_BIAS_CACHED # 1.4.1
-L0_CONFIGURE_ENV_OFF=	ac_cv_header_level_zero_ze_api_h=no \
-			ac_cv_lib_ze_loader_zeInit=no
+L0_CONFIGURE_OFF=	--without-ze
 
 CONFIGURE_ARGS=	--enable-fast="" --with-hwloc-prefix=${LOCALBASE} \
 		--with-libfabric=${LOCALBASE} \
@@ -72,8 +71,6 @@ CONFIGURE_ARGS=	--enable-fast="" --with-hwloc-prefix=${LOCALBASE} \
 		MPICHLIB_LIBS="${LIBS}" \
 		LIBS="-L${LOCALBASE}/lib -lepoll-shim -ljson-c -lm"	\
 		BASH_SHELL=${LOCALBASE}/bin/bash
-
-CFLAGS_powerpc64=	-D__BIG_ENDIAN
 
 .include <bsd.port.options.mk>
 

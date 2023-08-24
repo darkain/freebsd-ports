@@ -6,6 +6,7 @@ MASTER_SITES=	GNU
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	Interactive typing tutor
+WWW=		https://www.gnu.org/software/gtypist/
 
 LICENSE=	GPLv3
 
@@ -34,6 +35,6 @@ post-patch:
 		${WRKSRC}/src/script.c \
 		${WRKSRC}/src/gtypist.c \
 		${WRKSRC}/src/utf8.c
-	${REINPLACE_CMD} -e 's/-lncursesw/-l${NCURSES_IMPL}/g' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's/-lncursesw/${NCURSESLIBS}/g' ${WRKSRC}/configure
 
 .include <bsd.port.mk>

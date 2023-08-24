@@ -1,14 +1,13 @@
-# Created by: Geoffrey Mainland <mainland@apeiron.net>
-
 PORTNAME=	texmacs
 PORTVERSION=	1.99.4
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	editors print
 MASTER_SITES=	http://www.texmacs.org/Download/ftp/tmftp/source/
 DISTNAME=	TeXmacs-${PORTVERSION}-src
 
-MAINTAINER=	bofhs@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	WYSIWYG scientific text editor
+WWW=		https://www.texmacs.org/
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -16,16 +15,14 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 BROKEN_FreeBSD_13=	assigning to 'bool' from incompatible type 'nullptr_t'
 BROKEN_FreeBSD_14=	assigning to 'bool' from incompatible type 'nullptr_t'
 
-LIB_DEPENDS=	libltdl.so:devel/libltdl \
-		libguile.so:lang/guile1 \
-		libgmp.so:math/gmp
 RUN_DEPENDS=	fig2dev:print/transfig
 
 BROKEN_armv6=		fails to compile: call to min is ambiguous
 BROKEN_armv7=		fails to compile: call to min is ambiguous
 
-USES=		cpe desktop-file-utils gmake iconv localbase pkgconfig python \
-		shared-mime-info shebangfix xorg
+USES=		cpe desktop-file-utils gmake guile:1.8,alias iconv \
+		localbase pkgconfig python shared-mime-info shebangfix \
+		tex xorg
 USE_TEX=	tex:run dvipsk:run
 USE_XORG=	xext
 GNU_CONFIGURE=	yes

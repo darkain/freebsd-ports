@@ -1,5 +1,3 @@
-# Created by: Dmitry Frolov <frol@nov.net>
-
 PORTNAME=	ipmitool
 PORTVERSION=	1.8.18
 PORTREVISION=	3
@@ -8,6 +6,7 @@ MASTER_SITES=	SF
 
 MAINTAINER=	zi@FreeBSD.org
 COMMENT=	CLI to manage IPMI systems
+WWW=		https://sourceforge.net/projects/ipmitool/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -48,7 +47,7 @@ FREEIPMI_CONFIGURE_ENABLE=	intf-free
 
 .include <bsd.port.options.mk>
 
-.if (${OPSYS} == FreeBSD && ${OSVERSION} >= 1200085) || ${SSL_DEFAULT} == openssl
+.if ${OPSYS} == FreeBSD || ${SSL_DEFAULT} == openssl
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-src_plugins_lanplus_lanplus__crypt__impl.c
 .endif
 

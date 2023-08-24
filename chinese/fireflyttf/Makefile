@@ -1,5 +1,3 @@
-# Created by: Shen Chuan-Hsing <statue@freebsd.sinica.edu.tw>
-
 PORTNAME=	fireflyttf
 PORTVERSION=	1.3.0
 PORTREVISION=	8
@@ -9,8 +7,9 @@ DISTNAME?=	fireflysung-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Combination of two Arphic Sung fonts
+WWW=		http://www.study-area.org/apt/firefly-font/
 
-CONFLICTS=	zh-opendesktop-fonts-*
+CONFLICTS=	zh-opendesktop-fonts
 
 NO_BUILD=	yes
 WRKSRC=		${WRKDIR}/${DISTNAME}

@@ -1,52 +1,53 @@
 PORTNAME=	influxdb
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.8.6
+DISTVERSION=	1.8.10
+PORTREVISION=	15
 CATEGORIES=	databases net-mgmt
 
-MAINTAINER=	driesm.michiels@gmail.com
+MAINTAINER=	driesm@FreeBSD.org
 COMMENT=	Open-source distributed time series database
+WWW=		https://influxdata.com/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=	aarch64 amd64 armv6 armv7 i386
-ONLY_FOR_ARCHS_REASON=	depends on go which is not supported in this architecture
+USES=		cpe go:modules
+USE_GITHUB=	nodefault
+GH_TUPLE=	golang:sys:v0.5.0:sys
 
-USES=		go:modules
+CPE_VENDOR=	influxdata
 
 USE_RC_SUBR=	influxd
 
 GO_MODULE=	github.com/influxdata/influxdb
-GO_BUILDFLAGS=	-ldflags "-X main.version=${DISTVERSION}"
-GO_TARGET=	./cmd/influxd \
-		./cmd/influx \
-		./cmd/influx_inspect \
-		./cmd/influx_tsm \
-		./cmd/influx_stress
+GO_TARGET=	./cmd/influx ./cmd/influx_inspect ./cmd/influx_stress \
+		./cmd/influxd
 
-SUB_LIST=	INFLUXD_USER=${INFLUXD_USER} \
+GO_BUILDFLAGS=	-ldflags "-X main.version=${DISTVERSION}"
+
+SUB_LIST=	INFLUXD_DBDIR=${INFLUXD_DBDIR} \
 		INFLUXD_GROUP=${INFLUXD_GROUP} \
-		INFLUXD_DBDIR=${INFLUXD_DBDIR} \
+		INFLUXD_LOGDIR=${INFLUXD_LOGDIR} \
 		INFLUXD_PIDDIR=${INFLUXD_PIDDIR} \
-		INFLUXD_LOGDIR=${INFLUXD_LOGDIR}
+		INFLUXD_USER=${INFLUXD_USER}
 
 USERS=		${INFLUXD_USER}
 GROUPS=		${INFLUXD_GROUP}
 
-PLIST_SUB=	INFLUXD_USER=${INFLUXD_USER} \
+PLIST_SUB=	INFLUXD_DBDIR=${INFLUXD_DBDIR} \
 		INFLUXD_GROUP=${INFLUXD_GROUP} \
-		INFLUXD_DBDIR=${INFLUXD_DBDIR} \
+		INFLUXD_LOGDIR=${INFLUXD_LOGDIR} \
 		INFLUXD_PIDDIR=${INFLUXD_PIDDIR} \
-		INFLUXD_LOGDIR=${INFLUXD_LOGDIR}
+		INFLUXD_USER=${INFLUXD_USER}
 
-OPTIONS_DEFINE=	MANPAGES
-OPTIONS_DEFAULT=MANPAGES
-OPTIONS_SUB=	yes
+OPTIONS_DEFINE=		MANPAGES
+OPTIONS_DEFAULT=	MANPAGES
+OPTIONS_SUB=		yes
 
-MANPAGES_BUILD_DEPENDS=	xmlto:textproc/xmlto \
-			asciidoc:textproc/asciidoc \
-			docbook-xml>0:textproc/docbook-xml
-MANPAGES_USES=	gmake
+MANPAGES_USES=		gmake
+MANPAGES_BUILD_DEPENDS=	asciidoc:textproc/asciidoc \
+			docbook-xml>0:textproc/docbook-xml \
+			xmlto:textproc/xmlto
 
 INFLUXD_DBDIR=	/var/db/${PORTNAME}/
 INFLUXD_LOGDIR=	/var/log/${PORTNAME}/
@@ -62,6 +63,10 @@ SUB_LIST+=	INFLUXD_LOGCMD="daemon"
 .else
 SUB_LIST+=	INFLUXD_LOGCMD="logger"
 .endif
+
+pre-patch:
+	${RM} -r ${WRKSRC}/vendor/golang.org/x/sys
+	${LN} -s ${WRKDIR}/sys-* ${WRKSRC}/vendor/golang.org/x/sys
 
 do-build-MANPAGES-on:
 	@cd ${WRKSRC}/man && ${SETENV} ${MAKE_ENV} ${MAKE_CMD}

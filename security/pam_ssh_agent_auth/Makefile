@@ -1,20 +1,21 @@
-# Created by: Martin Wilke <miwi@FreeBSD.org>
-
 PORTNAME=	pam_ssh_agent_auth
 PORTVERSION=	0.10.4
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	security
 
 MAINTAINER=	matthew@FreeBSD.org
 COMMENT=	PAM module which permits authentication via ssh-agent
+WWW=		https://github.com/jbeverly/pam_ssh_agent_auth
+
+# Note: if you need support for hardware token backed ecdsa-sk or
+# ed25519-sk SSH keys, see devel/pam_rssh
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	jbeverly
-GH_TAGNAME=	7ff7858
+GH_TAGNAME=	099beb2
 GH_TUPLE=	floodyberry:ed25519-donna:8757bd4:floodyberry_ed25519_donna/ed25519-donna
 
 BROKEN_mips64=		fails to compile: ed25519-donna-portable.h:85:4: Need a uint128_t implementation!
-BROKEN_FreeBSD_11_powerpc64=	fails to compile on powerpc64 elfv1: ed25519-donna-portable.h: warning: ALIGN redefined
 BROKEN_FreeBSD_12_powerpc64=	fails to compile on powerpc64 elfv1: ed25519-donna-portable.h: warning: ALIGN redefined
 
 USES=		perl5 ssl tar:bzip2
@@ -31,5 +32,12 @@ PLIST_FILES=	lib/pam_ssh_agent_auth.so \
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/pam_ssh_agent_auth.so
+
+.include <bsd.port.options.mk>
+
+.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+IGNORE_SSL=	base openssl30 openssl31
+IGNORE_SSL_REASON=	Compiles but does not generate a working module with OpenSSL 3.0.0 and later
+.endif
 
 .include <bsd.port.mk>

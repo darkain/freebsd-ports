@@ -1,13 +1,12 @@
-# Created by: vanilla@
-
 PORTNAME=	CryptX
-PORTVERSION=	0.072
+PORTVERSION=	0.078
 CATEGORIES=	security perl5
 MASTER_SITES=	CPAN/Crypt
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	vanilla@FreeBSD.org
 COMMENT=	Crypto toolkit
+WWW=		https://metacpan.org/release/CryptX
 
 LICENSE=	ART20
 LICENSE_FILE=	${WRKSRC}/LICENSE

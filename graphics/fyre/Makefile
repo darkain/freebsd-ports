@@ -1,13 +1,12 @@
-# Created by: Adam Weinberger <adamw@FreeBSD.org>
-
 PORTNAME=	fyre
 PORTVERSION=	1.0.1
-PORTREVISION=	22
+PORTREVISION=	26
 CATEGORIES=	graphics
 MASTER_SITES=	http://releases.navi.cx/fyre/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Chaos map rendering system with GTK+-2 interface
+WWW=		https://fyre.navi.cx/
 
 LICENSE=	GPLv2 GPLv3
 LICENSE_COMB=	dual
@@ -16,7 +15,6 @@ USES=		compiler:c++11-lang desktop-file-utils gmake gnome pkgconfig \
 		shared-mime-info tar:bzip2
 USE_GNOME=	libglade2
 GNU_CONFIGURE=	yes
-INSTALLS_ICONS=	yes
 
 OPTIONS_DEFINE=		OPTIMIZED_CFLAGS OPENEXR GNET DOCS
 OPTIONS_DEFAULT=	OPENEXR GNET

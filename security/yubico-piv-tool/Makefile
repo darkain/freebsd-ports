@@ -1,11 +1,12 @@
 PORTNAME=	yubico-piv-tool
-PORTVERSION=	2.2.0
+PORTVERSION=	2.3.1
 PORTREVISION=	0
 CATEGORIES=	security
 MASTER_SITES=	https://developers.yubico.com/yubico-piv-tool/Releases/
 
 MAINTAINER=	ume@FreeBSD.org
 COMMENT=	Yubico PIV tool
+WWW=		https://developers.yubico.com/yubico-piv-tool/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING

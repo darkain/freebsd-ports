@@ -1,10 +1,11 @@
 PORTNAME=	servr
-PORTVERSION=	0.22
+PORTVERSION=	0.27
 CATEGORIES=	www
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 
 MAINTAINER=	tota@FreeBSD.org
 COMMENT=	Simple HTTP Server to Serve Static Files or Dynamic Documents
+WWW=		https://cran.r-project.org/web/packages/servr/
 
 LICENSE=	GPLv2+
 

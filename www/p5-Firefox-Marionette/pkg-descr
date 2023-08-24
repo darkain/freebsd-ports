@@ -1,3 +1,2 @@
-Automate the Firefox browser with the Marionette protocol
-
-WWW: https://metacpan.org/release/Firefox-Marionette
+This is a client module to automate the Mozilla Firefox browser
+via the Marionette protocol

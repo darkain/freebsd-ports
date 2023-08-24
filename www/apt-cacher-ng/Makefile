@@ -1,19 +1,21 @@
 PORTNAME=	apt-cacher-ng
-PORTVERSION=	3.2
-PORTREVISION=	2
+PORTVERSION=	3.2.1
 CATEGORIES=	www
 MASTER_SITES=	DEBIAN_POOL/apt-cacher-ng
 DISTFILES=	${PORTNAME}_${PORTVERSION}.orig${EXTRACT_SUFX}
 
 MAINTAINER=	keve@keve.hu
 COMMENT=	Specialized http/s proxy for caching software distribution sites
+WWW=		https://www.unix-ag.uni-kl.de/~bloch/acng/
 
 LICENSE=	EduardBloch
 LICENSE_NAME=	Eduard Bloch license
 LICENSE_FILE=	${WRKSRC}/COPYING
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-USES=		compiler:c++11-lang cmake tar:xz
+USES=		compiler:c++11-lang cmake cpe tar:xz
+CPE_VENDOR=	${PORTNAME}_project
+
 USE_RC_SUBR=	apt_cacher_ng
 
 CMAKE_ARGS=	-DLIBDIR:PATH=${DATADIR} \
@@ -39,6 +41,12 @@ FUSE_DESC=	FUSE support for interfacing with the proxy via acngfs
 FUSE_CMAKE_BOOL=	USE_FUSE
 FUSE_USES=		fuse pkgconfig
 
+.include <bsd.port.pre.mk>
+
+#.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+#CXXFLAGS+=	-DOPENSSL_API_COMPAT=0x10100000L
+#.endif
+
 post-install:
 	${MV} ${STAGEDIR}${ETCDIR}/acng.conf ${STAGEDIR}${ETCDIR}/acng.conf.sample
 	${MV} ${STAGEDIR}${ETCDIR}/security.conf ${STAGEDIR}${ETCDIR}/security.conf.sample
@@ -50,4 +58,4 @@ post-install:
 	${MKDIR} ${STAGEDIR}/var/cache/apt-cacher-ng \
 		${STAGEDIR}/var/log/apt-cacher-ng
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

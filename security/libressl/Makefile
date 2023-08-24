@@ -1,12 +1,11 @@
-# Created by: Vsevolod Stakhov <vsevolod@FreeBSD.org>
-
 PORTNAME=	libressl
-PORTVERSION=	3.3.3
+PORTVERSION=	3.7.3
 CATEGORIES=	security devel
 MASTER_SITES=	OPENBSD/LibreSSL
 
 MAINTAINER=	brnrd@FreeBSD.org
 COMMENT=	Free version of the SSL/TLS protocol forked from OpenSSL
+WWW=		https://www.libressl.org/
 
 LICENSE=	BSD4CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -25,10 +24,10 @@ LIBTLS_DESC=	Only install libtls (no libcrypto/libssl)
 MAN3_DESC=	Install API manpages (section 3)
 NC_DESC=	Install TLS-enabled netcat
 
-CONFLICTS_INSTALL=		libressl-devel-libtls-[0-9]*
-libtls_CONFLICTS_INSTALL=	libretls-[0-9]*
-default_CONFLICTS_INSTALL=	openssl-[0-9]* \
-				openssl-devel-[0-9]*
+CONFLICTS_INSTALL=		libressl-devel
+libtls_CONFLICTS_INSTALL=	libretls
+default_CONFLICTS_INSTALL=	openssl \
+				openssl3[01]
 
 .if ${FLAVOR:U} == default
 OPTIONS_EXCLUDE=	LIBTLS
@@ -50,6 +49,13 @@ LDFLAGS+=	-pthread
 INSTALL_TARGET=	install-strip
 TEST_TARGET=	check
 
+PLIST_SUB+=	LIBCRYPTO_SHLIBMAJ=50 \
+		LIBCRYPTO_SHLIBFULL=50.0.2 \
+		LIBSSL_SHLIBMAJ=53 \
+		LIBSSL_SHLIBFULL=53.0.2 \
+		LIBTLS_SHLIBMAJ=26 \
+		LIBTLS_SHLIBFULL=26.0.2
+
 post-patch-MAN3-off:
 	${REINPLACE_CMD} -e '/^install-man:/s/install-man3//' \
 		-e '/$$(MAKE) $$(AM_MAKEFLAGS) install-data-hook/d' \
@@ -57,5 +63,9 @@ post-patch-MAN3-off:
 
 post-install:
 	${RM} -r ${STAGEDIR}/${PREFIX}/etc/ssl/cert.pem
+
+post-stage-MAN3-on:
+	(cd ${STAGEDIR}${MANPREFIX}; ${FIND} man/man3 -not -type d | \
+		${SED} 's/$$/.gz/' >> ${TMPPLIST})
 
 .include <bsd.port.mk>

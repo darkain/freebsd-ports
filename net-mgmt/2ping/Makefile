@@ -6,11 +6,12 @@ MASTER_SITES=	https://www.finnie.org/software/2ping/ \
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Bi-directional ping utility
+WWW=		https://www.finnie.org/software/2ping/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING.md
 
-USES=		python:3.5+
+USES=		python
 USE_PYTHON=	autoplist distutils noflavors
 
 NO_ARCH=	yes

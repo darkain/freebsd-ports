@@ -1,5 +1,3 @@
-# Created by: Oliver Eikemeier <eikemeier@fillmore-labs.com>
-
 PORTNAME=	websieve
 PORTVERSION=	0.63.a
 PORTREVISION=	3
@@ -9,13 +7,15 @@ DISTNAME?=	${PORTNAME}-${SIEVEVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Web based Cyrus IMAP user admin client
+WWW=		https://sourceforge.net/projects/websieve/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/GPL
 
 SIEVEVERSION=	${PORTVERSION:S/.//g}
 
-USES=		perl5 shebangfix
+USES=		cpe perl5 shebangfix
+CPE_VENDOR=	${PORTNAME}_project
 USE_PERL5=	run
 SHEBANG_FILES=	websieve.pl
 

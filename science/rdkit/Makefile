@@ -1,6 +1,6 @@
 PORTNAME=	rdkit
 DISTVERSIONPREFIX=	Release_
-DISTVERSION=	2021_03_4
+DISTVERSION=	2023_03_3
 CATEGORIES=	science
 MASTER_SITES=	https://fonts.google.com/download?family=Comic%20Neue&dummy=/:font
 DISTFILES=	Comic_Neue.zip:font
@@ -8,9 +8,13 @@ DIST_SUBDIR=	${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Collection of cheminformatics and machine-learning software
+WWW=		https://www.rdkit.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/license.txt
+
+BROKEN_i386=	non-constant-expression cannot be narrowed from type 'unsigned int' to 'npy_intp', see https://github.com/rdkit/rdkit/issues/4934
+BROKEN_FreeBSD_14=	fails to compile as clang crashes
 
 BUILD_DEPENDS=	catch>0:devel/catch \
 		flex:textproc/flex \
@@ -20,7 +24,7 @@ LIB_DEPENDS=	libboost_system.so:devel/boost-libs \
 		libfreetype.so:print/freetype2 \
 		libmaeparser.so:science/maeparser
 
-USES=		bison:build cmake compiler:c++11-lang eigen:3 python:3.7+
+USES=		bison:build cmake compiler:c++11-lang eigen:3 python
 USE_GITHUB=	yes
 GH_TUPLE=	rareylab:RingDecomposerLib:v1.1.3_rdkit:RingDecomposerLib/External/RingFamilies/RingDecomposerLib
 USE_LDCONFIG=	yes
@@ -70,8 +74,7 @@ post-extract:
 	@cd ${WRKSRC}/External/rapidjson-1.1.0 && ${LN} -s ${LOCALBASE}/include/rapidjson include
 	@cd ${WRKSRC}/Data/Fonts && unzip ${DISTDIR}/${DIST_SUBDIR}/Comic_Neue.zip
 
-post-stage: # https://github.com/rdkit/rdkit/issues/2094
-	#@${MKDIR} ${STAGEDIR}${PREFIX}/lib/cmake
-	#@${MV} ${STAGEDIR}${PREFIX}/lib/*.cmake ${STAGEDIR}${PREFIX}/lib/cmake
+post-install-PGSQL-on:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/rdkit.so
 
 .include <bsd.port.mk>

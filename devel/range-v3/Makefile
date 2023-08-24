@@ -1,9 +1,10 @@
 PORTNAME=	range-v3
-DISTVERSION=	0.11.0
+DISTVERSION=	0.12.0
 CATEGORIES=	devel
 
-MAINTAINER=	henry.hu.sh@gmail.com
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Experimental range library for C++11/14/17
+WWW=		https://github.com/ericniebler/range-v3
 
 LICENSE=	BSL
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
@@ -30,6 +31,5 @@ build-examples: build
 	@cd ${BUILD_WRKSRC} && \
 		${SETENV} ${CONFIGURE_ENV} ${CMAKE_BIN} ${CMAKE_ARGS} -DRANGE_V3_EXAMPLES:BOOL=ON ${CMAKE_SOURCE_PATH} && \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} ${ALL_TARGET}
-
 
 .include <bsd.port.mk>

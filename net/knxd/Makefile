@@ -1,12 +1,10 @@
-# Created by: mfechner@FreeBSD.org
-
 PORTNAME=	knxd
-PORTVERSION=	0.14.39
-PORTREVISION=	3
+PORTVERSION=	0.14.59
 CATEGORIES=	net
 
 MAINTAINER=	mfechner@FreeBSD.org
 COMMENT=	Advanced router/gateway for KNX
+WWW=		https://github.com/knxd/knxd
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -16,18 +14,15 @@ LIB_DEPENDS=	libargp.so:devel/argp-standalone \
 		libfmt.so:devel/libfmt
 
 USES=		autoreconf compiler:c11 gmake libtool pkgconfig
-USE_RC_SUBR=	knxd
-USE_GITHUB=	yes
-USE_LDCONFIG=	yes
-
-INSTALL_TARGET=	install-strip
-GH_ACCOUNT=	knxd
-GH_PROJECT=	knxd
-GH_TAGNAME=	746a8d85dfdc4c456a9b832eca358a062a2b351d
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS?=--disable-systemd --disable-usb \
+CONFIGURE_ARGS=	--disable-systemd --disable-usb \
 		CPPFLAGS="-I${LOCALBASE}/include" \
 		LDFLAGS="-I${LOCALBASE}/include -L/${LOCALBASE}/lib"
+USE_GITHUB=	yes
+USE_LDCONFIG=	yes
+USE_RC_SUBR=	knxd
+
+INSTALL_TARGET=	install-strip
 
 post-patch:
 	# Replace script for version detection with PORTREVISION as the repository does not have a .git repo and therefor the script fails

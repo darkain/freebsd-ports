@@ -1,27 +1,27 @@
-# Created by: Fumihiko Kimura <jfkimura@yahoo.co.jp>
-
 PORTNAME=	tdiary
-PORTVERSION=	5.1.6
+DISTVERSION=	5.2.4
 CATEGORIES?=	www ruby
 MASTER_SITES=	https://github.com/tdiary/tdiary-core/releases/download/v${PORTVERSION}/
 DISTNAME=	${PORTNAME}-full-v${PORTVERSION}
 
-MAINTAINER=	yasu@utahime.org
+MAINTAINER=	yasu@FreeBSD.org
 COMMENT=	Web-based diary system (like weblog) written in Ruby
+WWW=		https://www.tdiary.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	rubygem-bundler>=2.0.2:sysutils/rubygem-bundler \
 		rubygem-emot>=0.0.4:textproc/rubygem-emot \
-		rubygem-fastimage>=2.1.7:graphics/rubygem-fastimage \
+		rubygem-fastimage>=2.2.6:graphics/rubygem-fastimage \
 		rubygem-hikidoc>=0.1.0:textproc/rubygem-hikidoc \
 		rubygem-mail>=2.7.1:mail/rubygem-mail \
-		rubygem-rack>=2.2.3,3:www/rubygem-rack \
-		rubygem-rake>=12.3.3:devel/rubygem-rake
+		rubygem-net-smtp>=0.3.1:mail/rubygem-net-smtp \
+		rubygem-rack>=3.0.1,3:www/rubygem-rack \
+		rubygem-rackup>=0.2.3:www/rubygem-rackup \
+		rubygem-rake>=13.0.6:devel/rubygem-rake
 
-USES=		shebangfix
-USE_RUBY=	yes
+USES=		cpe shebangfix
 
 SHEBANG_FILES=	bin/tdiary index.fcgi index.rb misc/convert2.rb misc/migrate.rb \
 		misc/plugin/xmlrpc/xmlrpc.rb update.fcgi update.rb
@@ -52,7 +52,7 @@ HTML=		${DOCFILES:S/$/.html/}
 MD=		${DOCFILES:S/$/.md/}
 
 #TDIARY_LANG	ja:Japanese en:English
-.if !defined(TDIARY_LANG) || ( defined(TDIARY_LANG) && ${TDIARY_LANG} != ja )
+.if !defined(TDIARY_LANG) || (defined(TDIARY_LANG) && ${TDIARY_LANG} != ja)
 TDIARY_LANG=	en
 .endif
 
@@ -99,14 +99,5 @@ do-install:
 do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC}/doc && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
-
-x-generate-plist: stage
-	${ECHO_CMD} bin/%%TDIARY_SCRIPT%% > pkg-plist.new
-	${ECHO_CMD} @owner %%WWWOWN%% >> pkg-plist.new
-	${ECHO_CMD} @group %%WWWGRP%% >> pkg-plist.new
-	${FIND} ${STAGEDIR}${WWWDIR} -type f -o -type l | ${SORT} | ${SED} -e 's,${STAGEDIR}${WWWDIR},%%WWWDIR%%,g' >> pkg-plist.new
-	${FIND} ${STAGEDIR}${WWWDIR} -type d -depth | ${SORT} -r | ${SED} -e 's,${STAGEDIR}${WWWDIR},@dir %%WWWDIR%%,g' >> pkg-plist.new
-	${ECHO_CMD} @owner >> pkg-plist.new
-	${ECHO_CMD} @group >> pkg-plist.new
 
 .include <bsd.port.mk>

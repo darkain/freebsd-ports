@@ -5,6 +5,7 @@ MASTER_SITES=	http://kristaps.bsd.lv/libdiff/snapshots/
 
 MAINTAINER=	bapt@FreeBSD.org
 COMMENT=	Library to generate arbitrary sequence diffs
+WWW=		https://github.com/kristapsdz/libdiff
 
 LICENSE=	MIT
 
@@ -12,5 +13,6 @@ PLIST_FILES=	lib/libdiff.a \
 		include/diff.h \
 		man/man3/diff.3.gz
 HAS_CONFIGURE=	yes
+CONFIGURE_ARGS=	PREFIX="${PREFIX}"
 
 .include <bsd.port.mk>

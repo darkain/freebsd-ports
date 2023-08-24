@@ -1,18 +1,24 @@
-# Created by: Francisco Cabrita <include@npf.pt.freebsd.org>
-
 PORTNAME=	joomla
-DISTVERSION=	3-9-24
+DISTVERSION=	3-10-11
 CATEGORIES=	www
 MASTER_SITES=	https://downloads.joomla.org/cms/joomla3/${DISTVERSION}/
 PKGNAMESUFFIX=	3
 DISTNAME=	Joomla_${DISTVERSION}-Stable-Full_Package.tar.bz2?format=bz2
 
-MAINTAINER=	ler@FreeBSD.org
+MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Dynamic web content management system (CMS)
+WWW=		https://www.joomla.org/
 
 LICENSE=	GPLv2
 
-USES=		php:web tar:bz2 shebangfix
+USES=		cpe php:web tar:bz2 shebangfix
+CPE_VENDOR=	${PORTNAME}
+CPE_PRODUCT=	${PORTNAME}\!
+
+DEPRECATED=	EOL upstream
+EXPIRATION_DATE=	2023-08-30
+
+CONFLICTS_INSTALL=	joomla
 
 NO_ARCH=	yes
 NO_BUILD=	yes
@@ -28,18 +34,12 @@ SHEBANG_FILES=	libraries/vendor/leafo/lessphp/lessify
 
 SUB_FILES=	pkg-message
 
-USE_PHP=	gd json mbstring pcre session simplexml xml zip zlib
+USE_PHP=	gd mbstring session simplexml xml zip zlib
 
 MYSQL_USE=	PHP=mysqli
 PGSQL_USE=	PHP=pgsql
 
 WWWDIR=		${PREFIX}/www/${PORTNAME}${PORTVERSION:R:R}
-
-.include <bsd.port.options.mk>
-
-.if ${FLAVOR} != php80 && !defined(PACKAGE_BUILDING)
-USE_PHP+=	pdf
-.endif
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${WWWDIR}

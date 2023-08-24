@@ -1,41 +1,49 @@
 PORTNAME=	pgpool-II
-PORTVERSION=	4.2.3
+PORTVERSION=	4.2.12
 CATEGORIES=	databases
 MASTER_SITES=	http://www.pgpool.net/mediawiki/images/
 PKGNAMESUFFIX=	42
 
 MAINTAINER=	mike.jakubik@swiftsmsgateway.com
 COMMENT=	Connection pool server for PostgreSQL
+WWW=		https://pgpool.net/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-PORTSCOUT=	limit:^4.2.[0-9]*
+DEPRECATED=	Upstream EOL reaches on 2023-12-31
+EXPIRATION_DATE=	2023-12-31
 
-USES=		gmake libtool pgsql:9.6+
+USES=		gmake libtool pgsql:11+
 USE_LDCONFIG=	yes
 USE_RC_SUBR=	pgpool
 
 GNU_CONFIGURE=	yes
 
-CONFLICTS=	pgpool-II-[0-9]*
+CONFLICTS_INSTALL=	pgpool-II-[0-9][0-9] pgpool-II[0-9][0-9] # etc/escalation.sh.sample etc/failover.sh.sample etc/pcp.conf.sample
+
+PORTSCOUT=	limit:^4.2.[0-9]*
 
 PORTDOCS=	*
-
-PAM_DESC=	Build with PAM support
-SSL_DESC=	Build with OpenSSL support
-MEMCACHED_DESC=	Use memcached for in memory query cache
 
 OPTIONS_DEFINE=		DOCS SSL PAM MEMCACHED
 OPTIONS_DEFAULT=	SSL
 
-MEMCACHED_CONFIGURE_ON=	--with-memcached=${LOCALBASE}/include
+MEMCACHED_DESC=	Use memcached for in memory query cache
+PAM_DESC=	Build with PAM support
+SSL_DESC=	Build with OpenSSL support
+
 MEMCACHED_LIB_DEPENDS=	libmemcached.so:databases/libmemcached
-
+MEMCACHED_CONFIGURE_ON=	--with-memcached=${LOCALBASE}/include
 PAM_CONFIGURE_ON=	--with-pam
-
-SSL_CONFIGURE_WITH=	openssl
 SSL_USES=		ssl
+SSL_CONFIGURE_WITH=	openssl
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=int-conversion
+.endif
 
 post-install:
 	@${MKDIR} ${STAGEDIR}/var/run/pgpool

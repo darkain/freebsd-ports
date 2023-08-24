@@ -1,14 +1,14 @@
-# Created by: Emanuel Haupt <ehaupt@FreeBSD.org>
-
 PORTNAME=	grafx2
 PORTVERSION=	2.8
 DISTVERSIONSUFFIX=	.3091-HEAD-src
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://pulkomandy.tk/projects/GrafX2/downloads/ \
 		LOCAL/ehaupt
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	Pixelart-oriented bitmap painting program
+WWW=		https://pulkomandy.tk/projects/GrafX2
 
 LICENSE=	GPLv2
 
@@ -18,7 +18,6 @@ LIB_DEPENDS=	libpng.so:graphics/png \
 
 USES=		desktop-file-utils gmake gnome iconv:wchar_t pkgconfig sdl \
 		tar:tgz
-INSTALLS_ICONS=	yes
 USE_SDL=	image2 sdl2
 
 MAKE_ENV+=	API=${GRAFX2_API} \

@@ -1,6 +1,6 @@
 PORTNAME=	kyua
 PORTVERSION=	0.13
-PORTREVISION=	5
+PORTREVISION=	6
 PORTEPOCH=	3
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/jmmv/kyua/releases/download/${PORTNAME}-${PORTVERSION}/ \
@@ -8,12 +8,14 @@ MASTER_SITES=	https://github.com/jmmv/kyua/releases/download/${PORTNAME}-${PORTV
 
 MAINTAINER=	jmmv@FreeBSD.org
 COMMENT=	Testing framework for infrastructure software
+WWW=		https://github.com/jmmv/kyua/
 
 LICENSE=	BSD3CLAUSE
 
 LIB_DEPENDS=	liblutok.so:devel/lutok
 
 USES=		lua pkgconfig sqlite
+USE_CXXSTD=	gnu++11
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--docdir=${DOCSDIR} \
@@ -21,7 +23,7 @@ CONFIGURE_ARGS=	--docdir=${DOCSDIR} \
 MAKE_ARGS=	examplesdir=${EXAMPLESDIR} \
 		pkgdatadir=${DATADIR}
 
-CONFLICTS=	kyua-atf-compat-[0-9]* kyua-cli-[0-9]* kyua-testers-[0-9]*
+CONFLICTS=	kyua-atf-compat kyua-cli kyua-testers
 
 SUB_FILES=	kyua.conf
 _TESTS_USER=	tests

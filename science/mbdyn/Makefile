@@ -1,19 +1,17 @@
-# Created by: Kay Lehmann <kay_lehmann@web.de>
-
 PORTNAME=	mbdyn
 DISTVERSION=	1.7.3
-PORTREVISION=	3
+PORTREVISION=	7
 CATEGORIES=	science
 MASTER_SITES=	https://www.mbdyn.org/userfiles/downloads/
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	MultiBody Dynamics analysis system
+WWW=		https://www.mbdyn.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BROKEN_powerpc=		Does not compile on powerpc
-BROKEN_powerpc64=	fails to compile: libraries/libmbutil/parser.h:275:3: error: expected identifier
+BROKEN_powerpc=		does not compile on powerpc
 
 BUILD_DEPENDS=	libatomic_ops>0:devel/libatomic_ops
 LIB_DEPENDS=	libltdl.so:devel/libltdl \
@@ -22,6 +20,7 @@ LIB_DEPENDS=	libltdl.so:devel/libltdl \
 
 USES=		compiler:c++11-lib fortran gmake libtool:build localbase
 USE_LDCONFIG=	yes
+USE_CXXSTD=	c++14 # fix build breakage with clang16 due to use of deprecated feature 'dynamic exception specifications', see https://public.gitlab.polimi.it/DAER/mbdyn/-/issues/339
 
 CPPFLAGS+=	-fpermissive -I${LOCALBASE}/include/suitesparse
 

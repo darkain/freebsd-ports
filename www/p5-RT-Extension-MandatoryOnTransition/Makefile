@@ -1,25 +1,23 @@
-# Created by: Mark Felder <feld@FreeBSD.org>
-
 PORTNAME=	RT-Extension-MandatoryOnTransition
-DISTVERSION=	0.20
-PORTREVISION=	2
+DISTVERSION=	0.22
 CATEGORIES=	www net perl5
 MASTER_SITES=	CPAN
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Extension to require core and ticket custom fields on status changes
+WWW=		https://metacpan.org/release/RT-Extension-MandatoryOnTransition
 
 LICENSE=	GPLv2
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/rt:www/rt${RT_VER}
 RUN_DEPENDS=	${LOCALBASE}/bin/rt:www/rt${RT_VER}
 
-FLAVOR?=       ${FLAVORS:[1]}
-FLAVORS=       rt44 rt50
-rt44_PKGNAMEPREFIX=    p5-RT44-
-rt44_CONFLICTS_INSTALL= rt50
-rt50_PKGNAMEPREFIX=    p5-RT50-
-rt50_CONFLICTS_INSTALL= rt44
+FLAVOR?=		${FLAVORS:[1]}
+FLAVORS=		rt44 rt50
+rt44_PKGNAMEPREFIX=	p5-RT44-
+rt44_CONFLICTS_INSTALL=	rt50
+rt50_PKGNAMEPREFIX=	p5-RT50-
+rt50_CONFLICTS_INSTALL=	rt44
 
 .if ${FLAVOR} == rt44
 RT_VER=		       44

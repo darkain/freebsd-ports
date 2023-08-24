@@ -1,11 +1,12 @@
 PORTNAME=	mu4e-maildirs
-PORTVERSION=	0.8.20180606
-PORTREVISION=	3
+PORTVERSION=	0.8.20201028
+PORTREVISION=	12
 CATEGORIES=	mail
 PKGNAMESUFFIX=	${EMACS_PKGNAMESUFFIX}
 
 MAINTAINER=	hrs@FreeBSD.org
 COMMENT=	Maildirs extension for Mu4e
+WWW=		https://github.com/agpchil/mu4e-maildirs-extension
 
 LICENSE=	GPLv3
 
@@ -18,7 +19,7 @@ USES=		emacs
 USE_GITHUB=	yes
 GH_PROJECT=	${PORTNAME}-extension
 GH_ACCOUNT=	agpchil
-GH_TAGNAME=	3ef4c48
+GH_TAGNAME=	1167bc6
 
 NO_ARCH=	yes
 PLIST_FILES=	${EMACS_SITE_LISPDIR}/mu4e/mu4e-maildirs-extension.elc \

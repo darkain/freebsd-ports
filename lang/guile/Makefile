@@ -1,55 +1,36 @@
-# Created by: jseger@FreeBSD.org
-#    $MCom: ports/lang/guile/Makefile,v 1.1 2006/09/12 14:57:06 ahze Exp $
-
-PORTNAME=	guile
-PORTVERSION=	3.0.7
+PORTNAME=	guile-meta
+PORTVERSION=	4
 CATEGORIES=	lang scheme
-MASTER_SITES=	GNU
+MASTER_SITES=	# empty
+DISTFILES=	# empty
+EXTRACT_ONLY=	# empty
 
-MAINTAINER=	bofh@FreeBSD.org
-COMMENT=	GNU Ubiquitous Intelligent Language for Extension
+MAINTAINER=	andrew@tao11.riddles.org.uk
+COMMENT=	Meta-port for the Guile interpreter
+WWW=		http://www.gnu.org/software/guile/
 
-LICENSE=	GPLv3 LGPL3
-LICENSE_COMB=	multi
+LICENSE=	NA
+LICENSE_COMB=	single
+LICENSE_NAME=	Non applicable
+LICENSE_TEXT=	No licenses are applicable to metaports
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-LIB_DEPENDS=	libffi.so:devel/libffi \
-		libgmp.so:math/gmp \
-		libltdl.so:devel/libltdl \
-		libunistring.so:devel/libunistring
+# no flavors and no version specified, so that we get the default
+# version as specified in DEFAULT_VERSIONS.
+USES=		guile:run
 
-USES=		charsetfix compiler:c11 gmake iconv libtool makeinfo pathfix pkgconfig \
-	readline tar:lz
-USE_LDCONFIG=	yes
+NO_ARCH=	yes
+NO_BUILD=	yes
 
-CONFLICTS_INSTALL=	guile1-[0-9]* guile2-[0-9]*
+# We don't provide a pkgconf or similar - this is purely a user
+# convenience, and building should always be done against a specific
+# version.
+PLIST_FILES=	bin/guile bin/guild
 
-MAKE_JOBS_UNSAFE=	yes
-
-GNU_CONFIGURE=	yes
-INSTALL_TARGET=	install-strip
-
-INFO=		guile r5rs
-
-PLIST_SUB=	GUILE_VER=${PORTVERSION:R}
-
-OPTIONS_DEFINE=	NLS THREADS
-OPTIONS_DEFAULT=NLS THREADS
-OPTIONS_SUB=	yes
-
-NLS_CONFIGURE_ENABLE=	nls
-NLS_USES=	gettext
-
-THREADS_CONFIGURE_WITH=	threads
-THREADS_LIB_DEPENDS=	libgc-threaded.so:devel/boehm-gc-threaded
-THREADS_LIB_DEPENDS_OFF=	libgc.so:devel/boehm-gc
-
-post-patch:
-	@${REINPLACE_CMD} -e 's|sys/time.h sys/timeb.h|sys/time.h |g' \
-		${WRKSRC}/configure
-	@${REINPLACE_CMD} -e 's|-i -e|-i.bak -e|' \
-		${WRKSRC}/libguile/Makefile.in
-
-post-patch-THREADS-on:
-	@${REINPLACE_CMD} -e 's|bdw-gc|bdw-gc-threaded|g' ${WRKSRC}/configure
+do-install:
+	for prog in guile guild; do \
+		${LN} -sf $${prog}-${GUILE_VER} \
+			${STAGEDIR}${PREFIX}/bin/$${prog}; \
+	done
 
 .include <bsd.port.mk>

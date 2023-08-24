@@ -1,5 +1,3 @@
-# Created by: Juergen Lock <nox@FreeBSD.org>
-
 PORTNAME=	cxxtools
 PORTVERSION=	2.2.1
 PORTREVISION=	3
@@ -8,6 +6,7 @@ MASTER_SITES=	http://www.tntnet.org/download/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Collection of general-purpose C++ classes
+WWW=		https://www.tntnet.org/cxxtools.html
 
 LICENSE=	LGPL21+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -21,9 +20,11 @@ BROKEN_sparc64=		does not configure
 USES=		cpe iconv libtool localbase pathfix
 CPE_VENDOR=	tntnet
 USE_CSTD=	gnu89
+USE_CXXSTD=	c++14
+USE_LDCONFIG=	yes
+
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
-USE_LDCONFIG=	yes
 
 .include <bsd.port.pre.mk>
 

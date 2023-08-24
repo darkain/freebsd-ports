@@ -5,11 +5,12 @@ CATEGORIES=	textproc
 
 MAINTAINER=	daichi@FreeBSD.org
 COMMENT=	Unix-style data processing commands and library
+WWW=		https://github.com/daichigoto/tttcmds
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=	amd64
+ONLY_FOR_ARCHS=	amd64 powerpc64 powerpc64le
 
 CONFLICTS_INSTALL=	open-usp-tukubai
 

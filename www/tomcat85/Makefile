@@ -1,14 +1,13 @@
-# Created by: Alex Dupre <ale@FreeBSD.org>
-
 PORTNAME=	tomcat
-PORTVERSION=	8.5.64
+PORTVERSION=	8.5.92
 CATEGORIES=	www java
 MASTER_SITES=	APACHE/${PORTNAME}/${PORTNAME}-${PORTVERSION:C/([0-9])(.*)/\1/}/v${PORTVERSION}/bin
 PKGNAMESUFFIX=	85
 DISTNAME=	apache-${PORTNAME}-${PORTVERSION}
 
-MAINTAINER=	vvd@unislabs.com
+MAINTAINER=	vvd@FreeBSD.org
 COMMENT=	Open-source Java web server by Apache, 8.5.x branch
+WWW=		https://tomcat.apache.org/
 
 LICENSE=	APACHE20
 

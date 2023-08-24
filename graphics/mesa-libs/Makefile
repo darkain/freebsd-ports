@@ -1,13 +1,15 @@
-# Created by: Eric Anholt <anholt@FreeBSD.org>
-
 PORTNAME=	mesa-libs
 PORTVERSION=	${MESAVERSION}
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics
 
 COMMENT=	OpenGL libraries that support GLX and EGL clients
+WWW=		https://www.mesa3d.org/
 
-BUILD_DEPENDS=	libglvnd>0:graphics/libglvnd
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/docs/license.rst
+
+LIB_DEPENDS=	libOpenGL.so:graphics/libglvnd
 
 OPTIONS_GROUP=			PLATFORM
 OPTIONS_GROUP_PLATFORM=		PLATFORM_X11 PLATFORM_WAYLAND
@@ -28,26 +30,25 @@ ZSTD_DESC=		Use ZSTD for shader cache
 ZSTD_LIB_DEPENDS=	libzstd.so:archivers/zstd
 ZSTD_MESON_ENABLED=	zstd
 
+USE_LDCONFIG=		yes
+
 .include <bsd.port.options.mk>
 .include "${.CURDIR:H:H}/graphics/mesa-dri/Makefile.common"
 
-MESON_ARGS+=	-Dgallium-drivers="" \
-		-Dgallium-vdpau=disabled \
-		-Dgallium-xvmc=disabled \
+MESON_ARGS+=	-Dgallium-vdpau=disabled \
 		-Dgallium-omx=disabled \
 		-Dgallium-va=disabled \
 		-Dgallium-xa=disabled \
 		-Dgallium-nine=false \
-		-Dgallium-clover=disabled \
-		-Dosmesa=none \
+		-Dmicrosoft-clc=disabled \
+		-Dosmesa=false \
 		-Dtools="" \
 		-Degl=enabled \
 		-Dgbm=enabled \
 		-Dvulkan-drivers="" \
-		-Dglvnd=true \
-		-Dprefer-iris=true
-# Building EGL and GBM requires a dri driver so add swrast
-MESON_ARGS+=	-Ddri-drivers="swrast"
+		-Dglvnd=true
+# Building EGL and GBM requires a driver so add r300
+MESON_ARGS+=	-Dgallium-drivers="r300"
 
 .if ${PORT_OPTIONS:MPLATFORM_X11}
 MESA_PLATFORMS+=	x11
@@ -68,8 +69,6 @@ MESON_ARGS+=	-Dplatforms="${MESA_PLATFORMS:ts,:tl}"
 .if ${ARCH} == "i386"
 # PR230239 Fix the build for i386 when WITH_LLD_IS_LD is set
 LDFLAGS+=-Wl,-z,notext
-.elif ${ARCH} == "powerpc"
-USE_GCC=	yes
 .endif
 
 .include "${MASTERDIR}/Makefile.targets"

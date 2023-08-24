@@ -66,8 +66,8 @@ struct rtc_softc {
 	struct {
 	 int	freq;
 	 struct {
-		int	opened:1;
-		int 	enabled:1;
+		unsigned int	opened:1;
+		unsigned int 	enabled:1;
 	 } flags;
 	struct callout rtc_handle;
 	struct timespec lasttime;
@@ -109,10 +109,16 @@ static struct rtc_softc *
 rtc_attach(struct cdev *dev)
 {
 	struct rtc_softc *sc;
+/* Clang 13+ realises that "unit" below isn't actually used if we */
+/* aren't running with DEBUG set. The warning is treated as a     */
+/* fatal error by FreeBSD's kmod build system, so wrap its usage  */
+/* within DEBUG pre-processor conditionals. - Jamie Landeg-Jones  */
+#if DEBUG
 	int unit;
 
 	unit = dev2unit(dev);
 	DLog(Lenter, "%d %p", unit, dev);
+#endif /* DEBUG */
 	if (dev->si_drv1) {
 		DLog(Lexit, "old %p, %p", dev, dev->si_drv1);
 		return dev->si_drv1;
@@ -337,36 +343,18 @@ rtc_callback(void *xtp)
 restart:
 	increment.tv_sec = 0;
 	increment.tv_nsec = 1000000000 / sc->var.freq;
-#if P_OSREL_MAJOR(__FreeBSD_version) >= 12
 	timespecadd(&sc->var.lasttime, &increment, &sc->var.lasttime);
 	timespecadd(&sc->var.lasttime, &increment, &nexttime);
-#else
-	timespecadd(&sc->var.lasttime, &increment);
-	nexttime.tv_sec = sc->var.lasttime.tv_sec;
-	nexttime.tv_nsec = sc->var.lasttime.tv_nsec;
-	timespecadd(&nexttime, &increment);
-#endif
 	if (timespeccmp(&nexttime, &curtime, <)) {
 		/* Catch up if we lag curtime */
-#if P_OSREL_MAJOR(__FreeBSD_version) >= 12
                timespecsub(&curtime, &increment, &sc->var.lasttime);
                timespecsub(&nexttime, &curtime, &nexttime);
-#else
-               sc->var.lasttime.tv_sec = curtime.tv_sec;
-               sc->var.lasttime.tv_nsec = curtime.tv_nsec;
-               timespecsub(&sc->var.lasttime, &increment);
-               timespecsub(&nexttime, &curtime);
-#endif
 #if 0
 		printf("lagging curtime by %d.%ld\n", nexttime.tv_sec, nexttime.tv_nsec);
 #endif
 		goto restart;
 	} else {
-#if P_OSREL_MAJOR(__FreeBSD_version) >= 12
 		timespecsub(&nexttime, &curtime, &nexttime);
-#else
-		timespecsub(&nexttime, &curtime);
-#endif
  		sleep = nexttime.tv_nsec / (1000000000 / hz);
  	}
  	callout_reset(&sc->var.rtc_handle, sleep, &rtc_callback, xtp);

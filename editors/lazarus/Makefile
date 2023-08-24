@@ -1,8 +1,8 @@
 PORTNAME=	lazarus
-PORTVERSION=	2.0.10
-DISTVERSIONSUFFIX=	-2
+PORTVERSION=	2.2.6
+DISTVERSIONSUFFIX=	-0
 PKGNAMESUFFIX?=  -gtk2
-PORTREVISION?=	1
+PORTREVISION?=	0
 CATEGORIES=	editors devel
 MASTER_SITES=	SF/${PORTNAME}/Lazarus%20Zip%20_%20GZip/Lazarus%20${PORTVERSION} \
 		LOCAL/acm/freepascal
@@ -10,19 +10,21 @@ DIST_SUBDIR=	freepascal
 
 MAINTAINER?=	acm@FreeBSD.org
 COMMENT?=	Portable Delphi-like IDE for the FreePascal compiler (GTK2)
+WWW=		https://www.lazarus-ide.org/
 
-CONFLICTS?=	${PORTNAME}-qt5-*
+CONFLICTS?=	${PORTNAME}-qt5
 
 BUILD_DEPENDS?=	${LOCALBASE}/bin/as:devel/binutils \
 		fpcres:lang/fpc-utils
 RUN_DEPENDS?=	${LOCALBASE}/bin/as:devel/binutils \
 		gmake:devel/gmake \
+		${PPNAME}:lang/fpc \
 		fpcres:lang/fpc-utils \
 		${LOCALBASE}/share/fpc-source-${FPC_DEFAULT}/Makefile.fpc:lang/fpc-source
 
 ONLY_FOR_ARCHS=	i386 amd64
 
-USES=		desktop-file-utils fpc:run gettext gmake iconv shared-mime-info xorg
+USES=		cpe desktop-file-utils fpc:run gettext gmake iconv shared-mime-info xorg
 USE_FPC?=	chm cairo dblib fcl-base fcl-db fcl-fpcunit fcl-image fcl-json fcl-net \
 		fcl-registry fcl-res fcl-web fcl-xml fppkg gtk2 ibase iconvenc mysql \
 		numlib odbc opengl openssl oracle pasjpeg postgres regexpr rtl-extra \
@@ -81,6 +83,10 @@ post-build:
 	@cd ${WRKSRC} && \
 		${RM} -R COPYING* README* debian localize.bat test *.orig *.bak startlazarus.app \
 			ide/Makefile*.orig ide/Makefile*.bak lcl/interfaces/qt5/qtobjects.pas.orig
+	@cd ${WRKDIR} && \
+		${RM} -R docs/chm/.gitignore docs/html/.gitignore lazarus/tools/install/rpm/.gitignore \
+			lazarus/tools/.gitignore lazarus/components/chmhelp/lhelp/.gitignore \
+			lazarus/.git*
 
 pre-install:
 	@${ECHO} "#!/bin/sh" > ${WRKDIR}/lazarus-wrapper
@@ -148,7 +154,6 @@ do-install:
 		${FIND} * -type d -exec ${MKDIR} "${STAGEDIR}${EXAMPLESDIR}/{}" \; && \
 			${FIND} * -type f -exec ${INSTALL_DATA} {} "${STAGEDIR}${EXAMPLESDIR}/{}" \;
 	@${LN} -s ${EXAMPLESDIR} ${STAGEDIR}${DATADIR}/examples
-
 
 .for RESO in 128 16 256 32 48 64
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/${RESO}x${RESO}/apps

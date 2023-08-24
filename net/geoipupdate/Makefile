@@ -1,22 +1,20 @@
-# Created by: adamw
-
 PORTNAME=	geoipupdate
-PORTVERSION=	4.7.1
+PORTVERSION=	6.0.0
+PORTREVISION=	1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net geography
 
 MAINTAINER=	adamw@FreeBSD.org
 COMMENT=	Fetch the latest copies of the GeoIP2 databases
+WWW=		https://github.com/maxmind/geoipupdate
 
 LICENSE=	APACHE20 MIT
 LICENSE_COMB=	dual
 LICENSE_FILE_APACHE20=	${WRKSRC}/LICENSE-APACHE
 LICENSE_FILE_MIT=	${WRKSRC}/LICENSE-MIT
 
-RUN_DEPENDS=	ca_root_nss>=3:security/ca_root_nss
-
 USES=		gmake go:modules,no_targets
-GO_MODULE=	github.com/maxmind/geoipupdate/v4
+GO_MODULE=	github.com/maxmind/geoipupdate/v6
 
 MAKE_ENV+=	${GO_ENV} \
 		CONFFILE=${PREFIX}/etc/GeoIP.conf \
@@ -57,5 +55,8 @@ do-install-DOCS-on:
 do-install-MANPAGES-on:
 	${INSTALL_MAN} ${WRKSRC}/build/geoipupdate.1 ${STAGEDIR}${MANPREFIX}/man/man1
 	${INSTALL_MAN} ${WRKSRC}/build/GeoIP.conf.5  ${STAGEDIR}${MANPREFIX}/man/man5
+
+do-test:
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${GO_ENV} GOPROXY=off ${GO_CMD} test ${GO_TESTFLAGS} ./...
 
 .include <bsd.port.mk>

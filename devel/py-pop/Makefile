@@ -1,12 +1,11 @@
-# Created by: Kirill Ponomarev <krion@FreeBSD.org>
-
 PORTNAME=	pop
-PORTVERSION=	18.0
+PORTVERSION=	20.1.1
 CATEGORIES=	devel python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	krion@FreeBSD.org
 COMMENT=	Plugin Oriented Programming interface for Python
+WWW=		https://pop.readthedocs.io
 
 LICENSE=	APACHE20
 
@@ -17,11 +16,11 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}aiofiles>=0:devel/py-aiofiles@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pop-config>0:devel/py-pop-config@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}yaml>0:devel/py-yaml@${PY_FLAVOR}
 
-USES=		python:3.6+ shebangfix
+USES=		python shebangfix
 
 USE_GITLAB=	yes
 GL_ACCOUNT=	saltstack/pop
-GL_COMMIT=	6be58dfaed42bbb3d0baf39cfa86a6442b7070f8
+GL_TAGNAME=	58d846bdd196b71348910aea77cd0139f70c4f12
 USE_PYTHON=	autoplist distutils
 
 NO_ARCH=	yes

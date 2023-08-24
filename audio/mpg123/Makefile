@@ -1,17 +1,17 @@
-# Created by: Carey Jones <mcj@acquiesce.org>
-
 PORTNAME=	mpg123
-PORTVERSION=	1.28.2
+DISTVERSION=	1.31.3
+PORTREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	SF \
 		https://www.mpg123.de/download/
 
 MAINTAINER=	novel@FreeBSD.org
 COMMENT=	Command-line player for MPEG Layer 1, 2, and 3 audio files
+WWW=		https://www.mpg123.de/
 
 LICENSE=	LGPL21
 
-USES=		tar:bzip2 libtool localbase pathfix
+USES=		cpe tar:bzip2 libtool localbase pathfix
 USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
@@ -36,6 +36,7 @@ FPU_CONFIGURE_OFF=	--with-cpu=arm_nofpu
 SNDIO_CONFIGURE_ON=	--with-audio=sndio,oss
 SNDIO_CONFIGURE_OFF=	--with-audio=oss
 SNDIO_LIB_DEPENDS=	libsndio.so:audio/sndio
+SNDIO_USES=		pkgconfig
 
 OPTCPU_CONFIGURE_ON=	--with-cpu=x86
 OPTCPU_CONFIGURE_OFF=	--with-cpu=generic_fpu
@@ -44,6 +45,8 @@ OPTCPU_CONFIGURE_OFF=	--with-cpu=generic_fpu
 
 .if ${ARCH} == "amd64"
 CONFIGURE_ARGS+=	--with-cpu=x86-64
+.elif defined(MACHINE_CPU) && ${MACHINE_CPU:Maltivec}
+CONFIGURE_ARGS+=	--with-cpu=altivec
 .endif
 
 .include <bsd.port.post.mk>

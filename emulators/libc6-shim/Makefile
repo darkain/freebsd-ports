@@ -1,20 +1,20 @@
 PORTNAME=	libc6-shim
-DISTVERSION=	20210627
+DISTVERSION=	20230629
 CATEGORIES=	emulators
 
 MAINTAINER=	iwtcex@gmail.com
 COMMENT=	ABI-compatible glibc shim library
+WWW=		https://github.com/shkhln/libc6-shim
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-IGNORE_FreeBSD_11=not supported
 ONLY_FOR_ARCHS=	amd64
 
+USES=	ruby
 USE_GITHUB=	yes
 GH_ACCOUNT=	shkhln
 GH_PROJECT=	libc6-shim
-USE_RUBY=	yes
 
 PORTSCOUT=	ignore:1
 

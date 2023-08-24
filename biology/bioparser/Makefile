@@ -1,10 +1,10 @@
 PORTNAME=	bioparser
-DISTVERSION=	3.0.12-2
-DISTVERSIONSUFFIX=	-g700e82a
+DISTVERSION=	3.0.15
 CATEGORIES=	biology devel
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C++ header-only parsing library for several formats in bioinformatics
+WWW=		https://github.com/rvaser/bioparser
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

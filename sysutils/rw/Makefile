@@ -7,11 +7,12 @@ DISTNAME=	rw-portable-${DISTVERSION}
 
 MAINTAINER=	jsmith@resonatingmedia.com
 COMMENT=	Simple replacement for dd(1) with standard command-line flags
+WWW=		https://sortix.org/rw/
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-CONFLICTS_INSTALL=	rankwidth-*
+CONFLICTS_INSTALL=	rankwidth
 
 PLIST_FILES=	bin/rw share/man/man1/rw.1.gz
 

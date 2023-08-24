@@ -4,25 +4,25 @@ CATEGORIES=	net kde kde-applications
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Library for handling messages
+WWW=		https://github.com/KDE/messagelib
 
 LICENSE=	LGPL21
-
-DEPRECATED=	Uses EOL Python 2.7 via www/qt5-webengine
-EXPIRATION_DATE=2021-06-23
 
 BUILD_DEPENDS=	${LOCALBASE}/include/boost/range/algorithm.hpp:devel/boost-libs
 LIB_DEPENDS=	libassuan.so:security/libassuan \
 		libgpg-error.so:security/libgpg-error \
 		libgpgme.so:security/gpgme \
 		libgpgmepp.so:security/gpgme-cpp \
-		libqgpgme.so:security/gpgme-qt5
+		libqgpgme.so:security/gpgme-qt@qt5
 
-USES=		cmake compiler:c++11-lib gettext grantlee:5 kde:5 qca qt:5 tar:xz
+USES=		cmake compiler:c++11-lib cpe gettext grantlee:5 kde:5 qca \
+		qt:5 tar:xz xorg
+CPE_VENDOR=	kde
 USE_KDE=	archive auth bookmarks codecs completion config configwidgets \
-		coreaddons i18n iconthemes imap itemmodels itemviews jobwidgets \
-		kdewebkit kio service solid sonnet syntaxhighlighting \
+		coreaddons guiaddons i18n iconthemes imap itemmodels itemviews jobwidgets \
+		kdewebkit kio notifications service solid sonnet syntaxhighlighting \
 		textwidgets wallet widgetsaddons windowsystem xmlgui \
-		ecm_build
+		ecm:build
 # pim components
 USE_KDE+=	akonadi akonadicontacts akonadimime akonadisearch calendarcore \
 		contacts grantleetheme gravatar identitymanagement \
@@ -30,9 +30,9 @@ USE_KDE+=	akonadi akonadicontacts akonadimime akonadisearch calendarcore \
 		mime pimcommon pimtextedit
 USE_QT=		concurrent core dbus declarative gui location network printsupport \
 		uitools webchannel webengine widgets xml \
-		buildtools_build qmake_build testlib_build
+		buildtools:build qmake:build testlib:build
+USE_XORG=	x11
 USE_LDCONFIG=	yes
-
 
 OPTIONS_DEFINE=		INOTIFY DOCS
 OPTIONS_DEFAULT=	INOTIFY
@@ -41,4 +41,10 @@ OPTIONS_SUB=		yes
 INOTIFY_DESC=		Filesystem alteration notifications using inotify
 INOTIFY_LIB_DEPENDS=	libinotify.so:devel/libinotify
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${COMPILER_TYPE} == clang && ${COMPILER_VERSION} >= 160
+CXXFLAGS+=	-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION
+.endif
+
+.include <bsd.port.post.mk>

@@ -1,23 +1,24 @@
-# Created by: vanilla@
-
 PORTNAME=	protobuf
-PORTVERSION=	3.14.0
+PORTVERSION=	4.24.1
 PORTEPOCH=	1
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Google protobuf Python Client Library
+WWW=		https://protobuf.dev/ \
+		https://github.com/protocolbuffers/protobuf \
+		https://github.com/protocolbuffers/protobuf/tree/main/python
 
 LICENSE=	BSD3CLAUSE
 
-BUILD_DEPENDS=	protoc:devel/protobuf
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>=1.9:devel/py-six@${PY_FLAVOR}
-
-USES=		python:3.6+
+USES=		cpe python
 USE_PYTHON=	autoplist concurrent distutils
 
-NO_ARCH=	yes
+CPE_VENDOR=	google
+
+post-install:
+	${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR} -name '*.so' -exec ${STRIP_CMD} {} +
 
 .include <bsd.port.mk>

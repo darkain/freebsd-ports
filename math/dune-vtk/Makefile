@@ -1,9 +1,11 @@
 PORTNAME=	dune-vtk
-DISTVERSION=	g20201220
+DISTVERSION=	2.8.0
+PORTREVISION=	9
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	DUNE framework: File reader and writer for the VTK XML format
+WWW=		https://www.dune-project.org/
 
 LICENSE=	GPLv2+
 
@@ -20,12 +22,22 @@ LIB_DEPENDS=	libarpack.so:math/arpack-ng \
 		libdunegeometry.so:math/dune-geometry \
 		libdunegrid.so:math/dune-grid \
 		libdunepolygongrid.so:math/dune-polygongrid \
-		libugL.so:math/dune-uggrid \
+		libduneuggrid.so:math/dune-uggrid \
 		libgmp.so:math/gmp \
 		libmetis.so:math/metis \
 		libopenblas.so:math/openblas \
+		libpsurface.so:math/psurface \
+		libamd.so:math/suitesparse-amd \
+		libcamd.so:math/suitesparse-camd \
+		libccolamd.so:math/suitesparse-ccolamd \
+		libcholmod.so:math/suitesparse-cholmod \
+		libcolamd.so:math/suitesparse-colamd \
+		libsuitesparseconfig.so:math/suitesparse-config \
+		libldl.so:math/suitesparse-ldl \
+		libspqr.so:math/suitesparse-spqr \
+		libumfpack.so:math/suitesparse-umfpack \
 		libsuperlu.so:math/superlu \
-		libtbb.so:devel/tbb
+		libtbb.so:devel/onetbb
 RUN_DEPENDS=	${HPP_DEPENDS} \
 		suitesparse>0:math/suitesparse \
 		${LOCALBASE}/mpi/openmpi/lib/libmpi.so:net/openmpi
@@ -36,7 +48,7 @@ USE_LDCONFIG=	yes
 
 GL_SITE=	https://gitlab.dune-project.org
 GL_ACCOUNT=	extensions
-GL_COMMIT=	847c3e5d0e5ff48ac3aad14adf6218b6578599af
+GL_TAGNAME=	467838cde3bbea3d27d2bd117570a3215240dcd1
 
 CMAKE_ON=	BUILD_SHARED_LIBS
 

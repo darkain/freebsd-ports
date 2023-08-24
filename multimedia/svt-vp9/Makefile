@@ -6,6 +6,7 @@ CATEGORIES=	multimedia
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Scalable VP9 encoder
+WWW=		https://01.org/svt
 
 LICENSE=	BSD2CLAUSE+PATENT
 LICENSE_GROUPS=	FSF OSI COPYFREE
@@ -30,10 +31,6 @@ OPTIONS_DEFAULT=LTO
 
 LTO_CMAKE_BOOL=		CMAKE_INTERPROCEDURAL_OPTIMIZATION
 LTO_CMAKE_ON=		-DCMAKE_POLICY_DEFAULT_CMP0069:STRING=NEW
-.if exists(/usr/bin/ld.lld) && ${/usr/bin/ld:L:tA} != /usr/bin/ld.lld
-# --plugin isn't supported by old GNU ld.bfd in base
-LTO_LDFLAGS=		-fuse-ld=lld
-.endif
 
 post-patch:
 # Avoid conflict with standard types

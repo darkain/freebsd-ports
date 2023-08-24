@@ -1,10 +1,11 @@
 PORTNAME=		bedtools
 DISTVERSIONPREFIX=	v
-DISTVERSION=		2.30.0
+DISTVERSION=		2.31.0
 CATEGORIES=		biology
 
 MAINTAINER=	jwb@FreeBSD.org
 COMMENT=	Toolset for genome set arithmetic such as intersect, union
+WWW=		https://bedtools.readthedocs.org/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

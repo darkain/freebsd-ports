@@ -1,14 +1,13 @@
-# Created by: kmoore@FreeBSD.org
-
 PORTNAME=	grub2-pcbsd
 PORTVERSION=	2.02q
-PORTREVISION=	17
+PORTREVISION=	18
 CATEGORIES=	sysutils
 MASTER_SITES=	LOCAL/kevlo
 DISTNAME=	grub-2.02_8
 
 MAINTAINER=	kevlo@FreeBSD.org
 COMMENT=	Multiboot boot loader
+WWW=		https://www.gnu.org/software/grub/
 
 LICENSE=	GPLv3
 
@@ -17,7 +16,7 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/flex:textproc/flex \
 		help2man:misc/help2man
 
 ONLY_FOR_ARCHS=	amd64
-USES=		autoreconf:build bison cpe gettext gmake makeinfo python tar:xz
+USES=		autoreconf:build bison cpe gettext gmake makeinfo pkgconfig python tar:xz
 
 WRKSRC=		${WRKDIR}/grub-2.02
 CONFLICTS=	grub2-2*
@@ -42,6 +41,8 @@ OPTIONS_SUB=	yes
 
 MKFONT_DESC=	Build grub-mkfont (require freetype2)
 FUSE_DESC=	Build grub-mount (require FUSE)
+
+BINARY_ALIAS=	freetype-config=true
 
 .include <bsd.port.pre.mk>
 

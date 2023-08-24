@@ -1,5 +1,3 @@
-# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
-
 PORTNAME=	tclgeomap
 PORTVERSION=	2.11.6
 CATEGORIES=	astro tcl
@@ -7,8 +5,12 @@ MASTER_SITES=	SF/tkgeomap/${PORTNAME}/${PORTVERSION}
 
 MAINTAINER=	tcltk@FreeBSD.org
 COMMENT=	Read, manipulate, and display geo data
+WWW=		https://web.archive.org/web/20130807000308/http://www.tkgeomap.org/
 
 LICENSE=	GPLv2
+
+DEPRECATED=	abandoned
+EXPIRATION_DATE=2023-08-31
 
 USES+=		tcl:tea
 WRKSRC=		${WRKDIR}/${DISTNAME}/unix

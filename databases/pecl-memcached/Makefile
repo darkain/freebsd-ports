@@ -1,11 +1,11 @@
-# Created by: Gea-Suan Lin <gslin@gslin.org>
-
 PORTNAME=	memcached
-PORTVERSION=	3.1.5
+PORTVERSION=	3.2.0
 CATEGORIES=	databases
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	PHP extension for interfacing with memcached via libmemcached library
+WWW=		https://pecl.php.net/package/memcached \
+		https://github.com/php-memcached-dev/php-memcached
 
 LICENSE=	PHP30
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -13,8 +13,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 BUILD_DEPENDS=	libmemcached>=1.0.18:databases/libmemcached
 LIB_DEPENDS=	libmemcached.so:databases/libmemcached
 
-USES=		php:pecl pkgconfig
-USE_PHP=	json:build session:build
+USES=		php:build,pecl pkgconfig
+USE_PHP=	session:build
 
 CONFIGURE_ARGS=	--enable-memcached-json \
 		--enable-memcached-protocol \

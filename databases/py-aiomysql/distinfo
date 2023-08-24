@@ -1,3 +1,3 @@
-TIMESTAMP = 1612519091
-SHA256 (aiomysql-0.0.21.tar.gz) = 811569c0db118dd2685f0878f5cebf17a11e89a995fa14261d5fa0254113842c
-SIZE (aiomysql-0.0.21.tar.gz) = 61286
+TIMESTAMP = 1688166150
+SHA256 (aiomysql-0.2.0.tar.gz) = 558b9c26d580d08b8c5fd1be23c5231ce3aeff2dadad989540fee740253deb67
+SIZE (aiomysql-0.2.0.tar.gz) = 114706

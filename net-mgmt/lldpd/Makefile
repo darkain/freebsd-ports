@@ -1,21 +1,19 @@
-# Created by: Mathieu Simon <freebsd@simweb.ch>
-
 PORTNAME=	lldpd
-PORTVERSION=	1.0.8
-PORTREVISION=	1
+PORTVERSION=	1.0.14
 CATEGORIES=	net-mgmt
-MASTER_SITES=	http://media.luffy.cx/files/${PORTNAME}/ \
-		http://mirror.1labs.ch/${PORTNAME}/
+MASTER_SITES=	http://media.luffy.cx/files/${PORTNAME}/
 
 MAINTAINER=	freebsd@simweb.ch
 COMMENT=	LLDP (802.1ab)/CDP/EDP/SONMP/FDP daemon and SNMP subagent
+WWW=		https://lldpd.github.io/
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libevent.so:devel/libevent
 
-USES=		libtool
+USES=		cpe libtool
+CPE_VENDOR=	${PORTNAME}_project
 USE_CSTD=	gnu99
 USE_LDCONFIG=	yes
 USE_RC_SUBR=	${PORTNAME}
@@ -32,6 +30,10 @@ INSTALL_TARGET=	install-strip
 USERS=	_lldpd
 GROUPS=	_lldpd
 
+FLAVORS=        default tiny
+
+CONFLICTS_INSTALL=     ${FLAVORS:N${FLAVOR}:S/^/${PORTNAME}-/}
+
 OPTIONS_DEFINE=		BASH DOCS DTRACE JSON PIE PROPRIETARY READLINE SNMP XML ZSH
 OPTIONS_DEFAULT=	BASH JSON PROPRIETARY SNMP XML ZSH
 # ld(1) fails to link probes: Relocations in generic ELF (EM: 0)
@@ -40,6 +42,12 @@ OPTIONS_EXCLUDE_aarch64=	DTRACE
 OPTIONS_EXCLUDE_armv6=		DTRACE
 OPTIONS_EXCLUDE_armv7=		DTRACE
 OPTIONS_SUB=	yes
+
+.if ${FLAVOR:U} == tiny
+PKGNAMESUFFIX=  -tiny
+COMMENT=       LLDP (802.1ab) daemon
+OPTIONS_DEFAULT:=
+.endif
 
 DTRACE_DESC=		DTrace support (BROKEN)
 JSON_DESC=		JSON output support

@@ -479,8 +479,8 @@ include/fxt/ds/array2d.h
 include/fxt/ds/array3d.h
 include/fxt/ds/bitarray.h
 include/fxt/ds/bitarray2d.h
+include/fxt/ds/bounding-box-2d.h
 include/fxt/ds/bounding-box-3d.h
-include/fxt/ds/bounding-box.h
 include/fxt/ds/centered-array2d.h
 include/fxt/ds/centered-array3d.h
 include/fxt/ds/deque.h
@@ -779,10 +779,10 @@ lib/libfxt.a
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/debruijn-lookup-out.txt
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/dragon-curve-moves-demo.cc
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/dragon-curve-moves-out.txt
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/fibrep-demo.cc
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/fibrep-out.txt
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/fibrep-subset-lexrev-demo.cc
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/fibrep-subset-lexrev-out.txt
-%%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/fibrep2-demo.cc
-%%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/fibrep2-out.txt
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/gotcha-demo.cc
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/gotcha-out.txt
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/bits/gray-demo.cc
@@ -1457,6 +1457,10 @@ lib/libfxt.a
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/comb/young-tab-rgs-out.txt
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/comb/young-tab-rgs-subset-lex-demo.cc
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/comb/young-tab-rgs-subset-lex-out.txt
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/comb/zzztest-demo.cc
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/comb/zzztest-out.txt
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/ds/attic/dichotomy-demo.cc
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/ds/attic/dichotomy-out.txt
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ds/bitarray-demo.cc
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ds/bitarray-out.txt
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ds/bitarray2d-demo.cc

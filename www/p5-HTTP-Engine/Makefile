@@ -5,8 +5,9 @@ CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for HTTP Server Engine Drivers
+WWW=		https://metacpan.org/release/HTTP-Engine
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

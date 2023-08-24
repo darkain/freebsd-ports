@@ -6,6 +6,7 @@ DISTNAME=	SAS3IRCU_P16
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	SAS-3 Integrated RAID Configuration Utility
+WWW=		https://www.avagotech.com/
 
 # Converted from RESTRICTED
 LICENSE=	BROADCOM
@@ -14,7 +15,7 @@ LICENSE_TEXT=	May not be redistributed. Must accept license to download.
 LICENSE_PERMS=	none
 
 ONLY_FOR_ARCHS=	amd64 i386
-ONLY_FOR_ARCHS_REASON=	Binaries only available for i386 and amd64 from LSI
+ONLY_FOR_ARCHS_REASON=	binaries only available for i386 and amd64 from LSI
 
 USES=	zip
 

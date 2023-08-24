@@ -1,5 +1,3 @@
-# Created by: doconnor@gsoft.com.au
-
 PORTNAME=	netpipes
 PORTVERSION=	4.2
 CATEGORIES=	net
@@ -9,7 +7,7 @@ DISTNAME=	netpipes-4.2-export
 MAINTAINER=	doconnor@gsoft.com.au
 COMMENT=	Group of shell utilities to connect programs to sockets
 
-CONFLICTS=	timelimit-[0-9]*
+CONFLICTS=	timelimit
 
 NO_WRKSUBDIR=	yes
 

@@ -1,134 +1,140 @@
---- build/config/compiler/BUILD.gn.orig	2021-06-09 22:13:52 UTC
+--- build/config/compiler/BUILD.gn.orig	2023-08-17 07:33:31 UTC
 +++ build/config/compiler/BUILD.gn
-@@ -133,7 +133,7 @@ declare_args() {
-   #
-   # TODO(crbug.com/977230): Enabling this when 'use_xcode_clang' is true may
-   # call an old clang that doesn't support auto-init.
--  init_stack_vars = !is_android && !use_xcode_clang
-+  init_stack_vars = !is_android && !use_xcode_clang && !is_bsd
+@@ -249,13 +249,16 @@ config("default_include_dirs") {
+ # Compiler instrumentation can introduce dependencies in DSOs to symbols in
+ # the executable they are loaded into, so they are unresolved at link-time.
+ config("no_unresolved_symbols") {
+-  if (!using_sanitizer &&
++  if (!using_sanitizer && !is_bsd &&
+       (is_linux || is_chromeos || is_android || is_fuchsia)) {
+     ldflags = [
+       "-Wl,-z,defs",
+       "-Wl,--as-needed",
+     ]
+   }
++  if (current_cpu == "x86" && is_openbsd) {
++    ldflags = [ "-Wl,-z,notext" ]
++  }
+ }
  
-   # This argument is to control whether enabling text section splitting in the
-   # final binary. When enabled, the separated text sections with prefix
-@@ -333,7 +333,7 @@ config("compiler") {
+ # compiler ---------------------------------------------------------------------
+@@ -500,6 +503,10 @@ config("compiler") {
      }
+   }
  
-     # Linker warnings.
--    if (fatal_linker_warnings && !is_apple && current_os != "aix") {
-+    if (fatal_linker_warnings && !is_apple && !is_bsd && current_os != "aix") {
-       ldflags += [ "-Wl,--fatal-warnings" ]
-     }
-     if (fatal_linker_warnings && is_apple) {
-@@ -428,7 +428,7 @@ config("compiler") {
- 
-     # Compiler instrumentation can introduce dependencies in DSOs to symbols in
-     # the executable they are loaded into, so they are unresolved at link-time.
--    if (!using_sanitizer) {
-+    if (!using_sanitizer && !is_bsd) {
-       ldflags += [
-         "-Wl,-z,defs",
-         "-Wl,--as-needed",
-@@ -518,7 +518,7 @@ config("compiler") {
++  if (is_openbsd) {
++    ldflags += [ "-Wl,-z,wxneeded" ]
++  }
++
+   # Linux-specific compiler flags setup.
+   # ------------------------------------
+   if (use_gold) {
+@@ -575,7 +582,7 @@ config("compiler") {
      ldflags += [ "-Wl,-z,keep-text-section-prefix" ]
    }
  
--  if (is_clang && !is_nacl && !use_xcode_clang) {
-+  if (is_clang && !is_nacl && !use_xcode_clang && !is_bsd) {
+-  if (is_clang && !is_nacl && current_os != "zos") {
++  if (is_clang && !is_nacl && current_os != "zos" && !is_bsd) {
      cflags += [ "-fcrash-diagnostics-dir=" + clang_diagnostic_dir ]
- 
-     # TODO(hans): Remove this once Clang generates better optimized debug info
-@@ -661,7 +661,12 @@ config("compiler") {
-       # and let it use all cores.
-       # TODO(thakis): Check if '=0' (that is, number of cores, instead
-       # of "all" which means number of hardware threads) is faster.
--      ldflags += [ "-Wl,--thinlto-jobs=all" ]
-+      if (is_bsd) {
-+        # FreeBSD < 13 uses LLVM 10, which doesn't support --thinlto-jobs=all
-+        ldflags += [ "-Wl,--thinlto-jobs=2" ]
-+      } else {
-+        ldflags += [ "-Wl,--thinlto-jobs=all" ]
-+      }
- 
+     if (save_reproducers_on_lld_crash && use_lld) {
        ldflags += [
-         "-Wl,--thinlto-cache-dir=" +
-@@ -851,7 +856,7 @@ config("compiler_cpu_abi") {
+@@ -760,7 +767,7 @@ config("compiler") {
+ 
+       ldflags += [ "-Wl,-mllvm,-import-instr-limit=$import_instr_limit" ]
+ 
+-      if (!is_chromeos) {
++      if (!is_chromeos && !is_bsd) {
+         # TODO(https://crbug.com/972449): turn on for ChromeOS when that
+         # toolchain has this flag.
+         # We only use one version of LLVM within a build so there's no need to
+@@ -867,7 +874,7 @@ config("compiler") {
+   # * Apple platforms (e.g. MacOS, iPhone, iPad) aren't supported because xcode
+   #   lldb doesn't have the needed changes yet.
+   # TODO(crbug.com/1379070): Remove if the upstream default ever changes.
+-  if (is_clang && !is_nacl && !is_win && !is_apple) {
++  if (is_clang && !is_nacl && !is_win && !is_apple && !is_bsd) {
+     cflags_cc += [ "-gsimple-template-names" ]
+   }
+ 
+@@ -1109,7 +1116,7 @@ config("compiler_cpu_abi") {
+         ]
+       }
+     } else if (current_cpu == "arm") {
+-      if (is_clang && !is_android && !is_nacl &&
++      if (is_clang && !is_android && !is_nacl && !is_bsd &&
+           !(is_chromeos_lacros && is_chromeos_device)) {
+         cflags += [ "--target=arm-linux-gnueabihf" ]
+         ldflags += [ "--target=arm-linux-gnueabihf" ]
+@@ -1124,7 +1131,7 @@ config("compiler_cpu_abi") {
          cflags += [ "-mtune=$arm_tune" ]
        }
      } else if (current_cpu == "arm64") {
--      if (is_clang && !is_android && !is_nacl && !is_fuchsia) {
-+      if (is_clang && !is_android && !is_nacl && !is_fuchsia && !is_bsd) {
+-      if (is_clang && !is_android && !is_nacl && !is_fuchsia &&
++      if (is_clang && !is_android && !is_nacl && !is_fuchsia && !is_bsd &&
+           !(is_chromeos_lacros && is_chromeos_device)) {
          cflags += [ "--target=aarch64-linux-gnu" ]
          ldflags += [ "--target=aarch64-linux-gnu" ]
-       }
-@@ -1201,7 +1206,7 @@ config("compiler_deterministic") {
-       "-Xclang",
-       ".",
-     ]
--    if (!is_win) {
-+    if (!is_win && !is_bsd) {
-       # We don't use clang -cc1as on Windows (yet? https://crbug.com/762167)
-       asmflags = [ "-Wa,-fdebug-compilation-dir,." ]
-     }
-@@ -1584,7 +1589,7 @@ config("default_warnings") {
-         cflags += [ "-Wno-nonportable-include-path" ]
-       }
- 
--      if (current_toolchain == host_toolchain || !use_xcode_clang) {
-+      if ((current_toolchain == host_toolchain || !use_xcode_clang) && !is_bsd) {
-         # Flags NaCl (Clang 3.7) and Xcode 9.2 (Clang clang-900.0.39.2) do not
-         # recognize.
-         cflags += [
-@@ -1625,6 +1630,18 @@ config("default_warnings") {
-           cflags += [ "-Wno-max-tokens" ]
-         }
-       }
-+
-+      if (is_clang && is_bsd) {
-+        cflags += [
-+          "-Wno-ignored-pragma-optimize",
-+          "-Wno-implicit-int-float-conversion",
-+          "-Wno-final-dtor-non-final-class",
-+          "-Wno-builtin-assume-aligned-alignment",
-+          "-Wno-deprecated-copy",
-+          "-Wno-thread-safety-analysis",
-+          "-Wno-thread-safety-attributes",
-+        ]
-+      }
-     }
-   }
- }
-@@ -1754,7 +1771,7 @@ config("no_chromium_code") {
-       # suppressing them individually, we just blanket suppress them here.
-       "-Wno-unused-variable",
-     ]
--    if (!is_nacl && (current_toolchain == host_toolchain || !use_xcode_clang)) {
-+    if (!is_nacl && (current_toolchain == host_toolchain || !use_xcode_clang) && !is_bsd) {
+@@ -1459,7 +1466,7 @@ config("compiler_deterministic") {
+     # different build directory like "out/feature_a" and "out/feature_b" if
+     # we build same files with same compile flag.
+     # Other paths are already given in relative, no need to normalize them.
+-    if (is_nacl) {
++    if (is_nacl || is_bsd) {
+       # TODO(https://crbug.com/1231236): Use -ffile-compilation-dir= here.
        cflags += [
-         # TODO(https://crbug.com/1031169): Clean up and enable.
-         "-Wno-misleading-indentation",
-@@ -1832,7 +1849,7 @@ config("export_dynamic") {
- config("thin_archive") {
-   # The macOS and iOS default linker ld64 does not support reading thin
-   # archives.
--  if ((is_posix && !is_nacl && (!is_apple || use_lld)) || is_fuchsia) {
-+  if ((is_posix && !is_nacl && (!is_apple || use_lld) && !is_bsd) || is_fuchsia) {
-     arflags = [ "-T" ]
-   } else if (is_win && use_lld) {
-     arflags = [ "/llvmlibthin" ]
-@@ -2373,7 +2390,7 @@ config("symbols") {
-     # flag, so we can use use -g1 for pnacl and nacl-clang compiles.
-     # gcc nacl is is_nacl && !is_clang, pnacl and nacl-clang are && is_clang.
-     if (!is_nacl || is_clang) {
--      cflags += [ "-g2" ]
-+      cflags += [ "-g0" ]
-     }
+         "-Xclang",
+@@ -1511,7 +1518,7 @@ config("compiler_deterministic") {
+ }
  
-     # TODO(https://crbug.com/1050118): Investigate missing debug info on mac.
-@@ -2406,7 +2423,7 @@ config("symbols") {
-     # DWARF info may be corrupt; offsets in a range list entry are in different
-     # sections" there.  Maybe just a bug in nacl_switch_32.S.
-     if (!is_apple && !is_nacl && current_cpu != "x86" &&
--        (use_gold || use_lld)) {
-+        (use_gold || use_lld) && !is_bsd) {
-       if (is_clang) {
-         # This flag enables the GNU-format pubnames and pubtypes sections,
-         # which lld needs in order to generate a correct GDB index.
+ config("clang_revision") {
+-  if (is_clang && clang_base_path == default_clang_base_path) {
++  if (is_clang && !is_bsd && clang_base_path == default_clang_base_path) {
+     update_args = [
+       "--print-revision",
+       "--verify-version=$clang_version",
+@@ -1759,7 +1766,7 @@ config("default_warnings") {
+         "-Wno-ignored-pragma-optimize",
+       ]
+ 
+-      if (!is_nacl) {
++      if (!is_nacl && !is_bsd) {
+         cflags += [
+           # TODO(crbug.com/1343975) Evaluate and possibly enable.
+           "-Wno-deprecated-builtins",
+@@ -1962,7 +1969,7 @@ config("no_chromium_code") {
+       # third-party libraries.
+       "-Wno-c++11-narrowing",
+     ]
+-    if (!is_nacl) {
++    if (!is_nacl && !is_freebsd) {
+       cflags += [
+         # Disabled for similar reasons as -Wunused-variable.
+         "-Wno-unused-but-set-variable",
+@@ -2472,7 +2479,7 @@ config("afdo_optimize_size") {
+ # There are some targeted places that AFDO regresses, so we provide a separate
+ # config to allow AFDO to be disabled per-target.
+ config("afdo") {
+-  if (is_clang) {
++  if (is_clang && !is_bsd) {
+     cflags = []
+     if (clang_emit_debug_info_for_profiling) {
+       # Add the following flags to generate debug info for profiling.
+@@ -2491,7 +2498,7 @@ config("afdo") {
+       }
+       inputs = [ _clang_sample_profile ]
+     }
+-  } else if (auto_profile_path != "" && is_a_target_toolchain) {
++  } else if (auto_profile_path != "" && is_a_target_toolchain && !is_bsd) {
+     cflags = [ "-fauto-profile=${auto_profile_path}" ]
+     inputs = [ auto_profile_path ]
+   }
+@@ -2649,7 +2656,8 @@ config("symbols") {
+     configs += [ "//build/config:compress_debug_sections" ]
+   }
+ 
+-  if (is_clang && (!is_nacl || is_nacl_saigo) && current_os != "zos") {
++  if (is_clang && (!is_nacl || is_nacl_saigo) && current_os != "zos" &&
++      !is_bsd) {
+     if (is_apple) {
+       # TODO(https://crbug.com/1050118): Investigate missing debug info on mac.
+       # Make sure we don't use constructor homing on mac.

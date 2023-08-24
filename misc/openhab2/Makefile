@@ -1,24 +1,27 @@
 PORTNAME=	openhab2
 PORTVERSION=	2.5.12
-#PORTREVISION=	0
+PORTREVISION=	0
 CATEGORIES=	misc java
 MASTER_SITES=	https://openhab.jfrog.io/artifactory/libs-release-local/org/openhab/distro/openhab/${PORTVERSION}/
 DISTNAME=	openhab-${PORTVERSION}
 
 MAINTAINER=	netchild@FreeBSD.org
 COMMENT=	Vendor and technology agnostic open source smart-home software
+WWW=		https://www.openhab.org/
 
 LICENSE=	EPL
 LICENSE_FILE=	${WRKSRC}/LICENSE.TXT
 
-USES=		zip
+USES=		cpe zip
 USE_JAVA=	yes
-JAVA_VERSION=	1.8
+JAVA_VERSION=	8
 JAVA_RUN=	yes
 USE_RC_SUBR=	openhab2
 SUB_FILES=	pkg-message update.freebsd
 NO_WRKSUBDIR=	yes
 NO_ARCH=	yes
+
+CPE_PRODUCT=	openhab
 
 USERS=	openhab
 GROUPS=	openhab

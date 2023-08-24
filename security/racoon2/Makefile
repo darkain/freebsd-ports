@@ -1,5 +1,3 @@
-# Created by: sumikawa
-
 PORTNAME=	racoon2
 PORTVERSION=	${RACOON2_COMMIT_DATE}
 PORTREVISION=	1
@@ -9,14 +7,13 @@ RACOON2_COMMIT_DATE=202000908
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Racoon2 IPsec daemon
+WWW=		https://github.com/zoulasc/racoon2
 
-BROKEN_FreeBSD_11=	Requires openssl to build
+CONFLICTS=	racoon2-legacy
 
-CONFLICTS=	racoon2-legacy-*
-
-USE_GITHUB=     yes
-GH_ACCOUNT=     zoulasc
-GH_TAGNAME=     ${HASH}
+USE_GITHUB=	yes
+GH_ACCOUNT=	zoulasc
+GH_TAGNAME=	${HASH}
 
 USES=		autoreconf libtool:build perl5 tar:tgz ssl
 CONFIGURE_ARGS+=	--enable-natt \

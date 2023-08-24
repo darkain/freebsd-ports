@@ -1,5 +1,3 @@
-# Created by: Dmitry Sivachenko <demon@FreeBSD.org>
-
 PORTNAME=	cld
 PORTVERSION=	20150113
 PORTREVISION=	1
@@ -10,12 +8,13 @@ DISTNAME=	chromium_compact_language_detector-${PORTVERSION}
 
 MAINTAINER=	demon@FreeBSD.org
 COMMENT=	Python bindings for compact language detector library
+WWW=		https://code.google.com/p/chromium-compact-language-detector/
 
 LICENSE=	BSD3CLAUSE
 
 LIB_DEPENDS=	libcld2.so:devel/cld2
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	flavors
 
 PLIST_FILES=	${PYTHON_SITELIBDIR}/chromium_compact_language_detector-2.0-py${PYTHON_VER}.egg-info \

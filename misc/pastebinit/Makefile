@@ -5,13 +5,14 @@ MASTER_SITES=	https://mirror.amdmi3.ru/distfiles/
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Command line utility for pastebin
+WWW=		https://phab.lubuntu.me/source/pastebinit/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}configobj>=4.3.2:devel/py-configobj@${PY_FLAVOR}
 
-USES=		python:3.6+,run shebangfix
+USES=		python:run shebangfix
 SHEBANG_FILES=	pastebinit
 NO_BUILD=	yes
 NO_ARCH=	yes

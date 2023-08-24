@@ -1,12 +1,11 @@
-# Created by: Michael Johnson <ahze@FreeBSD.org>
-
 PORTNAME=	system-config-printer
 PORTVERSION=	1.5.12
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	print gnome
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	CUPS configuration Gtk+2.0 GUI
+WWW=		http://cyberelk.net/tim/software/system-config-printer/
 
 BUILD_DEPENDS=	xmlto:textproc/xmlto \
 		docbook-xml>0:textproc/docbook-xml
@@ -22,7 +21,7 @@ PORTSCOUT=	limitw:1,even
 
 GNU_CONFIGURE=	yes
 USES=		autoreconf desktop-file-utils gettext gmake gnome pathfix \
-		pkgconfig python:3.5+ shebangfix tar:xz
+		pkgconfig python shebangfix tar:xz
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	OpenPrinting
@@ -33,6 +32,7 @@ USE_GNOME=	intlhack pygobject3
 
 CONFIGURE_ARGS=	--without-udev-rules \
 		--without-systemdsystemunitdir
+NO_ARCH=	yes
 
 PLIST_SUB=	PYTHON_VER=${PYTHON_VERSION:S/python//}
 

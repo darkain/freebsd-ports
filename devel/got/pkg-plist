@@ -9,8 +9,10 @@ libexec/got-read-gitconfig
 libexec/got-read-gotconfig
 libexec/got-read-object
 libexec/got-read-pack
+libexec/got-read-patch
 libexec/got-read-tag
 libexec/got-read-tree
+libexec/got-send-pack
 man/man1/got.1.gz
 man/man1/gotadmin.1.gz
 man/man1/tog.1.gz

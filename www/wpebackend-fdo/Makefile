@@ -1,10 +1,11 @@
 PORTNAME=	wpebackend-fdo
-DISTVERSION=	1.10.0
+DISTVERSION=	1.12.0
 CATEGORIES=	www
 MASTER_SITES=	https://wpewebkit.org/releases/
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Freedesktop.org backend for WPE WebKit
+WWW=		https://wpewebkit.org
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING

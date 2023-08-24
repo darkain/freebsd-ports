@@ -1,5 +1,3 @@
-# Created by: Andrey Zakhvatov
-
 PORTNAME=	CaribbeanStud
 PORTVERSION=	1.0
 PORTREVISION=	3
@@ -14,6 +12,7 @@ LICENSE=	MIT
 
 MAKEFILE=	Xmakefile
 USES=		motif
+USE_CXXSTD=	c++14
 CFLAGS+=	-Wno-deprecated
 
 OPTIONS_DEFINE=	DOCS

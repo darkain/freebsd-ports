@@ -5,6 +5,7 @@ bin/nctetris
 bin/notcurses-demo
 bin/notcurses-info
 bin/notcurses-input
+bin/tfman
 include/ncpp/Cell.hh
 include/ncpp/CellStyle.hh
 include/ncpp/Direct.hh
@@ -38,6 +39,7 @@ include/ncpp/internal/Helpers.hh
 include/ncpp/ncpp.hh
 include/notcurses/direct.h
 include/notcurses/nckeys.h
+include/notcurses/ncport.h
 include/notcurses/ncseqs.h
 include/notcurses/notcurses.h
 include/notcurses/version.h
@@ -55,12 +57,16 @@ lib/libnotcurses-core.a
 lib/libnotcurses-core.so
 lib/libnotcurses-core.so.%%ABI_VER%%
 lib/libnotcurses-core.so.%%REL_VER%%
+lib/libnotcurses-ffi.so
+lib/libnotcurses-ffi.so.%%ABI_VER%%
+lib/libnotcurses-ffi.so.%%REL_VER%%
 lib/libnotcurses.a
 lib/libnotcurses.so
 lib/libnotcurses.so.%%ABI_VER%%
 lib/libnotcurses.so.%%REL_VER%%
 libdata/pkgconfig/notcurses++.pc
 libdata/pkgconfig/notcurses-core.pc
+libdata/pkgconfig/notcurses-ffi.pc
 libdata/pkgconfig/notcurses.pc
 %%MANPAGES%%man/man1/ncls.1.gz
 %%MANPAGES%%man/man1/ncneofetch.1.gz
@@ -70,6 +76,7 @@ libdata/pkgconfig/notcurses.pc
 %%MANPAGES%%man/man1/notcurses-info.1.gz
 %%MANPAGES%%man/man1/notcurses-input.1.gz
 %%MANPAGES%%man/man1/notcurses-tester.1.gz
+%%MANPAGES%%man/man1/tfman.1.gz
 %%MANPAGES%%man/man3/notcurses.3.gz
 %%MANPAGES%%man/man3/notcurses_capabilities.3.gz
 %%MANPAGES%%man/man3/notcurses_cell.3.gz
@@ -86,6 +93,7 @@ libdata/pkgconfig/notcurses.pc
 %%MANPAGES%%man/man3/notcurses_multiselector.3.gz
 %%MANPAGES%%man/man3/notcurses_output.3.gz
 %%MANPAGES%%man/man3/notcurses_palette.3.gz
+%%MANPAGES%%man/man3/notcurses_pile.3.gz
 %%MANPAGES%%man/man3/notcurses_plane.3.gz
 %%MANPAGES%%man/man3/notcurses_plot.3.gz
 %%MANPAGES%%man/man3/notcurses_progbar.3.gz
@@ -99,6 +107,7 @@ libdata/pkgconfig/notcurses.pc
 %%MANPAGES%%man/man3/notcurses_stop.3.gz
 %%MANPAGES%%man/man3/notcurses_tabbed.3.gz
 %%MANPAGES%%man/man3/notcurses_tree.3.gz
+%%MANPAGES%%man/man3/notcurses_util.3.gz
 %%MANPAGES%%man/man3/notcurses_visual.3.gz
 %%PORTDOCS%%%%DOCSDIR%%/CONTRIBUTING.md
 %%PORTDOCS%%%%DOCSDIR%%/NEWS.md
@@ -106,6 +115,7 @@ libdata/pkgconfig/notcurses.pc
 %%PORTDOCS%%%%DOCSDIR%%/TERMINALS.md
 %%PORTDOCS%%%%DOCSDIR%%/USAGE.md
 %%DATADIR%%/PurpleDrank.jpg
+%%DATADIR%%/Windows10Logo.png
 %%DATADIR%%/aidsrobots.jpeg
 %%DATADIR%%/atma.png
 %%DATADIR%%/changes.jpg
@@ -165,15 +175,15 @@ libdata/pkgconfig/notcurses.pc
 %%DATADIR%%/covid19.jpg
 %%DATADIR%%/dsscaw-purp.png
 %%DATADIR%%/eagles.png
-%%DATADIR%%/fm6.mkv
+%%DATADIR%%/fm6.mov
 %%DATADIR%%/fonts.jpg
-%%DATADIR%%/greatscott.jpg
+%%DATADIR%%/freebsd.png
 %%DATADIR%%/lamepatents.jpg
 %%DATADIR%%/megaman2.bmp
 %%DATADIR%%/natasha-blur.png
 %%DATADIR%%/normal.png
 %%DATADIR%%/notcurses.png
-%%DATADIR%%/notcursesIII.mkv
+%%DATADIR%%/notcursesIII.mov
 %%DATADIR%%/onedot.png
 %%DATADIR%%/samoa.avi
 %%DATADIR%%/spaceship.png

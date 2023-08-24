@@ -10,6 +10,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Somali hunspell dictionaries
+WWW=		https://addons.mozilla.org/en-US/firefox/addon/qaamuuska-afka-soomaaliga/
 
 LICENSE=	GPLv3
 
@@ -17,8 +18,8 @@ NO_ARCH=	yes
 NO_BUILD=	yes
 WRKSRC=		${WRKDIR}/dictionaries
 
-PLIST_FILES=	%%DATADIR%%/so_SO.aff \
-		%%DATADIR%%/so_SO.dic
+PLIST_FILES=	${DATADIR}/so_SO.aff \
+		${DATADIR}/so_SO.dic
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/

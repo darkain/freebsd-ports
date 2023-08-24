@@ -1,7 +1,6 @@
-# Created by: Martin Wilke <miwi@FreeBSD.org>
-
 PORTNAME=	phonon
 DISTVERSION=	4.11.1
+PORTREVISION=	3
 CATEGORIES=	multimedia kde
 MASTER_SITES=	KDE/stable/${PORTNAME}/${DISTVERSION}
 DIST_SUBDIR=	KDE/phonon
@@ -9,6 +8,7 @@ PKGNAMESUFFIX=	-qt5
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	KDE multimedia framework
+WWW=		https://userbase.kde.org/Phonon
 
 LICENSE=	LGPL21+
 LICENSE_FILE=	${WRKSRC}/COPYING.LIB
@@ -20,9 +20,9 @@ CMAKE_ON=	PHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT \
 CMAKE_OFF=	PHONON_BUILD_DESIGNER_PLUGIN \
 		PHONON_BUILD_DECLARATIVE_PLUGIN
 USE_LDCONFIG=	yes
-USE_KDE=	ecm
+USE_KDE=	ecm:build
 USE_QT=		core dbus gui opengl widgets \
-		buildtools_build qmake_build
+		buildtools:build qmake:build
 
 PLIST_SUB=	SHLIB_VER=${DISTVERSION}
 

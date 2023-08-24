@@ -1,16 +1,17 @@
 PORTNAME=	intel-media-sdk
 DISTVERSIONPREFIX=	intel-mediasdk-
-DISTVERSION=	21.2.3
+DISTVERSION=	22.4.3
 CATEGORIES=	multimedia
 
-MAINTAINER=	jbeich@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Hardware video decoding/encoding/filtering on Intel GPUs
+WWW=		http://mediasdk.intel.com/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 ONLY_FOR_ARCHS=	amd64 i386
-ONLY_FOR_ARCHS_REASON=	Only Intel GPUs on x86 are supported
+ONLY_FOR_ARCHS_REASON=	only Intel GPUs on x86 are supported
 
 LIB_DEPENDS=	libva.so:multimedia/libva
 RUN_DEPENDS=	cmrtlib>0:multimedia/cmrtlib

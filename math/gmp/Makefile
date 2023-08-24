@@ -1,16 +1,17 @@
-# Created by: Ying-Chieh Liao <ijliao@FreeBSD.org>
-
 PORTNAME=	gmp
-PORTVERSION=	6.2.1
+PORTVERSION=	6.3.0
 CATEGORIES=	math devel
 MASTER_SITES=	GNU
 
 MAINTAINER=	ale@FreeBSD.org
 COMMENT=	Free library for arbitrary precision arithmetic
+WWW=		https://gmplib.org/
 
 LICENSE=	LGPL3
 
-USES=		libtool makeinfo tar:xz
+USES=		cpe libtool makeinfo tar:xz pathfix
+
+CPE_VENDOR=	gmplib
 
 OPTIONS_DEFINE=	CPU_OPTS
 CPU_OPTS_DESC=	Enable assembly optimizations for your CPU

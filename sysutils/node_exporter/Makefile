@@ -1,12 +1,12 @@
-# Created by: Jev Björsell <ports@ecadlabs.com>
-
 PORTNAME=	node_exporter
-PORTVERSION=	1.1.2
+PORTVERSION=	1.5.0
 DISTVERSIONPREFIX=v
+PORTREVISION=	6
 CATEGORIES=	sysutils
 
 MAINTAINER=	dor.bsd@xm0.uk
 COMMENT=	Prometheus exporter for machine metrics
+WWW=		https://github.com/prometheus/node_exporter
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -30,6 +30,7 @@ LD_FLAG_STRING=	-s \
 LD_FLAG_X_PREFIX=	-X ${GO_PKGNAME:H}/common/version
 
 # This Makefile includes the GH_TUPLE section.
+# Generated with: env M2T_GITHUB=$M2T_GITHUB make gomod-vendor > out
 .include "Makefile.modules"
 
 post-install-DOCS-on:

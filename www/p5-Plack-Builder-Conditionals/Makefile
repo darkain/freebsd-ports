@@ -5,8 +5,9 @@ CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension to extend Plack::Builder
+WWW=		https://metacpan.org/release/Plack-Builder-Conditionals
 
 RUN_DEPENDS=	\
 	p5-List-MoreUtils>0:lang/p5-List-MoreUtils \

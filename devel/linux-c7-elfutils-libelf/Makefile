@@ -7,8 +7,10 @@ PKGNAMESUFFIX=	-libelf
 
 MAINTAINER=	emulation@FreeBSD.org
 COMMENT=	ELF file handling library (CentOS ${LINUX_DIST_VER})
+WWW=		https://sourceware.org/elfutils/
 
-USES=		linux:c7
+USES=		cpe linux:c7
+CPE_VENDOR=	${PORTNAME}_project
 USE_LDCONFIG=	yes
 USE_LINUX_RPM=	yes
 

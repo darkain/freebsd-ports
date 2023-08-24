@@ -1,16 +1,11 @@
---- ui/base/ui_base_features.h.orig	2021-05-12 22:06:46 UTC
+--- ui/base/ui_base_features.h.orig	2023-08-17 07:33:31 UTC
 +++ ui/base/ui_base_features.h
-@@ -65,11 +65,11 @@ COMPONENT_EXPORT(UI_BASE_FEATURES) extern const base::
- COMPONENT_EXPORT(UI_BASE_FEATURES) bool IsUsingWMPointerForTouch();
- #endif  // defined(OS_WIN)
- 
--#if defined(OS_WIN) || defined(OS_APPLE) || defined(OS_LINUX) || \
-+#if defined(OS_WIN) || defined(OS_APPLE) || defined(OS_LINUX) || defined(OS_BSD) || \
-     defined(OS_CHROMEOS)
+@@ -234,7 +234,7 @@ enum class ChromeRefresh2023Level {
  COMPONENT_EXPORT(UI_BASE_FEATURES)
- extern const base::Feature kDirectManipulationStylus;
--#endif  // defined(OS_WIN) || defined(OS_APPLE) || defined(OS_LINUX) ||
-+#endif  // defined(OS_WIN) || defined(OS_APPLE) || defined(OS_LINUX) || defined(OS_BSD) ||
-         // defined(OS_CHROMEOS)
+ ChromeRefresh2023Level GetChromeRefresh2023Level();
  
- // Used to enable forced colors mode for web content.
+-#if !BUILDFLAG(IS_LINUX)
++#if !BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_BSD)
+ COMPONENT_EXPORT(UI_BASE_FEATURES) BASE_DECLARE_FEATURE(kWebUiSystemFont);
+ #endif
+ 

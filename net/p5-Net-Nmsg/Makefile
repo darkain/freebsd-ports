@@ -1,5 +1,6 @@
 PORTNAME=	Net-Nmsg
 PORTVERSION=	0.17
+PORTREVISION=	1
 CATEGORIES=	net perl5
 MASTER_SITES=	https://tools.netsa.cert.org/confluence/download/attachments/12320770/ \
 		CPAN
@@ -8,6 +9,7 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	truckman@FreeBSD.org
 COMMENT=	Perl bindings to libnmsg
+WWW=		https://tools.netsa.cert.org/confluence/display/tt/Net-Nmsg
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt

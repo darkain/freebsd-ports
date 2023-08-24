@@ -1,20 +1,19 @@
-# Created by: Mark Felder <feld@FreeBSD.org>
-
 PORTNAME=	pid
 PORTVERSION=	3.0.4
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	mattias.lindvall@gmail.com
 COMMENT=	Pidfile management for Python
+WWW=		https://pypi.org/project/pid/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>=4.5.0:devel/py-pytest@${PY_FLAVOR}
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	autoplist distutils
 
 NO_ARCH=	yes

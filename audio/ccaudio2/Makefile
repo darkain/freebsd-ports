@@ -1,5 +1,3 @@
-# Created by: gahr
-
 PORTNAME=	ccaudio2
 PORTVERSION=	2.2.0
 PORTREVISION=	5
@@ -8,6 +6,10 @@ MASTER_SITES=	GNU/ccaudio
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	C++ class framework for manipulating audio files
+WWW=		https://www.gnu.org/software/ccaudio/
+
+DEPRECATED=	Abandonware, no development since 2011
+EXPIRATION_DATE=2023-09-30
 
 LICENSE=	LGPL3+
 LICENSE_FILE=	${WRKSRC}/COPYING.LESSER

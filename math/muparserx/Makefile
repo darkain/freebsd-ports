@@ -1,11 +1,11 @@
 PORTNAME=	muparserx
 DISTVERSIONPREFIX=	v
-DISTVERSION=	4.0.8-30
-DISTVERSIONSUFFIX=	-g0a7c3b2
+DISTVERSION=	4.0.12
 CATEGORIES=	math devel
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C++ math parser library with array and string support
+WWW=		https://beltoforion.de/en/muparserx/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

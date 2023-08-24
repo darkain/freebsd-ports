@@ -1,29 +1,29 @@
-# Created by: Palle Girgensohn <girgen@FreeBSD.org>
-
 PORTNAME=	fluent-bit
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.7.9
+DISTVERSION=	2.1.7
+PORTREVISION=	1
 CATEGORIES=	sysutils
 
 MAINTAINER=	girgen@FreeBSD.org
 COMMENT=	Fast and lightweight data forwarder
+WWW=		https://fluentbit.io/
 
 LICENSE=	APACHE20
 
 BROKEN_mips=		fails to build: conflicting types for 'restrict'
 BROKEN_mips64=		fails to build: conflicting types for 'restrict'
-BROKEN_riscv64=		fails to build: No support for this architecture (yet)
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	fluent
 
-USES=		cmake:noninja gmake bison
+USES=		bison cmake:noninja compiler:c11 gmake localbase:ldflags
 
 OPTIONS_DEFINE=		SSL PGSQL
 OPTIONS_DEFAULT=	SSL
 
-LDFLAGS=		-lexecinfo
-CMAKE_ARGS=		-DFLB_DEBUG=Off -DFLB_TRACE=Off
+LIB_DEPENDS=		libyaml.so:textproc/libyaml
+LDFLAGS+=		-lexecinfo
+CMAKE_ARGS=		-DFLB_DEBUG=Off -DFLB_TRACE=Off -DFLB_LUAJIT=Off
 
 SSL_USES=		ssl
 SSL_CMAKE_ON=		-DFLB_TLS=On
@@ -40,16 +40,8 @@ USE_RC_SUBR=	${PORTNAME}
 
 .include <bsd.port.options.mk>
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200000
-EXTRA_PATCHES=	${PATCHDIR}/extra-patch-lib_luajit__src__lj_prng.c
-.endif
-
-.if ${ARCH:Mpowerpc64*}
-CMAKE_ARGS+=	-DFLB_LUAJIT:BOOL=OFF
-.elif ${ARCH} == powerpc
-USES+=		compiler:gcc-c++11-lib
-.else
-USES+=		compiler:c11
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=int-conversion
 .endif
 
 post-install:

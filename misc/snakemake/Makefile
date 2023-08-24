@@ -1,10 +1,12 @@
 PORTNAME=	snakemake
-DISTVERSION=	6.5.2
+DISTVERSION=	6.15.5
+PORTREVISION=	1
 CATEGORIES=	misc python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Workflow management system
+WWW=		https://github.com/snakemake/snakemake
 
 LICENSE=	MIT
 
@@ -21,14 +23,14 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}appdirs>0:devel/py-appdirs@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}ratelimiter>0:devel/py-ratelimiter@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>0:www/py-requests@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}smart-open>0:net/py-smart-open@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}smart-open>=3.0:net/py-smart-open@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}stopit>0:devel/py-stopit@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tabulate>0:devel/py-tabulate@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}toposort>0:devel/py-toposort@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}wrapt>0:devel/py-wrapt@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}yaml>0:devel/py-yaml@${PY_FLAVOR}
 
-USES=		python:3.5+
+USES=		python
 USE_PYTHON=	distutils noflavors autoplist
 
 NO_ARCH=	yes

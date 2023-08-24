@@ -1,19 +1,18 @@
-# Created by: Gerrit Beine <tux@pinguru.net>
-
 PORTNAME=	mediawiki
-PORTVERSION=	1.35.3
+PORTVERSION=	1.35.11
 CATEGORIES=	www
 MASTER_SITES=	http://releases.wikimedia.org/mediawiki/${PORTVERSION:R}/
 PKGNAMESUFFIX=	135${PHP_PKGNAMESUFFIX}
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Wiki engine used by Wikipedia
+WWW=		https://www.mediawiki.org/
 
 LICENSE=	GPLv2
 
-CONFLICTS=	mediawiki131-[0-9]* mediawiki136-[0-9]*
+CONFLICTS=	mediawiki13[8-9] mediawiki140
 
-USES=		php:flavors shebangfix
+USES=		cpe php:flavors shebangfix
 SHEBANG_FILES=	maintenance/dev/*.sh \
 		maintenance/postgres/*.pl \
 		maintenance/storage/make-blobs \
@@ -21,9 +20,8 @@ SHEBANG_FILES=	maintenance/dev/*.sh \
 SHEBANG_LANG=	hhvm
 hhvm_OLD_CMD=	/usr/bin/hhvm
 hhvm_CMD=	${LOCALBASE}/bin/hhvm # not installed by anything yet
-USE_PHP=	ctype dom fileinfo filter hash iconv intl json mbstring openssl \
-		pcre readline session xml xmlreader zlib
-IGNORE_WITH_PHP=80
+USE_PHP=	ctype dom fileinfo filter iconv intl mbstring \
+		readline session xml xmlreader zlib
 MEDIAWIKIDIR?=	www/mediawiki
 
 NO_BUILD=	yes

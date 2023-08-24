@@ -1,5 +1,5 @@
-TIMESTAMP = 1626308986
-SHA256 (go/devel_revive/revive-v1.0.9/v1.0.9.mod) = c08b41353dfdf440e20ef9eb557f07c501c39b4e0dedcf495e93ad4c977c5f4c
-SIZE (go/devel_revive/revive-v1.0.9/v1.0.9.mod) = 419
-SHA256 (go/devel_revive/revive-v1.0.9/v1.0.9.zip) = f1aa5a972e3fc06874d347043f4525600c4468ae23c04d4f2939796178f775d8
-SIZE (go/devel_revive/revive-v1.0.9/v1.0.9.zip) = 778044
+TIMESTAMP = 1684718403
+SHA256 (go/devel_revive/revive-v1.3.2/v1.3.2.mod) = ed21bd15df9c90db455544414ed12c087378648c343ba11f23862bcb3b8e4a1f
+SIZE (go/devel_revive/revive-v1.3.2/v1.3.2.mod) = 618
+SHA256 (go/devel_revive/revive-v1.3.2/v1.3.2.zip) = d75f7d9a082a19d7f6ae734856bd7f74ea2677c646afc73e0ecaf7859a51c5e7
+SIZE (go/devel_revive/revive-v1.3.2/v1.3.2.zip) = 825135

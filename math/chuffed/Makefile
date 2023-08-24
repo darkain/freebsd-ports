@@ -1,9 +1,10 @@
 PORTNAME=	chuffed
-DISTVERSION=	0.10.4.20210104
+DISTVERSION=	0.12.1
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Lazy clause generation CP solver for MiniZinc
+WWW=		https://github.com/chuffed/chuffed
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

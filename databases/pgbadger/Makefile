@@ -1,12 +1,11 @@
-# Created by: Palle Girgensohn <girgen@FreeBSD.org>
-
 PORTNAME=	pgbadger
-PORTVERSION=	11.5
+PORTVERSION=	12.2
 DISTVERSIONPREFIX=v
 CATEGORIES=	databases
 
 MAINTAINER=	girgen@FreeBSD.org
 COMMENT=	Very competent log analyzer for PostgreSQL
+WWW=		http://dalibo.github.com/pgbadger/
 
 LICENSE=	PostgreSQL
 

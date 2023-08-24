@@ -1,5 +1,3 @@
-# Created by: Dmitry Marakasov <amdmi3@FreeBSD.org>
-
 PORTNAME=	redeclipse-data
 PORTVERSION=	1.6.0
 DISTVERSIONPREFIX=	v
@@ -8,11 +6,12 @@ PKGNAMESUFFIX=	16
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Data files for Red Eclipse first-person shooter
+WWW=		https://www.redeclipse.net/
 
 USE_GITHUB=	nodefault
 GH_TUPLE=	${DATAFILES:C/.*/red-eclipse:&:${DISTVERSIONPREFIX}${PORTVERSION}:&\/&/}
 
-CONFLICTS_INSTALL=redeclipse-data-[0-9]*
+CONFLICTS_INSTALL=redeclipse-data
 
 DATAFILES=	acerspyro actors appleflap blendbrush caustics crosshairs \
 		decals dziq elyvisions fonts freezurbern john jojo jwin luckystrike \

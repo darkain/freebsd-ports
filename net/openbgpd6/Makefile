@@ -6,6 +6,7 @@ PKGNAMESUFFIX=	6
 
 MAINTAINER=	pi@FreeBSD.org
 COMMENT=	Free implementation of the Border Gateway Protocol, Version 4
+WWW=		https://www.openbgpd.org/
 
 LICENSE=	ISCL
 LICENSE_FILE=	${FILESDIR}/COPYING
@@ -20,7 +21,7 @@ SUB_FILES=	pkg-message
 USERS=		_bgpd
 GROUPS=		_bgpd
 
-CONFLICTS=	zebra-[0-9]* quagga-[0-9]*
+CONFLICTS=	zebra quagga
 
 OPTIONS_DEFINE=		IPV6LLPEER
 OPTIONS_DEFAULT=	IPV6LLPEER

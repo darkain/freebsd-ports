@@ -1,5 +1,3 @@
-# Created by: Mario Sergio Fujikawa Ferreira <lioux@FreeBSD.org>
-
 PORTNAME=	djbfft
 PORTVERSION=	0.76
 PORTREVISION=	2
@@ -8,12 +6,16 @@ MASTER_SITES=	http://cr.yp.to/djbfft/
 
 MAINTAINER=	multimedia@FreeBSD.org
 COMMENT=	Extremely fast library for floating-point convolution
+WWW=		https://cr.yp.to/djbfft.html
 
 # Converted from LEGAL_TEXT
 LICENSE=	djb
 LICENSE_NAME=	djb
 LICENSE_TEXT=	No license -- see http://cr.yp.to/softwarelaw.html
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+DEPRECATED=	Abandonware, slow and untouched by upstream for over 20 years
+EXPIRATION_DATE=2023-09-30
 
 DISABLE_SIZE=	yes
 ALL_TARGET=

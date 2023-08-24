@@ -1,10 +1,12 @@
 PORTNAME=	bamtools
 DISTVERSIONPREFIX=	v
 DISTVERSION=	2.5.2
+PORTREVISION=	1
 CATEGORIES=	biology
 
 MAINTAINER=	jwb@FreeBSD.org
 COMMENT=	API and toolkit for handling BAM files
+WWW=		https://github.com/pezmaster31/bamtools
 
 LICENSE=	MIT
 

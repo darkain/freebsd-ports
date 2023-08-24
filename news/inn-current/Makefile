@@ -1,20 +1,24 @@
-# Created by: kbowling
-
 PORTNAME=		inn-current
 PORTVERSION=		${SNAPSHOT}
+PORTREVISION=		0
 MASTER_SITE_SUBDIR=	inn/snapshots
 DISTNAME=		inn-${BRANCH}-${SNAPSHOT}
 
-BRANCH=		CURRENT
-SNAPSHOT=	20210709
+BRANCH=		2.8
+SNAPSHOT=	20230806
 
 CONFLICTS=	inn-2.[0-9]*
 
 DISTINFO_FILE=	${.CURDIR}/distinfo
 FILESDIR=	${.CURDIR}/../inn/files
 PATCHDIR=	${.CURDIR}/../inn/files
-PLIST=		${.CURDIR}/../inn/pkg-plist
+PLIST=		${.CURDIR}/pkg-plist
 WRKSRC=		${WRKDIR}/${DISTNAME}
 
-.include "${.CURDIR}/../inn/Makefile"
+CPE_PRODUCT=	inn
 
+INNLIB_LONG=		9.0.0
+LIBVER_LONG=		3.0.7
+LIBSTORAGEVER_LONG=	3.1.1
+
+.include "${.CURDIR}/../inn/Makefile"

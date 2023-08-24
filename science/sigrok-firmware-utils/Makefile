@@ -1,5 +1,3 @@
-# Created by: Uffe Jakobsen <uffe@uffe.org>
-
 PORTNAME=	firmware
 PORTVERSION=	20140418
 PORTREVISION=	2
@@ -9,12 +7,13 @@ PKGNAMEPREFIX=	sigrok-
 PKGNAMESUFFIX=	-utils
 DISTFILES=	#none
 
-MAINTAINER=	bsam@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Sigrok firmware extraction utilities
+WWW=		https://www.sigrok.org/wiki/Firmware
 
 LICENSE=	GPLv3+
 
-USES=		python:3.4+ shebangfix
+USES=		python shebangfix
 SHEBANG_FILES=	${PY_FILES} ${EX_FILES}
 NO_BUILD=	yes
 NO_ARCH=	yes

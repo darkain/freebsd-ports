@@ -1,11 +1,11 @@
-# Created by: Henry Hu <henry.hu.sh@gmail.com>
-
 PORTNAME=	ibus
-PORTVERSION=	1.5.24
+PORTVERSION=	1.5.27
+PORTREVISION=	2
 CATEGORIES=	textproc
 
 MAINTAINER=	henry.hu.sh@gmail.com
-COMMENT=	Intelligent Input Bus for Linux / Unix OS
+COMMENT=	Intelligent Input Bus for Unix-like systems
+WWW=		https://github.com/ibus/ibus
 
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -20,42 +20,35 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dbus>=0.83.0:devel/py-dbus@${PY_FLAVOR} \
 		setxkbmap:x11/setxkbmap
 
 USES=		autoreconf compiler cpe gmake gnome libtool localbase \
-		pathfix pkgconfig python:3.5+ shebangfix
+		pathfix pkgconfig python shebangfix
 CPE_VENDOR=	ibus_project
 USE_GITHUB=	yes
 USE_GNOME=	glib20 intltool librsvg2 pygobject3
-INSTALLS_ICONS=	yes
 USE_LDCONFIG=	yes
 USE_PYTHON=	py3kplist
-
-
 SHEBANG_GLOB=	*.sh
-
-
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-html-dir=${PREFIX}/share/doc	\
 		--with-ucd-dir=${LOCALBASE}/share/unicode/ucd \
 		--disable-python2 --disable-python-library \
-		--disable-gtk4
+		--disable-gtk4 --disable-systemd --disable-systemd-services
 
 MAKE_JOBS_UNSAFE=yes
 INSTALL_TARGET=	install-strip
+TEST_TARGET=	check
+TEST_WRKSRC=	${WRKSRC}/src/tests
 
-OPTIONS_DEFINE=	ENGINE VALA GTK2 GTK3 GINTRO XIM EMOJI DOCS NLS WAYLAND
-OPTIONS_DEFAULT=	GTK2 GTK3 VALA GINTRO DCONF XIM ENGINE EMOJI
-OPTIONS_RADIO=	CONFIG
-OPTIONS_RADIO_CONFIG=	GCONF DCONF
+OPTIONS_DEFINE=	ENGINE VAPI GTK2 GTK3 GINTRO DCONF XIM EMOJI DOCS NLS WAYLAND
+OPTIONS_DEFAULT=	GTK2 GTK3 VAPI GINTRO DCONF XIM ENGINE EMOJI
 NO_OPTIONS_SORT=	yes
 OPTIONS_SUB=	yes
 
 DCONF_DESC=	Use dconf for configuration
 EMOJI_DESC=	Install emoji dictionary
 ENGINE_DESC=	Install ibus simple engine
-GCONF_DESC=	Use GConf for configuration
 GINTRO_DESC=	Install GObject Introspection data
 GTK2_DESC=	Install GTK2 client
 GTK3_DESC=	Install GTK3 client and panel
-VALA_DESC=	Install vala binding
 WAYLAND_DESC=	Enable Wayland support
 XIM_DESC=	Install XIM server
 
@@ -70,9 +63,6 @@ EMOJI_CONFIGURE_ON=	--with-unicode-emoji-dir=${LOCALBASE}/share/unicode/emoji \
 			--with-emoji-annotation-dir=${LOCALBASE}/share/unicode/cldr/common/annotations
 EMOJI_CONFIGURE_ENABLE=	emoji-dict
 ENGINE_CONFIGURE_ENABLE=	engine
-GCONF_USE=		GNOME=gconf2
-GCONF_CONFIGURE_ENABLE=	gconf
-GCONF_VARS=		GCONF_SCHEMAS=ibus.schemas
 GINTRO_BUILD_DEPENDS=	gobject-introspection>=0.6.8:devel/gobject-introspection
 GINTRO_RUN_DEPENDS=	gobject-introspection>=0.6.8:devel/gobject-introspection
 GINTRO_CONFIGURE_ENABLE=	introspection
@@ -84,20 +74,21 @@ GTK2_CONFIGURE_ENABLE=	gtk2
 GTK3_LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 			libnotify.so:devel/libnotify
 GTK3_USES=		xorg
-GTK3_USE=		GNOME=cairo,gtk30 XORG=x11,xi
+GTK3_USE=		GNOME=cairo,gtk30,pango XORG=x11,xi
 GTK3_CONFIGURE_ENABLE=	gtk3 libnotify
 GTK3_LIBS=		-lX11
 NLS_USES=		gettext
 NLS_USES_OFF=		gettext-tools
 NLS_CONFIGURE_ENABLE=	nls
-VALA_IMPLIES=		GINTRO
-VALA_BUILD_DEPENDS=	vala>=0.20:lang/vala
-VALA_CONFIGURE_ENABLE=	vala
+VAPI_IMPLIES=		GINTRO
+VAPI_USES=		vala:build
+VAPI_CONFIGURE_ENABLE=	vala
 WAYLAND_BUILD_DEPENDS=	wayland>1.14:graphics/wayland
 WAYLAND_LIB_DEPENDS=	libwayland-client.so:graphics/wayland \
 			libxkbcommon.so:x11/libxkbcommon
 WAYLAND_CONFIGURE_ENABLE=	wayland
 XIM_CONFIGURE_ENABLE=	xim
+XIM_USE=		XORG=x11,xfixes
 
 EMOJIONE_TAG=		ba845a7e24aac26cf3cf22abc19bea215d94fbf3 # 2.2.7
 
@@ -107,7 +98,7 @@ EMOJIONE_TAG=		ba845a7e24aac26cf3cf22abc19bea215d94fbf3 # 2.2.7
 USE_GCC=	yes
 .endif
 
-.if ${PORT_OPTIONS:MENGINE} || ${PORT_OPTIONS:MGTK3} || ${PORT_OPTIONS:MGCONF} || ${PORT_OPTIONS:MDCONF}
+.if ${PORT_OPTIONS:MENGINE} || ${PORT_OPTIONS:MGTK3} || ${PORT_OPTIONS:MDCONF}
 PLIST_SUB+=	COMPDIR=""
 .else
 PLIST_SUB+=	COMPDIR="@comment "
@@ -119,8 +110,5 @@ pre-configure:
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/xdg/autostart
 	${INSTALL_DATA} ${PATCHDIR}/ibus.desktop ${STAGEDIR}${PREFIX}/etc/xdg/autostart
-
-do-test:
-	${MAKE} -C ${WRKSRC}/src/tests check
 
 .include <bsd.port.post.mk>

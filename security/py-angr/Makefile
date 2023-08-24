@@ -1,12 +1,13 @@
 PORTNAME=	angr
 DISTVERSIONPREFIX=	v
 DISTVERSION=	${ANGR_VERSION}
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	security devel python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	0mp@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Multi-architecture binary analysis toolkit
+WWW=		https://github.com/angr/angr
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -39,7 +40,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ailment>=${ANGR_VERSION}:security/py-ailment
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}keystone-engine>=0:devel/py-keystone-engine@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}nose>=0:devel/py-nose@${PY_FLAVOR}
 
-USES=		angr:binaries gmake localbase:ldflags python:3.6+
+USES=		angr:binaries gmake localbase:ldflags python
 USE_GITHUB=	yes
 USE_PYTHON=	autoplist distutils
 

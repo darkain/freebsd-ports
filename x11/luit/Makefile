@@ -1,10 +1,13 @@
 PORTNAME=	luit
-PORTVERSION=	20210218
+PORTVERSION=	20230201
 CATEGORIES=	x11
-MASTER_SITES=	ftp://ftp.invisible-island.net/luit/
+MASTER_SITES=	https://invisible-island.net/archives/luit/ \
+		https://invisible-mirror.net/archives/luit/ \
+		ftp://ftp.invisible-island.net/pub/luit/
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Locale and ISO 2022 support for Unicode terminals
+WWW=		https://invisible-island.net/luit/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING

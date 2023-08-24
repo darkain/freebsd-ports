@@ -1,17 +1,17 @@
-# Created by: Yanhui Shen <shen.elf@gmail.com>
-
 PORTNAME=	mous
 DISTVERSIONPREFIX=	v
 DISTVERSION=	2.0.1
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	audio
 
 MAINTAINER=	shen.elf@gmail.com
 COMMENT=	Simple yet powerful audio player
+WWW=		https://github.com/bsdelf/mous
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BROKEN=		fails to compile: no matching constructor for initialization of 'std::tuple<...>, no response from the upstream, see https://github.com/bsdelf/mous/issues/18
 BROKEN_aarch64=		fails to compile: mmintrin.h:47:5: use of undeclared identifier '__builtin_ia32_emms'; did you mean '__builtin_isless'?
 
 USES=		cmake compiler:c++14-lang
@@ -73,7 +73,7 @@ OSS_CMAKE_BOOL=		WITH_PLUGIN_OSS
 
 QT5_CMAKE_BOOL=		WITH_APP_QT5
 QT5_USES=		qt:5
-QT5_USE=		qt=buildtools,core,gui,widgets,qmake_build
+QT5_USE=		qt=buildtools,core,gui,widgets,qmake:build
 
 SNDIO_CMAKE_BOOL=	WITH_PLUGIN_SNDIO
 SNDIO_LIB_DEPENDS=	libsndio.so:audio/sndio
@@ -94,7 +94,7 @@ WAVPACK_LIB_DEPENDS=	libwavpack.so:audio/wavpack
 
 .include <bsd.port.options.mk>
 
-.if ${ARCH} == i386
+.if ${ARCH} != amd64
 # error: always_inline function '_mm_load_si128' requires target feature
 # 'mmx', but would be inlined into function 'AdaptSSE' that is compiled
 # without support for 'mmx'

@@ -1,5 +1,3 @@
-# Created by: Masafumi NAKANE <max@FreeBSD.org>
-
 PORTNAME=	delegate
 PORTVERSION=	9.9.13
 PORTREVISION=	1
@@ -9,11 +7,12 @@ DISTNAME=	${PORTNAME}${PORTVERSION}
 
 MAINTAINER=	portmaster@BSDforge.com
 COMMENT=	General purpose TCP/IP proxy system
+WWW=		http://www.delegate.org/delegate/
 
 BROKEN_mips=		fails to build: gmake[1]: [Makefile:116: mkmake.exe] Error 1
 BROKEN_mips64=		fails to build: gmake[1]: [Makefile:116: mkmake.exe] Error 1
 
-USES=		compiler:c11 gmake
+USES=		compiler:c11 cpe gmake
 SUB_FILES=	pkg-message
 
 ADMIN?=		admin@example.com

@@ -1,13 +1,12 @@
-# Created by: thierry@pompo.net
-
 PORTNAME=	xd3d
 PORTVERSION=	8.3.1
-PORTREVISION=	19
+PORTREVISION=	21
 CATEGORIES=	graphics math
 MASTER_SITES=	http://www.cmap.polytechnique.fr/~jouve/xd3d/
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Simple scientific visualization tool
+WWW=		http://www.cmap.polytechnique.fr/~jouve/xd3d/
 
 LICENSE=	GPLv2
 
@@ -28,7 +27,7 @@ LICENSE=	GPLv2
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
 .if !defined(WITHOUT_IMAGEMAGICK)
-RUN_DEPENDS+=	convert:graphics/ImageMagick${IMAGEMAGICK_DEFAULT}
+USES+=		magick:run
 .endif
 .if !defined(WITHOUT_GIFSICLE)
 RUN_DEPENDS+=	gifsicle:graphics/gifsicle

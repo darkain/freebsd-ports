@@ -4,8 +4,9 @@ PORTREVISION=	1
 CATEGORIES=	japanese perl5
 MASTER_SITES=	CPAN
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension interface to convert Japanese text
+WWW=		https://metacpan.org/release/Jcode
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
@@ -13,6 +14,10 @@ LICENSE_COMB=	dual
 USES=		perl5
 USE_PERL5=	configure
 
+NO_ARCH=	yes
+
 .include <bsd.port.pre.mk>
+
 PKGNAMEPREFIX:=	${PKGNAMEPREFIX}p5-
+
 .include <bsd.port.post.mk>

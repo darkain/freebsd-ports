@@ -1,16 +1,16 @@
-# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@sunpoet.net>
-
 PORTNAME=	cdo
-PORTVERSION=	1.9.10
+PORTVERSION=	2.2.0
+PORTREVISION=	2
 CATEGORIES=	science
-MASTER_SITES=	https://code.mpimet.mpg.de/attachments/download/24638/ \
+MASTER_SITES=	https://code.mpimet.mpg.de/attachments/download/28013/ \
 		LOCAL/sunpoet
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Climate Data Operators
+WWW=		https://code.mpimet.mpg.de/projects/cdo
 
-LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/COPYING
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 OPTIONS_DEFINE=	CGRIBEX ECCODES HDF5 JASPER NETCDF PROJ SZIP UDUNITS UUID
 OPTIONS_DEFAULT=CGRIBEX ECCODES HDF5 JASPER NETCDF PROJ SZIP UDUNITS UUID
@@ -23,7 +23,7 @@ UUID_DESC=	UUID support
 
 PORTSCOUT=	site:https://code.mpimet.mpg.de/projects/cdo/files
 
-USES=		compiler:c++11-lang gmake libtool localbase pathfix
+USES=		compiler:c++17-lang gmake libtool localbase pathfix python:build
 
 CONFIGURE_ARGS=	--disable-data \
 		--disable-extra \
@@ -34,11 +34,12 @@ CONFIGURE_ARGS=	--disable-data \
 		--enable-cdi-lib \
 		--program-transform-name="" \
 		--with-zlib=/usr
+CONFIGURE_ENV=	PYTHON=${PYTHON_CMD}
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 MAKE_JOBS_UNSAFE=	yes
 TEST_TARGET=	check
-USE_CXXSTD=	c++11
+USE_CXXSTD=	c++17
 USE_LDCONFIG=	yes
 
 CGRIBEX_CONFIGURE_WITH=	cgribex
@@ -54,7 +55,7 @@ NETCDF_LIB_DEPENDS=	libnetcdf.so:science/netcdf
 PROJ_CONFIGURE_WITH=	proj
 PROJ_LIB_DEPENDS=	libproj.so:graphics/proj
 SZIP_CONFIGURE_WITH=	szlib
-SZIP_LIB_DEPENDS=	libsz.so:science/szip
+SZIP_LIB_DEPENDS=	libsz.so:science/libaec
 UDUNITS_CONFIGURE_WITH=	udunits2
 UDUNITS_LIB_DEPENDS=	libudunits2.so:science/udunits
 UUID_CONFIGURE_OFF=	ac_cv_func_uuid_create=no ac_cv_have_decl_uuid_create=no ac_cv_have_decl_uuid_generate=no ac_cv_lib_uuid_uuid_generate=no

@@ -1,17 +1,16 @@
-# Created by: Brian Buchanan <brian@CSUA.Berkeley.EDU>
-
 PORTNAME=	flightgear-data
-PORTVERSION=	2020.3.9
+PORTVERSION=	2020.3.18
 CATEGORIES=	games
 MASTER_SITES=	SF/flightgear/release-${PORTVERSION:R}
 DISTNAME=	FlightGear-${PORTVERSION}-data
 
 MAINTAINER=	martymac@FreeBSD.org
 COMMENT=	FlightGear scenery, textures, and aircraft models
+WWW=		https://www.flightgear.org/
 
 LICENSE=	GPLv2
 
-BROKEN_mips64=		Fails to install: runaway process
+BROKEN_mips64=		fails to install: runaway process
 
 USES=		tar:txz
 
@@ -30,7 +29,7 @@ pre-install:
 	@${RM} ${PLIST}
 	@cd ${WRKSRC} && \
 	${FIND} * -type d -empty | ${SORT} \
-		| ${SED} -e 's|^|@exec ${MKDIR} %D/share/flightgear/|' >> ${PLIST} && \
+		| ${SED} -e 's|^|@preexec ${MKDIR} %D/share/flightgear/|' >> ${PLIST} && \
 	${FIND} * -type f | ${SORT} \
 		| ${SED} -e 's|^|%%DATADIR%%/|' >> ${PLIST} && \
 	${FIND} * -type d -empty | ${SORT} -r \

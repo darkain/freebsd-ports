@@ -1,8 +1,6 @@
-# Created by: ijliao
-
 PORTNAME=	sdl
 PORTVERSION=	0.9.1
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	SF/ocaml${PORTNAME}/OCamlSDL/ocaml${PORTNAME}-${PORTVERSION}
 PKGNAMEPREFIX=	ocaml-
@@ -10,6 +8,7 @@ DISTNAME=	ocamlsdl-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OCaml interface to the SDL
+WWW=		http://ocamlsdl.sourceforge.net/
 
 LICENSE=	LGPL20+ # source says LGPL20+, COPYING says LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING

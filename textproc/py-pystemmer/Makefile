@@ -1,20 +1,19 @@
-# Created by: Wen Heping <wenheping@gmail.com>
-
 PORTNAME=	pystemmer
 PORTVERSION=	2.0.1
 CATEGORIES=	textproc python
-MASTER_SITES=	CHEESESHOP \
+MASTER_SITES=	PYPI \
 		http://snowball.tartarus.org/wrappers/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	PyStemmer-${PORTVERSION}
 
 MAINTAINER=	dbaio@FreeBSD.org
 COMMENT=	Snowball Stemming Algorithms for Information Retrieval
+WWW=		https://pypi.org/project/PyStemmer/
 
 LICENSE=	MIT BSD3CLAUSE
 LICENSE_COMB=	dual
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	autoplist cython distutils
 
 post-install:

@@ -1,11 +1,12 @@
 PORTNAME=	dune-pdelab
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.7.0
-PORTREVISION=	3
+DISTVERSION=	2.7.0.20210824
+PORTREVISION=	11
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	DUNE framework: PDE solver toolbox
+WWW=		https://www.dune-project.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -22,10 +23,20 @@ BUILD_DEPENDS=	${DUNE_DEPENDS} \
 		${LOCALBASE}/mpi/openmpi/lib/libmpi.so:net/openmpi
 LIB_DEPENDS=	libarpack.so:math/arpack-ng \
 		libdunealugrid.so:math/dune-alugrid \
-		libugL.so:math/dune-uggrid \
+		libduneuggrid.so:math/dune-uggrid \
 		libgmp.so:math/gmp \
 		libmetis.so:math/metis \
+		libpsurface.so:math/psurface \
 		libopenblas.so:math/openblas \
+		libamd.so:math/suitesparse-amd \
+		libcamd.so:math/suitesparse-camd \
+		libccolamd.so:math/suitesparse-ccolamd \
+		libcholmod.so:math/suitesparse-cholmod \
+		libcolamd.so:math/suitesparse-colamd \
+		libsuitesparseconfig.so:math/suitesparse-config \
+		libldl.so:math/suitesparse-ldl \
+		libspqr.so:math/suitesparse-spqr \
+		libumfpack.so:math/suitesparse-umfpack \
 		libsuperlu.so:math/superlu \
 		libtbb.so:devel/onetbb
 RUN_DEPENDS=	${DUNE_DEPENDS} \
@@ -38,7 +49,7 @@ USE_LDCONFIG=	yes
 
 GL_SITE=	https://gitlab.dune-project.org
 GL_ACCOUNT=	pdelab
-GL_COMMIT=	33aaa8e2e0598c98e17c3e38973307bee45858fb
+GL_TAGNAME=	20c7085389d3eb4f8ca99e1bc60f7fa6036536c8
 
 CMAKE_ON=	BUILD_SHARED_LIBS
 CMAKE_ARGS=	-DTBB_INCLUDE_DIR=${LOCALBASE}/include -DTBB_LIBRARIES=${LOCALBASE}/lib/libtbb.so

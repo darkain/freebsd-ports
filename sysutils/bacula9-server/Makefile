@@ -1,8 +1,6 @@
-# Created by: Dmitry Sivachenko <demon@FreeBSD.org>
-
 PORTNAME=	bacula
 PORTVERSION=	9.6.7
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES?=	sysutils
 MASTER_SITES=	SF/bacula/bacula/${PORTVERSION}
 PKGNAMEPREFIX?=	#
@@ -10,14 +8,15 @@ PKGNAMESUFFIX?=	9-server
 
 MAINTAINER=	dvl@FreeBSD.org
 COMMENT?=	Network backup solution (server)
+WWW=		https://www.bacula.org/
 
 LICENSE=	AGPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES+=		libtool readline shebangfix ssl
+USES+=		cpe libtool readline shebangfix ssl
 SHEBANG_FILES=	src/cats/make_catalog_backup.pl.in
 
-CONFLICTS?=	bacula11-server-* bacula5-server-* bacula-server-*
+CONFLICTS?=	bacula11-server bacula-server
 
 LIB_DEPENDS+=	liblzo2.so:archivers/lzo2
 
@@ -93,7 +92,7 @@ BACULA_DIR?=	/var/db/bacula
 
 PLIST_SUB+=	BACULA_DIR=${BACULA_DIR}
 
-SUB_LIST=	BACULA_USER=${BACULA_USER} \
+SUB_LIST+=	BACULA_USER=${BACULA_USER} \
 		BACULA_GROUP=${BACULA_GROUP} \
 		BACULA_UID=${BACULA_UID} \
 		BACULA_GID=${BACULA_GID} \
@@ -116,10 +115,14 @@ CONFFILES=		sd dir
 
 MYSQL_CONFIGURE_ON=	--with-mysql=yes
 MYSQL_USES=		mysql
+MYSQL_SUB_LIST=		REQ_MYSQL=mysql
+MYSQL_SUB_LIST_OFF=	REQ_MYSQL=""
 SQLITE3_CONFIGURE_ON=	--with-sqlite3=yes
 SQLITE3_USES=		sqlite:3
 PGSQL_CONFIGURE_ON=	--with-postgresql=yes
 PGSQL_USES=		pgsql
+PGSQL_SUB_LIST=		REQ_PGSQL=postgresql
+PGSQL_SUB_LIST_OFF=	REQ_PGSQL=""
 
 MTX_RUN_DEPENDS=	${LOCALBASE}/sbin/mtx:misc/mtx
 

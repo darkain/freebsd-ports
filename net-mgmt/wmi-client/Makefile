@@ -1,5 +1,3 @@
-# Created by: KIKUCHI Koichiro <koichiro@rworks.jp>
-
 PORTNAME=	wmi
 PORTVERSION=	1.3.16
 PORTREVISION=	4
@@ -20,6 +18,12 @@ MAKE_ARGS+=	ZENHOME="${PREFIX}" INSTALL_PROGRAM="${INSTALL_PROGRAM}" \
 ALL_TARGET=	build
 
 PROGS=	bin/wmic bin/winexe
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
+.endif
 
 do-install:
 .for x in ${PROGS}

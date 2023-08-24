@@ -1,11 +1,12 @@
 PORTNAME=	edflib
-DISTVERSION=	1.19
+DISTVERSION=	1.24
 CATEGORIES=	misc # medicine
 MASTER_SITES=	https://www.teuniz.net/edflib/
 DISTNAME=	${PORTNAME}_${DISTVERSION:S/.//}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C library to read/write EDF+/BDF+ (medical data series) files
+WWW=		https://www.teuniz.net/edflib/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -31,5 +32,14 @@ do-install:
 .for p in sine_generator sweep_generator test_edflib test_generator
 	${INSTALL_PROGRAM} ${WRKSRC}/${p} ${STAGEDIR}${PREFIX}/bin
 .endfor
+
+do-test:
+	# build
+	@cd ${WRKSRC}/unittest && \
+		${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_ARGS}
+	# run
+	@cd ${WRKSRC} && \
+		${WRKSRC}/unittest/edflib_test && \
+		${ECHO} "Tests passed"
 
 .include <bsd.port.mk>

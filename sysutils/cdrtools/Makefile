@@ -1,10 +1,16 @@
 PORTNAME=	cdrtools
+PORTREVISION=	1
 CATEGORIES=	sysutils audio
 
 COMMENT=	Tools for ripping from and recording to CDs and DVDs
+WWW=		http://cdrtools.sourceforge.net/private/cdrecord.html
 
 LAME_RUN_DEPENDS=	lame:audio/lame
 VORBIS_RUN_DEPENDS=	oggenc:audio/vorbis-tools
+
+USES=		cpe
+
+CPE_VENDOR=	cdrtools_project
 
 OPTIONS_DEFINE=	DOCS LAME VORBIS SETUID
 OPTIONS_DEFAULT=DOCS LAME VORBIS
@@ -15,7 +21,7 @@ SETUID_DESC=	Install cdrecord, cdda2wav, and readcd as setuid root
 SETUID_PLIST_SUB=	SUID="@(root,,4711) "
 SETUID_PLIST_SUB_OFF=	SUID="@(,,755) "
 
-CONFLICTS_INSTALL=	cdrkit-* cdrtools-devel cdrtools-rscsi-devel
+CONFLICTS_INSTALL=	cdrkit
 
 MASTERDIR=	${.CURDIR}/../../devel/schilybase
 COMPONENTS=	cdda2wav \
@@ -25,6 +31,9 @@ COMPONENTS=	cdda2wav \
 		readcd \
 		scgcheck \
 		scgskeleton
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/share/doc/cdrecord/README.rscsi
 
 post-install-LAME-off:
 	${RM} ${STAGEDIR}${PREFIX}/bin/cdda2mp3 ${STAGEDIR}${PREFIX}share/man/man1/cdda2mp3.1

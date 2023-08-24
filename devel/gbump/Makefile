@@ -1,12 +1,13 @@
 PORTNAME=	gbump
 PORTVERSION=	1.0.1
-PORTREVISION=	13
+PORTREVISION=	34
 CATEGORIES=	devel
 MASTER_SITES=	CRATESIO
 DISTFILES=	${CARGO_DIST_SUBDIR}/${DISTNAME}${CARGO_CRATE_EXT}
 
 MAINTAINER=	nbari@tequila.io
 COMMENT=	Git tag semantic version bumper
+WWW=		https://github.com/nbari/gbump
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -61,6 +62,13 @@ CARGO_CRATES=	aho-corasick-0.7.6 \
 		winapi-x86_64-pc-windows-gnu-0.4.0
 
 PLIST_FILES=	bin/gbump
+
+.include <bsd.port.options.mk>
+
+.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+BROKEN_SSL=	base openssl30 openssl31
+BROKEN_SSL_REASON=	Fails to find OpenSSL 3 development headers
+.endif
 
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gbump

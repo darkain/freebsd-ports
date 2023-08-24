@@ -4,8 +4,9 @@ CATEGORIES=	devel www pear
 
 MAINTAINER=	horde@FreeBSD.org
 COMMENT=	Horde View API
+WWW=		https://pear.horde.org
 
-USES=	horde
+USES=	horde cpe
 USE_HORDE_RUN=	Horde_Exception \
 		Horde_Support \
 		Horde_Util

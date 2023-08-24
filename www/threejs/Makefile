@@ -1,13 +1,11 @@
-# Created by: thierry@pompo.net
-
 PORTNAME=	three.js
-PORTVERSION=	130
+PORTVERSION=	155
 DISTVERSIONPREFIX=	r
-PORTREVISION=	1
 CATEGORIES=	www
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	JavaScript 3D library
+WWW=		https://threejs.org/
 
 LICENSE=	MIT
 

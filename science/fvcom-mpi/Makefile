@@ -1,9 +1,7 @@
-PORTREVISION=	15
+PORTREVISION=	16
 PKGNAMESUFFIX=	-openmpi
 
 MPIPREFIX=	mpi/openmpi/
-
-MAINTAINER=	jwb@FreeBSD.org
 
 LIB_DEPENDS+=	libmpi.so:net/openmpi
 

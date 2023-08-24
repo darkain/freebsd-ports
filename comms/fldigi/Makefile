@@ -1,10 +1,12 @@
 PORTNAME=	fldigi
-PORTVERSION=	4.1.19
+DISTVERSION=	4.1.23
+PORTREVISION=	4
 CATEGORIES=	comms hamradio
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}
+MASTER_SITES=	http://www.w1hkj.com/files/fldigi/
 
 MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Digital decoder for psk, cw, psk31, olivia
+WWW=		http://www.w1hkj.com
 
 LICENSE=	GPLv3
 
@@ -28,7 +30,7 @@ USE_XORG=	x11 xft xext xfixes xcursor xinerama xrender
 CONFIGURE_ENV=	FLTK_CONFIG="${LOCALBASE}/bin/fltk-config" \
 		    EXTRA_LIBS="-lexecinfo"
 
-OPTIONS_DEFINE=	NATIVE_OPT FLARQ OSS PULSEAUDIO HAMLIB NLS DOCS
+OPTIONS_DEFINE=	FLARQ OSS PULSEAUDIO HAMLIB NLS DOCS
 
 NATIVE_OPT_DESC=	Enable Native Optimizations
 FLARQ_DESC=		Compile flarq

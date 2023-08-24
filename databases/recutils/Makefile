@@ -1,19 +1,18 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	recutils
-PORTVERSION=	1.8
-PORTREVISION=	1
+DISTVERSION=	1.9
 CATEGORIES=	databases
 MASTER_SITES=	GNU
 
 MAINTAINER=	zeus@gnu.org.ua
 COMMENT=	Tools and libraries to access human-editable, plain text databases
+WWW=		https://www.gnu.org/software/recutils/
 
 LICENSE=	GPLv3+
 
 LIB_DEPENDS=	libuuid.so:misc/e2fsprogs-libuuid
 
-USES=		charsetfix libtool makeinfo pkgconfig readline
+USES=		charsetfix cpe libtool makeinfo pkgconfig readline
+CPE_VENDOR=	gnu
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
@@ -52,10 +51,6 @@ TEST_TEST_TARGET=	check
 post-patch:
 	@${REINPLACE_CMD} -e 's,mdb_init,mdb_get_version,' \
 		${WRKSRC}/configure
-
-post-install:
-	${INSTALL_DATA} ${WRKSRC}/etc/*.el \
-		${STAGEDIR}${PREFIX}/share/emacs/site-lisp
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

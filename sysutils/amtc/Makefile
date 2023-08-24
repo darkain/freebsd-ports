@@ -4,10 +4,11 @@ CATEGORIES=	sysutils
 
 MAINTAINER=	tony.li@tony.li
 COMMENT=	Threaded Intel AMT/vPro mass management tool
+WWW=		https://github.com/schnoddelbotz/amtc
 
 LICENSE=	CC-BY-3.0
 
-BUILD_DEPENDS=	xxd:editors/vim-console
+BUILD_DEPENDS=	xxd:editors/vim
 LIB_DEPENDS+=	libgcrypt.so:security/libgcrypt \
 		libcurl.so:ftp/curl
 

@@ -1,14 +1,13 @@
-# Created by: Wen Heping <wenheping@gmail.com>
-
 PORTNAME=	geojson
-PORTVERSION=	2.3.0
+PORTVERSION=	3.0.1
 PORTEPOCH=	1
 CATEGORIES=	devel geography python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Python's Encoder/decoder for simple GIS features
+WWW=		https://pypi.org/project/geojson/
 
 LICENSE=	BSD3CLAUSE
 
@@ -17,8 +16,10 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}simplejson>1.9:devel/py-simplejson@${PY_FLAV
 
 PORTDOCS=	LICENSE.rst CHANGELOG.rst README.rst
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	autoplist distutils
+
+NO_ARCH=	yes
 
 OPTIONS_DEFINE=	DOCS
 

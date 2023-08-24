@@ -1,12 +1,11 @@
-# Created by: Wen Heping <wenheping@gmail.com>
-
 PORTNAME=	mvtnorm
-DISTVERSION=	1.1-2
+DISTVERSION=	1.2-2
 CATEGORIES=	math
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Multivariate Normal and t Distributions
+WWW=		https://cran.r-project.org/package=mvtnorm
 
 USES=		cran:auto-plist,compiles
 

@@ -4,8 +4,9 @@ CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	culot@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	SMTP support for Paranoid::Log
+WWW=		https://metacpan.org/release/Paranoid-Log-Email
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

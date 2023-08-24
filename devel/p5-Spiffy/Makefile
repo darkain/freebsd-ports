@@ -1,5 +1,3 @@
-# Created by: Elvis Chiang <elvis@sslab.cs.ccu.edu.tw>
-
 PORTNAME=	Spiffy
 PORTVERSION=	0.46
 PORTREVISION=	1
@@ -10,11 +8,14 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	svysh.fbsd@gmail.com
 COMMENT=	Spiffy Perl Interface Framework For You
+WWW=		https://metacpan.org/release/Spiffy
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
 USES=		perl5
 USE_PERL5=	configure
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

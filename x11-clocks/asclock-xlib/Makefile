@@ -4,8 +4,10 @@ PORTREVISION=	4
 CATEGORIES=	x11-clocks afterstep windowmaker
 MASTER_SITES=	LOCAL/kuriyama
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	New flavor of asclock
+
+CONFLICTS_INSTALL=	asclock
 
 MAKE_JOBS_UNSAFE=	yes
 

@@ -1,21 +1,18 @@
 PORTNAME=	fidogate
 DISTVERSIONPREFIX=	v
-DISTVERSION=	5.10-3
-DISTVERSIONSUFFIX=	-g1c1fd41
+DISTVERSION=	5.12
 CATEGORIES=	news mail
 
 MAINTAINER=	admin@5034.ru
 COMMENT=	Fido-Internet Gateway and Tosser
+WWW=		https://github.com/ykaliuta/fidogate
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=	autoreconf perl5 iconv
-
+USES=		autoreconf perl5 iconv
 USE_GITHUB=	yes
 GH_ACCOUNT=	ykaliuta
-GH_PROJECT=	fidogate
-
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--libexec=${PREFIX}/libexec/fidogate \
 		--sysconfdir=${PREFIX}/etc/fido/gate \

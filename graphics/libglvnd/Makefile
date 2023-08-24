@@ -1,20 +1,22 @@
 PORTNAME=	libglvnd
-DISTVERSION=	1.3.3
+DISTVERSION=	1.6.0
+PORTREVISION=	1
 CATEGORIES=	graphics
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	GL Vendor-Neutral Dispatch library
+WWW=		https://gitlab.freedesktop.org/glvnd/libglvnd
 
 LICENSE=	APACHE20 MIT
 LICENSE_COMB=	multi
 
-USES=		localbase meson pkgconfig
+USES=		compiler:c++11-lib localbase meson pkgconfig
 USE_LDCONFIG=	yes
 
 USE_GITLAB=	yes
 GL_SITE=	https://gitlab.freedesktop.org
 GL_ACCOUNT=	glvnd
-GL_COMMIT=	0f0d49f0f3707f26f68bc44f4cd83144f5f4de86
+GL_TAGNAME=	b05bbcdaeb9b700cf7877e6d66f8fc3ac952295b
 
 OPTIONS_DEFINE=	X11
 OPTIONS_DEFAULT=X11
@@ -26,16 +28,12 @@ X11_MESON_ENABLED=	x11 glx
 
 .include <bsd.port.options.mk>
 
-.if ${ARCH:Mpowerpc64*}
-USES+=		compiler:gcc-c++11-lib
-.else
-USES+=		compiler:c++11-lib
+.if ${ARCH} == powerpc || ${ARCH} == riscv64
+MESON_ARGS+=	-Dasm=disabled
 .endif
 
 # Lots of software expects gl.pc even when it can build with EGL only
 post-install-X11-off:
 	${LN} -s opengl.pc ${STAGEDIR}${PREFIX}/libdata/pkgconfig/gl.pc
-	${REINPLACE_CMD} -e '/Cflags:/s/$$/ -DEGL_NO_X11/' \
-		${STAGEDIR}${PREFIX}/libdata/pkgconfig/egl.pc
 
 .include <bsd.port.mk>

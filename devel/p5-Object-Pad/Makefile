@@ -1,23 +1,21 @@
-# Created by: Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	Object-Pad
-PORTVERSION=	0.45
+PORTVERSION=	0.80.1
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
+DISTNAME=	Object-Pad-${PORTVERSION:R}${PORTVERSION:E}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Simple syntax for lexical slot-based objects
+WWW=		https://metacpan.org/dist/Object-Pad
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	p5-XS-Parse-Keyword>=0.08:devel/p5-XS-Parse-Keyword \
-		p5-XS-Parse-Sublike>=0.10:devel/p5-XS-Parse-Sublike
-TEST_DEPENDS=	p5-Data-Dump>=0:devel/p5-Data-Dump \
-		p5-Test-Fatal>=0:devel/p5-Test-Fatal \
-		p5-Test-Refcount>=0:devel/p5-Test-Refcount
+BUILD_DEPENDS=	p5-XS-Parse-Keyword>=0.37:devel/p5-XS-Parse-Keyword \
+		p5-XS-Parse-Sublike>=0.15:devel/p5-XS-Parse-Sublike
+TEST_DEPENDS=	p5-Test2-Suite>=0.000148:devel/p5-Test2-Suite
 
 USES=		perl5
 USE_PERL5=	modbuild

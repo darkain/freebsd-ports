@@ -5,10 +5,12 @@ CATEGORIES=	textproc
 
 MAINTAINER=	rosenke@dssgmbh.de
 COMMENT=	Markdown Parser written in C
+WWW=		https://github.com/mity/md4c
 
 LICENSE=	MIT
 
-USES=		cmake
+USES=		cmake cpe
+CPE_VENDOR=	${PORTNAME}_project
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	mity

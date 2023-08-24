@@ -1,28 +1,29 @@
-# Created by: Koop Mast<kwm@FreeBSD.org>
-
 PORTNAME=	polkit
-PORTVERSION=	0.119
+DISTVERSION=	123
 CATEGORIES=	sysutils gnome
-MASTER_SITES=	https://www.freedesktop.org/software/polkit/releases/
 
 MAINTAINER=	desktop@FreeBSD.org
 COMMENT=	Framework for controlling access to system-wide components
+WWW=		https://gitlab.freedesktop.org/polkit/polkit
 
-LICENSE=	GPLv2
+LICENSE=	LGPL20+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libexpat.so:textproc/expat2 \
-		libdbus-1.so:devel/dbus \
-		libmozjs-78.so:lang/spidermonkey78
+		libdbus-1.so:devel/dbus
 
 USERS=		polkitd
 GROUPS=		polkitd
 
-USES=		compiler:c++11-lib gettext gnome libtool localbase meson \
-		pathfix pkgconfig shebangfix
+USES=		compiler:c++17-lang cpe gettext gnome libtool localbase meson \
+		pathfix pkgconfig shebangfix tar:bz2
 USE_GNOME=	glib20 intltool introspection:build
 SHEBANG_FILES=	${WRKSRC}/src/polkitbackend/toarray.pl
 USE_LDCONFIG=	yes
+CPE_VENDOR=	polkit_project
+
+USE_GITLAB=	yes
+GL_SITE=	https://gitlab.freedesktop.org
 
 MESON_ARGS=	-Dpam_include=system \
 		-Dpolkitd_user=${USERS} \
@@ -33,9 +34,21 @@ MESON_ARGS=	-Dpam_include=system \
 		-Dlocalstatedir=/var \
 		-Dgtk_doc=false
 
-INSTALL_TARGET=	install-strip
-
 OPTIONS_DEFINE=		MANPAGES
+OPTIONS_DEFAULT=	DUKTAPE
+
+OPTIONS_SINGLE=		JS
+OPTIONS_SINGLE_JS=	DUKTAPE SPIDERMONKEY
+
+JS_DESC=		JavaScript engines
+DUKTAPE_DESC=		Duktape JavaScript backend
+SPIDERMONKEY_DESC=	SpiderMonkey JavaScript backend
+
+DUKTAPE_LIB_DEPENDS=	libduktape.so:lang/duktape-lib
+DUKTAPE_MESON_ON=	-Djs_engine='duktape'
+
+SPIDERMONKEY_LIB_DEPENDS=	libmozjs-102.so:lang/spidermonkey102
+SPIDERMONKEY_MESON_ON=		-Djs_engine='mozjs'
 
 MANPAGES_BUILD_DEPENDS=	docbook-sgml>=4.5:textproc/docbook-sgml \
 			docbook-xsl>=1.76:textproc/docbook-xsl

@@ -1,5 +1,3 @@
-# Created by: Anders Nordby <anders@fix.no>
-
 PORTNAME=	maradns
 PORTVERSION=	2.0.15
 CATEGORIES=	dns
@@ -7,11 +5,12 @@ MASTER_SITES=	http://maradns.samiam.org/download/2.0/${PORTVERSION}/
 
 MAINTAINER=	je3kmz@FreeBSD.org
 COMMENT=	DNS server with focus on security and simplicity
+WWW=		https://maradns.org/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:bz2
+USES=		cpe tar:bz2
 USE_RC_SUBR=	${PORTNAME} zoneserver Deadwood
 USERS=		bind
 GROUPS=		bind

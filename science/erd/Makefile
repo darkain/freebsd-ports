@@ -1,11 +1,12 @@
 PORTNAME=	erd
 DISTVERSIONPREFIX=	v
 DISTVERSION=	3.0.6
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	science
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	AcesIII electron repulsion integrals
+WWW=		https://github.com/psi4/erd
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE

@@ -1,24 +1,22 @@
-# Created by: cy@FreeBSD.org
-
 PORTNAME=	cfengine-masterfiles
 PORTVERSION=	3.${CFENGINE_COMMIT_DATE}
 CATEGORIES=	sysutils
 PKGNAMESUFFIX=	-devel
-HASH=		c39b79c0
-CFENGINE_COMMIT_DATE=	2021.06.29
+HASH=		d418389b
+CFENGINE_COMMIT_DATE=	2023.07.24
 
 MAINTAINER=	cy@FreeBSD.org
-#		gjb@FreeBSD.org is also committer for this port
-#		skreuzer@FreeBSD.org is also committer for this port
 COMMENT=	cfengine sample policies for installations and upgrades
+WWW=		https://cfengine.com/
 
 LICENSE=	GPLv3
 
-USE_GITHUB=     yes
+USE_GITHUB=	yes
 GH_ACCOUNT=	cfengine
-GH_PROJECT=     masterfiles
-GH_TAGNAME=     ${HASH}
+GH_PROJECT=	masterfiles
+GH_TAGNAME=	${HASH}
 CPE_VENDOR=	gnu
+CPE_PRODUCT=	cfengine
 
 CONFLICTS=	cfengine-masterfiles3[0-9]-* cfengine-masterfiles31[02-9]-* \
 		cfengine-masterfiles-3.*

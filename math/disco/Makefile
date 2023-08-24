@@ -1,12 +1,14 @@
 PORTNAME=	disco
 DISTVERSIONPREFIX=	releases/
 DISTVERSION=	1.0.0-33
+PORTREVISION=	6
 DISTVERSIONSUFFIX=	-g68720be
 CATEGORIES=	math
 PKGNAMEPREFIX=	coin-or-
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Discrete Conic Optimization Solver
+WWW=		https://github.com/coin-or/DisCO
 
 LICENSE=	EPL
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -30,6 +32,7 @@ LIB_DEPENDS=	libAlps.so:math/alps \
 		libOsiIpopt.so:math/osiipopt
 
 USES=		gmake libtool pkgconfig
+USE_CXXSTD=	c++14
 USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
@@ -37,6 +40,8 @@ GH_ACCOUNT=	coin-or
 GH_PROJECT=	DisCO
 
 GNU_CONFIGURE=	yes
+
+CONFLICTS_INSTALL=	disco mono mono[0-9]*
 
 INSTALL_TARGET=	install-strip
 

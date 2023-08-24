@@ -1,18 +1,19 @@
 PORTNAME=	openntpd
 PORTVERSION=	6.8p1
-PORTREVISION=	2
+PORTREVISION=	7
 PORTEPOCH=	2
 CATEGORIES=	net
 MASTER_SITES=	OPENBSD/OpenNTPD
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	Network Time Protocol (NTP) daemon
+WWW=		https://www.openntpd.org/
 
 LICENSE=	ISCL
 
 RUN_DEPENDS=	ca_root_nss>=0:security/ca_root_nss
 
-USES=		localbase ssl
+USES=		cpe localbase ssl
 
 CONFLICTS=	ntp ntp-devel ntpsec
 
@@ -21,7 +22,6 @@ USERS=		_ntp
 GROUPS=		_ntp
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-cacert=${LOCALBASE}/etc/ssl/cert.pem
 
 SUB_FILES=	480.status-openntpd pkg-message
 SUB_LIST=	MANPREFIX="${MANPREFIX}"
@@ -42,19 +42,6 @@ post-install:
 # use libtls from libretls.
 .if ${SSL_DEFAULT:Mlibressl*}
 #	/* empty */
-
-# Drop after FreeBSD 11 EOL: requires libtls from LibreSSL
-.elif ${SSL_DEFAULT:Mbase} && exists(/usr/include/openssl/ssl23.h)
-BUILD_DEPENDS+=		${NONEXISTENT}:security/libressl:stage
-CPPFLAGS+=		-I${WRKDIR}/libressl/include
-LDFLAGS+=		-L${WRKDIR}/libressl/lib
-
-# Don't use COPYTREE_SHARE here as it hard links files, and the original files
-# are owned by root, which creates problems of its own.
-pre-configure:
-	@cd `${MAKE} -V STAGEDIR -C ${PORTSDIR}/security/libressl`${PREFIX} \
-	    && ${FIND} . ! -name *.so\* | ${CPIO} -dump ${WRKDIR}/libressl >/dev/null 2>&1
-
 .else
 LIB_DEPENDS+=	libtls.so:security/libretls
 .endif # SSL_DEFAULT

@@ -1,12 +1,12 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	gxkb
-PORTVERSION=	0.8.2
+PORTVERSION=	0.9.3
+PORTREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	SF/${PORTNAME}
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	X11 keyboard layout indicator and switcher
+WWW=		https://zen-tools.github.io/gxkb/
 
 LICENSE=	GPLv2
 
@@ -16,19 +16,19 @@ USES=		gnome pkgconfig
 GNU_CONFIGURE=	yes
 USE_GNOME=	gdkpixbuf2 glib20
 
-PORTSCOUT=	skipv:0.9.0	# same as 0.8.2, but GTK3 is the default
-
 PORTDOCS=	AUTHORS NEWS
 
-OPTIONS_DEFINE=	DOCS GTK3
-GTK3_DESC=	Build against GTK version 3, not 2
+PORTSCOUT=	skipv:0.9.4	# identical to 0.9.3 but RU and BY flags removed
 
-GTK3_EXTRA_PATCHES=	${FILESDIR}/extra-patch-gtk3
-GTK3_LIB_DEPENDS=	libwnck-3.so:x11-toolkits/libwnck3
-GTK3_LIB_DEPENDS_OFF=	libwnck-1.so:x11-toolkits/libwnck
-GTK3_USES=		autoreconf
-GTK3_USE=		GNOME=gtk30
-GTK3_USE_OFF=		GNOME=gtk20
+OPTIONS_DEFINE=	DOCS GTK2
+GTK2_DESC=	Build against GTK version 2, not 3
+
+GTK2_EXTRA_PATCHES=	${FILESDIR}/extra-patch-gtk2
+GTK2_LIB_DEPENDS=	libwnck-1.so:x11-toolkits/libwnck
+GTK2_LIB_DEPENDS_OFF=	libwnck-3.so:x11-toolkits/libwnck3
+GTK2_USES=		autoreconf
+GTK2_USE=		GNOME=gtk20
+GTK2_USE_OFF=		GNOME=gtk30
 
 post-patch-DOCS-on:
 	@${REINPLACE_CMD} -e '/^doc_DATA/s, C[^ ]*,,g' \

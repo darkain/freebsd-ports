@@ -1,100 +1,212 @@
 PORTNAME=	sonic
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.3.0
-PORTREVISION=	11
+DISTVERSION=	1.4.1
 CATEGORIES=	textproc
 
 MAINTAINER=	mikael@FreeBSD.org
 COMMENT=	Fast, lightweight, and schema-less search backend
+WWW=		https://github.com/valeriansaliou/sonic
 
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 BUILD_DEPENDS=	llvm${LLVM_DEFAULT}>0:devel/llvm${LLVM_DEFAULT}
 
-USES=		cargo compiler:c++11-lang
+USES=		cargo compiler:c++11-lang gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	valeriansaliou
 USE_RC_SUBR=	sonic
 
-CARGO_CRATES=	ahash-0.3.8 \
-		aho-corasick-0.7.13 \
-		ansi_term-0.11.0 \
+CARGO_CRATES=	adler-1.0.2 \
+		aes-0.8.3 \
+		ahash-0.7.6 \
+		aho-corasick-1.0.3 \
+		anyhow-1.0.72 \
 		atty-0.2.14 \
-		autocfg-1.0.0 \
-		bindgen-0.53.3 \
-		bitflags-1.2.1 \
-		byteorder-1.3.4 \
-		cc-1.0.55 \
-		cexpr-0.4.0 \
+		autocfg-1.1.0 \
+		base64-0.21.2 \
+		base64ct-1.6.0 \
+		bincode-1.3.3 \
+		bindgen-0.59.2 \
+		bitflags-1.3.2 \
+		bitflags-2.4.0 \
+		block-buffer-0.10.4 \
+		bumpalo-3.13.0 \
+		byteorder-1.4.3 \
+		bzip2-0.4.4 \
+		bzip2-sys-0.1.11+1.0.8 \
+		cc-1.0.82 \
+		cedarwood-0.4.6 \
+		cexpr-0.6.0 \
 		cfg-if-0.1.10 \
-		clang-sys-0.29.3 \
-		clap-2.33.1 \
-		env_logger-0.7.1 \
-		fs_extra-1.1.0 \
+		cfg-if-1.0.0 \
+		cipher-0.4.4 \
+		clang-sys-1.6.1 \
+		clap-3.2.25 \
+		clap_lex-0.2.4 \
+		constant_time_eq-0.1.5 \
+		cpufeatures-0.2.9 \
+		crc32fast-1.3.2 \
+		crossbeam-utils-0.8.16 \
+		crypto-common-0.1.6 \
+		csv-1.2.2 \
+		csv-core-0.1.10 \
+		deranged-0.3.7 \
+		digest-0.10.7 \
+		encoding-0.2.33 \
+		encoding-index-japanese-1.20141219.5 \
+		encoding-index-korean-1.20141219.5 \
+		encoding-index-simpchinese-1.20141219.5 \
+		encoding-index-singlebyte-1.20141219.5 \
+		encoding-index-tradchinese-1.20141219.5 \
+		encoding_index_tests-0.1.4 \
+		encoding_rs-0.8.32 \
+		encoding_rs_io-0.1.7 \
+		env_logger-0.10.0 \
+		errno-0.3.2 \
+		errno-dragonfly-0.1.2 \
+		flate2-1.0.26 \
+		form_urlencoded-1.2.0 \
+		fs_extra-1.3.0 \
 		fst-0.3.5 \
-		fst-levenshtein-0.2.1 \
-		fst-regex-0.2.2 \
-		getrandom-0.1.14 \
-		glob-0.3.0 \
-		hashbrown-0.7.2 \
-		hashbrown-0.8.0 \
-		hermit-abi-0.1.14 \
-		humantime-1.3.0 \
-		jemalloc-sys-0.3.2 \
-		jemallocator-0.3.2 \
-		jobserver-0.1.21 \
+		fst-levenshtein-0.3.0 \
+		fst-regex-0.3.0 \
+		fxhash-0.2.1 \
+		generic-array-0.14.7 \
+		getrandom-0.2.10 \
+		glob-0.3.1 \
+		hashbrown-0.12.3 \
+		hashbrown-0.14.0 \
+		hermit-abi-0.1.19 \
+		hermit-abi-0.3.2 \
+		hmac-0.12.1 \
+		humantime-2.1.0 \
+		idna-0.4.0 \
+		indexmap-1.9.3 \
+		inout-0.1.3 \
+		is-terminal-0.4.9 \
+		itoa-1.0.9 \
+		jieba-rs-0.6.8 \
+		jobserver-0.1.26 \
+		js-sys-0.3.64 \
 		lazy_static-1.4.0 \
-		lazycell-1.2.1 \
-		libc-0.2.71 \
-		libloading-0.5.2 \
-		librocksdb-sys-6.7.4 \
-		linked-hash-map-0.5.3 \
-		linked_hash_set-0.1.3 \
-		log-0.4.8 \
-		memchr-2.3.3 \
+		lazycell-1.3.0 \
+		libc-0.2.147 \
+		libloading-0.7.4 \
+		librocksdb-sys-6.20.3 \
+		lindera-cc-cedict-builder-0.24.0 \
+		lindera-core-0.24.0 \
+		lindera-decompress-0.24.0 \
+		lindera-dictionary-0.24.0 \
+		lindera-ipadic-builder-0.24.0 \
+		lindera-ko-dic-builder-0.24.0 \
+		lindera-tokenizer-0.24.0 \
+		lindera-unidic-0.24.0 \
+		lindera-unidic-builder-0.24.0 \
+		linked-hash-map-0.5.6 \
+		linked_hash_set-0.1.4 \
+		linux-raw-sys-0.4.5 \
+		log-0.4.20 \
+		memchr-2.5.0 \
 		memmap-0.6.2 \
-		nix-0.17.0 \
-		nom-5.1.2 \
+		minimal-lexical-0.2.1 \
+		miniz_oxide-0.7.1 \
+		nix-0.18.0 \
+		nom-7.1.3 \
+		once_cell-1.18.0 \
+		os_str_bytes-6.5.1 \
+		password-hash-0.4.2 \
+		pbkdf2-0.11.0 \
 		peeking_take_while-0.1.2 \
-		ppv-lite86-0.2.8 \
-		proc-macro2-1.0.18 \
-		quick-error-1.2.3 \
-		quote-1.0.7 \
+		percent-encoding-2.3.0 \
+		phf-0.11.2 \
+		phf_codegen-0.11.2 \
+		phf_generator-0.11.2 \
+		phf_shared-0.11.2 \
+		pkg-config-0.3.27 \
+		ppv-lite86-0.2.17 \
+		proc-macro2-1.0.66 \
+		quote-1.0.32 \
 		radix-0.6.0 \
-		rand-0.7.3 \
-		rand_chacha-0.2.2 \
-		rand_core-0.5.1 \
-		rand_hc-0.2.0 \
-		regex-1.3.9 \
+		rand-0.8.5 \
+		rand_chacha-0.3.1 \
+		rand_core-0.6.4 \
+		regex-1.9.3 \
+		regex-automata-0.3.6 \
 		regex-syntax-0.3.9 \
-		regex-syntax-0.6.18 \
-		rocksdb-0.14.0 \
+		regex-syntax-0.6.29 \
+		regex-syntax-0.7.4 \
+		ring-0.16.20 \
+		rocksdb-0.17.0 \
 		rustc-hash-1.1.0 \
-		serde-1.0.114 \
-		serde_derive-1.0.114 \
-		shlex-0.1.1 \
-		strsim-0.8.0 \
-		syn-1.0.33 \
-		termcolor-1.1.0 \
-		textwrap-0.11.0 \
-		thread_local-1.0.1 \
-		toml-0.5.6 \
-		twox-hash-1.5.0 \
-		unicode-segmentation-1.6.0 \
-		unicode-width-0.1.7 \
-		unicode-xid-0.2.1 \
-		utf8-ranges-1.0.4 \
-		vec_map-0.8.2 \
-		version_check-0.9.2 \
-		void-1.0.2 \
-		wasi-0.9.0+wasi-snapshot-preview1 \
-		whatlang-0.9.0 \
-		which-3.1.1 \
+		rustix-0.38.8 \
+		rustls-0.21.6 \
+		rustls-webpki-0.100.1 \
+		rustls-webpki-0.101.3 \
+		ryu-1.0.15 \
+		sct-0.7.0 \
+		serde-1.0.183 \
+		serde_derive-1.0.183 \
+		serde_json-1.0.104 \
+		sha1-0.10.5 \
+		sha2-0.10.7 \
+		shlex-1.1.0 \
+		siphasher-0.3.10 \
+		smallvec-1.11.0 \
+		spin-0.5.2 \
+		static_assertions-1.1.0 \
+		strsim-0.10.0 \
+		subtle-2.5.0 \
+		syn-2.0.28 \
+		termcolor-1.2.0 \
+		textwrap-0.16.0 \
+		thiserror-1.0.44 \
+		thiserror-impl-1.0.44 \
+		tikv-jemalloc-sys-0.4.3+5.2.1-patched.2 \
+		tikv-jemallocator-0.4.3 \
+		time-0.3.25 \
+		time-core-0.1.1 \
+		tinyvec-1.6.0 \
+		tinyvec_macros-0.1.1 \
+		toml-0.5.11 \
+		twox-hash-1.6.3 \
+		typenum-1.16.0 \
+		unicode-bidi-0.3.13 \
+		unicode-ident-1.0.11 \
+		unicode-normalization-0.1.22 \
+		unicode-segmentation-1.10.1 \
+		untrusted-0.7.1 \
+		ureq-2.7.1 \
+		url-2.4.0 \
+		utf8-ranges-1.0.5 \
+		version_check-0.9.4 \
+		wasi-0.11.0+wasi-snapshot-preview1 \
+		wasm-bindgen-0.2.87 \
+		wasm-bindgen-backend-0.2.87 \
+		wasm-bindgen-macro-0.2.87 \
+		wasm-bindgen-macro-support-0.2.87 \
+		wasm-bindgen-shared-0.2.87 \
+		web-sys-0.3.64 \
+		webpki-roots-0.23.1 \
+		whatlang-0.16.2 \
 		winapi-0.3.9 \
 		winapi-i686-pc-windows-gnu-0.4.0 \
 		winapi-util-0.1.5 \
-		winapi-x86_64-pc-windows-gnu-0.4.0
+		winapi-x86_64-pc-windows-gnu-0.4.0 \
+		windows-sys-0.48.0 \
+		windows-targets-0.48.1 \
+		windows_aarch64_gnullvm-0.48.0 \
+		windows_aarch64_msvc-0.48.0 \
+		windows_i686_gnu-0.48.0 \
+		windows_i686_msvc-0.48.0 \
+		windows_x86_64_gnu-0.48.0 \
+		windows_x86_64_gnullvm-0.48.0 \
+		windows_x86_64_msvc-0.48.0 \
+		yada-0.5.0 \
+		zip-0.6.6 \
+		zstd-0.11.2+zstd.1.5.2 \
+		zstd-safe-5.0.2+zstd.1.5.2 \
+		zstd-sys-2.0.8+zstd.1.5.5
 
 USERS=		sonic
 GROUPS=		sonic

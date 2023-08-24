@@ -1,11 +1,11 @@
 PORTNAME=	cudatext
-PORTVERSION=	1.99.0
-PORTREVISION=	2
+PORTVERSION=	1.197.0
 CATEGORIES=	editors
 PKGNAMESUFFIX=	${LAZARUS_PKGNAMESUFFIX}
 
 MAINTAINER=	acm@FreeBSD.org
 COMMENT=	Cross-platform text editor, written in Lazarus
+WWW=		https://uvviewsoft.com/
 
 LICENSE=	MPL20
 
@@ -15,20 +15,22 @@ USE_XORG=	x11
 USE_GITHUB=	yes
 GH_ACCOUNT=	Alexey-T
 GH_PROJECT=	CudaText
-GH_TUPLE=	Alexey-T:Python-for-Lazarus:586eec1:python4lazarus/python4lazarus \
-		Alexey-T:ATFlatControls:968953e:atflatcontrols/atflatcontrols  \
-		Alexey-T:ATSynEdit:a07cb2e:atsynedit/atsynedit \
-		Alexey-T:Emmet-Pascal:52d11a7:emmet/emmet \
-		Alexey-T:EControl:0432319:econtrol/econtrol \
-		Alexey-T:ATSynEdit_Ex:6cce087:atsyneditex/atsyneditex \
-		Alexey-T:ATSynEdit_Cmp:bc1077a:atsyneditcmp/atsyneditcmp \
-		Alexey-T:ATBinHex-Lazarus:cad0408:atbinhex/atbinhex \
+GH_TUPLE=	bgrabitmap:bgrabitmap:ace7e0e:bgrabitmap/bgrabitmap \
+		Alexey-T:Python-for-Lazarus:7bada0d:python4lazarus/python4lazarus \
+		Alexey-T:ATFlatControls:bf0b1d5:atflatcontrols/atflatcontrols  \
+		Alexey-T:ATSynEdit:e5c35a0:atsynedit/atsynedit \
+		Alexey-T:Emmet-Pascal:9eb2bf2:emmet/emmet \
+		Alexey-T:EControl:12af49d:econtrol/econtrol \
+		Alexey-T:ATSynEdit_Ex:baf41cf:atsyneditex/atsyneditex \
+		Alexey-T:ATSynEdit_Cmp:29a57dc:atsyneditcmp/atsyneditcmp \
+		Alexey-T:ATBinHex-Lazarus:44985a1:atbinhex/atbinhex \
 		Alexey-T:UniqueInstance:753f823:uniqueinstance/uniqueinstance \
-		Alexey-T:EncConv:3eb181f:encconv/encconv
+		Alexey-T:EncConv:ec878e9:encconv/encconv
 
 DOS2UNIX_FILES=	app/settings_default/default.json setup/debfiles/cudatext.desktop
 
-LAZARUS_PROJECT_FILES=	atflatcontrols/atflatcontrols/atflatcontrols_package.lpk
+LAZARUS_PROJECT_FILES=	bgrabitmap/bgrabitmap/bgrabitmappack.lpk
+LAZARUS_PROJECT_FILES+=	atflatcontrols/atflatcontrols/atflatcontrols_package.lpk
 LAZARUS_PROJECT_FILES+=	python4lazarus/python4lazarus/python4lazarus_package.lpk
 LAZARUS_PROJECT_FILES+= encconv/encconv/encconv_package.lpk
 LAZARUS_PROJECT_FILES+=	atsynedit/atsynedit/atsynedit_package.lpk
@@ -50,13 +52,15 @@ USE_GNOME_gtk2=	cairo
 USE_FPC+=	${USE_FPC_${FLAVOR}}
 USE_GNOME+=	${USE_GNOME_${FLAVOR}}
 
+#WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+
 post-patch:
 	${REINPLACE_CMD} 's|-512||g' ${WRKSRC}/setup/debfiles/${PORTNAME}.desktop
 	${REINPLACE_CMD} 's|%%DATADIR%%|${DATADIR}|g' ${WRKSRC}/app/proc_globdata.pas
 	${REINPLACE_CMD} 's|TEncoding.UTF8|True|g' ${WRKSRC}/app/formmain_py_pluginwork.inc
-	${REINPLACE_CMD} '636d' ${WRKSRC}/app/proc_miscutils.pas
+	${REINPLACE_CMD} 's|ifdef GTK2_IME_CODE|if defined(GTK2_IME_CODE) and not defined(freebsd)|g' ${WRKSRC}/atsynedit/atsynedit/atsynedit.pas
 
-do-install:	
+do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/app/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
 	${INSTALL_DATA} ${WRKSRC}/setup/debfiles/${PORTNAME}.desktop ${STAGEDIR}${PREFIX}/share/applications/${PORTNAME}.desktop
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/512x512/apps

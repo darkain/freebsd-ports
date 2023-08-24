@@ -5,8 +5,9 @@ CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for PSGI handler on AnyEvent::SCGI
+WWW=		https://metacpan.org/release/Plack-Handler-AnyEvent-SCGI
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

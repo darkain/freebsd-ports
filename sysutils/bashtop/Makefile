@@ -5,6 +5,7 @@ CATEGORIES=	sysutils
 
 MAINTAINER=	lwhsu@FreeBSD.org
 COMMENT=	Linux/OSX/FreeBSD resource monitor
+WWW=		https://github.com/aristocratos/bashtop
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -13,7 +14,7 @@ RUN_DEPENDS=	coreutils>0:sysutils/coreutils \
 		gsed:textproc/gsed \
 		${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 
-USES=	python:3.5+,run
+USES=	python:run
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	aristocratos

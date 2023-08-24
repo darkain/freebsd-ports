@@ -1,18 +1,20 @@
 PORTNAME=	stressdisk
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.0.12
+DISTVERSION=	1.0.13
+PORTREVISION=	1
 CATEGORIES=	sysutils
 
 MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	Stress test your disks before trusting your valuable data to them
+WWW=		https://github.com/ncw/stressdisk
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		go:modules
-USE_GITHUB=	yes
-GH_ACCOUNT=	ncw
-GH_TUPLE=	ncw:directio:v1.0.4:ncw_directio/vendor/github.com/ncw/directio
+GO_MODULE=	github.com/ncw/stressdisk
+GO_BUILDFLAGS=	-ldflags=" \
+		-X main.version=${DISTVERSION}"
 
 PLIST_FILES=	bin/stressdisk
 
@@ -20,11 +22,11 @@ PORTDOCS=	README.md
 
 OPTIONS_DEFINE=	DOCS
 
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
-
 do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	${INSTALL_MAN} ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
 
 .include <bsd.port.mk>

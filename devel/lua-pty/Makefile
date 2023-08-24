@@ -1,5 +1,3 @@
-# Created by: Andrew Turner <andrew+ports@fubar.geek.nz>
-
 PORTNAME=	pty
 DISTVERSION=	1.26
 CATEGORIES=	devel
@@ -7,6 +5,7 @@ PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}
 
 MAINTAINER=	portmaster@BSDforge.com
 COMMENT=	Pty (pseudo-terminal) bindings for Lua 5+
+WWW=		https://gitlab.com/ports1/lua-pty/
 
 LICENSE=	BSD4CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -16,7 +15,7 @@ USES=		lua:51,module
 USE_GITLAB=	yes
 GL_ACCOUNT=	ports1
 GL_PROJECT=	lua-pty
-GL_COMMIT=	1c36a8b40688c6a38c188000bba59ce20ab616ce
+GL_TAGNAME=	1c36a8b40688c6a38c188000bba59ce20ab616ce
 
 MAKEFILE=	${FILESDIR}/Makefile
 

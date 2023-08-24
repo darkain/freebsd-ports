@@ -4,6 +4,7 @@ CATEGORIES=	devel
 
 MAINTAINER=	alfix86@gmail.com
 COMMENT=	Sysctl MIB-Tree API (improved version)
+WWW=		https://gitlab.com/alfix/sysctlmibinfo2/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -17,7 +18,7 @@ USE_GITLAB=	yes
 
 GL_ACCOUNT=	alfix
 GL_PROJECT=	sysctlmibinfo2
-GL_COMMIT=	de427a99fc515c22a057998a29c92221e2581592\
+GL_TAGNAME=	de427a99fc515c22a057998a29c92221e2581592\
 
 PLIST_FILES=	include/sysctlmibinfo2.h \
 		lib/libsysctlmibinfo2.a \

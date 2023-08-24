@@ -1,25 +1,24 @@
-# Created by: Keith Gaughan <k@stereochro.me>
-
 PORTNAME=	utf8cpp
-PORTVERSION=	3.1.2
+PORTVERSION=	3.2.4
 DISTVERSIONPREFIX=	v
 CATEGORIES=	devel
 
-MAINTAINER=	k@stereochro.me
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Simple, portable, lightweight library for handling UTF-8 strings
+WWW=		https://github.com/nemtrif/utfcpp
 
 LICENSE=	BSL
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		cmake
+
+CMAKE_ON=	UTF8_INSTALL
+CMAKE_OFF=	UTF8_SAMPLES UTF8_TESTS
+
+NO_ARCH=	yes
+
 USE_GITHUB=	yes
 GH_ACCOUNT=	nemtrif
 GH_PROJECT=	utfcpp
-
-PLIST_FILES=	include/utf8cpp/utf8.h \
-		include/utf8cpp/utf8/checked.h \
-		include/utf8cpp/utf8/core.h \
-		include/utf8cpp/utf8/cpp11.h \
-		include/utf8cpp/utf8/unchecked.h \
-		lib/cmake/utf8cpp/utf8cppConfig.cmake
 
 .include <bsd.port.mk>

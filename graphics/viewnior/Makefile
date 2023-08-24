@@ -1,12 +1,12 @@
-# Created by: Rusmir Dusko <nemysis@FreeBSD.org>
-
 PORTNAME=	viewnior
-PORTVERSION=	1.7
 DISTVERSIONPREFIX=	${PORTNAME}-
+DISTVERSION=	1.8
+PORTREVISION=	2
 CATEGORIES=	graphics
 
 MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	Fast and simple image viewer
+WWW=		https://siyanpanayotov.com/project/viewnior/
 
 LICENSE=	GPLv3
 
@@ -20,7 +20,6 @@ GH_ACCOUNT=	hellosiyan
 GH_PROJECT=	Viewnior
 
 USE_GNOME=	gdkpixbuf2 glib20 gtk20 intlhack intltool
-INSTALLS_ICONS=	yes
 
 PORTDOCS=	AUTHORS NEWS README.md
 

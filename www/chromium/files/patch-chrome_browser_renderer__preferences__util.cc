@@ -1,29 +1,29 @@
---- chrome/browser/renderer_preferences_util.cc.orig	2021-05-12 22:05:44 UTC
+--- chrome/browser/renderer_preferences_util.cc.orig	2023-07-16 15:47:57 UTC
 +++ chrome/browser/renderer_preferences_util.cc
-@@ -42,7 +42,7 @@
- #include "ui/base/cocoa/defaults_utils.h"
+@@ -36,7 +36,7 @@
+ #include "ui/views/controls/textfield/textfield.h"
  #endif
  
--#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS))
-+#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || defined(OS_BSD))
+-#if defined(USE_AURA) && BUILDFLAG(IS_LINUX)
++#if defined(USE_AURA) && (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD))
  #include "chrome/browser/themes/theme_service.h"
  #include "chrome/browser/themes/theme_service_factory.h"
- #include "ui/views/linux_ui/linux_ui.h"
-@@ -171,7 +171,7 @@ void UpdateFromSystemSettings(blink::RendererPreferenc
-     prefs->caret_blink_interval = interval;
+ #include "ui/linux/linux_ui.h"
+@@ -149,7 +149,7 @@ void UpdateFromSystemSettings(blink::RendererPreferenc
+   prefs->caret_blink_interval = views::Textfield::GetCaretBlinkInterval();
  #endif
  
--#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS))
-+#if defined(USE_AURA) && (defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS) || defined(OS_BSD))
-   views::LinuxUI* linux_ui = views::LinuxUI::instance();
-   if (linux_ui) {
+-#if defined(USE_AURA) && BUILDFLAG(IS_LINUX)
++#if defined(USE_AURA) && (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_BSD))
+   auto* linux_ui_theme = ui::LinuxUiTheme::GetForProfile(profile);
+   if (linux_ui_theme) {
      if (ThemeServiceFactory::GetForProfile(profile)->UsingSystemTheme()) {
-@@ -190,7 +190,7 @@ void UpdateFromSystemSettings(blink::RendererPreferenc
-   }
+@@ -172,7 +172,7 @@ void UpdateFromSystemSettings(blink::RendererPreferenc
  #endif
  
--#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_ANDROID) || \
-+#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_ANDROID) || defined(OS_BSD) || \
-     defined(OS_WIN)
+ #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_ANDROID) || \
+-    BUILDFLAG(IS_WIN)
++    BUILDFLAG(IS_WIN) || BUILDFLAG(IS_BSD)
    content::UpdateFontRendererPreferencesFromSystemSettings(prefs);
  #endif
+ 

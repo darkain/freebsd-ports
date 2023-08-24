@@ -4,8 +4,9 @@ CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Tests remote URLs or local web files
+WWW=		https://metacpan.org/release/Test-MockObject
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

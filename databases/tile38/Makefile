@@ -1,14 +1,16 @@
-# Created by: olevole@olevole.ru
-
 PORTNAME=	tile38
 DISTVERSION=	1.12.0
+PORTREVISION=	13
 CATEGORIES=	databases
 
 MAINTAINER=	a.andersson.thn@gmail.com
 COMMENT=	In-memory geolocation data store, spatial index, and realtime geofence
+WWW=		https://tile38.com/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BROKEN_aarch64=	fails to build: vendor/golang.org/x/sys/unix/cap_freebsd.go:18:23: undefined: CAP_RIGHTS_VERSION_00
 
 BUILD_DEPENDS=	bash:shells/bash
 

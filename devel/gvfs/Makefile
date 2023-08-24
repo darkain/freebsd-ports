@@ -1,13 +1,13 @@
-# Created by: Michael Johnson <ahze@FreeBSD.org>
-
 PORTNAME=	gvfs
-PORTVERSION=	1.46.2
+PORTVERSION=	1.50.2
+PORTREVISION=	1
 CATEGORIES=	devel gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	GNOME virtual file system
+WWW=		https://www.gnome.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,16 +16,16 @@ BUILD_DEPENDS=	docbook-xsl>=0:textproc/docbook-xsl
 LIB_DEPENDS=	libgcrypt.so:security/libgcrypt \
 		libdbus-1.so:devel/dbus \
 		libgcr-base-3.so:security/gcr \
-		libsoup-2.4.so:devel/libsoup \
+		libsoup-3.0.so:devel/libsoup3 \
 		libgudev-1.0.so:devel/libgudev \
 		libudisks2.so:sysutils/libudisks \
 		libsecret-1.so:security/libsecret
-
-RUN_DEPENDS=	bsdisks>0:sysutils/bsdisks
+RUN_DEPENDS=	bsdisks>0:sysutils/bsdisks \
+		lsof:sysutils/lsof
 PORTSCOUT=	limitw:1,even
 
-USES=		gettext gnome libarchive localbase meson \
-		pkgconfig python:3.5+,build shebangfix tar:xz
+USES=		cpe gettext gnome libarchive localbase meson \
+		pkgconfig python:build shebangfix tar:xz
 USE_GNOME=	glib20 libxml2 libxslt:build
 SHEBANG_FILES=	meson_post_install.py
 MESON_ARGS=	-Dsystemduserunitdir=no \
@@ -35,6 +35,7 @@ MESON_ARGS=	-Dsystemduserunitdir=no \
 		-Dlibusb=false \
 		-Dman=true
 USE_LDCONFIG=	yes
+CPE_VENDOR=	gnome
 
 GLIB_SCHEMAS=	org.gnome.system.gvfs.enums.xml
 

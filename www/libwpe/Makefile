@@ -1,10 +1,11 @@
 PORTNAME=	libwpe
-PORTVERSION=	1.10.1
+PORTVERSION=	1.12.0
 CATEGORIES=	www
 MASTER_SITES=	https://wpewebkit.org/releases/
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	General-purpose library for WPE WebKit
+WWW=		https://wpewebkit.org/releases
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING

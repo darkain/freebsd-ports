@@ -1,18 +1,18 @@
-# Created by: Lewis Thompson <purple@lewiz.net>
-
 PORTNAME=	nzbget
 PORTVERSION=	21.1
 DISTVERSIONPREFIX=	v
+PORTREVISION=	2
 CATEGORIES=	news
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	alexis.praga@free.fr
 COMMENT=	Binary newsreader supporting NZB files
+WWW=		http://nzbget.net/
 
 LICENSE=	GPLv2
 
 LIB_DEPENDS=	libxml2.so:textproc/libxml2
 
-USES=		autoreconf compiler:c++14-lang gmake localbase ncurses \
+USES=		autoreconf compiler:c++14-lang cpe gmake localbase ncurses \
 		pkgconfig python:build shebangfix ssl
 USE_GITHUB=	yes
 USE_RC_SUBR=	nzbget
@@ -38,6 +38,10 @@ OPTIMIZED_FLAGS_EXTRA_PATCHES_OFF=	${FILESDIR}/extra-disable-optimized-flags.pat
 
 .if (${ARCH} == "i386")
 CONFIGURE_ARGS+=	--disable-sigchld-handler
+.endif
+
+.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+CXXFLAGS+=	-DOPENSSL_API_COMPAT=0x10100000L
 .endif
 
 post-install:

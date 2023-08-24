@@ -2,8 +2,9 @@ PORTNAME=	iohyve
 PORTVERSION=	0.7.9
 CATEGORIES=	sysutils
 
-MAINTAINER=	lme@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	bhyve manager utilizing ZFS and other FreeBSD tools
+WWW=		https://github.com/pr1ntf/iohyve
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

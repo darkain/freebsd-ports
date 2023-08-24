@@ -4,7 +4,8 @@ CATEGORIES=	databases www pear
 
 MAINTAINER=	horde@FreeBSD.org
 COMMENT=	Horde Mongo Configuration
+WWW=		https://pear.horde.org
 
-USES=	horde
+USES=		horde cpe
 
 .include <bsd.port.mk>

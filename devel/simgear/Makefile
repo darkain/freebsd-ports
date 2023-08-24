@@ -1,11 +1,12 @@
 PORTNAME=	simgear
-PORTVERSION=	2020.3.9
-PORTREVISION=	1
+PORTVERSION=	2020.3.18
+PORTREVISION=	2
 CATEGORIES=	devel games
 MASTER_SITES=	SF/flightgear/release-${PORTVERSION:R}
 
 MAINTAINER=	martymac@FreeBSD.org
 COMMENT=	Toolkit for 3D games and simulations
+WWW=		https://www.flightgear.org/
 
 LICENSE=	GPLv2+ LGPL20+
 LICENSE_COMB=	multi

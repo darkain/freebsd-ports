@@ -1,24 +1,28 @@
 PORTNAME=	OpenSPH
-DISTVERSION=	0.3.6
-PORTREVISION=	1
+DISTVERSION=	0.4.0
+PORTREVISION=	12
 CATEGORIES=	science
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Library and graphical tools for running SPH and N-body simulations
+WWW=		https://gitlab.com/sevecekp/sph
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+ONLY_FOR_ARCHS=	amd64 i386
+ONLY_FOR_ARCHS_REASON=	unconditional use of -msse4.1 and inclusion of immintrin.h
 
 TEST_DEPENDS=	catch>0:devel/catch
 
 USES=		compiler:c++14-lang qmake qt:5
 USE_GITLAB=	yes
-USE_WX=		3.1
+USE_WX=		3.2
 
 GL_SITE=	https://gitlab.com
 GL_ACCOUNT=	sevecekp
 GL_PROJECT=	sph
-GL_COMMIT=	39d79bf5d4c9de7976ef18fd02a76c96942902b9
+GL_TAGNAME=	a8aac69f63e38d45339ddbc87855f77a71b2459d
 
 QMAKE_SOURCE_PATH=	${WRKSRC}/sph.pro
 QMAKE_ARGS=		CONFIG+=release
@@ -27,7 +31,7 @@ CXXFLAGS+=	-DSPH_CONFIG_SET
 
 TEST_WRKSRC=	${WRKDIR}/test
 
-BINARY_ALIAS=	wx-config=${LOCALBASE}/bin/wxgtk3u-3.1-config
+BINARY_ALIAS=	wx-config=${LOCALBASE}/bin/wxgtk3u-3.2-config
 
 PLIST_FILES=	bin/opensph bin/opensph-cli bin/opensph-info
 
@@ -50,13 +54,13 @@ OPENMP_QMAKE_ON=		CONFIG+=use_openmp
 
 TBB_DESC=			Parallelize with Intel Threading Building Blocks
 TBB_QMAKE_ON=			CONFIG+=use_tbb
-TBB_LIB_DEPENDS=		libtbb.so:devel/tbb
+TBB_LIB_DEPENDS=		libtbb.so:devel/onetbb
 
 VDB_DESC=			Use OpenVDB for converting particles to volumetric data
 VDB_QMAKE_ON=			CONFIG+=use_vdb
 VDB_LIB_DEPENDS=		libImath.so:math/Imath \
 				libopenvdb.so:misc/openvdb \
-				libtbb.so:devel/tbb
+				libtbb.so:devel/onetbb
 
 do-test:
 	@${REINPLACE_CMD} -e 's|Path(.*|Path("${TEST_WRKSRC}");|' ${WRKSRC}/test/utils/Config.h

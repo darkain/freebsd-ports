@@ -1,20 +1,20 @@
 PORTNAME=	softether
-DISTVERSION=	4.36-9754-beta
+DISTVERSION=	4.41-9782-beta
 PORTREVISION=	0
 CATEGORIES=	security net-vpn
-MASTER_SITES=	https://www.softether-download.com/files/softether/v${DISTVERSION}-2021.06.07-tree/Source_Code/
+MASTER_SITES=	https://www.softether-download.com/files/softether/v${DISTVERSION}-2022.11.17-tree/Source_Code/
 PKGNAMESUFFIX=	-devel
 DISTNAME=	${PORTNAME}-src-v${DISTVERSION}
 
 MAINTAINER=	meta@FreeBSD.org
 COMMENT=	Softether VPN 4 (stable beta version)
+WWW=		https://www.softether.org
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 powerpc64le
-ONLY_FOR_ARCHS_REASON=	Upstream only supports amd64 and i386: https://www.softether.org/3-spec
-#IGNORE=		no beta version available right now, use security/softether instead
+ONLY_FOR_ARCHS=	amd64 armv7 i386 powerpc powerpc64 powerpc64le riscv64
+IGNORE=		no beta version available right now, use security/softether instead
 
 USES=		dos2unix gmake iconv:wchar_t localbase:ldflags ncurses \
 		readline ssl
@@ -35,9 +35,6 @@ SE_PIDDIR?=	/var/run/${PORTNAME}
 PLIST_SUB=	SE_DBDIR="${SE_DBDIR}" SE_LOGDIR="${SE_LOGDIR}" SE_PIDDIR="${SE_PIDDIR}"
 SUB_LIST=	SE_DBDIR="${SE_DBDIR}" SE_LOGDIR="${SE_LOGDIR}" SE_PIDDIR="${SE_PIDDIR}"
 SUB_FILES=	pkg-message vpncmd
-
-CPPFLAGS+=	-I${LOCALBASE}/include
-LDFLAGS+=	-L${LOCALBASE}/lib
 
 # a pity the source directory has such a naming scheme, but well
 WRKSRC=		${WRKDIR}/v${DISTVERSION:S/-beta$//}

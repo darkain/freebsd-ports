@@ -1,5 +1,3 @@
-# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
-
 PORTNAME=	ming
 DISTVERSIONPREFIX=	ming-
 DISTVERSION=	0_4_8
@@ -7,6 +5,7 @@ CATEGORIES=	graphics
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Flash 4/5 movie output library with many languages support
+WWW=		http://www.libming.org/
 
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	multi
@@ -17,7 +16,7 @@ LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libgif.so:graphics/giflib \
 		libpng.so:graphics/png
 
-USES=		autoreconf bison gmake libtool localbase pathfix shebangfix
+USES=		autoreconf bison cpe gmake libtool localbase pathfix pkgconfig shebangfix
 
 CFLAGS+=	-fcommon # https://github.com/libming/libming/issues/55
 CONFIGURE_ARGS=	--includedir=${PREFIX}/include/ming
@@ -33,6 +32,8 @@ GH_ACCOUNT=	libming
 GH_PROJECT=	libming
 
 CONFLICTS_INSTALL=	ja-ming
+
+CPE_VENDOR=	libming
 
 PORTSCOUT=	limit:^ming-
 

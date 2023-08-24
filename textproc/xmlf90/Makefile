@@ -1,10 +1,11 @@
 PORTNAME=	xmlf90
-DISTVERSION=	1.5.5
+DISTVERSION=	1.5.6
 CATEGORIES=	textproc
-MASTER_SITES=	https://gitlab.com/siesta-project/libraries/xmlf90/-/archive/1.5.5/
+MASTER_SITES=	https://gitlab.com/siesta-project/libraries/xmlf90/-/archive/${DISTVERSION}/
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Suite of light-weight libraries to work with XML in Fortran
+WWW=		https://launchpad.net/xmlf90
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

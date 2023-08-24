@@ -1,6 +1,6 @@
 PORTNAME=	shiboken2
 DISTVERSION=	5.15.2
-PORTREVISION=	2
+PORTREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	QT/official_releases/QtForPython/shiboken2/PySide2-${DISTVERSION}-src
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -8,6 +8,7 @@ DISTNAME=	pyside-setup-opensource-src-${DISTVERSION}
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Python binding generator for C++ libraries
+WWW=		https://wiki.qt.io/PySide2
 
 LICENSE=	GPLv2 LGPL21 LGPL3
 LICENSE_COMB=	multi
@@ -16,25 +17,22 @@ BROKEN_riscv64=		fails to compile: __threading_support:135:3: Unsupported archit
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools_scm>0:devel/py-setuptools_scm@${PY_FLAVOR} \
 		git>0:devel/git
-LIB_DEPENDS=	libclang.so.${LLVM_DEFAULT:C/^([6-9])0/\1/}:devel/llvm${LLVM_DEFAULT} \
-		libxslt.so:textproc/libxslt
+LIB_DEPENDS=	libxslt.so:textproc/libxslt
 
-USES=		cmake compiler:c++11-lang gnome python:3.5+ qt:5 shebangfix tar:xz
+USES=		cmake compiler:c++11-lang gnome llvm:lib python:3.8-3.9 qt:5 shebangfix tar:xz
 USE_GNOME=	libxml2
 USE_LDCONFIG=	yes
 USE_PYTHON=	flavors
-USE_QT=		buildtools_build core gui network qmake_build testlib \
+USE_QT=		buildtools:build core gui network qmake:build testlib \
 		xml xmlpatterns
 
-SHEBANG_FILES=	shiboken_tool.py
+#SHEBANG_FILES=	shiboken_tool.py
 
 CMAKE_ARGS+=	"-DCMAKE_CXX_FLAGS=-lexecinfo" \
 		"-DCMAKE_STANDARD_LIBRARIES=-lexecinfo" \
 		"-DCMAKE_CXX_STANDARD_LIBRARIES=-lexecinfo" \
 		"-DUSE_PYTHON_VERSION=${PYTHON_VER}" \
-		"-DLLVM_CONFIG=${LOCALBASE}/bin/llvm-config${LLVM_DEFAULT}"
-
-.include <bsd.port.pre.mk>
+		"-DLLVM_CONFIG=${LLVM_CONFIG}"
 
 PLIST_SUB+=	DISTVERSION=${DISTVERSION}
 PLIST_SUB+=	PYVERSTR=.cpython-${PYTHON_SUFFIX}${PYTHON_ABIVER}
@@ -42,6 +40,7 @@ PLIST_SUB+=	PYVERSTR=.cpython-${PYTHON_SUFFIX}${PYTHON_ABIVER}
 WRKSRC=		${WRKDIR}/pyside-setup-opensource-src-${DISTVERSION:C/^([0-9].[0-9]+.[0-9])(.[0-9])?/\1/}/sources/shiboken2
 
 post-install:
+	${RM} ${STAGEDIR}${PREFIX}/bin/shiboken_tool.py
 	${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \
 		-f -d ${PYTHONPREFIX_SITELIBDIR} \
 		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
@@ -49,4 +48,4 @@ post-install:
 		-f -d ${PYTHONPREFIX_SITELIBDIR} \
 		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

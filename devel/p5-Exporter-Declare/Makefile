@@ -5,8 +5,9 @@ MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:EXODIST
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for exporting done right
+WWW=		https://metacpan.org/release/Exporter-Declare
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

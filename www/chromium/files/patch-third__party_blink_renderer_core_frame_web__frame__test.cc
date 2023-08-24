@@ -1,20 +1,20 @@
---- third_party/blink/renderer/core/frame/web_frame_test.cc.orig	2021-05-12 22:06:00 UTC
+--- third_party/blink/renderer/core/frame/web_frame_test.cc.orig	2023-05-31 08:12:17 UTC
 +++ third_party/blink/renderer/core/frame/web_frame_test.cc
-@@ -6057,7 +6057,7 @@ TEST_F(WebFrameTest, DISABLED_PositionForPointTest) {
-   EXPECT_EQ(64, ComputeOffset(layout_object, 1000, 1000));
+@@ -6455,7 +6455,7 @@ TEST_F(WebFrameTest, DISABLED_PositionForPointTest) {
  }
  
--#if !defined(OS_MAC) && !defined(OS_LINUX) && !defined(OS_CHROMEOS)
-+#if !defined(OS_MAC) && !defined(OS_LINUX) && !defined(OS_CHROMEOS) && !defined(OS_BSD)
- TEST_F(WebFrameTest, SelectRangeStaysHorizontallyAlignedWhenMoved) {
-   RegisterMockedHttpURLLoad("move_caret.html");
- 
-@@ -6426,7 +6426,7 @@ TEST_P(CompositedSelectionBoundsTest, SVGBasic) {
- TEST_P(CompositedSelectionBoundsTest, SVGTextWithFragments) {
-   RunTest("composited_selection_bounds_svg_text_with_fragments.html");
+ #if BUILDFLAG(IS_FUCHSIA) || BUILDFLAG(IS_APPLE) || BUILDFLAG(IS_LINUX) || \
+-    BUILDFLAG(IS_CHROMEOS)
++    BUILDFLAG(IS_CHROMEOS) && !BUILDFLAG(IS_BSD)
+ // TODO(crbug.com/1090246): Fix these tests on Fuchsia and re-enable.
+ // TODO(crbug.com/1317375): Build these tests on all platforms.
+ #define MAYBE_SelectRangeStaysHorizontallyAlignedWhenMoved \
+@@ -6864,7 +6864,7 @@ TEST_F(CompositedSelectionBoundsTest, LargeSelectionSc
+ TEST_F(CompositedSelectionBoundsTest, LargeSelectionNoScroll) {
+   RunTest("composited_selection_bounds_large_selection_noscroll.html");
  }
--#if defined(OS_WIN) || defined(OS_LINUX) || defined(OS_CHROMEOS)
-+#if defined(OS_WIN) || defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
- #if !defined(OS_ANDROID)
- TEST_P(CompositedSelectionBoundsTest, Input) {
-   RunTest("composited_selection_bounds_input.html");
+-#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
+ #if !BUILDFLAG(IS_ANDROID)
+ TEST_F(CompositedSelectionBoundsTest, Input) {
+   web_view_helper_.GetWebView()->GetSettings()->SetDefaultFontSize(16);

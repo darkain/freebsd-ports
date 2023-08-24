@@ -1,9 +1,10 @@
 PORTNAME=	nsysctl
-DISTVERSION=	2.0
+DISTVERSION=	2.1.2
 CATEGORIES=	sysutils
 
 MAINTAINER=	alfix86@gmail.com
 COMMENT=	Utility to get and set kernel state at runtime
+WWW=		https://gitlab.com/alfix/nsysctl/
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -13,7 +14,7 @@ LIB_DEPENDS=	libsysctlmibinfo2.so:devel/libsysctlmibinfo2
 USE_GITLAB=	yes
 
 GL_ACCOUNT=	alfix
-GL_COMMIT=	0e2408202e9c6da7d33f3a65a1e09bca0c6458a8
+GL_TAGNAME=	5d92b5a19300c56a95db0012c659f64f36fb1bce
 
 PLIST_FILES=	man/man8/${PORTNAME}.8.gz \
 		sbin/${PORTNAME}
@@ -24,9 +25,6 @@ OPTIONS_DEFINE=	DOCS EXAMPLES
 
 .include <bsd.port.pre.mk>
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200019
-IGNORE=		needs oid_label member of struct sysctl_oid defined in sysctl.h which was first introduced in FreeBSD 12
-.endif
 .if ${OPSYS} != FreeBSD
 IGNORE=		not supported on anything but FreeBSD
 .endif

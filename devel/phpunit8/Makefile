@@ -1,12 +1,13 @@
 PORTNAME=	phpunit
-DISTVERSION=	8.5.15
+DISTVERSION=	8.5.33
 CATEGORIES=	devel www
 MASTER_SITES=	https://phar.phpunit.de/
 PKGNAMESUFFIX=	8${PHP_PKGNAMESUFFIX}
 EXTRACT_SUFX=	.phar
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	joneum@FreeBSD.org
 COMMENT=	Testing framework for unit tests
+WWW=		https://www.phpunit.de
 
 LICENSE=	BSD3CLAUSE
 
@@ -14,7 +15,7 @@ CONFLICTS_INSTALL=	phpunit7
 
 USES=		cpe php:flavors
 CPE_VENDOR=	phpunit_project
-USE_PHP=	dom json spl pcre phar
+USE_PHP=	dom phar
 
 NO_ARCH=	yes
 NO_BUILD=	yes

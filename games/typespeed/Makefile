@@ -1,5 +1,3 @@
-# Created by: refugee
-
 PORTNAME=	typespeed
 PORTVERSION=	0.6.5
 PORTREVISION=	3
@@ -8,12 +6,10 @@ MASTER_SITES=	SF
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Test your typing speed and get your fingers' CPS
+WWW=		http://typespeed.sourceforge.net/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
-
-BROKEN_FreeBSD_13=	ld: error: duplicate symbol: now
-BROKEN_FreeBSD_14=	ld: error: duplicate symbol: now
 
 USES=		ncurses
 GNU_CONFIGURE=	yes
@@ -22,7 +18,7 @@ CONFIGURE_ARGS=	--with-highscoredir="${SCOREDIR}"
 SCOREDIR=	/var/games/typespeed
 SCOREFILE=	typespeed.score
 
-OPTIONS_DEFINE=	NLS DOCS
+OPTIONS_DEFINE=	DOCS NLS
 OPTIONS_SUB=	yes
 
 NLS_USES=		gettext

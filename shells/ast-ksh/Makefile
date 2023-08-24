@@ -16,11 +16,13 @@ DIST_SUBDIR=	ksh93
 
 MAINTAINER=	saper@saper.info
 COMMENT=	KornShell 93
+WWW=		http://www.kornshell.com/
 
 LICENSE=	EPL
 
 BROKEN_aarch64=		Fails to compile: needs sbrk
 BROKEN_riscv64=		Fails to compile: ast-ksh93v/src/lib/libast/hash/hashalloc.c:162:4: non-const lvalue reference to type '__builtin_va_list' cannot bind to a temporary of type 'va_list'
+BROKEN_FreeBSD_14=	Fails to compilt: error: incompatible function pointer types assigning to 'int (*)(wchar_t *, const char *, size_t)' (aka 'int (*)(int *, const char *, unsigned long)') from 'size_t (wchar_t *, const char *, size_t)' (aka 'unsigned long (int *, const char *, unsigned long)') [-Wincompatible-function-pointer-types]
 
 USES=		compiler:c11
 
@@ -32,7 +34,7 @@ GH_TAGNAME=	ksh93v
 # IMPORTANT:	Disabling conflicts, i.e. -DDISABLE_CONFLICTS will result in
 #		arcane build failures due to already installed ksh/ksh93 in
 #		$PATH.
-CONFLICTS=	ksh93-*
+CONFLICTS=	ksh93 ksh93-devel
 
 OPTIONS_DEFINE=	EXAMPLES STATIC
 
@@ -42,6 +44,12 @@ MAKE_ENV=	CCFLAGS="-Wno-unused-value -Wno-parentheses -Wno-logical-op-parenthese
 KSHVERSION=	2014-12-24
 
 STATIC_MAKE_ENV=	LDFLAGS+=-static
+
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=int-conversion
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|SF_FLAGS|SFIO_FLAGS|g' ${WRKSRC}/src/lib/libast/include/sfio*.h ${WRKSRC}/src/lib/libast/sfio/*.c
@@ -58,4 +66,4 @@ do-install:
 do-test:
 	cd ${WRKSRC}/src/cmd/ksh93/tests/ && ${SETENV} SHELL=${WRKSRC}/bin/ksh ${WRKSRC}/bin/ksh shtests
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

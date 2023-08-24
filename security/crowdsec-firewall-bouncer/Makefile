@@ -1,40 +1,53 @@
 PORTNAME=	crowdsec-firewall-bouncer
-PORTVERSION=	0.0.13
 DISTVERSIONPREFIX=	v
+DISTVERSION=	0.0.27
+PORTREVISION=	1
+DISTVERSIONSUFFIX=	-freebsd
 CATEGORIES=	security
 
-MAINTAINER=	sbz@FreeBSD.org
-COMMENT=	Crowdsec bouncer written in golang for firewalls
+MAINTAINER=	marco@crowdsec.net
+COMMENT=	CrowdSec bouncer written in golang for firewalls
+WWW=		https://github.com/crowdsecurity/cs-firewall-bouncer
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	crowdsec>0:security/crowdsec
+BUILD_DEPENDS=	git:devel/git@lite
 
-USES=		go:modules
+USES=		gmake go:no_targets
 
+USE_GITHUB=	yes
+GH_ACCOUNT=	crowdsecurity
+GH_PROJECT=	cs-firewall-bouncer
+_BUILD_TAG=	f1f8b379
 USE_RC_SUBR=	crowdsec_firewall
 
-GO_MODULE=	github.com/crowdsecurity/cs-firewall-bouncer
+MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
+		BUILD_TAG="${_BUILD_TAG}" \
+		BUILD_VENDOR_FLAGS="-mod=vendor -modcacherw"
 
-GO_BUILDFLAGS=	-ldflags "-s -w \
-		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Version=v${PORTVERSION} \
-		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Tag=freebsd \
-		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.BuildDate=`date -u '+%Y-%m-%d_%I:%M:%S%p'`"
+SUB_FILES=	pkg-deinstall pkg-install pkg-message
 
-SUB_FILES=	pkg-message
+ETCDIR=		${PREFIX}/etc/crowdsec/bouncers
 
 post-patch:
 	${REINPLACE_CMD} 's,$${BACKEND},pf,g' \
 		${WRKSRC}/config/crowdsec-firewall-bouncer.yaml
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${ETCDIR}
+	#
+	# Binaries
+	#
 
+	${INSTALL_PROGRAM} ${WRKSRC}/crowdsec-firewall-bouncer \
+		${STAGEDIR}${PREFIX}/bin/crowdsec-firewall-bouncer
+
+	#
+	# Configuration
+	#
+
+	@${MKDIR} ${STAGEDIR}${ETCDIR}
 	${INSTALL_DATA} ${WRKSRC}/config/crowdsec-firewall-bouncer.yaml \
 		${STAGEDIR}${ETCDIR}/crowdsec-firewall-bouncer.yaml.sample
-
-	${INSTALL_PROGRAM} ${WRKDIR}/bin/crowdsec-firewall-bouncer \
-		${STAGEDIR}${PREFIX}/bin/crowdsec-firewall-bouncer
 
 .include <bsd.port.mk>

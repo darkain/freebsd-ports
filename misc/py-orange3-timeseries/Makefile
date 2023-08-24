@@ -1,16 +1,15 @@
 PORTNAME=	orange3-timeseries
 DISTVERSION=	0.3.10
+PORTREVISION=	2
 CATEGORIES=	misc python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Orange add-on for analyzing, visualizing, manipulating time series
+WWW=		https://github.com/biolab/orange3-timeseries
 
 LICENSE=	CC-BY-3.0
 LICENSE_FILE=	${WRKSRC}/LICENSE
-
-DEPRECATED=	Uses EOL Python 2.7 via misc/orange3
-EXPIRATION_DATE=2021-06-23
 
 RUN_DEPENDS=	orange3>0:misc/orange3 \
 		${PYNUMPY} \
@@ -20,7 +19,7 @@ RUN_DEPENDS=	orange3>0:misc/orange3 \
 		${PYTHON_PKGNAMEPREFIX}scipy>=0.17:science/py-scipy@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}statsmodels>=0.10.0:math/py-statsmodels@${PY_FLAVOR}
 
-USES=		python:3.7+
+USES=		python
 USE_GITHUB=	yes
 GH_ACCOUNT=	biolab
 USE_PYTHON=	distutils autoplist

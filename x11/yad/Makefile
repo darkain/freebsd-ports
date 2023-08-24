@@ -1,12 +1,11 @@
-# Created by: Danilo Egea Gondolfo <danilo@FreeBSD.org>
-
 PORTNAME=	yad
-PORTVERSION=	7.3
+PORTVERSION=	13.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	x11 gnome
 
 MAINTAINER=	danilo@FreeBSD.org
 COMMENT=	Display GNOME dialogs from the command line
+WWW=		https://github.com/v1cont/yad
 
 LICENSE=	GPLv3
 
@@ -18,8 +17,6 @@ USES=		autoreconf gettext gnome gmake pkgconfig
 
 USE_GNOME=	cairo gtk30 intltool
 GNU_CONFIGURE=	yes
-INSTALLS_OMF=	yes
-INSTALLS_ICONS=	yes
 CONFIGURE_ENV+=	DATADIRNAME=share
 CONFIGURE_ARGS+=	--with-rgb=${LOCALBASE}/lib/X11/rgb.txt
 GLIB_SCHEMAS=	yad.gschema.xml
@@ -27,12 +24,12 @@ GLIB_SCHEMAS=	yad.gschema.xml
 USE_GITHUB=	yes
 GH_ACCOUNT=	v1cont
 
-OPTIONS_DEFINE=	HTML ICONBROWSER NLS PFD GTKSOURCEVIEW SPELL
+OPTIONS_DEFINE=	HTML ICONBROWSER NLS GTKSOURCEVIEW SPELL TOOLS
 HTML_DESC=		Build with HTML widget
 ICONBROWSER_DESC=	Build YAD icon browser
-PFD_DESC=		Build PFD fontnames transformation utility
 GTKSOURCEVIEW_DESC=	Build with GtkSourceView support
 SPELL_DESC=		Build with Spell check support
+TOOLS_DESC=		Build with yad-tools utility
 OPTIONS_DEFAULT=	SPELL
 OPTIONS_SUB=	yes
 
@@ -43,13 +40,13 @@ HTML_LIB_DEPENDS=	libwebkit2gtk-4.0.so:www/webkit2-gtk3 \
 
 ICONBROWSER_CONFIGURE_ENABLE=	icon-browser
 
-PFD_CONFIGURE_ENABLE=	pfd
-
 GTKSOURCEVIEW_CONFIGURE_ENABLE=	sourceview
 GTKSOURCEVIEW_USE=	GNOME=gtksourceview3
 
 SPELL_CONFIGURE_ENABLE=	spell
 SPELL_LIB_DEPENDS=	libgspell-1.so:textproc/gspell \
 			libenchant-2.so:textproc/enchant2
+
+TOOLS_CONFIGURE_ENABLE=	tools
 
 .include <bsd.port.mk>

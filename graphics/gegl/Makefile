@@ -1,13 +1,15 @@
-# Created by: Pietro Cerutti <gahr@FreeBSD.org>
-
 PORTNAME=	gegl
-PORTVERSION=	0.4.30
-PORTREVISION=	8
+PORTVERSION=	0.4.46
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	GIMP
 
+PATCH_SITES=	https://gitlab.gnome.org/GNOME/gegl/-/commit/
+PATCHFILES+=	a99a93e5c9013bd4101f5058cdee7d0cf30234fe.patch:-p1
+
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Graph based image processing framework
+WWW=		https://gegl.org/
 
 LICENSE=	BSD3CLAUSE GPLv3+ LGPL3+
 LICENSE_COMB=	multi
@@ -21,34 +23,41 @@ LIB_DEPENDS=	libbabl-0.1.so:x11/babl \
 		libnsgif.so:graphics/libnsgif \
 		libpng.so:graphics/png
 
-USES=		compiler:c++14-lang cpe gettext gnome jpeg localbase \
-		meson pkgconfig shebangfix uniquefiles tar:xz
+USES=		cpe gettext gnome jpeg localbase meson pkgconfig shebangfix \
+		uniquefiles tar:xz
+.if !exists(/usr/include/omp.h)
+USES+=		compiler:gcc-c++11-lib
+.else
+USES+=		compiler:c++14-lang
+.endif
 USE_GNOME=	glib20 introspection:build
 USE_LDCONFIG=	yes
 MESON_ARGS=	-Ddocs=false \
 		-Dworkshop=false \
 		-Dintrospection=true \
-		-Dvapigen=disabled \
 		-Dlensfun=disabled \
 		-Dlibjpeg=enabled \
 		-Dlibpng=enabled \
+		-Dmaxflow=disabled \
 		-Dmrg=disabled \
 		-Dpygobject=disabled \
-		-Dvapigen=disabled \
-		-Dlua=disabled
+		-Dlua=disabled \
+		${MESON_ARGS_${ARCH}}
+MESON_ARGS_armv6=	-Dopenmp=disabled
+MESON_ARGS_armv7=	-Dopenmp=disabled
 
-GEGL_SHLIB=	0.429.1
+GEGL_SHLIB=	0.445.1
 GEGL_VER=	0.4
 PLIST_SUB+=	GEGL_SHLIB=${GEGL_SHLIB} GEGL_VER=${GEGL_VER}
 
 SHEBANG_FILES=	tools/xml_insert.sh
 
 OPTIONS_SUB=	yes
-OPTIONS_DEFINE=	CAIRO ENSCRIPT FFMPEG PIXBUF GRAPHVIZ JASPER \
+OPTIONS_DEFINE=	CAIRO ENSCRIPT FFMPEG PIXBUF GRAPHVIZ JASPER LCMS2 \
 		OPENEXR RAW PANGO POPPLER LIBRSVG2 SDL SPIRO V4L \
-		LCMS2 WEBP TIFF GEXIV2
+		WEBP TIFF GEXIV2 VAPI
 OPTIONS_DEFAULT=CAIRO ENSCRIPT GEXIV2 PIXBUF GRAPHVIZ JASPER LCMS2 \
-		OPENEXR RAW PANGO POPPLER LIBRSVG2 SDL SPIRO V4L WEBP TIFF
+		OPENEXR RAW PANGO POPPLER LIBRSVG2 SDL SPIRO V4L WEBP TIFF VAPI
 
 PIXBUF_USE=	GNOME=gdkpixbuf2
 PIXBUF_MESON_ENABLED=	gdk-pixbuf
@@ -97,7 +106,7 @@ SPIRO_MESON_ENABLED=	libspiro
 
 V4L_BUILD_DEPENDS=	v4l_compat>=0:multimedia/v4l_compat
 V4L_LIB_DEPENDS=	libv4l2.so:multimedia/libv4l
-V4L_MESON_ENABLED=	libv4l2
+V4L_MESON_ENABLED=	libv4l libv4l2
 V4L_VARS=		LICENSE+=LGPL20+
 
 WEBP_LIB_DEPENDS=	libwebp.so:graphics/webp
@@ -117,6 +126,9 @@ GEXIV2_MESON_ENABLED=	gexiv2
 TIFF_LIB_DEPENDS=	libtiff.so:graphics/tiff
 TIFF_MESON_ENABLED=	libtiff
 
+VAPI_USES=		vala:build
+VAPI_MESON_ENABLED=	vapigen
+
 .include <bsd.port.pre.mk>
 
 .if ${PORT_OPTIONS:MPANGO} && ${PORT_OPTIONS:MCAIRO}
@@ -129,6 +141,14 @@ PLIST_SUB+=	PANGOCAIRO="@comment "
 
 .if defined(WITH_DEBUG)
 LDFLAGS+=	-lexecinfo
+.endif
+
+.if ${ARCH} == "amd64"
+PLIST_SUB+=	AMD64="" ARM="@comment "
+.elif ${ARCH} == "armv6" || ${ARCH} == "armv7"
+PLIST_SUB+=	AMD64="@comment " ARM=""
+.else
+PLIST_SUB+=	AMD64="@comment " ARM="@comment "
 .endif
 
 post-patch:

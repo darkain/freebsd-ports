@@ -5,8 +5,9 @@ CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	kuriyama@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension to get function list from package
+WWW=		https://metacpan.org/release/Module-Functions
 
 RUN_DEPENDS=	\
 	p5-Sub-Identify>=0.04:devel/p5-Sub-Identify

@@ -1,5 +1,3 @@
-# Created by: Kubilay Kocak <koobs@FreeBSD.org>
-
 PORTNAME=	python
 DISTVERSION=	${PYTHON_DISTVERSION}
 CATEGORIES=	lang python
@@ -9,14 +7,15 @@ DISTNAME=	Python-${DISTVERSION}
 DIST_SUBDIR=	python
 
 MAINTAINER=	python@FreeBSD.org
-COMMENT=	Interpreted object-oriented programming language (beta version)
+COMMENT=	Interpreted object-oriented programming language
+WWW=		https://www.python.org/
 
 LICENSE=	PSFL
 
 LIB_DEPENDS=	libffi.so:devel/libffi
 
-USES=		compiler:c11 cpe ncurses pathfix pkgconfig readline \
-		shebangfix ssl tar:xz
+USES=		compiler:c11 cpe ncurses pathfix pkgconfig \
+		python:${PYTHON_DISTVERSION:R},env readline shebangfix ssl tar:xz
 PATHFIX_MAKEFILEIN=	Makefile.pre.in
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
@@ -25,11 +24,6 @@ SHEBANG_FILES=	Lib/*.py Lib/*/*.py Lib/*/*/*.py Lib/*/*/*/*.py
 SHEBANG_FILES+=	Lib/test/ziptestdata/exe_with_z64 \
 		Lib/test/ziptestdata/exe_with_zip \
 		Lib/test/ziptestdata/header.sh
-
-# Duplicate python.mk variables. TODO: Let lang/python?? ports use python.mk bits.
-PYTHON_VER=		${PYTHON_DISTVERSION:R}
-PYTHON_VERSION=		python${PYTHON_VER}
-PYTHON_SUFFIX=		${PYTHON_VER:S/.//g}
 
 DISABLED_EXTENSIONS=	_sqlite3 _tkinter _gdbm
 CONFIGURE_ARGS+=	--enable-shared --without-ensurepip \
@@ -52,8 +46,9 @@ PLIST_SUB=		ABI=${ABIFLAGS} \
 			XYZDOT=${DISTVERSION:C/[a-z].*//} \
 			OSMAJOR=${OSVERSION:C/([0-9]*)[0-9]{5}/\1/}		# For plat-freebsd* in pkg-plist. https://bugs.python.org/issue19554
 
-OPTIONS_DEFINE=		DEBUG IPV6 LIBMPDEC NLS PYMALLOC
+OPTIONS_DEFINE=		DEBUG IPV6 LIBMPDEC LTO NLS PYMALLOC
 OPTIONS_DEFAULT=	LIBMPDEC PYMALLOC
+OPTIONS_EXCLUDE_riscv64=	LTO
 OPTIONS_RADIO=		HASH
 OPTIONS_RADIO_HASH=	FNV SIPHASH
 OPTIONS_SUB=		yes
@@ -70,11 +65,12 @@ FNV_CONFIGURE_ON=	--with-hash-algorithm=fnv
 SIPHASH_CONFIGURE_ON=	--with-hash-algorithm=siphash24
 
 DEBUG_CONFIGURE_WITH=	pydebug
-DEBUG_BROKEN=		incorrect pkg-plist
 IPV6_CONFIGURE_ENABLE=	ipv6
 
 LIBMPDEC_CONFIGURE_ON=	--with-system-libmpdec
 LIBMPDEC_LIB_DEPENDS=	libmpdec.so:math/mpdecimal
+
+LTO_CONFIGURE_ON=	--with-lto
 
 # Use CPPFLAGS over CFLAGS due to -I ordering, causing elementtree and pyexpat
 # to break in Python 2.7, or preprocessor complaints in Python >= 3.3
@@ -112,19 +108,14 @@ DISABLED_EXTENSIONS+=	nis
 PLIST_SUB+=	NO_NIS=""
 .endif
 
-# Python 3.10 requires OpenSSL >= 1.1.1 (PEP 644), so with
-# older OpenSSL or libressl, some modules are not built
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200000 && !${SSL_DEFAULT:Mopenssl*} || ${SSL_DEFAULT:Mlibressl*}
-PLIST_SUB+=	SUPPORTED_OPENSSL="@comment "
-.else
-PLIST_SUB+=	SUPPORTED_OPENSSL=""
+.if ${SSL_DEFAULT:Mlibressl*}
+EXTRA_PATCHES+=	${PATCHDIR}/libressl
 .endif
 
 post-patch:
-# disable the detection of includes and library from e2fsprogs-libuuid,
-# which introduces hidden dependency and breaks build
-	@${REINPLACE_CMD} -e 's|uuid/uuid.h|ignore_&|' ${WRKSRC}/configure
-	@${REINPLACE_CMD} -e '/find_library_file/ s|uuid|ignore_&|' ${WRKSRC}/setup.py
+# disable detection of multiarch as it breaks with clang >= 13, which adds a
+# major.minor version number in -print-multiarch output, confusing Python
+	@${REINPLACE_CMD} -e 's|^\( *MULTIARCH=\).*--print-multiarch.*|\1|' ${WRKSRC}/configure
 # Apply DISABLED_EXTENSIONS
 	@${ECHO_CMD} '*disabled*' > ${WRKSRC}/Modules/Setup.local
 .  for _module in ${DISABLED_EXTENSIONS}
@@ -135,6 +126,7 @@ post-install:
 .if ! ${PORT_OPTIONS:MDEBUG}
 	${RM} ${STAGEDIR}${PREFIX}/lib/libpython3.so						# Upstream Issue: https://bugs.python.org/issue17975
 .endif
+	${LN} -sf libpython${PYTHON_VER}${ABIFLAGS}.so.1.0 ${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}${ABIFLAGS}.so.1
 # This code block exists for the qemu-user enabled cross build environment.
 # When using this environment in poudriere, CC is not set to the default
 # of /usr/bin/cc and a cross-compile toolchain is used.  We need to hand

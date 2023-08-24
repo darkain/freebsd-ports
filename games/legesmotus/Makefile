@@ -6,6 +6,7 @@ MASTER_SITES=	SF
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Team-based, networked, 2D shooter set in zero-gravity
+WWW=		http://legesmotus.cs.brown.edu/
 
 LICENSE=	GPLv2 GPLv3
 LICENSE_COMB=	dual  # not GPLv2+
@@ -37,7 +38,7 @@ SERVERSCANNER_DESC=	Build server scanner
 CLIENT_CONFIGURE_OFF=	--disable-client
 CLIENT_USES=		gl sdl
 CLIENT_USE=		SDL=sdl,image,ttf,mixer GL=gl
-CLIENT_DESKTOP_ENTRIES= "Leges Motus" \
+CLIENT_DESKTOP_ENTRIES=	"Leges Motus" \
 			"" \
 			"${DATADIR}/sprites/blue_head32.png" \
 			"legesmotus" \

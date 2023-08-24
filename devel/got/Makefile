@@ -1,15 +1,18 @@
 PORTNAME=	got
-PORTVERSION=	0.54
+DISTVERSION=	0.91
 CATEGORIES=	devel
 MASTER_SITES=	https://gameoftrees.org/releases/
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	Game of Trees version control system
+WWW=		https://gameoftrees.org
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENCE
 
 USES=		uidfix
+
+CONFLICTS_INSTALL=	p5-App-GitGot
 
 # Insert #include "openbsd-compat.h" into each source file,
 # after the <...> includes and before the "..." ones.
@@ -25,7 +28,8 @@ post-extract:
 #  installed got
 #  installed git
 #  ssh to 127.0.0.1
-run-test:
-	@(cd ${WRKSRC}/regress && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} regress)
+### Disabled due to unportable shell constructs in 0.91
+#regress:
+#	@(cd ${WRKSRC}/regress && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} regress)
 
 .include <bsd.port.mk>

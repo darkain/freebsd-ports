@@ -1,21 +1,18 @@
-# Created by: Yoshihiko Sarumaru <mistral@imasy.or.jp>
-
 PORTNAME=	stone
-PORTVERSION=	2.3e
+PORTVERSION=	2.4
 CATEGORIES=	net
 MASTER_SITES=	http://www.gcd.org/sengoku/stone/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	TCP/IP packet repeater in the application layer
+WWW=		https://www.gcd.org/sengoku/stone/
 
 LICENSE=	GPLv2
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-2.3d-2.3.2.7
-
-USE_RC_SUBR=	stone
 .if !defined(WITHOUT_SSL)
 USES=		ssl
 .endif
+USE_RC_SUBR=	stone
 
 .include <bsd.port.pre.mk>
 

@@ -1,5 +1,3 @@
-# Created by: Zhihao Yuan <lichray@gmail.com>
-
 PORTNAME=	fcitx-anthy
 PORTVERSION=	0.2.3
 PORTREVISION=	1
@@ -9,6 +7,7 @@ DIST_SUBDIR=	fcitx
 
 MAINTAINER=	lichray@gmail.com
 COMMENT=	Anthy support for Fcitx
+WWW=		https://fcitx-im.org/wiki/Fcitx
 
 LICENSE=	GPLv2
 
@@ -17,6 +16,5 @@ LIB_DEPENDS=	libfcitx-config.so:chinese/fcitx \
 		libanthy.so:japanese/anthy
 
 USES=		cmake gettext gnome pkgconfig tar:xz
-INSTALLS_ICONS=	yes
 
 .include <bsd.port.mk>

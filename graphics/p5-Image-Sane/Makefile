@@ -1,5 +1,3 @@
-# Created by: Danilo Egea Gondolfo <danilo@FreeBSD.org>
-
 PORTNAME=	Image-Sane
 PORTVERSION=	5
 PORTREVISION=	1
@@ -9,12 +7,14 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Perl extension for the SANE (Scanner Access Now Easy) Project
+WWW=		https://metacpan.org/release/Image-Sane
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
 BUILD_DEPENDS=	p5-ExtUtils-Depends>=0:devel/p5-ExtUtils-Depends \
 		p5-ExtUtils-PkgConfig>=0:devel/p5-ExtUtils-PkgConfig \
+		sane-backends>=1.0.19:graphics/sane-backends \
 		${RUN_DEPENDS}
 LIB_DEPENDS=	libsane.so:graphics/sane-backends
 RUN_DEPENDS=	p5-Exception-Class>=1.43:devel/p5-Exception-Class \

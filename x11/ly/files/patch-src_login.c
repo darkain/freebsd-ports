@@ -1,6 +1,6 @@
---- src/login.c.orig	2020-02-03 07:51:05 UTC
+--- src/login.c.orig	2023-06-15 07:30:09 UTC
 +++ src/login.c
-@@ -18,7 +18,7 @@
+@@ -19,7 +19,7 @@
  #include <sys/stat.h>
  #include <sys/wait.h>
  #include <unistd.h>
@@ -9,27 +9,40 @@
  #include <xcb/xcb.h>
  
  int get_free_display()
-@@ -243,9 +243,15 @@ void env_init(struct passwd* pwd)
+@@ -214,13 +214,13 @@ void env_init(struct passwd* pwd)
+ 	// clean env
+ 	environ[0] = NULL;
+ 	
+-	setenv("TERM", term ? term : "linux", 1);
++	setenv("TERM", term ? term : "xterm", 1);
+ 	setenv("HOME", pwd->pw_dir, 1);
+ 	setenv("PWD", pwd->pw_dir, 1);
+ 	setenv("SHELL", pwd->pw_shell, 1);
+ 	setenv("USER", pwd->pw_name, 1);
+ 	setenv("LOGNAME", pwd->pw_name, 1);
+-	setenv("LANG", lang ? lang : "C", 1);
++	setenv("LANG", lang ? lang : "C.UTF-8", 1);
  
- void env_xdg(const char* tty_id, const enum display_server display_server)
+ 	// Set PATH if specified in the configuration
+ 	if (strlen(config.path))
+@@ -259,9 +259,15 @@ void env_xdg(const char* tty_id, const char* desktop_n
+ 
+ void env_xdg(const char* tty_id, const char* desktop_name)
  {
--	char user[15];
--	snprintf(user, 15, "/run/user/%d", getuid());
--	setenv("XDG_RUNTIME_DIR", user, 0);
 +	// The "/run/user/%d" directory is not available on FreeBSD. It is much
 +	// better to stick to the defaults and let applications using
 +	// XDG_RUNTIME_DIR to fall back to directories inside user's home
 +	// directory.
 +	/*
-+	 * char user[15];
-+	 * snprintf(user, 15, "/run/user/%d", getuid());
-+	 * setenv("XDG_RUNTIME_DIR", user, 0);
-+	 */
- 	setenv("XDG_SESSION_CLASS", "user", 0);
- 	setenv("XDG_SEAT", "seat0", 0);
- 	setenv("XDG_VTNR", tty_id, 0);
-@@ -271,8 +277,8 @@ void env_xdg(const char* tty_id, const enum display_se
- 	}
+     char user[20];
+     snprintf(user, 20, "/run/user/%d", getuid());
+     setenv("XDG_RUNTIME_DIR", user, 0);
++    */
+     setenv("XDG_SESSION_CLASS", "user", 0);
+     setenv("XDG_SESSION_ID", "1", 0);
+     setenv("XDG_SESSION_DESKTOP", desktop_name, 0);
+@@ -269,8 +275,8 @@ void env_xdg(const char* tty_id, const char* desktop_n
+     setenv("XDG_VTNR", tty_id, 0);
  }
  
 -void add_utmp_entry(
@@ -39,7 +52,7 @@
  	char *username,
  	pid_t display_pid
  ) {
-@@ -283,24 +289,23 @@ void add_utmp_entry(
+@@ -281,24 +287,23 @@ void add_utmp_entry(
  	/* only correct for ptys named /dev/tty[pqr][0-9a-z] */
  	strcpy(entry->ut_id, ttyname(STDIN_FILENO) + strlen("/dev/tty"));
  
@@ -75,17 +88,17 @@
 +	endutxent();
  }
  
- void xauth(const char* display_name, const char* shell, const char* dir)
-@@ -581,7 +586,7 @@ void auth(
+ void xauth(const char* display_name, const char* shell, char* pwd)
+@@ -616,7 +621,7 @@ void auth(
+ 
+ 		// get a display
  		char vt[5];
- 
- 		snprintf(tty_id, 3, "%d", config.tty);
 -		snprintf(vt, 5, "vt%d", config.tty);
-+		snprintf(vt, 5, "vt%d", config.vt);
+++		snprintf(vt, 5, "vt%d", config.vt);
  
- 		// set env
+ 		// set env (this clears the environment)
  		env_init(pwd);
-@@ -636,13 +641,13 @@ void auth(
+@@ -671,13 +676,13 @@ void auth(
  	}
  
  	// add utmp audit

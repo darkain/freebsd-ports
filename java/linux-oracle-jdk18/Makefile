@@ -7,6 +7,7 @@ DISTNAME=	jdk-${JDK_VERSION}u${JDK_UPDATE_VERSION}-linux-${JAVA_DISTFILE_ARCH}
 
 MAINTAINER=	java@FreeBSD.org
 COMMENT=	Oracle Java ${JDK_VERSION} Development Kit for Linux
+WWW=		https://www.oracle.com/java/
 
 # Converted from RESTRICTED
 LICENSE=	jdk
@@ -26,7 +27,8 @@ PLIST_SUB=	T=${APP_HOME:S/^${PREFIX}\///} \
 		PORTVERSION=${PORTVERSION}
 
 NO_BUILD=	yes
-USES=		linux shebangfix
+USES=		cpe linux shebangfix
+CPE_VENDOR=	oracle
 USE_LINUX=	xorglibs
 ONLY_FOR_ARCHS=	i386 amd64
 

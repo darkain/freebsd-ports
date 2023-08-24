@@ -1,6 +1,6 @@
---- sys/unix/sysconf.orig	2021-03-22 22:28:14 UTC
+--- sys/unix/sysconf.orig	2023-05-16 21:33:58 UTC
 +++ sys/unix/sysconf
-@@ -136,7 +136,7 @@ LLC_TURNS=3000
+@@ -142,7 +142,7 @@ LIVELOG=0x11FFF
  #   %D current time, YYYYMMDDhhmmss format
  #   %n player name
  #   %N first character of player name

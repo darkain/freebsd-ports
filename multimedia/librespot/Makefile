@@ -1,11 +1,12 @@
 PORTNAME=	librespot
-PORTVERSION=	0.2.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	3
+DISTVERSION=	0.4.2
+PORTREVISION=	11
 CATEGORIES=	multimedia
 
-MAINTAINER=	driesm.michiels@gmail.com
+MAINTAINER=	driesm@FreeBSD.org
 COMMENT=	Open Source Spotify client library
+WWW=		https://github.com/librespot-org/librespot
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -19,17 +20,15 @@ CARGO_FEATURES=	--no-default-features
 
 PLIST_FILES=	bin/librespot
 
-OPTIONS_DEFINE=		TREMOR VORBIS
-OPTIONS_DEFAULT=	PORTAUDIO TREMOR VORBIS
+OPTIONS_DEFAULT=	PORTAUDIO
 OPTIONS_MULTI=		BACKEND
 OPTIONS_MULTI_BACKEND=	ALSA GSTREAMER JACK PORTAUDIO PULSEAUDIO SDL
 ALSA_DESC=		Rodio audio backend using ALSA
 
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 ALSA_VARS=		CARGO_FEATURES+=rodio-backend
-GSTREAMER_USES=		gnome
-GSTREAMER_USE=		GNOME=glib20 \
-			GSTREAMER1=yes
+GSTREAMER_USES=		gnome gstreamer
+GSTREAMER_USE=		GNOME=glib20
 GSTREAMER_VARS=		CARGO_FEATURES+=gstreamer-backend
 JACK_LIB_DEPENDS=	libjack.so:audio/jack
 JACK_VARS=		CARGO_FEATURES+=jackaudio-backend
@@ -40,12 +39,6 @@ PULSEAUDIO_VARS=	CARGO_FEATURES+=pulseaudio-backend
 SDL_USES=		sdl
 SDL_USE=		SDL=sdl2
 SDL_VARS=		CARGO_FEATURES+=sdl-backend
-TREMOR_LIB_DEPENDS=	libvorbisidec.so:audio/libtremor
-TREMOR_VARS=		CARGO_FEATURES+=with-tremor
-VORBIS_LIB_DEPENDS=	libvorbisfile.so:audio/libvorbis
-VORBIS_VARS=		CARGO_FEATURES+=with-vorbis
-
-.include "Makefile.crates"
 
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/librespot

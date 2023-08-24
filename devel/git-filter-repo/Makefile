@@ -1,11 +1,11 @@
 PORTNAME=	git-filter-repo
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.32.0
-PORTREVISION=	1
+DISTVERSION=	2.38.0
 CATEGORIES=	devel
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	git filter-repo is a versatile tool for rewriting history
+WWW=		https://github.com/newren/git-filter-repo
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING.mit

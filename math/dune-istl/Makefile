@@ -1,10 +1,11 @@
 PORTNAME=	dune-istl
-DISTVERSION=	2.7.1
-PORTREVISION=	1
+DISTVERSION=	2.8.0
+PORTREVISION=	4
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	DUNE framework: Iterative Solver Template Library
+WWW=		https://www.dune-project.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
@@ -21,7 +22,7 @@ USE_GITLAB=	yes
 
 GL_SITE=	https://gitlab.dune-project.org
 GL_ACCOUNT=	core
-GL_COMMIT=	761b28aa1deaa786ec55584ace99667545f1b493
+GL_TAGNAME=	fffb544a61d2c65a0d2fc7c751f36909f06be8f5
 
 NO_ARCH=	yes
 

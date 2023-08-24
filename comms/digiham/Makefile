@@ -4,6 +4,7 @@ CATEGORIES=	comms hamradio
 
 MAINTAINER=	vvelox@vvelox.net
 COMMENT=	Tools for decoding digital ham communication
+WWW=		https://github.com/jketterl/digiham
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -14,7 +15,6 @@ USES=		cmake
 USE_CSTD=	c99
 USE_GITHUB=	yes
 GH_ACCOUNT=	jketterl
-GH_PROJECT=	digiham
 
 post-install:
 	cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}

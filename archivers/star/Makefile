@@ -2,11 +2,13 @@ PORTNAME=	star
 CATEGORIES=	archivers
 
 COMMENT=	Unique standard tape archiver with many enhancements
+WWW=		http://cdrtools.sourceforge.net/private/star.html
 
-OPTIONS_DEFINE+=DOCS TARTEST
+PORTDOCS=	README* STARvsGNUTAR
+
+OPTIONS_DEFINE+=DOCS GNUTAR
 OPTIONS_SUB=	yes
-TARTEST_DESC=	Install tartest and test scripts
-TARTEST_VARS=	COMPONENTS+=tartest
+GNUTAR_DESC=	Install a gnutar binary
 
 MASTERDIR=	${.CURDIR}/../../devel/schilybase
 COMPONENTS=	mt \
@@ -15,8 +17,8 @@ COMPONENTS=	mt \
 		star_sym \
 		strar
 
-post-install-DOCS-off:
-	${RM} ${STAGEDIR}share/doc/star/README*
-	${RM} ${STAGEDIR}share/doc/star/STARvsGNUTAR
+# these are shipped in archivers/tartest
+post-install:
+	${RM} -r ${STAGEDIR}${DOCSDIR}/testscripts
 
 .include "${MASTERDIR}/Makefile.master"

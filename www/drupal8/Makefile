@@ -1,5 +1,5 @@
 PORTNAME=	drupal8
-PORTVERSION=	8.9.16
+PORTVERSION=	8.9.20
 CATEGORIES=	www
 MASTER_SITES=	http://ftp.drupal.org/files/projects/
 DISTNAME=	drupal-${PORTVERSION}
@@ -7,11 +7,15 @@ DIST_SUBDIR=	drupal
 
 MAINTAINER=	acm@FreeBSD.org
 COMMENT=	Database driven web content management system (CMS)
+WWW=		https://www.drupal.org/
 
 LICENSE=	GPLv2+
 
+DEPRECATED=	Upstream EOL reached on 2021-11-17
+EXPIRATION_DATE=	2023-09-30
+
 USES=		php:web shebangfix
-USE_PHP=	dom filter gd hash json mbstring opcache pcre pdo session \
+USE_PHP=	dom filter gd mbstring opcache pdo session \
 		simplexml tokenizer xml
 SHEBANG_FILES=	core/scripts/password-hash.sh
 

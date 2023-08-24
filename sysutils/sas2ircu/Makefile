@@ -7,6 +7,7 @@ DISTNAME=	SAS2IRCU_P20
 
 MAINTAINER=	freebsd-ports@dan.me.uk
 COMMENT=	Tool for basic management of mps(4) based LSI/Avago/Broadcom RAID controllers
+WWW=		https://www.avagotech.com/
 
 LICENSE=	sas2ircu
 LICENSE_NAME=	BROADCOM
@@ -19,7 +20,7 @@ USES=		zip
 NO_BUILD=	yes
 
 ONLY_FOR_ARCHS=	i386 amd64
-ONLY_FOR_ARCHS_REASON=	Binaries only available for i386 and amd64 from Broadcom
+ONLY_FOR_ARCHS_REASON=	binaries only available for i386 and amd64 from Broadcom
 
 OPTIONS_DEFINE=	DOCS
 

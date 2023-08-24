@@ -5,6 +5,7 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	mail@dbalan.in
 COMMENT=	Terminal MUA using Notmuch mail
+WWW=		https://github.com/pazz/alot
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -17,7 +18,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}notmuch>=0.27:mail/py-notmuch@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}urwidtrees>1.0:devel/py-urwidtrees@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}service_identity>0:security/py-service_identity@${PY_FLAVOR}
 
-USES=		python:3.6+
+USES=		python
 USE_GITHUB=	yes
 GH_ACCOUNT=	pazz
 

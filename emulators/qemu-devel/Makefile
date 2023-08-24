@@ -1,7 +1,5 @@
-# Created by: Juergen Lock <nox@jelal.kn-bremen.de>
-
 PORTNAME=	qemu
-DISTVERSION=	5.1.0.20201019
+DISTVERSION=	8.0.0.20230505
 PORTREVISION=	1
 CATEGORIES=	emulators
 PKGNAMESUFFIX=	-devel
@@ -9,38 +7,37 @@ DIST_SUBDIR=	qemu/${PORTVERSION}
 
 MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	QEMU CPU Emulator - development version
+WWW=		https://www.qemu.org/
 
 LICENSE=	GPLv2
 
-ONLY_FOR_ARCHS=	amd64 powerpc powerpc64 powerpc64 powerpc64le
-IGNORE_FreeBSD_11=	Unable to produce Position Independent Code
+ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 powerpc64 powerpc64le
 
 BUILD_DEPENDS=	sphinx-build:textproc/py-sphinx \
+		${PYTHON_PKGNAMEPREFIX}sphinx_rtd_theme>0:textproc/py-sphinx_rtd_theme@${PY_FLAVOR} \
 		bash:shells/bash
-LIB_DEPENDS=	libnettle.so:security/nettle \
+LIB_DEPENDS=	libepoxy.so:graphics/libepoxy \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2 \
-		libepoxy.so:graphics/libepoxy \
-		libpcre2-8.so:devel/pcre2
+		libnettle.so:security/nettle \
+		libpcre2-8.so:devel/pcre2 \
+		libzstd.so:archivers/zstd
 
 USES=		bison compiler:c11 cpe gmake gnome iconv:wchar_t ninja perl5 \
 		pkgconfig python:build tar:xz xorg
-USE_GITHUB=	yes
+USE_GITLAB=	yes
 USE_GNOME=	cairo glib20 libxml2
 USE_PERL5=	build
 USE_PYTHON=	distutils noflavors
 USE_XORG=	pixman
 
-GH_TUPLE=	qemu:qemu:22d30b3 \
-		qemu:keycodemapdb:6b3d716:keycodemapdb/ui/keycodemapdb \
-		qemu:dtc:85e5d83:dtc/dtc \
-		mesonbuild:meson:776acd2:meson/meson \
-		cota:berkeley-softfloat-3:b64af41:berkeleysoftfloat3/tests/fp/berkeley-softfloat-3 \
-		cota:berkeley-testfloat-3:5a59dce:berkeleytestfloat3/tests/fp/berkeley-testfloat-3
-#BROKEN_powerpc64=	fails to compile: In function aio_bh_poll: internal compiler error: Segmentation fault
-
-#.if !defined(PKGNAMESUFFIX) || (${PKGNAMESUFFIX} != "-utils" && ${PKGNAMESUFFIX} != "-guest-agent")
-#.endif
+GL_ACCOUNT=	qemu-project
+GL_TAGNAME=	a9fe9e191b4305b88c356a1ed9ac3baf89eb18aa
+GL_TUPLE=	qemu-project:keycodemapdb:d21009b1c9f94b740ea66be8e48a1d8ad8124023:keycodemapdb/ui/keycodemapdb \
+		qemu-project:dtc:b6910bec11614980a21e46fbccc35934b671bd81:dtc/dtc \
+		qemu-project:meson:3a9b285a55b91b53b2acda987192274352ecb5be:meson/meson \
+		qemu-project:berkeley-softfloat-3:b64af41c3276f97f0e181920400ee056b9c88037:berkeleysoftfloat3/tests/fp/berkeley-softfloat-3 \
+		qemu-project:berkeley-testfloat-3:40619cbb3bf32872df8c53cc457039229428a263:berkeleytestfloat3/tests/fp/berkeley-testfloat-3
 
 HAS_CONFIGURE=	yes
 
@@ -65,7 +62,7 @@ STATIC_LINK_DESC=	Statically link the executables
 USBREDIR_DESC=		usb device network redirection (experimental!)
 VDE_DESC=		vde dependency (for vde networking)
 X86_TARGETS_DESC=	Build only x86 system targets
-CAPSTONE_CONFIGURE_ON=	--enable-capstone=system --extra-cflags=-I${LOCALBASE}/include/capstone
+CAPSTONE_CONFIGURE_ON=	--enable-capstone --extra-cflags=-I${LOCALBASE}/include/capstone
 CAPSTONE_CONFIGURE_OFF=	--disable-capstone
 CAPSTONE_LIB_DEPENDS=	libcapstone.so:devel/capstone4
 CURL_CONFIGURE_OFF=	--disable-curl
@@ -84,7 +81,7 @@ NCURSES_DEFAULT_USES=	ncurses
 NCURSES_BASE_USES=	ncurses:base
 NCURSES_PORT_USES=	ncurses:port
 OPENGL_CONFIGURE_OFF=	--disable-opengl
-OPENGL_USE=	GL=gl
+OPENGL_USE=	GL=gbm,gl
 OPENGL_USES=	gl
 PNG_CONFIGURE_OFF=	--disable-vnc-png
 PNG_LIB_DEPENDS=	libpng.so:graphics/png
@@ -104,19 +101,18 @@ X11_CONFIGURE_ENABLE=	sdl
 X11_USE=	SDL=sdl2 XORG=x11,xext GNOME=gdkpixbuf2
 X11_USES=	sdl
 
-PORTDOCS=	docs index.html interop/.buildinfo interop/* \
-	       	specs/.buildinfo specs/* system/.buildinfo system/* \
-		tools/.buildinfo tools/* user/.buildinfo user/*
+PORTDOCS=	.buildinfo _static/* about/* dbus-dbusindex.html devel/* \
+			docs genindex.html index.html interop/* objects.inv \
+			search.html searchindex.js specs/* system/* tools/* user/*
 
 WITHOUT_CPU_CFLAGS=yes	#to avoid problems with register allocation
 CFLAGS:=	${CFLAGS:C/-fno-tree-vrp//}
-CONFIGURE_ARGS=	--localstatedir=/var --extra-ldflags=-L\"/usr/lib\" \
+CONFIGURE_ARGS=	--localstatedir=/var --mandir=man --extra-ldflags=-L\"/usr/lib\" \
 		--extra-ldflags=-L\"${LOCALBASE}/lib\" --enable-debug \
 		--prefix=${PREFIX} --cc=${CC} --enable-netmap --disable-kvm \
 		--disable-linux-user --disable-linux-aio --disable-xen \
-		--enable-debug-info --python=${PYTHON_CMD} \
+		--enable-debug-info --python=${PYTHON_CMD} --disable-guest-agent \
 		--extra-cflags=-I${WRKSRC}\ -I${LOCALBASE}/include\ -DPREFIX=\\\"\"${PREFIX}\\\"\"
-INSTALLS_ICONS=	yes
 
 .include <bsd.port.options.mk>
 
@@ -129,11 +125,17 @@ MAKE_ARGS+=	ARCH=x86_64
 .endif
 
 .if ${ARCH} == "powerpc"
+CFLAGS+=	-D_CALL_SYSV
 MAKE_ARGS+=	ARCH=ppc
+USE_GCC=	yes
 .endif
 
-.if ${ARCH} == "powerpc64"
+.if ${ARCH:Mpowerpc64*}
+CONFIGURE_ARGS+=	--disable-bsd-user
 MAKE_ARGS+=	ARCH=ppc64
+PLIST_SUB+=	BSDUSER="@comment "
+.else
+PLIST_SUB+=	BSDUSER=""
 .endif
 
 .if ${ARCH} == "sparc64"

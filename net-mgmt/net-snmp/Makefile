@@ -1,8 +1,6 @@
-# Created by: gpalmer
-
 PORTNAME=	snmp
-PORTVERSION=	5.9
-PORTREVISION=   3
+PORTVERSION=	5.9.1
+PORTREVISION=	3
 PORTEPOCH=	1
 CATEGORIES=	net-mgmt
 MASTER_SITES=	SF/net-${PORTNAME}/net-${PORTNAME}/${PORTVERSION} \
@@ -12,6 +10,7 @@ DISTNAME=	${PKGNAMEPREFIX}${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	zi@FreeBSD.org
 COMMENT=	Extendable SNMP implementation
+WWW=		http://net-snmp.sourceforge.net/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -46,7 +45,7 @@ GNU_CONFIGURE=	yes
 USE_RC_SUBR=	snmpd snmptrapd
 USE_LDCONFIG=	yes
 USES=		cpe libtool perl5 ssl
-CPE_VENDOR=	net-snmp
+CPE_PRODUCT=	net-snmp
 USE_PERL5=	build run
 USE_CSTD=	c99
 
@@ -78,9 +77,9 @@ TLS_CONFIGURE_ON=	--with-security-modules=tsm --with-transports=TLSTCP,DTLSUDP
 .if ${PORT_OPTIONS:MPYTHON}
 PYDISTUTILS_PKGNAME?=		netsnmp-python
 PYDISTUTILS_PKGVERSION?=	1.0a1
-USES+=		python:3.5+
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}setuptools>0:devel/py-setuptools@${PY_FLAVOR}
-BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}setuptools>0:devel/py-setuptools@${PY_FLAVOR}
+USES+=		python
+RUN_DEPENDS+=	${PY_SETUPTOOLS}
+BUILD_DEPENDS+=	${PY_SETUPTOOLS}
 CONFIGURE_ARGS+=--with-python-modules
 CONFIGURE_ENV+=	PYTHONPROG="${PYTHON_CMD}"
 MAKE_ENV+=	PYDISTUTILS_INSTALLARGS="${PYDISTUTILS_INSTALLARGS}" STAGEDIR="${STAGEDIR}"
@@ -147,7 +146,7 @@ CONFIGURE_ARGS+=--without-root-access
 .endif
 
 SHLIB_VERSION=	40
-SHLIB_VERSION2=	.0.0
+SHLIB_VERSION2=	.1.0
 PLIST_SUB+=	SHLIB_VERSION=${SHLIB_VERSION} SHLIB_VERSION2=${SHLIB_VERSION2}
 SCRIPTS_SUB=	PREFIX=${PREFIX} PERL=${PERL}
 
@@ -245,7 +244,7 @@ pre-everything::
 post-patch:
 	@${REINPLACE_CMD} -E -e 's|return pci_lookup_name|disabled broken|g' \
 		${WRKSRC}/configure
-.if (${OPSYS} == FreeBSD && ${OSVERSION} >= 1200085) || ${SSL_DEFAULT:Mopenssl}
+.if ${OPSYS} == FreeBSD || ${SSL_DEFAULT:Mopenssl}
 	@${REINPLACE_CMD} -E -e 's|SSL_library_init|OPENSSL_init_ssl|g' \
 		${WRKSRC}/configure
 .endif

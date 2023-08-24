@@ -1,7 +1,5 @@
-# Created by: Danilo Egea Gondolfo <danilogondolfo@gmail.com>
-
 PORTNAME=	xfce4-diskperf-plugin
-PORTVERSION=	2.6.3
+PORTVERSION=	2.7.0
 PORTREVISION=	1
 CATEGORIES=	sysutils xfce
 MASTER_SITES=	XFCE/panel-plugins
@@ -9,6 +7,7 @@ DIST_SUBDIR=	xfce4
 
 MAINTAINER=	danilo@FreeBSD.org
 COMMENT=	Graphical representation of the disk IO
+WWW=		https://goodies.xfce.org/projects/panel-plugins/xfce4-diskperf-plugin
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -19,7 +18,6 @@ USE_GNOME=	cairo gtk30 intltool
 USE_XFCE=	panel
 
 GNU_CONFIGURE=	yes
-INSTALLS_ICONS=	yes
 INSTALL_TARGET=	install-strip
 
 LIBS+=		-ldevstat

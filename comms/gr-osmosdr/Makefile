@@ -1,11 +1,13 @@
 PORTNAME=	gr-osmosdr
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.2.3
+PORTREVISION=	6
 PORTEPOCH=	1
 CATEGORIES=	comms hamradio
 
 MAINTAINER=	martymac@FreeBSD.org
 COMMENT=	GNU Radio OsmoSDR module
+WWW=		http://sdr.osmocom.org/trac
 
 LICENSE=	GPLv3
 
@@ -22,7 +24,7 @@ LIB_DEPENDS=	libgnuradio-runtime.so:comms/gnuradio \
 		libgmp.so:math/gmp \
 		liborc-0.4.so:devel/orc
 
-USES=	cmake compiler:c++11-lang fortran pkgconfig python:3.7+ tar:tgz
+USES=	cmake compiler:c++11-lang fortran pkgconfig python tar:tgz
 
 SUB_LIST=	VERSION=${PORTVERSION}
 SUB_FILES=	gnuradio-osmosdr.pc

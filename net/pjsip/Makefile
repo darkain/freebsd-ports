@@ -1,9 +1,10 @@
 PORTNAME=	pjsip
-DISTVERSION=	2.11
+DISTVERSION=	2.13.1
 CATEGORIES=	net
 
-MAINTAINER=	madpilot@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Multimedia communication library written in C language
+WWW=		https://www.pjsip.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -11,10 +12,13 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libportaudio.so:audio/portaudio \
 		libuuid.so:misc/e2fsprogs-libuuid
 
-USES=		gmake localbase pathfix ssl tar:bz2
+USES=		cpe gmake localbase pathfix ssl tar:bz2
+USE_LDCONFIG=	yes
+
 USE_GITHUB=	yes
 GH_PROJECT=	pjproject
-USE_LDCONFIG=	yes
+
+CPE_VENDOR=	teluu
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-external-pa \
@@ -95,9 +99,6 @@ WEBRTC_CONFIGURE_OFF=		--disable-libwebrtc
 post-patch:
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
 		${WRKSRC}/pkgconfig.py
-	@${REINPLACE_CMD} -e 's/$$(APP_LDFLAGS) \{0,1\}//' \
-		-e 's/$$(OS_LDFLAGS)/$$(APP_LDFLAGS) &/' \
-		${WRKSRC}/*/build/Makefile
 	@${CP} ${FILESDIR}/config_site.h \
 		${WRKSRC}/pjlib/include/pj/config_site.h
 

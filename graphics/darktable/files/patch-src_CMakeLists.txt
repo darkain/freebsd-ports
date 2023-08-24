@@ -1,25 +1,11 @@
---- src/CMakeLists.txt.orig	2021-04-29 21:04:27 UTC
+--- src/CMakeLists.txt.orig	2023-06-30 06:13:18 UTC
 +++ src/CMakeLists.txt
-@@ -321,7 +321,12 @@ if(USE_CAMERA_SUPPORT)
- endif(USE_CAMERA_SUPPORT)
- 
- if(USE_OPENEXR)
--  find_package(OpenEXR)
-+  find_package(OpenEXR 3.0 CONFIG)
-+  if(TARGET OpenEXR::OpenEXR)
-+    set(OpenEXR_LIBRARIES OpenEXR::OpenEXR)
-+  else()
-+    find_package(OpenEXR)
-+  endif()
-   if(OpenEXR_FOUND)
-     include_directories(SYSTEM ${OpenEXR_INCLUDE_DIRS})
-     list(APPEND LIBS ${OpenEXR_LIBRARIES})
-@@ -388,7 +393,7 @@ if(USE_OPENJPEG)
+@@ -465,7 +465,7 @@ if(USE_OPENJPEG)
      add_definitions("-DHAVE_OPENJPEG")
-     list(APPEND SOURCES "common/imageio_j2k.c")
+     list(APPEND SOURCES "imageio/imageio_j2k.c")
  
 -    include_directories(SYSTEM ${OpenJPEG_INCLUDE_DIRS})
 +    include_directories(BEFORE SYSTEM ${OpenJPEG_INCLUDE_DIRS})
      list(APPEND LIBS ${OpenJPEG_LIBRARIES})
+     set(DT_SUPPORTED_EXTENSIONS ${DT_SUPPORTED_EXTENSIONS} j2c j2k jp2 jpc CACHE INTERNAL "")
    endif(OpenJPEG_FOUND)
- endif(USE_OPENJPEG)

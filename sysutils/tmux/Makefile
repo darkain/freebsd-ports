@@ -1,13 +1,13 @@
-# Created by: Wen Heping <wenheping@gmail.com>
-
 PORTNAME=	tmux
-PORTVERSION=	3.2a
+PORTVERSION=	3.3a
+PORTREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://github.com/tmux/tmux/releases/download/${PORTVERSION}/
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	mat@FreeBSD.org
 COMMENT=	Terminal Multiplexer
+WWW=		https://tmux.github.io/
 
 LICENSE=	ISCL GPLv2
 LICENSE_COMB=	multi
@@ -16,7 +16,9 @@ LICENSE_FILE_GPLv2=	${WRKSRC_bash}/COPYING
 LICENSE_DISTFILES_ISCL=	${DISTNAME}${EXTRACT_SUFX}
 LICENSE_DISTFILES_GPLv2=	${DISTFILE_bash}
 
-USES=		ncurses pkgconfig
+USES=		cpe ncurses pkgconfig
+
+CPE_VENDOR=	tmux_project
 
 USE_GITHUB=	nodefault
 GH_TUPLE=	imomaliev:tmux-bash-completion:f5d5323:bash
@@ -38,6 +40,7 @@ OPTIONS_DEFINE=	DOCS EXAMPLES LIBEVENT_STATIC UTF8PROC
 
 LIBEVENT_STATIC_DESC=	Build with static libevent
 UTF8PROC_DESC=		Build with utf8proc support
+UTF8PROC_USES=		localbase
 
 LIBEVENT_STATIC_BUILD_DEPENDS=		${LOCALBASE}/lib/libevent.a:devel/libevent
 LIBEVENT_STATIC_LIB_DEPENDS_OFF=	libevent.so:devel/libevent

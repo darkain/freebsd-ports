@@ -1,11 +1,12 @@
-# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
-
 PORTNAME=	vban
 DISTVERSION=	g20201011
+PORTREVISION=	3
 CATEGORIES=	audio
+PKGNAMESUFFIX=	-tools
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Command-line VBAN (audio over UDP protocol) tools
+WWW=		https://github.com/quiniouben/vban
 
 LICENSE=	GPLv3+
 
@@ -17,6 +18,8 @@ GH_TAGNAME=	4f69e5a
 
 PLIST_FILES=	bin/vban_emitter bin/vban_receptor bin/vban_sendtext
 PORTDOCS=	README.md
+
+PORTSCOUT=	skipv:2.1.0	# old tag from Oct 4 2018
 
 OPTIONS_DEFINE=	DOCS
 OPTIONS_MULTI=	BACKEND

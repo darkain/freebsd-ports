@@ -1,11 +1,10 @@
-# Created by: Sander Vesik <sander@haldjas.folklore.ee>
-
 PORTNAME=	tclcheck
 DISTVERSION=	1.1.14
 CATEGORIES=	devel
 
 MAINTAINER=	tcltk@FreeBSD.org
 COMMENT=	Program to check the nesting of parenthesis in tcl scripts
+WWW=		https://gitlab.com/ports1/tclcheck
 
 LICENSE=			NEWCASTLE BSD2CLAUSE
 LICENSE_COMB=			dual
@@ -18,7 +17,7 @@ USES=		alias
 
 USE_GITLAB=	yes
 GL_ACCOUNT=	ports1
-GL_COMMIT=	9de3e5b12c5f453137305377344cb1d1c848e75e
+GL_TAGNAME=	9de3e5b12c5f453137305377344cb1d1c848e75e
 
 OPTIONS_DEFINE=	DOCS
 

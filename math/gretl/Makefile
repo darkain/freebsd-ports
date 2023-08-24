@@ -1,12 +1,11 @@
-# Created by: ijliao
-
 PORTNAME=	gretl
-PORTVERSION=	2021b
+PORTVERSION=	2023b
 CATEGORIES=	math finance
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${DISTVERSIONFULL}/
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	GNU Regression, Econometrics, and Time-series Library
+WWW=		http://gretl.sourceforge.net/
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -14,13 +13,16 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libfftw3.so:math/fftw3 \
 		libgmp.so:math/gmp \
+		libharfbuzz.so:print/harfbuzz \
 		libjson-glib-1.0.so:devel/json-glib \
 		libmpfr.so:math/mpfr
 
 USES=		compiler:c11 fortran gmake gnome localbase libtool ncurses \
 		pathfix pkgconfig readline tar:xz
-GNU_CONFIGURE=	yes
+USE_WX=		3.0
 USE_LDCONFIG=	yes
+
+GNU_CONFIGURE=	yes
 
 BINARY_ALIAS=	make=${GMAKE}
 ALL_TARGET=	# empty
@@ -28,13 +30,16 @@ SSP_CFLAGS?=	-fstack-protector # XXX -strong crashes mklang on 12.0+ i386
 CONFIGURE_ENV=	ac_cv_lib_dl_dlopen="" \
 		LAPACK_LIBS="${LAPACK} ${BLAS}"
 
+PLIST_SUB=	GTK_VER=${GTK_VER}
+
 OPTIONS_DEFINE=		ADDONS ATLAS GUI MPI NLS ODBC OPENMP R UNZIP
 OPTIONS_DEFAULT=	ADDONS GUI OPENMP UNZIP
 OPTIONS_SUB=		yes
 
 ADDONS_DESC=		Build gretl addons
 ADDONS_CONFIGURE_ENABLE=	build-addons
-ADDONS_VARS=		USE_TEX="formats dvipsk:build"
+ADDONS_USES=		tex
+ADDONS_USE=			TEX=formats,dvipsk:build
 
 ATLAS_DESC=		Use ATLAS for BLAS and LAPACK
 ATLAS_LIB_DEPENDS=	libatlas.so:math/atlas
@@ -46,9 +51,10 @@ ATLAS_VARS_OFF=		BLAS=-lblas LAPACK=-llapack
 GUI_DESC=		Graphical user interface and plugins
 GUI_CONFIGURE_ON=	--enable-gui=yes
 GUI_CONFIGURE_OFF=	--enable-gui=no --enable-xdg=no
-GUI_VARS=		INSTALLS_ICONS=yes
-GUI_USE=		GNOME=cairo,gtksourceview3
-GUI_USE_OFF=		GNOME=glib30,libxml2
+GUI_USE=		GNOME=cairo,gtksourceview3,gdkpixbuf2
+GUI_USE_OFF=		GNOME=glib20,libxml2
+GUI_VARS=		GTK_VER=3
+GUI_VARS_OFF=		GTK_VER=2
 GUI_USES=		desktop-file-utils shared-mime-info
 GUI_BUILD_DEPENDS=	gnuplot:math/gnuplot
 GUI_LIB_DEPENDS=	libfreetype.so:print/freetype2 \
@@ -95,7 +101,13 @@ regression-test test check: build
 		${MAKE_ARGS} check
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gretl-gtk3/*.so
+	# strip
+	@${STRIP_CMD} \
+		${STAGEDIR}${PREFIX}/bin/gretlcli \
+		${STAGEDIR}${PREFIX}/bin/gretl_x11 \
+		${STAGEDIR}${PREFIX}/lib/libgretl-1.0.so.* \
+		${STAGEDIR}${PREFIX}/lib/gretl-gtk3/*.so
+	# rm doc
 	@${RMDIR} ${STAGEDIR}${DATADIR}/doc
 
 .include <bsd.port.mk>

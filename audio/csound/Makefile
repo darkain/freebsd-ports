@@ -1,11 +1,11 @@
-# Created by: trevor
-
 PORTNAME=	csound
 DISTVERSION=	6.15.0
+PORTREVISION=	10
 CATEGORIES=	audio lang
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Sound synthesizer
+WWW=		https://csound.com/
 
 LICENSE=	LGPL21+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,13 +16,16 @@ BUILD_DEPENDS=	boost-libs>0:devel/boost-libs \
 LIB_DEPENDS=	libsamplerate.so:audio/libsamplerate \
 		libsndfile.so:audio/libsndfile
 
-USES=		alias bison cmake compiler:c++11-lib eigen:3 localbase ncurses python:build # is python needed: https://github.com/csound/csound/issues/1437 ?
+USES=		alias bison cmake compiler:c++11-lib cpe eigen:3 localbase ncurses python:build # is python needed: https://github.com/csound/csound/issues/1437 ?
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 
+CPE_VENDOR=	csounds
+
+CONFLICTS_INSTALL= clearsilver go-cs libextractor outguess
+
 CFLAGS_powerpc=	-maltivec
 CFLAGS_powerpcspe=	-DPFFFT_SIMD_DISABLE
-CFLAGS_powerpc64=	-maltivec
 CMAKE_ARGS=	-DBUILD_CSOUNDVST:BOOL=OFF \
 		-DBUILD_PD_CLASS:BOOL=OFF \
 		-DPYTHON_MODULE_INSTALL_DIR:PATH="${PYTHONPREFIX_SITELIBDIR}" \
@@ -87,7 +90,7 @@ FLUIDSYNTH_BROKEN=	FluidSynth 2.x is broken upstream: https://github.com/csound/
 
 HDF5_DESC=		Build HDF5 read/write plugin
 HDF5_LIB_DEPENDS=	libhdf5.so:science/hdf5 \
-			libsz.so:science/szip
+			libsz.so:science/libaec
 HDF5_CMAKE_BOOL=	BUILD_HDF5_OPCODES
 
 JACK_DESC=		Build the JACK related opcodes
@@ -168,12 +171,6 @@ WIIMOTE_DESC=		Build the Wiimote opcodes
 WIIMOTE_CMAKE_BOOL=	BUILD_WIIMOTE_OPCODES
 WIIMOTE_BROKEN=		Need to port wiiuse: https://github.com/rpavlik/wiiuse
 
-.include <bsd.port.pre.mk>
-
-.if ${ARCH} == "i386"
-BROKEN_FreeBSD_11=	libcsound64.so.6.0: undefined reference to `__atomic_store_8' / undefined reference to `__atomic_load_8'
-.endif
-
 post-patch:
 	@${REINPLACE_CMD} -e \
 		's|/usr/include/Python2.7|${PYTHON_INCLUDEDIR}| ; \
@@ -195,4 +192,4 @@ post-install:
 post-install-FLTK-on:
 	@${LN} -sf libCsoundAC.so.6.0 ${STAGEDIR}${PREFIX}/lib/libCsoundAC.so.6
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

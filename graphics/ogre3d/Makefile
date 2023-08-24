@@ -1,13 +1,12 @@
-# Created by: Oliver Lehmann <oliver@FreeBSD.org>
-
 PORTNAME=	ogre3d
 DISTVERSIONPREFIX=	v
 DISTVERSION=	1.11.6
-PORTREVISION=	5
+PORTREVISION=	12
 CATEGORIES=	graphics devel
 
 MAINTAINER=	oliver@FreeBSD.org
 COMMENT=	Scene-oriented, flexible 3D engine written in C++
+WWW=		https://www.ogre3d.org/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -17,7 +16,7 @@ BROKEN_FreeBSD_12_powerpc64=	fails to build: /usr/local/bin/ld: /usr/lib/crt1.o:
 LIB_DEPENDS=	libzzip.so:devel/zziplib \
 		libfreetype.so:print/freetype2
 
-CONFLICTS=	ogre3d19-[0-9]*
+CONFLICTS=	ogre3d19
 
 USES=		cmake compiler:c++11-lib pkgconfig sdl xorg
 USE_LDCONFIG=	yes
@@ -60,7 +59,7 @@ OPENEXR_LIB_DEPENDS=	libOpenEXR.so:graphics/openexr \
 OPENGL_CMAKE_BOOL=	OGRE_BUILD_RENDERSYSTEM_GL3PLUS \
 			OGRE_BUILD_RENDERSYSTEM_GL \
 			OGRE_BUILD_RENDERSYSTEM_GLES2
-OPENGL_USES=		gl xorg
+OPENGL_USES=		gl
 OPENGL_USE=		XORG=sm,ice GL=gl,glu
 
 PROFILE_CMAKE_BOOL=	OGRE_PROFILING

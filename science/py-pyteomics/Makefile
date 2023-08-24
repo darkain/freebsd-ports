@@ -1,16 +1,16 @@
 PORTNAME=	pyteomics
-PORTVERSION=	4.4.2
-PORTREVISION=	1
+PORTVERSION=	4.6
 CATEGORIES=	science python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Python modules for proteomics data analysis
+WWW=		https://pyteomics.readthedocs.io/
 
 LICENSE=	APACHE20
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes
@@ -23,7 +23,7 @@ TDA_DESC=	Target-decoy approach support
 UNIMOD_DESC=	Unimod database support
 XML_DESC=	XML support
 
-DF_RUN_DEPENDS=		${PY_PANDAS}
+DF_RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}pandas>=0,1:math/py-pandas@${PY_FLAVOR}
 GRAPHICS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}matplotlib>=0:math/py-matplotlib@${PY_FLAVOR}
 TDA_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=0,1:math/py-numpy@${PY_FLAVOR}
 UNIMOD_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}lxml>=0:devel/py-lxml@${PY_FLAVOR} \

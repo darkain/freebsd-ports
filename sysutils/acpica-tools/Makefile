@@ -1,5 +1,5 @@
 PORTNAME=	acpica
-PORTVERSION=	20210604
+PORTVERSION=	20221020
 CATEGORIES=	sysutils devel
 MASTER_SITES=	https://acpica.org/sites/acpica/files/ \
 		LOCAL/jkim
@@ -8,11 +8,11 @@ DISTNAME=	${PORTNAME}-unix-${PORTVERSION}
 
 MAINTAINER=	jkim@FreeBSD.org
 COMMENT=	Tools from the ACPI Component Architecture (ACPICA) project
+WWW=		https://acpica.org
 
 LICENSE=	BSD3CLAUSE GPLv2
 LICENSE_COMB=	dual
 
-BROKEN_FreeBSD_11_powerpc64=	fails to compile on powerpc64 elfv1: comparison is always true due to limited range of data type
 BROKEN_FreeBSD_12_powerpc64=	fails to compile on powerpc64 elfv1: comparison is always true due to limited range of data type
 
 USES=		gmake

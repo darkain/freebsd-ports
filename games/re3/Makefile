@@ -1,10 +1,11 @@
 PORTNAME=	re3
 DISTVERSION=	g20210219
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	games
 
 MAINTAINER=	pkubaj@FreeBSD.org
 COMMENT=	Reverse-engineered GTA3 engine
+WWW=		https://git.rip/Obama/re3
 
 ONLY_FOR_ARCHS=	aarch64 armv6 armv7 amd64 i386
 
@@ -16,6 +17,7 @@ LIB_DEPENDS=	libglfw.so:graphics/glfw \
 
 USES=		gl gmake openal shebangfix xorg
 SHEBANG_FILES=	printHash.sh
+USE_CXXSTD=	c++14
 USE_GL=		gl
 USE_GITHUB=	nodefault
 GH_TUPLE=	aap:librw:8b2caf8f:librw \
@@ -25,11 +27,11 @@ GH_TUPLE=	aap:librw:8b2caf8f:librw \
 USE_GITLAB=	yes
 GL_SITE=	https://git.rip
 GL_ACCOUNT=	Obama
-GL_COMMIT=	9a7fa478578beaba947ea867c15a25e411d641d8
+GL_TAGNAME=	9a7fa478578beaba947ea867c15a25e411d641d8
 bash_CMD=	/bin/sh
 USE_XORG=	x11
 # is required till https://git.rip got updated to a newer gitlab version
-WRKSRC=		${WRKDIR}/${GL_PROJECT}-${GL_COMMIT}-${GL_COMMIT}
+WRKSRC=		${WRKDIR}/${GL_PROJECT}-${GL_TAGNAME}-${GL_TAGNAME}
 
 LDFLAGS_i386=	-Wl,-znotext
 

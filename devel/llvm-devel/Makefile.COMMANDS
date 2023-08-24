@@ -14,12 +14,15 @@ LLVM_COMMANDS=	\
 		llvm-cov \
 		llvm-cvtres \
 		llvm-cxxmap \
+		llvm-debuginfo-analyzer \
+		llvm-debuginfod \
+		llvm-debuginfod-find \
 		llvm-diff \
 		llvm-dis \
 		llvm-dlltool \
 		llvm-dwarfdump \
+		llvm-dwarfutil \
 		llvm-dwp \
-		llvm-elfabi \
 		llvm-exegesis \
 		llvm-extract \
 		llvm-gsymutil \
@@ -45,8 +48,11 @@ LLVM_COMMANDS=	\
 		llvm-rc \
 		llvm-readelf \
 		llvm-readobj \
+		llvm-readtapi \
 		llvm-reduce \
+		llvm-remarkutil \
 		llvm-rtdyld \
+		llvm-sim \
 		llvm-size \
 		llvm-split \
 		llvm-stress \
@@ -54,14 +60,16 @@ LLVM_COMMANDS=	\
 		llvm-strip \
 		llvm-symbolizer \
 		llvm-tblgen \
+		llvm-tli-checker \
 		llvm-undname \
 		llvm-windres \
 		llvm-xray \
 		opt \
-		sancov \
-		split-file
+		sancov
 
 CLANG_COMMANDS=	\
+		amdgpu-arch \
+		analyze-build \
 		c-index-test \
 		clang \
 		clang++ \
@@ -69,12 +77,18 @@ CLANG_COMMANDS=	\
 		clang-cpp \
 		clang-extdef-mapping \
 		clang-format \
+		clang-linker-wrapper \
 		clang-offload-bundler \
-		clang-offload-wrapper \
+		clang-offload-packager \
+		clang-repl \
 		clang-scan-deps \
+		clang-tblgen \
 		diagtool \
 		hmaptool \
+		intercept-build \
+		nvptx-arch \
 		scan-build \
+		scan-build-py \
 		scan-view
 
 EXTRAS_COMMANDS= \
@@ -82,8 +96,10 @@ EXTRAS_COMMANDS= \
 		clang-apply-replacements \
 		clang-change-namespace \
 		clang-doc \
+		clang-include-cleaner \
 		clang-include-fixer \
 		clang-move \
+		clang-pseudo \
 		clang-query \
 		clang-rename \
 		clang-reorder-fields \
@@ -93,11 +109,11 @@ EXTRAS_COMMANDS= \
 		pp-trace
 
 FLANG_COMMANDS=	\
-		f18 \
+		bbc \
 		f18-parse-demo \
 		fir-opt \
-		flang \
 		flang-new \
+		flang-to-external-fc \
 		tco
 
 LIT_COMMANDS=	\
@@ -108,8 +124,6 @@ LIT_COMMANDS=	\
 LLD_COMMANDS=	\
 		ld.lld \
 		ld64.lld \
-		ld64.lld.darwinnew \
-		ld64.lld.darwinold \
 		lld \
 		lld-link \
 		wasm-ld
@@ -122,10 +136,19 @@ LLDB_COMMANDS=	\
 		lldb-vscode
 
 MLIR_COMMANDS=	\
+		mlir-cat \
 		mlir-cpu-runner \
-		mlir-linalg-ods-gen \
 		mlir-lsp-server \
+		mlir-minimal-opt \
+		mlir-minimal-opt-canonicalize \
 		mlir-opt \
+		mlir-pdll \
+		mlir-pdll-lsp-server \
 		mlir-reduce \
 		mlir-tblgen \
-		mlir-translate
+		mlir-translate \
+		tblgen-lsp-server
+
+OPENMP_COMMANDS=	\
+		llvm-omp-device-info \
+		llvm-omp-kernel-replay

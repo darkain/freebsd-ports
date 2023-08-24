@@ -1,12 +1,10 @@
-# Created by: Tim Niemueller <tim@niemueller.de>
-
 PORTNAME=	yaml-cpp
-PORTVERSION=	0.7.0
-DISTVERSIONPREFIX=	${PORTNAME}-
+PORTVERSION=	0.8.0
 CATEGORIES=	devel
 
 MAINTAINER=	madpilot@FreeBSD.org
 COMMENT=	YAML parser and emitter in C++ matching the YAML 1.2 spec
+WWW=		https://github.com/jbeder/yaml-cpp
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

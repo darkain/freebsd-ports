@@ -1,5 +1,5 @@
 PORTNAME=	postgresql
-PORTVERSION=	13.01.0000
+PORTVERSION=	15.00.0000
 CATEGORIES=	databases
 MASTER_SITES=	PGSQL/odbc/versions/src
 PKGNAMESUFFIX=	-odbc
@@ -8,6 +8,7 @@ DIST_SUBDIR=	postgresql
 
 MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	PostgreSQL ODBC driver
+WWW=		https://www.postgresql.org/ftp/odbc/versions/
 
 LICENSE=	LGPL20+
 LICENSE_FILE=	${WRKSRC}/license.txt

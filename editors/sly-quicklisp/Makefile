@@ -1,11 +1,12 @@
 PORTNAME=	sly-quicklisp
-PORTVERSION=	20200707
+PORTVERSION=	20211206
 PORTREVISION=	1
 CATEGORIES=	editors elisp
 PKGNAMESUFFIX=	${EMACS_PKGNAMESUFFIX}
 
 MAINTAINER=	olce.freebsd.ports@certner.fr
 COMMENT=	Basic Quicklisp support for SLY
+WWW=		https://github.com/joaotavora/sly-quicklisp
 
 LICENSE=	PD
 
@@ -16,7 +17,7 @@ RUN_DEPENDS=	${MY_DEPENDS}
 USES=		emacs
 USE_GITHUB=	yes
 GH_ACCOUNT=	joaotavora
-GH_TAGNAME=	4707b62803d7a29f172e9c5ff993b91187a9aaf3
+GH_TAGNAME=	34c73d43dd9066262387c626c17a9b486db07b2d
 
 NO_ARCH=	yes
 

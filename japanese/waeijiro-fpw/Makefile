@@ -1,5 +1,3 @@
-# Created by: Satoshi Taoka <taoka@FreeBSD.org>
-
 PORTNAME=	waeijiro-fpw
 PORTVERSION=	1.1
 PORTREVISION=	6
@@ -10,6 +8,7 @@ MASTER_SITES=	http://www.dsl.gr.jp/~tf/pool/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	WAEIJIRO English - Japanese Dictionary (EPWING V1 format)
+WWW=		https://www.dsl.gr.jp/~tf/
 
 # Converted from RESTRICTED
 LICENSE=	waeijiro
@@ -43,7 +42,7 @@ SOURCE_FILE=	${WRKDIR}/${SRCFILE}
 .endif
 MAKE_ARGS+=	SRC_DICT=${SOURCE_FILE:Q}
 
-OPTIONS_DEFINE= DOCS
+OPTIONS_DEFINE=	DOCS
 
 .include <bsd.port.options.mk>
 

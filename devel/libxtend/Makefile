@@ -1,10 +1,10 @@
 PORTNAME=	libxtend
-DISTVERSION=	0.1.2-25
-DISTVERSIONSUFFIX=	-ge629d47
+DISTVERSION=	0.1.9
 CATEGORIES=	devel
 
 MAINTAINER=	jwb@FreeBSD.org
 COMMENT=	Miscellaneous functions to extend libc
+WWW=		https://github.com/outpaddling/libxtendc
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

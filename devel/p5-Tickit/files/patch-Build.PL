@@ -1,11 +1,11 @@
---- Build.PL.orig	2020-05-25 11:01:56 UTC
+--- Build.PL.orig	2022-08-26 14:37:31 UTC
 +++ Build.PL
-@@ -27,8 +27,6 @@ my $build = Module::Build::Using::PkgConfig->new(
+@@ -28,8 +28,6 @@ my $build = Module::Build::Using::PkgConfig->new(
  
  $build->use_pkgconfig( "tickit",
-    atleast_version => "0.4.0",
+    atleast_version => "0.4.3",
 -   alien         => "Alien::libtickit",
--   alien_version => "0.09",
+-   alien_version => "0.13",  # includes 0.4.2a bugfix
  );
  
  $build->create_build_script;

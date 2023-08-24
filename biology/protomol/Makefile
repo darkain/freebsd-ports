@@ -1,14 +1,13 @@
-# Created by: Sangwoo Shim <sangwoos@gmail.com>
-
 PORTNAME=	protomol
 PORTVERSION=	2.0.3
-PORTREVISION=	14
+PORTREVISION=	15
 CATEGORIES=	biology
 MASTER_SITES=	SF/${PORTNAME}/ProtoMol/${PORTVERSION}
 DISTFILES=	${DISTNAME}-tar.gz
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OO, component based, framework for molecular dynamics (MD) simulations
+WWW=		http://protomol.sourceforge.net/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE

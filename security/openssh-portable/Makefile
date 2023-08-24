@@ -1,7 +1,5 @@
-# Created by: dwcjr@inethouston.net
-
 PORTNAME=	openssh
-DISTVERSION=	8.6p1
+DISTVERSION=	9.3p2
 PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	security
@@ -10,15 +8,16 @@ PKGNAMESUFFIX?=	-portable
 
 MAINTAINER=	bdrewery@FreeBSD.org
 COMMENT=	The portable version of OpenBSD's OpenSSH
+WWW=		https://www.openssh.com/portable.html
 
 LICENSE=	OPENSSH
 LICENSE_NAME=	OpenSSH Licenses
 LICENSE_FILE=	${WRKSRC}/LICENCE
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-CONFLICTS?=		openssh-3.* ssh-1.* ssh2-3.* openssh-portable-devel-*
+CONFLICTS?=		openssh-3.* ssh-1.* ssh2-3.* openssh-portable-devel
 
-USES=			alias autoreconf compiler:c11 localbase ncurses \
+USES=			alias autoreconf compiler:c11 cpe localbase ncurses \
 			pkgconfig ssl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix=${PREFIX} \
@@ -27,6 +26,8 @@ CONFIGURE_ARGS=		--prefix=${PREFIX} \
 			--with-Werror
 
 ETCOLD=			${PREFIX}/etc
+
+CPE_VENDOR=		openbsd
 
 FLAVORS=			default hpn gssapi
 default_CONFLICTS_INSTALL=	openssh-portable-hpn openssh-portable-gssapi \
@@ -65,6 +66,8 @@ BLACKLISTD_DESC=	FreeBSD blacklistd(8) support
 
 OPTIONS_SUB=		yes
 
+PAM_EXTRA_PATCHES=	${FILESDIR}/extra-patch-pam-sshd_config
+
 TCP_WRAPPERS_EXTRA_PATCHES=${FILESDIR}/extra-patch-tcpwrappers
 
 LDNS_CONFIGURE_WITH=	ldns=${LOCALBASE}
@@ -87,8 +90,6 @@ BSM_CONFIGURE_ON=	--with-audit=bsm
 FIDO_U2F_LIB_DEPENDS=	libfido2.so:security/libfido2
 FIDO_U2F_CONFIGURE_ON=	--with-security-key-builtin
 FIDO_U2F_CONFIGURE_OFF=	--disable-security-key
-# Until https://reviews.freebsd.org/D27289 is committed
-FIDO_U2F_EXTRA_PATCHES=	${FILESDIR}/extra-patch-libfido2-configure.ac
 
 BLACKLISTD_EXTRA_PATCHES=	${FILESDIR}/extra-patch-blacklistd
 
@@ -107,14 +108,16 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-hpn-gss-glue
 .  endif
 # - See https://sources.debian.org/data/main/o/openssh/ for which subdir to
 # pull from.
-GSSAPI_DEBIAN_SUBDIR=	${DISTVERSION}-2
+GSSAPI_DEBIAN_VERSION=	9.2p1
+GSSAPI_DEBIAN_SUBDIR=	${GSSAPI_DEBIAN_VERSION:U${DISTVERSION}}-2
 # - Debian does not use a versioned filename so we trick fetch to make one for
 # us with the ?<anything>=/ trick.
 PATCH_SITES+=	https://sources.debian.org/data/main/o/openssh/1:${GSSAPI_DEBIAN_SUBDIR}/debian/patches/gssapi.patch?dummy=/:gsskex
 # Bump this when updating the patch location
-GSSAPI_UPDATE_DATE=	20200607
-PATCHFILES+=	openssh-${DISTVERSION}-gsskex-all-20141021-debian-rh-${GSSAPI_UPDATE_DATE}.patch:-p1:gsskex
-EXTRA_PATCHES+=	${FILESDIR}/extra-patch-gssapi-sshconnect2.c
+GSSAPI_UPDATE_DATE=	20220203
+#GSSAPI_DISTVERSION=	9.0p1
+PATCHFILES+=	openssh-${GSSAPI_DISTVERSION:U${DISTVERSION}}-gsskex-all-20141021-debian-rh-${GSSAPI_UPDATE_DATE}.patch:-p1:gsskex
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-gssapi-auth2-gss.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-gssapi-kexgssc.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-gssapi-kexgsss.c
 .endif
@@ -189,10 +192,15 @@ VERSION_ADDENDUM_DEFAULT?=	${OPSYS}-${PKGNAME}
 CFLAGS+=	${CFLAGS_${CHOSEN_COMPILER_TYPE}}
 CFLAGS_gcc=	-Wno-stringop-truncation -Wno-stringop-overflow
 
+SSH_ASKPASS_PATH?=	${LOCALBASE}/bin/ssh-askpass
+
 post-patch:
 	@${REINPLACE_CMD} \
 	    -e 's|install: \(.*\) host-key check-config|install: \1|g' \
 	    ${WRKSRC}/Makefile.in
+	@${REINPLACE_CMD} \
+	    -e 's|$$[{(]libexecdir[})]/ssh-askpass|${SSH_ASKPASS_PATH}|' \
+	    ${WRKSRC}/Makefile.in ${WRKSRC}/configure.ac
 	@${REINPLACE_CMD} \
 	    -e 's|\(VersionAddendum\) none|\1 ${VERSION_ADDENDUM_DEFAULT}|' \
 	    ${WRKSRC}/sshd_config

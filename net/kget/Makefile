@@ -1,23 +1,22 @@
 PORTNAME=	kget
 DISTVERSION=	${KDE_APPLICATIONS_VERSION}
-PORTREVISION=	1
 CATEGORIES=	net kde kde-applications
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	KDE download manager
 
 BUILD_DEPENDS=	${LOCALBASE}/include/boost/concept_check.hpp:devel/boost-libs
-LIB_DEPENDS=    libKF5Torrent.so:net-p2p/libktorrent  \
+LIB_DEPENDS=	libKF5Torrent.so:net-p2p/libktorrent  \
 		libassuan.so:security/libassuan \
 		libgcrypt.so:security/libgcrypt \
 		libgmp.so:math/gmp \
 		libgpg-error.so:security/libgpg-error \
 		libgpgme.so:security/gpgme \
 		libgpgmepp.so:security/gpgme-cpp \
-		libqgpgme.so:security/gpgme-qt5
+		libqgpgme.so:security/gpgme-qt@qt5
 
 USES=		cmake compiler:c++11-lang desktop-file-utils kde:5 qca qt:5 \
-		shebangfix sqlite tar:xz
+		shebangfix sqlite tar:xz xorg
 
 USE_KDE=	archive auth bookmarks codecs completion config configwidgets \
 		coreaddons crash dbusaddons emoticons guiaddons i18n \
@@ -25,15 +24,16 @@ USE_KDE=	archive auth bookmarks codecs completion config configwidgets \
 		kdelibs4support kio notifications notifyconfig parts service \
 		solid sonnet textwidgets unitconversion wallet widgetsaddons \
 		windowsystem xmlgui \
-		ecm_build
+		ecm:build
 USE_QT=		concurrent core dbus gui network printsupport sql widgets xml \
-		buildtools_build qmake_build testlib_build
-
+		buildtools:build qmake:build testlib:build
+USE_XORG=	x11
 USE_LDCONFIG=	yes
-SHEBANG_FILES=	conf/*.pl
 
 MAKE_ENV=	XDG_CONFIG_HOME=/dev/null
 CONFIGURE_ENV=	XDG_CONFIG_HOME=/dev/null
+
+CONFLICTS_INSTALL=	sra-tools # bin/kget
 
 OPTIONS_DEFINE=	DOCS WORKSPACE
 OPTIONS_DEFAULT=	WORKSPACE

@@ -1,10 +1,10 @@
 PORTNAME=	hspec-discover
-PORTVERSION=	2.7.8
-PORTREVISION=	1
+PORTVERSION=	2.10.10
 CATEGORIES=	devel haskell
 
 MAINTAINER=	haskell@FreeBSD.org
 COMMENT=	Automatically discover and run Hspec tests
+WWW=		https://hspec.github.io/
 
 LICENSE=	MIT
 

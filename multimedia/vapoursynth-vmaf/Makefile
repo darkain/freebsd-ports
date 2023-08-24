@@ -3,8 +3,9 @@ DISTVERSION=	r7
 CATEGORIES=	multimedia
 PKGNAMEPREFIX=	vapoursynth-
 
-MAINTAINER=	jbeich@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Video Multi-Method Assessment Fusion plugin for VapourSynth
+WWW=		https://github.com/HomeOfVapourSynthEvolution/VapourSynth-VMAF
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -20,11 +21,6 @@ DATADIR=	${PREFIX}/lib/vapoursynth
 DOCSDIR=	${PREFIX}/share/doc/${PKGBASE}
 PORTDATA=	lib${PORTNAME}.so
 PORTDOCS=	*.md
-
-.if exists(/usr/bin/ld.lld) && ${/usr/bin/ld:L:tA} != /usr/bin/ld.lld
-# --plugin isn't supported by old GNU ld.bfd in base
-LDFLAGS+=	-fuse-ld=lld
-.endif
 
 OPTIONS_DEFINE=	DOCS
 

@@ -1,10 +1,10 @@
 PORTNAME=	scs
-DISTVERSIONPREFIX=	v
-DISTVERSION=	2.1.3
+DISTVERSION=	3.2.3
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Solver of convex cone problems via operator splitting
+WWW=		https://github.com/cvxgrp/scs
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt

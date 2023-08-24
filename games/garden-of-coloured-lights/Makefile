@@ -7,6 +7,7 @@ DISTNAME=	garden-${PORTVERSION}
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Old school 2D vertical shoot-em-up with some innovative elements
+WWW=		http://garden.sourceforge.net/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -15,7 +16,6 @@ LIB_DEPENDS=	liballeg.so:devel/allegro
 
 GNU_CONFIGURE=	yes
 USES=		desktop-file-utils gnome localbase
-INSTALLS_ICONS=	yes
 
 DATADIR=	${PREFIX}/share/garden
 

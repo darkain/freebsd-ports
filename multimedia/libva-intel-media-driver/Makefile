@@ -1,29 +1,34 @@
 PORTNAME=	media-driver
 DISTVERSIONPREFIX=	intel-media-
-DISTVERSION=	21.2.3
+DISTVERSION=	22.4.3
+PORTREVISION=	1
 CATEGORIES=	multimedia
 PKGNAMEPREFIX=	libva-intel-
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
-PATCHFILES+=	2bd42cddbe7c.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	0ef9d7bd97ac.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	b7b1ffbc5323.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	68360a8a07a0.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	c32a4a263b2d.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	79a852a14d7a.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	99a9f233a171.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	0c01a2d56aa2.patch:-p1 # https://github.com/intel/media-driver/pull/819
-PATCHFILES+=	bf8cbb1a04ea.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	7debae1bd149.patch:-p1 # https://github.com/intel/media-driver/pull/1492
+PATCHFILES+=	3ee693b2bad3.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	a4313cae8533.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	4980335d82c4.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	fcfc4431f4b7.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	77382f10e352.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	4440a982d235.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	8249202403a4.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	ab1209a220eb.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	acf5314930d3.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	9acd334c50a7.patch:-p1 # https://github.com/intel/media-driver/pull/819
+PATCHFILES+=	a338a45f0675.patch:-p1 # https://github.com/intel/media-driver/pull/819
 
-MAINTAINER=	jbeich@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	VAAPI driver for Intel HD 5000 (Gen8) or newer
+WWW=		https://01.org/intel-media-for-linux
 
 LICENSE=	MIT BSD3CLAUSE
 LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 ONLY_FOR_ARCHS=	amd64 i386
-ONLY_FOR_ARCHS_REASON=	Only Intel GPUs on x86 are supported
+ONLY_FOR_ARCHS_REASON=	only Intel GPUs on x86 are supported
 
 BUILD_DEPENDS=	gmmlib>=19.3.1:multimedia/gmmlib \
 		libva>=2.7.0:multimedia/libva

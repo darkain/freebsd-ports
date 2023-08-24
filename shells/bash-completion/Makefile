@@ -1,12 +1,12 @@
-# Created by: kirk@strauser.com
-
 PORTNAME=	bash-completion
 PORTVERSION=	2.11
+PORTREVISION=	2
 PORTEPOCH=	2
 CATEGORIES=	shells
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Programmable completion library for Bash
+WWW=		https://github.com/scop/bash-completion
 
 # bash-completion is licensed under GPLv2+
 # bash-completion-freebsd is licensed under BSD2CLAUSE
@@ -28,7 +28,7 @@ SUB_LIST=	RUNFILE=${DATADIR}/bash_completion.sh
 
 GH_ACCOUNT=	scop
 USE_GITHUB=	yes
-GH_TUPLE=	0mp:bash-completion-freebsd:1.1.1:freebsd/freebsd
+GH_TUPLE=	0mp:bash-completion-freebsd:1.2.0:freebsd/freebsd
 
 PORTSCOUT=	limit:^[0-9\.]*$$
 
@@ -62,6 +62,7 @@ post-configure:
 
 post-install:
 	cd ${WRKSRC}/freebsd/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS}
+	${RM} ${STAGEDIR}${DATADIR}/completions/makepkg
 
 post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/

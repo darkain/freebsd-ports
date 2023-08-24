@@ -1,14 +1,12 @@
-# Created by: Christer Edwards <christer.edwards@gmail.com>
-
 PORTNAME=	salt
-PORTVERSION=	3003.1
-PORTREVISION=	1
+PORTVERSION=	3006.2
 CATEGORIES=	sysutils python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	christer.edwards@gmail.com
+MAINTAINER=	krion@FreeBSD.org
 COMMENT=	Distributed remote execution and configuration management system
+WWW=		https://pypi.org/project/salt/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -22,9 +20,12 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}Jinja2>0:devel/py-Jinja2@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}psutil>=0.3.0:sysutils/py-psutil@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=1.0.0:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}yaml>0:devel/py-yaml@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pyinotify>0:devel/py-pyinotify@${PY_FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}jmespath>0:devel/py-jmespath@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pyinotify>0:devel/py-pyinotify@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}looseversion>0:devel/py-looseversion@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}packaging>0:devel/py-packaging@${PY_FLAVOR}
 
-USES=		cpe python:3.6-3.8
+USES=		cpe python:3.8-3.10
 
 CPE_VENDOR=	saltstack
 CPE_PRODUCT=	salt
@@ -61,8 +62,8 @@ SUB_FILES=	pkg-message
 # Upstream archive contains files with UTF-8 names
 EXTRACT_CMD=	${SETENV} LC_ALL=en_US.UTF-8 /usr/bin/bsdtar
 
-OPTIONS_DEFINE=	AWS BASH TCP ZEROMQ ZSH
-OPTIONS_DEFAULT=	BASH ZEROMQ ZSH
+OPTIONS_DEFINE=	AWS BASH FISH TCP ZEROMQ ZSH
+OPTIONS_DEFAULT=	BASH FISH ZEROMQ ZSH
 
 AWS_DESC=	Install dependencies required for Amazon Web Services
 TCP_DESC=	Install dependencies required for TCP transport
@@ -80,6 +81,15 @@ ZEROMQ_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyzmq>=2.2.0:net/py-pyzmq@${PY_FLAVOR
 			${PYTHON_PKGNAMEPREFIX}pycryptodomex>=3.9.7:security/py-pycryptodomex@${PY_FLAVOR}
 
 BASH_PLIST_FILES=	share/bash-completion/completions/salt
+FISH_PLIST_FILES=	share/fish/completions/salt-call.fish \
+					share/fish/completions/salt-cp.fish \
+					share/fish/completions/salt-key.fish \
+					share/fish/completions/salt-master.fish \
+					share/fish/completions/salt-minion.fish \
+					share/fish/completions/salt-run.fish \
+					share/fish/completions/salt-syndic.fish \
+					share/fish/completions/salt.fish \
+					share/fish/completions/salt_common.fish
 ZSH_PLIST_FILES=	share/zsh/site-functions/_salt
 
 post-patch:
@@ -95,12 +105,17 @@ post-patch:
 
 do-install-BASH-on:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/bash-completion/completions/
-	${INSTALL_DATA} ${WRKSRC}/pkg/salt.bash \
+	${INSTALL_DATA} ${WRKSRC}/pkg/common/salt.bash \
 		${STAGEDIR}${PREFIX}/share/bash-completion/completions/salt
+
+do-install-FISH-on:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/fish/completions/
+	${INSTALL_DATA} ${WRKSRC}/pkg/common/fish-completions/*.fish \
+		${STAGEDIR}${PREFIX}/share/fish/completions
 
 do-install-ZSH-on:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/zsh/site-functions
-	${INSTALL_DATA} ${WRKSRC}/pkg/zsh_completion.zsh \
+	${INSTALL_DATA} ${WRKSRC}/pkg/common/salt.zsh \
 		${STAGEDIR}${PREFIX}/share/zsh/site-functions/_salt
 
 post-install:

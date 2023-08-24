@@ -18,18 +18,23 @@ Caused by:
                at /wrkdirs/usr/ports/lang/rust/work/rustc-1.51.0-src/library/core/src/ops/function.rs:227:5
   note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
 
---- build.rs.orig	2021-03-27 02:26:03 UTC
+--- build.rs.orig	2022-11-30 13:32:16 UTC
 +++ build.rs
-@@ -174,12 +174,6 @@ fn build_asm_files() {
+@@ -221,17 +221,6 @@ fn rustc_version_check() {
  }
  
  fn rustc_version_check() {
 -  // This should match the version in the CI
--  const REQUIRED_VERSION: &str = "1.44.1";
+-  // Make sure to updated README.md when this changes.
+-  const REQUIRED_VERSION: &str = "1.60.0";
 -  if version().unwrap() < Version::parse(REQUIRED_VERSION).unwrap() {
 -    eprintln!("rav1e requires rustc >= {}.", REQUIRED_VERSION);
 -    exit(1);
 -  }
+-
+-  if version_meta().unwrap().channel == Channel::Nightly {
+-    println!("cargo:rustc-cfg=nightly_rustc");
+-  }
  }
  
- #[cfg(feature = "asm")]
+ #[allow(unused_variables)]

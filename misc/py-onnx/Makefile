@@ -1,25 +1,27 @@
 PORTNAME=	onnx
-DISTVERSION=	1.9.0
+DISTVERSION=	1.14.0
 CATEGORIES=	misc # machine-learning
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Open Neural Network eXchange
+WWW=		https://onnx.ai/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	bash:shells/bash \
-		cmake:devel/cmake \
+		cmake:devel/cmake-core \
 		protoc-gen-mypy:devel/py-mypy-protobuf@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pybind11>0:devel/py-pybind11@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytest-runner>=0:devel/py-pytest-runner@${PY_FLAVOR}
 LIB_DEPENDS=	libprotobuf.so:devel/protobuf
 RUN_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}typing-extensions>=3.6.2.1:devel/py-typing-extensions@${PY_FLAVOR}
 
-USES=		compiler:c11 python:3.6+ shebangfix
+USES=		compiler:c11 python shebangfix
 USE_PYTHON=	distutils concurrent autoplist
 
 SHEBANG_FILES=	tools/protoc-gen-mypy.sh.in

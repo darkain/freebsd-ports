@@ -1,5 +1,3 @@
-# Created by: Yuri Victorovich <yuri@rawbw.com>
-
 PORTNAME=	zeronet
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.7.1
@@ -8,6 +6,7 @@ CATEGORIES=	security net-p2p
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Decentralized websites using Bitcoin crypto and BitTorrent network
+WWW=		https://zeronet.io/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -32,7 +31,7 @@ PLIST_SUB=	USER=${USER} GROUP=${GROUP}
 
 # ZeroNet hasn't been ported to Python 3 yet
 # https://github.com/HelloZeroNet/ZeroNet/issues/149
-USES=		python:3.6+ shebangfix
+USES=		python shebangfix
 SHEBANG_FILES=	zeronet.py
 USE_GITHUB=	yes
 GH_ACCOUNT=	HelloZeroNet

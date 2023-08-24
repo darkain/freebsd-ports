@@ -1,10 +1,10 @@
 # This port opens too many files during build, more than the default setting.
-# Its build is known to succeed with MAX_FILES_RStudio=4096 and MAX_FILES_RStudio_server=4096 in poudriere.conf
+# Its build is known to succeed with MAX_FILES_RStudio=4096 in poudriere.conf
 
 PORTNAME=	RStudio
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.4.1717
-PORTREVISION=	1
+DISTVERSION=	2022.12.0+353
+PORTREVISION=	3
 CATEGORIES=	devel math java
 MASTER_SITES=	https://s3.amazonaws.com/rstudio-buildtools/dictionaries/:dictionaries \
 		https://s3.amazonaws.com/rstudio-buildtools/:buildtools
@@ -15,8 +15,9 @@ DISTFILES=	core-dictionaries.zip:dictionaries \
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Integrated development environment (IDE) for R
+WWW=		https://rstudio.com/
 
-LICENSE=	GPLv3
+LICENSE=	AGPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 BROKEN_i386=	[ERROR] Line 101: Failed to resolve 'org.rstudio.studio.client.workbench.views.vcs.common.diff.LineActionButtonRenderer.GrayResources' via deferred binding
@@ -39,8 +40,9 @@ server_PKGNAMESUFFIX=	-server
 
 USES=		cmake fortran localbase:ldflags pgsql pkgconfig sqlite ssl
 USE_JAVA=	yes
-JAVA_VERSION=	8
+JAVA_VERSION=	11 # Java 8 fails on aarch64: Internal Error (assembler_aarch64.hpp:237), pid=1644, tid=0x00000000000c62b6 guarantee(val < (1U << nbits)) failed: Field too big for insn
 JAVA_BUILD=	yes
+
 USE_GITHUB=	yes
 GH_PROJECT=	${PORTNAME:tl}
 GH_TUPLE=	rstudio:r2d3:v0.2.0:r2d3/dependencies/common/r2d3 \
@@ -60,17 +62,16 @@ MAKE_ENV=	HOME=${WRKDIR} \
 		JAVA_HOME=${JAVA_HOME} \
 		PATH=${JAVA_HOME}/bin:${PATH} \
 		ANT_OPTS="-Duser.home=${WRKDIR}"
+LDFLAGS+=	-lexecinfo
 
 GWT_VERSION=	2.8.1
 GIN_VERSION=	2.1.2
 
 .if ${FLAVOR:U} == desktop
-DEPRECATED=	Uses EOL Python 2.7 via www/qt5-webengine
-EXPIRATION_DATE=2021-06-23
 COMMENT+=	(desktop UI version)
 USES+=		desktop-file-utils qt:5 shared-mime-info
 USE_QT=		core dbus declarative gui location network opengl printsupport quickcontrols sensors \
-		sql svg webchannel webengine webkit widgets xml xmlpatterns buildtools_build qmake_build
+		sql svg webchannel webengine webkit widgets xml xmlpatterns buildtools:build qmake:build
 CMAKE_ARGS+=	-DRSTUDIO_TARGET=Desktop
 INSTALL_SUBDIR=	${PORTNAME:tl}
 EXECUTABLE=	${PORTNAME:tl}
@@ -86,6 +87,12 @@ USER=		nobody
 SUB_LIST=	USER=${USER}
 USE_RC_SUBR=	${PORTNAME:tl}-server
 .endif
+
+OPTIONS_DEFINE=		WITH_QUARTO
+
+WITH_QUARTO_DESC=	Build with support for Quarto
+WITH_QUARTO_CMAKE_BOOL=	FREEBSD_QUARTO_ENABLED
+WITH_QUARTO_BROKEN=	Quarto isn't yet ported
 
 post-extract:
 	@${MKDIR} ${WRKSRC}/dependencies/dictionaries && ${MV} ${WRKDIR}/en_* ${WRKSRC}/dependencies/dictionaries/
@@ -128,7 +135,7 @@ post-install:
 	) > ${STAGEDIR}${PREFIX}/bin/${EXECUTABLE}
 	@${CHMOD} +x ${STAGEDIR}${PREFIX}/bin/${EXECUTABLE}
 .if ${FLAVOR:U} == desktop
-	${REINPLACE_CMD} -e 's|^Exec=.*/rstudio|Exec=${PREFIX}/bin/${EXECUTABLE}|' ${STAGEDIR}${PREFIX}/share/applications/${EXECUTABLE}.desktop
+	${REINPLACE_CMD} -i '' -e 's|^Exec=.*/rstudio|Exec=${PREFIX}/bin/${EXECUTABLE}|' ${STAGEDIR}${PREFIX}/share/applications/${EXECUTABLE}.desktop
 .endif
 .if ${FLAVOR:U} == server
 	${RM} ${STAGEDIR}${LOCALBASE}/lib/${INSTALL_SUBDIR}/bin/rstudio-server # not compatible with FreeBSD
@@ -136,6 +143,12 @@ post-install:
 	# Some functions expect the pandoc symlink.
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/${INSTALL_SUBDIR}/bin/pandoc
 	@cd ${STAGEDIR}${PREFIX}/lib/${INSTALL_SUBDIR}/bin/pandoc && ${LN} -s ../../../../bin/pandoc
+	# Add $LOCALBASE/bin to PATH to allow RStudio-server to run gmake (R_HOME/etc/Renviron.site is installed, see https://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html)
+.if ${FLAVOR:U} == server
+	#@${MKDIR} ${STAGEDIR}${LOCALBASE}/lib/R/etc
+	#@${ECHO} "PATH=\"${LOCALBASE}/bin:\$$PATH\"" > ${STAGEDIR}${LOCALBASE}/lib/R/etc/Renviron.site # it should be this way, but this fails: https://github.com/rstudio/rstudio/issues/9815
+	@${LN} -s ${LOCALBASE}/bin/${GMAKE} ${STAGEDIR}${PREFIX}/lib/rstudio-server/bin/postback/${GMAKE} # hack, should be as above, but at least gmake is in the path now
+.endif
 	# There is a variability in .js file names due to use of random numbers, so we use the automatic plist.
 	@${SETENV} ${CO_ENV} ${SH} ${SCRIPTSDIR}/check-stagedir.sh makeplist | ${GREP} -v ^\/ | ${SED} -e 's|%%WWWDIR%%|www/rstudio| ; s|%%CMAKE_BUILD_TYPE%%|${CMAKE_BUILD_TYPE:tl}|' > ${TMPPLIST}
 

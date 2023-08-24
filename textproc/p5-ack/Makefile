@@ -1,7 +1,5 @@
-# Created by: chinsan <chinsan.tw@gmail.com>
-
 PORTNAME=	ack
-PORTVERSION=	3.5.0
+PORTVERSION=	3.7.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	textproc sysutils perl5
 MASTER_SITES=	CPAN
@@ -10,6 +8,8 @@ PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Grep-like text finder for large trees of text
+WWW=		https://metacpan.org/release/ack \
+		https://beyondgrep.com/
 
 LICENSE=	ART20
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
@@ -24,7 +24,7 @@ USE_PERL5=	configure
 
 NO_ARCH=	yes
 
-CONFLICTS_INSTALL=	ja-ack-[0-9]*
+CONFLICTS_INSTALL=	ja-ack
 
 CPE_VENDOR=	beyondgrep
 

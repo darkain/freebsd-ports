@@ -6,10 +6,12 @@ CATEGORIES=	sysutils
 
 MAINTAINER=	michel@boaventura.dev
 COMMENT=	Faster way to navigate your filesystem
+WWW=		https://github.com/wting/autojump
 
 LICENSE=	GPLv3+
 
-USES=	python:run shebangfix
+USES=	cpe python:run shebangfix
+CPE_VENDOR=	${PORTNAME}_project
 USE_GITHUB=	yes
 GH_ACCOUNT=	wting
 USE_PYTHON=	concurrent autoplist

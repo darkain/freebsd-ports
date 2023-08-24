@@ -1,5 +1,3 @@
-# Created by: Alex Semenyaka <alex@rinet.ru>
-
 PORTNAME=	strace
 PORTVERSION=	4.5.18
 PORTREVISION=	1
@@ -8,12 +6,14 @@ MASTER_SITES=	SF
 
 MAINTAINER=	sbz@FreeBSD.org
 COMMENT=	System call tracer
+WWW=		https://sourceforge.net/projects/strace/
 
 LICENSE=	BSD3CLAUSE
 
-USES=		shebangfix perl5 tar:bzip2	# perl5 for strace-graph
+USES=		cpe shebangfix perl5 tar:bzip2	# perl5 for strace-graph
 GNU_CONFIGURE=	yes
 ONLY_FOR_ARCHS=	i386
+CPE_VENDOR=	strace_project
 
 SHEBANG_FILES=	strace-graph
 

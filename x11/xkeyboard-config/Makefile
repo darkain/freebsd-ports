@@ -1,15 +1,17 @@
 PORTNAME=	xkeyboard-config
-PORTVERSION=	2.32
+DISTVERSION=	2.34
+PORTREVISION=	2
 CATEGORIES=	x11
 MASTER_SITES=	XORG/individual/data/${PORTNAME}
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X Keyboard Configuration Database
+WWW=		https://freedesktop.org/wiki/Software/XKeyboardConfig/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gmake gnome localbase pathfix perl5 python:3.5+,build \
+USES=		gmake gnome localbase pathfix perl5 python:build \
 		shebangfix xorg-cat:data
 
 NO_ARCH=	yes

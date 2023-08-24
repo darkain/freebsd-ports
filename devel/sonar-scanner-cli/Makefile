@@ -1,26 +1,26 @@
 PORTNAME=	sonar-scanner-cli
 DISTVERSION=	4.4.0.2170
-PORTREVISION=	0
+PORTREVISION=	4
 CATEGORIES=	devel security www java
 MASTER_SITES=	https://binaries.sonarsource.com/Distribution/${PORTNAME}/
 
 MAINTAINER=	netchild@FreeBSD.org
 COMMENT=	Scanner component of SonarQube
+WWW=		https://www.sonarqube.org/
 
 LICENSE=	LGPL3
 
 # node -> JS analysis
-RUN_DEPENDS=	node:www/node
-
-USES=		cpe zip
+USES=		cpe nodejs:run zip
 CPE_VENDOR=	sonarsource
+CPE_PRODUCT=	sonarqube_scanner
 USE_JAVA=	yes
 
 WRKSRC=		${WRKDIR}/sonar-scanner-${DISTVERSION}
 
 NO_ARCH=	yes
 NO_BUILD=	yes
-JAVA_VERSION=	11+
+JAVA_VERSION=	17+
 JAVA_VENDOR=	openjdk
 
 APP_NAME=	${PORTNAME}

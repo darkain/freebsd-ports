@@ -1,5 +1,3 @@
-# Created by: Chadwick Sorrell chad@wickdev.com
-
 PORTNAME=	awffull
 PORTVERSION=	3.10.2
 PORTREVISION=	18
@@ -7,10 +5,14 @@ CATEGORIES?=	www
 MASTER_SITES=	https://launchpadlibrarian.net/20395993/
 
 MAINTAINER?=	ports@FreeBSD.org
-COMMENT=	Webserver log analysis tool forked from Webalizer
+COMMENT=	Web server log analysis tool forked from Webalizer
+WWW=		http://www.stedee.id.au/awffull
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+DEPRECATED=	Abandonware, last release in 14+ years ago. Consider using www/awstats
+EXPIRATION_DATE=2023-09-30
 
 BUILD_DEPENDS=	${LOCALBASE}/share/fonts/bitstream-vera/Vera.ttf:x11-fonts/bitstream-vera
 LIB_DEPENDS=	libgd.so:graphics/gd \
@@ -18,7 +20,7 @@ LIB_DEPENDS=	libgd.so:graphics/gd \
 		libpcre.so:devel/pcre
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-CONFLICTS?=	ja-awffull-[0-9]*
+CONFLICTS?=	ja-awffull
 
 FONTDEFAULT?=	${LOCALBASE}/share/fonts/bitstream-vera/VeraBd.ttf
 FONTLABEL?=	${LOCALBASE}/share/fonts/bitstream-vera/Vera.ttf

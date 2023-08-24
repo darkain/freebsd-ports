@@ -1,12 +1,12 @@
-# Created by: kbyanc@posi.net
-
 PORTNAME=	grip
-DISTVERSION=	4.2.2
+DISTVERSION=	4.2.4
+PORTREVISION=	2
 CATEGORIES=	audio
 MASTER_SITES=	SF/grip/${DISTVERSION}
 
 MAINTAINER=	freebsd-ports@jan0sch.de
 COMMENT=	GTK front-end to external cd rippers and audio encoders
+WWW=		https://sourceforge.net/projects/grip/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -19,11 +19,12 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 USES=		compiler:c++11-lang gmake gnome libtool localbase pathfix \
 		pkgconfig xorg
 USE_GNOME=	cairo gdkpixbuf2 gtk20
-INSTALLS_ICONS=	yes
 USE_XORG=	ice sm x11 xext
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-werror
+
+CONFLICTS_INSTALL=	py*-grip # bin/grip
 
 OPTIONS_DEFINE=		CDDA2WAV CDPARANOIA FAAC FLAC LAME NLS VORBIS
 OPTIONS_DEFAULT=	CDPARANOIA FLAC VORBIS
@@ -49,8 +50,6 @@ DEFAULT_CDROM_DEVICE=	${WITH_CDROM_DEVICE}
 DEFAULT_CDROM_DEVICE=	/dev/cd0
 .endif
 
-.include <bsd.port.pre.mk>
-
 pre-everything::
 .if !defined(WITH_CDROM_DEVICE)
 	@${ECHO_MSG} "===> The default CDROM device is ${DEFAULT_CDROM_DEVICE}"
@@ -61,8 +60,5 @@ pre-everything::
 post-patch:
 	@${REINPLACE_CMD} -e 's|/dev/cdrom|${DEFAULT_CDROM_DEVICE}|' \
 		${WRKSRC}/src/grip.c
-.if ${CHOSEN_COMPILER_TYPE} == gcc && ${COMPILER_VERSION} <= 42
-	${REINPLACE_CMD} -e '/pragma/d' ${WRKSRC}/src/cdpar.c
-.endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

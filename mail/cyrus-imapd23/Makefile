@@ -7,19 +7,22 @@ PKGNAMESUFFIX=	23
 
 MAINTAINER=	ume@FreeBSD.org
 COMMENT=	Cyrus mail server, supporting POP3 and IMAP4 protocols
+WWW=		https://www.cyrusimap.org/
 
 LICENSE=	BSD4CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
+DEPRECATED=	No longer supported by upstream
+EXPIRATION_DATE=2023-09-15
+
 LIB_DEPENDS=	libsasl2.so:security/cyrus-sasl2 \
 		libpcre.so:devel/pcre
 
-CONFLICTS_INSTALL=	cyrus-imapd-2.[^3].* cyrus-imapd2[^3]-2.[^3].* \
-			cyrus-imapd3*
+CONFLICTS_INSTALL=	cyrus-imapd2? cyrus-imapd3? cyrus-imapd3?-http
 
 USE_RC_SUBR=	imapd
 
-USES=		cpe perl5 ssl
+USES=		compiler cpe perl5 ssl
 GNU_CONFIGURE=	yes
 CYRUS_PREFIX=	${PREFIX}/cyrus
 CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc \
@@ -52,7 +55,7 @@ BDB_CONFIGURE_ON=	--with-bdb-incdir=${BDB_INCLUDE_DIR} \
 IDLED_DESC=		Enable IMAP idled support
 IDLED_CONFIGURE_ENABLE=	idled
 LDAP_PTLOADER_DESC=	Enable LDAP ptloader
-LDAP_PTLOADER_USE=	OPENLDAP=yes
+LDAP_PTLOADER_USES=	ldap
 LDAP_PTLOADER_CONFIGURE_ON=--with-ldap=${LOCALBASE}
 LISTEXT_DESC=		Enable IMAP List extensions
 LISTEXT_CONFIGURE_ENABLE=listext
@@ -124,14 +127,18 @@ CONFS=		cmu-backend.conf cmu-frontend.conf normal.conf prefork.conf \
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MBDB}
-INVALID_BDB_VER=2
-.else
+.if empty(${PORT_OPTIONS:MBDB})
 BDB_LIB_NAME=	no
 .endif
 
 .if !exists(/usr/lib/libkrb5.a)
 CONFIGURE_ARGS+=--disable-gssapi
+.endif
+
+.include <bsd.port.pre.mk>
+
+.if ${CHOSEN_COMPILER_TYPE} == clang && ${COMPILER_VERSION} >= 160
+IGNORE=		does not build with llvm 16
 .endif
 
 post-patch:
@@ -184,4 +191,4 @@ post-install-EXAMPLES-on:
 	@${ECHO_CMD} ${EXAMPLESDIR:S,^${PREFIX}/,,}/${f} >>${TMPPLIST}
 .endfor
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

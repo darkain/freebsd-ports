@@ -1,13 +1,13 @@
-# Created by: Christopher Knaust <jigboe@gmx.de>
-
 PORTNAME=	surf
 DISTVERSION=	2.1
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://dl.suckless.org/${PORTNAME}/
 PKGNAMESUFFIX=	-browser
 
 MAINTAINER=	dmgk@FreeBSD.org
 COMMENT=	Simple Web browser based on WebKit2/GTK+
+WWW=		https://surf.suckless.org
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -19,9 +19,11 @@ RUN_DEPENDS=	dmenu:x11/dmenu \
 		curl:ftp/curl \
 		xterm:x11/xterm
 
-USES=		compiler:c11 gnome pkgconfig xorg
+USES=		compiler:c11 cpe gnome pkgconfig xorg
 USE_GNOME=	gtk30 pango cairo gdkpixbuf2
 USE_XORG=	x11
+
+CPE_VENDOR=	suckless
 
 CONFLICTS=	surf-1* # math/surf
 

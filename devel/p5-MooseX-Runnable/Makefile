@@ -1,13 +1,13 @@
-# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
-
 PORTNAME=	MooseX-Runnable
 PORTVERSION=	0.10
+PORTREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Tag a class as a runnable application
+WWW=		https://metacpan.org/release/MooseX-Runnable
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

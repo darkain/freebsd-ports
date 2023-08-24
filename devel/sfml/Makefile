@@ -1,10 +1,11 @@
 PORTNAME=	sfml
 PORTVERSION=	2.5.1
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	devel
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Simple and Fast Multimedia Library
+WWW=		https://www.sfml-dev.org/
 
 LICENSE=	ZLIB
 LICENSE_FILE=	${WRKSRC}/license.md
@@ -14,6 +15,7 @@ GH_ACCOUNT=	SFML
 GH_PROJECT=	SFML
 
 USES=		cmake compiler:c++11-lang
+USE_CXXSTD=	c++14
 CMAKE_ARGS=	-DSFML_INSTALL_PKGCONFIG_FILES=ON \
 		-DSFML_USE_SYSTEM_DEPS=ON
 USE_LDCONFIG=	yes

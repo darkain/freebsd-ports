@@ -1,5 +1,3 @@
-# Created by: David O'Brien (obrien@cs.ucdavis.edu)
-
 PORTNAME=	celvis
 PORTVERSION=	1.3
 CATEGORIES=	chinese editors
@@ -10,8 +8,16 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Vi/ex clone that speaks Chinese
 
 USES=		ncurses
-CFLAGS+=	-Wno-error=return-type
+
 MAKE_ARGS=	LIBS="${LDFLAGS} -lncurses"
+
+CFLAGS+=	-Wno-error=return-type
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400091 || ( ${OSVERSION} >= 1302507 && ${OSVERSION} < 1400000 ))
+CFLAGS+=	-Wno-error=incompatible-function-pointer-types
+.endif
 
 do-install:
 	@# install target in celvis Makefile is not too good -- this is easier

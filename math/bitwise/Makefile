@@ -1,10 +1,11 @@
 PORTNAME=	bitwise
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.42
+DISTVERSION=	0.50
 CATEGORIES=	math
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Terminal-based bit manipulator in curses
+WWW=		https://github.com/mellowcandle/bitwise
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE

@@ -1,11 +1,11 @@
-# Created by: Ka Ho Ng <khng300@gmail.com>
-
 PORTNAME=	rime-cantonese
-DISTVERSION=	g20210218
+DISTVERSION=	g20211029
+PORTREVISION=	1
 CATEGORIES=	chinese textproc
 
-MAINTAINER=	khng300@gmail.com
+MAINTAINER=	khng@FreeBSD.org
 COMMENT=	Rime Cantonese (Jyutping) schema support
+WWW=		https://github.com/rime/rime-cantonese
 
 LICENSE=		CC-BY-4.0 ODbL
 LICENSE_COMB=		multi
@@ -25,7 +25,7 @@ OPTIONS_SUB=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	rime
-GH_TAGNAME=	cbe80d3fd80c2679212cea68417f536eeba30395
+GH_TAGNAME=	5b6d334a878af8cdb180bb48408fae7cf839da1c
 
 NO_ARCH=	yes
 

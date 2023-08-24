@@ -1,21 +1,23 @@
-# Created by: rfarmer@predatorlabs.net
-
 PORTNAME=	matio
-PORTVERSION=	1.5.21
+PORTVERSION=	1.5.23
+PORTREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	SF
 
 MAINTAINER=	makc@FreeBSD.org
 COMMENT=	Library for reading and writing Matlab MAT files
+WWW=		https://sourceforge.net/projects/matio/
 
 LICENSE=	BSD2CLAUSE
 
-USES=		7z compiler:c11 libtool pathfix
+USES=		7z compiler:c11 cpe libtool pathfix
+
+CPE_VENDOR=	matio_project
 
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
-PLIST_SUB+=	SHLIB_VER=11.0.3
+PLIST_SUB=	SHLIB_VER=11.0.4
 
 OPTIONS_DEFINE=	HDF5
 OPTIONS_DEFAULT=	HDF5

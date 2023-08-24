@@ -1,14 +1,13 @@
-# Created by: Joe Marcus Clarke <marcus@FreeBSD.org>
-
 PORTNAME=	eom
-PORTVERSION=	1.24.2
-PORTREVISION=	1
+PORTVERSION=	1.26.0
+PORTREVISION=	4
 CATEGORIES=	graphics mate
 MASTER_SITES=	MATE
 DIST_SUBDIR=	mate
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Eye of MATE image viewer
+WWW=		https://mate-desktop.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -29,7 +28,6 @@ USE_GNOME=	cairo gnomeprefix gtk30 intltool introspection \
 		librsvg2 libxml2
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--without-cms
-INSTALLS_ICONS=	yes
 INSTALL_TARGET=	install-strip
 
 GLIB_SCHEMAS=	org.mate.eom.gschema.xml \

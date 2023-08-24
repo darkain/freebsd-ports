@@ -1,5 +1,6 @@
 PORTNAME=	bumprace
 PORTVERSION=	1.5.8
+PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	https://bitbucket.org/karlb/bumprace/get/ \
 		http://mirror.amdmi3.ru/distfiles/${DIST_SUBDIR}/
@@ -8,6 +9,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Simple arcade racing game
+WWW=		https://www.linux-games.com/bumprace/
 
 LICENSE=	GPLv2+ CC-BY-2.0 CC-BY-3.0
 LICENSE_COMB=	multi

@@ -9,6 +9,7 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Telugu hunspell dictionaries
+WWW=		http://aspell.net/
 
 LICENSE=	GPLv2
 
@@ -18,8 +19,8 @@ BUILD_DEPENDS=	prezip-bin:textproc/aspell \
 NO_ARCH=	yes
 USES=		tar:bzip2
 
-PLIST_FILES=	%%DATADIR%%/te_IN.aff \
-		%%DATADIR%%/te_IN.dic
+PLIST_FILES=	${DATADIR}/te_IN.aff \
+		${DATADIR}/te_IN.dic
 
 do-build:
 	@cd ${WRKSRC}; \

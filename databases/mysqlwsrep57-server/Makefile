@@ -1,10 +1,8 @@
-# Created by: Vasil Dimov <vd@FreeBSD.org>
-
 PORTNAME=	mysqlwsrep
-PORTVERSION?=	5.7.33
+DISTVERSION?=	5.7.43
 DISTVERSIONPREFIX?=	wsrep_
-DISTVERSIONSUFFIX?=	-25.25
-PORTREVISION?=	1
+DISTVERSIONSUFFIX?=	-25.35
+PORTREVISION=	0
 CATEGORIES=	databases
 MASTER_SITES+=	SF/boost/boost/1.59.0:boost
 PKGNAMESUFFIX=	57-server
@@ -12,6 +10,7 @@ DISTFILES+=	boost_1_59_0${EXTRACT_SUFX}:boost
 
 MAINTAINER=	devel@galeracluster.com
 COMMENT=	MySQL database enhanced with Galera replication (server package)
+WWW=		https://galeracluster.com/
 
 LICENSE=	GPLv2
 
@@ -51,7 +50,7 @@ CMAKE_ARGS+=	-DINSTALL_LAYOUT=FREEBSD \
 		-DINSTALL_INFODIR="info" \
 		-DINSTALL_LDCONFIGDIR="${LOCALBASE}/libdata/ldconfig" \
 		-DINSTALL_LIBDIR="lib/mysql" \
-		-DINSTALL_MANDIR="man" \
+		-DINSTALL_MANDIR="share/man" \
 		-DINSTALL_MYSQLDATADIR="${MY_DBDIR}" \
 		-DINSTALL_MYSQLKEYRINGDIR="etc/mysql/keyring" \
 		-DINSTALL_MYSQLSHAREDIR="share/mysql" \
@@ -69,7 +68,8 @@ CMAKE_ARGS+=	-DINSTALL_LAYOUT=FREEBSD \
 		-DWITH_ZLIB=system \
 		-DINSTALL_MYSQLTESTDIR=0 \
 		-DDOWNLOAD_BOOST=1 \
-		-DWITH_WSREP=1
+		-DWITH_WSREP=1 \
+		-DWITH_INNODB_MEMCACHED=0
 
 SHEBANG_FILES=	scripts/*.pl* scripts/*.sh scripts/wsrep_sst_*
 
@@ -85,11 +85,10 @@ PLIST_SUB=	MY_DBDIR=${MY_DBDIR} \
 		MY_SECDIR=${MY_SECDIR} \
 		MY_TMPDIR=${MY_TMPDIR}
 
-CONFLICTS_INSTALL=	mariadb*-server-* \
-			mysql[0-9]*-server-* \
-			mysqlwsrep56*-server-* \
-			mysqlwsrep[1-489]*-server-* \
-			percona*-server-*
+CONFLICTS_INSTALL=	mariadb*-server \
+			mysql??-server \
+			mysqlwsrep56-server \
+			percona*-server
 
 USE_RC_SUBR=	mysql-server
 
@@ -163,12 +162,6 @@ SUB_LIST+=	PERFSCHEMRC=""
 SUB_LIST+=	PERFSCHEMRC="--skip-performance-schema"
 .endif
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200057
-SUB_LIST+=	LEGACY_LIMITS="@comment " MODERN_LIMITS=""
-.else
-SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
-.endif
-
 .include <bsd.port.pre.mk>
 
 .if ${SSL_DEFAULT} == base
@@ -179,13 +172,11 @@ CMAKE_ARGS+=		-DWITH_SSL=${OPENSSLBASE}
 
 # ${LOCALBASE}/include/lz4.h does not compile with Clang 6.
 # Also MySQL code itself needs -Wno-c++11-narrowing when Clang 6 is used.
-.if ${OSVERSION} >= 1200056
 CFLAGS+=	-DLZ4_DISABLE_DEPRECATE_WARNINGS
 CXXFLAGS+=	-DLZ4_DISABLE_DEPRECATE_WARNINGS
 LDFLAGS+=	-L${LOCALBASE}/lib
-.  if ${CHOSEN_COMPILER_TYPE} == clang
+.if ${CHOSEN_COMPILER_TYPE} == clang
 CXXFLAGS+=	-Wno-c++11-narrowing
-.  endif
 .endif
 
 # Plugin innodb_memcached requires -fcommon to avoid duplicate symbol linker

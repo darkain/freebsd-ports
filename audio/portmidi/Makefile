@@ -1,9 +1,10 @@
 PORTNAME=	portmidi
-PORTVERSION=	235.0
+PORTVERSION=	236
 CATEGORIES=	audio
 
 MAINTAINER=	acm@FreeBSD.org
 COMMENT=	Library for real time MIDI input and output
+WWW=		https://github.com/mixxxdj/portmidi
 
 LICENSE=	PL
 LICENSE_NAME=	PortMidi license
@@ -15,6 +16,6 @@ LIB_DEPENDS=	libasound.so:audio/alsa-lib
 USES=		cmake dos2unix localbase:ldflags
 
 USE_GITHUB=	yes
-GH_ACCOUNT=     mixxxdj
+GH_ACCOUNT=	mixxxdj
 
 .include <bsd.port.mk>
